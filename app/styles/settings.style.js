@@ -5,13 +5,13 @@ const getStyles = () => {
   const theme = useTheme();
   return StyleSheet.create({
     container: {
+      backgroundColor: theme.colors.onPrimaryContainer,
       flex: 1,
       padding: 24,
-      backgroundColor: theme.colors.onPrimaryContainer,
     },
     contentContainer: {
-      flex: 1,
       alignItems: 'center',
+      flex: 1,
     },
     image: {
       alignSelf: 'center',

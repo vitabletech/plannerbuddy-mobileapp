@@ -1,5 +1,6 @@
+import React, { createContext, useContext, useEffect, useMemo, useState } from 'react';
+import PropTypes from 'prop-types';
 import axios from 'axios';
-import { createContext, useContext, useEffect, useMemo, useState } from 'react';
 import * as SecureStore from 'expo-secure-store';
 import { API_URL, JWT_KEY } from '../constants/constants';
 
@@ -64,4 +65,7 @@ export const AuthProvider = ({ children }) => {
   );
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
+};
+AuthProvider.propTypes = {
+  children: PropTypes.node.isRequired, // add PropTypes validation for children
 };

@@ -1,9 +1,12 @@
+/* eslint-disable no-console */
 import React, { useState } from 'react';
 import { FontAwesome5 } from '@expo/vector-icons';
 import { View, TouchableOpacity, Image } from 'react-native';
 import { Text, TextInput } from 'react-native-paper';
 import { Link } from 'expo-router';
 import getStyles from './style';
+import fb from '../../assets/images/fb.png';
+import google from '../../assets/images/google.png';
 
 const RegisterForm = () => {
   const styles = getStyles();
@@ -13,8 +16,7 @@ const RegisterForm = () => {
     console.log('Emails:', email);
     console.log('Password:', password);
   };
-  const fb = require('../../assets/images/fb.png');
-  const google = require('../../assets/images/google.png');
+
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Create new account</Text>

@@ -1,23 +1,24 @@
+/* eslint-disable no-console */
 import React, { useState } from 'react';
 import { FontAwesome5 } from '@expo/vector-icons';
-import { View, TouchableOpacity } from 'react-native';
+import { View, TouchableOpacity, Image } from 'react-native';
 import { Text, TextInput } from 'react-native-paper';
+import { Link } from 'expo-router';
 import getStyles from './style';
+import fb from '../../assets/images/fb.png';
+import google from '../../assets/images/google.png';
 
-const Login = () => {
+const LoginForm = () => {
   const styles = getStyles();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const handleLogin = () => {
-    console.log('Email:', email);
+    console.log('Emails:', email);
     console.log('Password:', password);
   };
-
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Welcome Back!</Text>
-      <Text style={styles.subtitle}>Please enter your account here</Text>
-
+      <Text style={styles.title}>Create new account</Text>
       <View style={styles.inputContainer}>
         <FontAwesome5 name="envelope" size={20} color="#999" style={styles.icon} />
         <TextInput
@@ -44,14 +45,14 @@ const Login = () => {
       </TouchableOpacity>
 
       <View style={styles.loginContainer}>
-        <TouchableOpacity style={styles.googleLoginButton}>
-          <FontAwesome5 name="google" size={20} color="#fff" style={styles.googleIcon} />
-          <Text style={styles.googleLoginText}>G FontAwesome5</Text>
+        <TouchableOpacity style={styles.loginButton}>
+          <Image source={google} style={styles.icon} resizeMode="cover" />
+          <Text>Google</Text>
         </TouchableOpacity>
 
-        <TouchableOpacity style={styles.facebookLoginButton}>
-          <FontAwesome5 name="facebook" size={20} color="#fff" style={styles.facebookIcon} />
-          <Text style={styles.facebookLoginText}>f FontAwesome5</Text>
+        <TouchableOpacity style={styles.loginButton}>
+          <Image source={fb} style={styles.icon} resizeMode="cover" />
+          <Text style={styles.facebookLoginText}>Facebook</Text>
         </TouchableOpacity>
       </View>
 
@@ -60,10 +61,15 @@ const Login = () => {
       </TouchableOpacity>
 
       <TouchableOpacity style={styles.createAccountContainer}>
-        <Text style={styles.createAccountText}>Don't have any account? Sign Up</Text>
+        <Text style={styles.createAccountText}>
+          Already have an account?
+          <Link href="/" asChild>
+            <Text>Log in</Text>
+          </Link>
+        </Text>
       </TouchableOpacity>
     </View>
   );
 };
 
-export default Login;
+export default LoginForm;

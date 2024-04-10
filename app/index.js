@@ -1,3 +1,7 @@
+/* eslint-disable consistent-return */
+/* eslint-disable react-native/no-inline-styles */
+/* eslint-disable react-native/no-unused-styles */
+/* eslint-disable no-alert */
 import { View, Image, StyleSheet, TouchableOpacity } from 'react-native';
 import { useTheme, Text, TextInput, ActivityIndicator } from 'react-native-paper';
 import React, { useState } from 'react';
@@ -33,7 +37,7 @@ const Login = () => {
     },
     outlineButton: {
       alignItems: 'center',
-      backgroundColor: 'transparent',
+      backgroundColor: theme.colors.elevation.level0,
       borderColor: theme.colors.onPrimaryContainer,
       borderRadius: 4,
       borderWidth: 1,
@@ -41,7 +45,7 @@ const Login = () => {
       padding: 12,
     },
     subheader: {
-      color: '#fff',
+      color: theme.colors.background,
       fontSize: 18,
       marginBottom: 40,
       textAlign: 'center',
@@ -97,7 +101,7 @@ const Login = () => {
 
       <Link href="/register" asChild>
         <TouchableOpacity style={styles.outlineButton}>
-          <Text style={{ color: '#fff' }}>Create Account</Text>
+          <Text style={{ color: theme.colors.background }}>Create Account</Text>
         </TouchableOpacity>
       </Link>
 
@@ -116,7 +120,7 @@ const Login = () => {
         <View
           style={[
             StyleSheet.absoluteFill,
-            { backgroundColor: 'rgba(0,0,0,0.6)', zIndex: 1, justifyContent: 'center' },
+            { backgroundColor: theme.colors.primary, zIndex: 1, justifyContent: 'center' },
           ]}
         >
           <ActivityIndicator color="#fff" size="large" />
