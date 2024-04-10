@@ -10,55 +10,38 @@ const getStyles = () => {
       paddingHorizontal: 20,
       paddingVertical: 30,
     },
-    facebookIcon: {
-      marginRight: 10,
-    },
-    facebookLoginButton: {
-      alignItems: 'center',
-      backgroundColor: '#4267b2',
-      borderRadius: 500,
-      flexDirection: 'row',
-      paddingHorizontal: 20,
-      paddingVertical: 10,
-    },
-    facebookLoginText: {
-      color: '#fff',
-    },
     forgotPasswordContainer: {
       alignItems: 'flex-end',
       marginBottom: 20,
     },
     forgotPasswordText: {
-      color: '#999',
-    },
-    googleIcon: {
-      marginRight: 10,
-    },
-    googleLoginButton: {
-      alignItems: 'center',
-      backgroundColor: theme.colors.onTertiaryContainer,
-      borderRadius: 5,
-      flexDirection: 'row',
-      paddingHorizontal: 20,
-      paddingVertical: 10,
-    },
-    googleLoginText: {
       color: theme.colors.background,
     },
     icon: {
+      height: 20,
       marginRight: 10,
+      width: 20,
     },
     input: {
-      backgroundColor: 'transparent',
+      backgroundColor: theme.colors.elevation.level0,
       flex: 1,
     },
     inputContainer: {
       alignItems: 'center',
-      borderBottomColor: '#999',
+      borderBottomColor: theme.colors.onTertiaryContainer,
       borderBottomWidth: 1,
       flexDirection: 'row',
       marginBottom: 20,
       paddingBottom: 5,
+    },
+    loginButton: {
+      alignItems: 'center',
+      borderColor: theme.colors.primary,
+      borderRadius: 500,
+      borderWidth: 1,
+      flexDirection: 'row',
+      paddingHorizontal: 20,
+      paddingVertical: 10,
     },
     loginContainer: {
       flexDirection: 'row',
@@ -66,7 +49,7 @@ const getStyles = () => {
       marginBottom: 20,
     },
     subtitle: {
-      color: '#999',
+      borderBottomColor: theme.colors.onTertiaryContainer,
       fontSize: 18,
       marginBottom: 30,
       textAlign: 'center',

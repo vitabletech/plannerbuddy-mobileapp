@@ -1,22 +1,6 @@
 import React from 'react';
-import { DrawerActions } from '@react-navigation/native';
-import { View, Text, Button } from 'react-native';
-import { useNavigation } from 'expo-router';
-import HomeScreen from '../profile';
+import HomeScreen from '../../components/HomeScreen/HomeScreen';
 
-const Tab = () => {
-  const navigation = useNavigation();
-  const onToggle = () => {
-    navigation.dispatch(DrawerActions.openDrawer());
-  };
+const Home = () => <HomeScreen />;
 
-  return (
-    <HomeScreen />
-    // <View style={{ justifyContent: 'center', alignItems: 'center', flex: 1 }}>
-    //   <Text>Tab [Home]</Text>
-    //   <Button title="Open Drawer" onPress={onToggle} />
-    // </View>
-  );
-};
-
-export default Tab;
+export default Home;

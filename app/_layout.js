@@ -25,10 +25,6 @@ const RootLayout = () => {
       options: { title: 'Create Account', headerLeft: null },
     },
     {
-      name: 'userslist',
-      options: { title: 'User List', headerBackTitle: 'Go Back' },
-    },
-    {
       name: 'privacy',
       options: {
         presentation: 'modal',
@@ -50,7 +46,7 @@ const RootLayout = () => {
         if (!initialized || !isReady) return;
 
         if (token !== '') {
-          router.replace('/drawer');
+          router.replace('/register');
         } else if (!token) {
           router.replace('/');
         }

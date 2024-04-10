@@ -1,7 +1,5 @@
 import axios from 'axios';
-import {
-  createContext, useContext, useEffect, useMemo, useState,
-} from 'react';
+import { createContext, useContext, useEffect, useMemo, useState } from 'react';
 import * as SecureStore from 'expo-secure-store';
 import { API_URL, JWT_KEY } from '../constants/constants';
 
@@ -54,13 +52,16 @@ export const AuthProvider = ({ children }) => {
     axios.defaults.headers.common.Authorization = '';
   };
 
-  const value = useMemo(() => ({
-    initialized,
-    onLogin: handleLogin,
-    onRegister: handleRegister,
-    onLogout: handleLogout,
-    token,
-  }), [initialized, handleLogin, handleRegister, handleLogout, token]);
+  const value = useMemo(
+    () => ({
+      initialized,
+      onLogin: handleLogin,
+      onRegister: handleRegister,
+      onLogout: handleLogout,
+      token,
+    }),
+    [initialized, handleLogin, handleRegister, handleLogout, token],
+  );
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 };

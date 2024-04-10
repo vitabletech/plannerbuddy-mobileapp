@@ -1,10 +1,8 @@
 import React from 'react';
-import FontAwesome from '@expo/vector-icons/FontAwesome';
-import { Tabs, Link, useNavigation } from 'expo-router';
-import { Ionicons, FontAwesome5 } from '@expo/vector-icons';
-import { TouchableOpacity } from 'react-native';
+import { Tabs, useNavigation } from 'expo-router';
 import { DrawerActions } from '@react-navigation/native';
 import { useAuth } from '../../context/AuthContext';
+import { IconComponent, HeaderRight, HeaderLeft } from '../../utils/utils';
 
 const TabLayout = () => {
   const { onLogout } = useAuth();
@@ -17,30 +15,14 @@ const TabLayout = () => {
     {
       name: 'index',
       title: 'Home',
-      icon: ({ color }) => <FontAwesome size={28} name="home" color={color} />,
+      icon: ({ size, color }) => IconComponent('FontAwesome', 'home', size, color),
       headerShown: false,
     },
     {
-      name: 'list',
-      title: 'Blog Posts',
-      icon: ({ size, color }) => <Ionicons name="list" size={size} color={color} />,
-      badge: 9,
-    },
-    {
-      name: 'settings',
-      title: 'Settings',
-      icon: ({ color }) => <FontAwesome size={28} name="cog" color={color} />,
-    },
-    {
       name: 'action',
-      title: 'Action',
-      icon: ({ size, color }) => <Ionicons name="alert-circle-outline" size={size} color={color} />,
-      onPress: () => alert('Action Performed!'),
-    },
-    {
-      name: 'LoginScreen',
-      title: 'Login',
-      icon: ({ size, color }) => <FontAwesome name="users" size={size} color={color} />,
+      title: 'Menu',
+      icon: ({ size, color }) => IconComponent('FontAwesome', 'bars', size, color),
+      onPress: () => DrawerToggle(),
     },
   ];
 
@@ -51,24 +33,13 @@ const TabLayout = () => {
           backgroundColor: '#171630',
         },
         headerTintColor: '#fff',
-        headerLeft: () => (
-          <TouchableOpacity onPress={DrawerToggle} style={{ marginLeft: 18, marginRight: 18 }}>
-            <FontAwesome5 name="bars" size={20} color="#fff" />
-          </TouchableOpacity>
-        ),
-        headerRight: () => (
-          <Link href="/" replace asChild>
-            <TouchableOpacity onPress={onLogout}>
-              <Ionicons name="log-out-outline" size={28} color="#fff" />
-            </TouchableOpacity>
-          </Link>
-        ),
+        headerLeft: () => HeaderLeft(DrawerToggle),
+        headerRight: () => HeaderRight(onLogout),
       }}
-
     >
-      {tabScreens.map((screen, index) => (
+      {tabScreens.map((screen) => (
         <Tabs.Screen
-          key={index}
+          key={screen.name}
           name={screen.name}
           options={{
             title: screen.title,
@@ -76,10 +47,19 @@ const TabLayout = () => {
             tabBarBadge: screen.badge,
             headerShown: screen.headerShown,
           }}
-          listeners={screen.onPress ? () => ({ tabPress: (e) => { e.preventDefault(); screen.onPress(); } }) : undefined}
+          listeners={
+            screen.onPress
+              ? () => ({
+                  tabPress: (e) => {
+                    e.preventDefault();
+                    screen.onPress();
+                  },
+                })
+              : undefined
+          }
         />
       ))}
     </Tabs>
   );
-}
+};
 export default TabLayout;

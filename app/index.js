@@ -1,9 +1,5 @@
-import {
-  View, Image, StyleSheet, TouchableOpacity,
-} from 'react-native';
-import {
-  useTheme, Text, TextInput, ActivityIndicator,
-} from 'react-native-paper';
+import { View, Image, StyleSheet, TouchableOpacity } from 'react-native';
+import { useTheme, Text, TextInput, ActivityIndicator } from 'react-native-paper';
 import React, { useState } from 'react';
 import { Link } from 'expo-router';
 import { useAuth } from './context/AuthContext';
@@ -11,48 +7,48 @@ import { useAuth } from './context/AuthContext';
 const Login = () => {
   const theme = useTheme();
   const styles = StyleSheet.create({
-    container: {
-      flex: 1,
-      padding: 20,
-      backgroundColor: theme.colors.onPrimaryContainer,
-      justifyContent: 'center',
-    },
-    image: {
-      width: '100%',
-      height: 100,
-      resizeMode: 'contain',
-    },
-    header: {
-      fontSize: 40,
-      textAlign: 'center',
-      marginBottom: 10,
-      color: '#fff',
-    },
-    subheader: {
-      fontSize: 18,
-      textAlign: 'center',
-      marginBottom: 40,
-      color: '#fff',
-    },
     button: {
-      marginTop: 20,
       alignItems: 'center',
       backgroundColor: theme.colors.background,
-      padding: 12,
       borderRadius: 4,
+      marginTop: 20,
+      padding: 12,
+    },
+    container: {
+      backgroundColor: theme.colors.onPrimaryContainer,
+      flex: 1,
+      justifyContent: 'center',
+      padding: 20,
+    },
+    header: {
+      color: theme.colors.background,
+      fontSize: 40,
+      marginBottom: 10,
+      textAlign: 'center',
+    },
+    image: {
+      height: 100,
+      resizeMode: 'contain',
+      width: '100%',
     },
     outlineButton: {
-      marginVertical: 8,
       alignItems: 'center',
       backgroundColor: 'transparent',
-      padding: 12,
+      borderColor: theme.colors.onPrimaryContainer,
       borderRadius: 4,
       borderWidth: 1,
-      borderColor: theme.colors.onPrimaryContainer,
+      marginVertical: 8,
+      padding: 12,
+    },
+    subheader: {
+      color: '#fff',
+      fontSize: 18,
+      marginBottom: 40,
+      textAlign: 'center',
     },
   });
-  const [username, setUsername] = useState('atuny0');
-  const [password, setPassword] = useState('9uQFF1Lh');
+  const [username, setUsername] = useState(''); // atuny0
+  const [password, setPassword] = useState(''); // 9uQFF1Lh
   const [loading, setLoading] = useState(false);
 
   const { onLogin } = useAuth();
@@ -74,7 +70,9 @@ const Login = () => {
   return (
     <View style={styles.container}>
       <Image
-        source={{ uri: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSgwCuIIMBRkkp6nsAjT-U-m2kohkyxhRP1vDcPkoRlXkwtiFqGnFphvaSHDD8eYwQE8zU&usqp=CAU' }}
+        source={{
+          uri: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSgwCuIIMBRkkp6nsAjT-U-m2kohkyxhRP1vDcPkoRlXkwtiFqGnFphvaSHDD8eYwQE8zU&usqp=CAU',
+        }}
         style={styles.image}
       />
       <Text style={styles.subheader}>The app to be.</Text>
