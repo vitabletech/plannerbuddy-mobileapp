@@ -4,12 +4,27 @@ import { Text } from 'react-native-paper';
 import * as Contacts from 'expo-contacts';
 import Contact from './ContactList';
 import commonStyles from '../../styles/common.style';
+import Header from './Header';
 
 const FetchContactDetails = () => {
   const styles = commonStyles();
   const [contactList, setContactList] = useState([]);
+  const [filteredContactList, setFilteredContactList] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [isEdit, setIsEdit] = useState(false);
 
+  const handleSearch = (searchQuery) => {
+    if (searchQuery) {
+      const filteredContacts = contactList.filter(
+        (contact) =>
+          contact.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+          contact.phoneNumbers.some((number) => number.number.includes(searchQuery)),
+      );
+      setFilteredContactList(filteredContacts);
+    } else {
+      setFilteredContactList(contactList);
+    }
+  };
   useEffect(() => {
     const fetchContacts = async () => {
       try {
@@ -20,6 +35,7 @@ const FetchContactDetails = () => {
           });
           if (data.length > 0) {
             setContactList(data);
+            setFilteredContactList(data);
           }
         }
       } catch (error) {
@@ -33,7 +49,7 @@ const FetchContactDetails = () => {
     fetchContacts();
   }, []);
 
-  const renderContactItem = ({ item }) => <Contact userData={item} />;
+  const renderContactItem = ({ item }) => <Contact userData={item} isEditing={isEdit} />;
 
   if (isLoading) {
     return <Text>Loading...</Text>;
@@ -46,11 +62,15 @@ const FetchContactDetails = () => {
       </View>
     );
   }
-
+  const onEdit = () => {
+    setIsEdit(!isEdit);
+  };
   return (
-    <View>
+    // eslint-disable-next-line react-native/no-inline-styles
+    <View style={{ flex: 1 }}>
+      <Header onSearch={handleSearch} onEdit={onEdit} />
       <FlatList
-        data={contactList}
+        data={filteredContactList}
         keyExtractor={(item) => item?.id?.toString()}
         renderItem={renderContactItem}
       />

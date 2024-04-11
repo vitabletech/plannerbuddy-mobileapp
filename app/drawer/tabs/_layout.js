@@ -29,6 +29,7 @@ const TabLayout = () => {
     {
       name: 'Guests',
       title: 'Guests',
+      headerShown: false,
       icon: ({ color }) => IconComponent('Zocial', 'guest', DEFAULT_BOTTOM_TAB_ICON_SIZE, color),
     },
     {

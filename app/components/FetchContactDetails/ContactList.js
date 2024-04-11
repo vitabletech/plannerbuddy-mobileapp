@@ -1,12 +1,36 @@
-import React from 'react';
-import { List, Avatar } from 'react-native-paper';
+import React, { useState } from 'react';
+import { List, Avatar, Checkbox } from 'react-native-paper';
 import PropTypes from 'prop-types';
 
-const Contact = React.memo(({ userData }) => {
+const toggleContactSelection = (setSelectedContacts, contactId) => {
+  setSelectedContacts((prevSelectedContacts) => {
+    if (prevSelectedContacts.includes(contactId)) {
+      return prevSelectedContacts.filter((id) => id !== contactId);
+    }
+    return [...prevSelectedContacts, contactId];
+  });
+};
+
+const selector = (selectedContacts, setSelectedContacts, contactId) => (
+  <Checkbox
+    status={selectedContacts.includes(contactId) ? 'checked' : 'unchecked'}
+    onPress={() => toggleContactSelection(setSelectedContacts, contactId)}
+  />
+);
+
+const Contact = React.memo(({ userData, isEditing }) => {
+  const [selectedContacts, setSelectedContacts] = useState([]);
   const { name, phoneNumbers } = userData;
   const phoneNumber = phoneNumbers[0].number;
   const renderAvatar = () => <Avatar.Text size={34} label={name[0]} />;
-  return <List.Item title={name} description={phoneNumber} left={() => renderAvatar()} />;
+  return (
+    <List.Item
+      title={name}
+      description={phoneNumber}
+      left={() => renderAvatar()}
+      right={() => isEditing && selector(selectedContacts, setSelectedContacts, userData.name)}
+    />
+  );
 });
 
 Contact.propTypes = {
@@ -22,5 +46,11 @@ Contact.propTypes = {
       }),
     ),
   }).isRequired,
+  isEditing: PropTypes.bool,
 };
+
+Contact.defaultProps = {
+  isEditing: false,
+};
+
 export default Contact;
