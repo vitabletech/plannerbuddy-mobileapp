@@ -12,6 +12,7 @@ const FetchContactDetails = () => {
   const [filteredContactList, setFilteredContactList] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [isEdit, setIsEdit] = useState(false);
+  const [selectedContacts, setSelectedContacts] = useState([]);
 
   const handleSearch = (searchQuery) => {
     if (searchQuery) {
@@ -49,7 +50,14 @@ const FetchContactDetails = () => {
     fetchContacts();
   }, []);
 
-  const renderContactItem = ({ item }) => <Contact userData={item} isEditing={isEdit} />;
+  const renderContactItem = ({ item }) => (
+    <Contact
+      userData={item}
+      isEditing={isEdit}
+      selectedContacts={selectedContacts}
+      setSelectedContacts={setSelectedContacts}
+    />
+  );
 
   if (isLoading) {
     return <Text>Loading...</Text>;
@@ -68,7 +76,7 @@ const FetchContactDetails = () => {
   return (
     // eslint-disable-next-line react-native/no-inline-styles
     <View style={{ flex: 1 }}>
-      <Header onSearch={handleSearch} onEdit={onEdit} />
+      <Header onSearch={handleSearch} onEdit={onEdit} isSelected={selectedContacts.length} />
       <FlatList
         data={filteredContactList}
         keyExtractor={(item) => item?.id?.toString()}

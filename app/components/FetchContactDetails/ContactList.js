@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { List, Avatar, Checkbox } from 'react-native-paper';
 import PropTypes from 'prop-types';
 
@@ -18,8 +18,7 @@ const selector = (selectedContacts, setSelectedContacts, contactId) => (
   />
 );
 
-const Contact = React.memo(({ userData, isEditing }) => {
-  const [selectedContacts, setSelectedContacts] = useState([]);
+const Contact = React.memo(({ userData, isEditing, selectedContacts, setSelectedContacts }) => {
   const { name, phoneNumbers } = userData;
   const phoneNumber = phoneNumbers[0].number;
   const renderAvatar = () => <Avatar.Text size={34} label={name[0]} />;
@@ -47,6 +46,8 @@ Contact.propTypes = {
     ),
   }).isRequired,
   isEditing: PropTypes.bool,
+  selectedContacts: PropTypes.arrayOf(PropTypes.string).isRequired,
+  setSelectedContacts: PropTypes.func.isRequired,
 };
 
 Contact.defaultProps = {
