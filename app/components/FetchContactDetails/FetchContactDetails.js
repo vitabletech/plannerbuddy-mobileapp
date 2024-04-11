@@ -63,13 +63,12 @@ const FetchContactDetails = () => {
     return <Text>Loading...</Text>;
   }
 
-  if (contactList.length === 0) {
-    return (
-      <View style={styles.flex1}>
-        <Text style={styles.title}>No contacts found.</Text>
-      </View>
-    );
-  }
+  const noContactsFound = () => (
+    <View style={styles.flex1}>
+      <Text style={styles.title}>No contacts found.</Text>
+    </View>
+  );
+
   const onEdit = () => {
     setIsEdit(!isEdit);
   };
@@ -80,6 +79,7 @@ const FetchContactDetails = () => {
       <FlatList
         data={filteredContactList}
         keyExtractor={(item) => item?.id?.toString()}
+        ListEmptyComponent={noContactsFound}
         renderItem={renderContactItem}
       />
     </View>

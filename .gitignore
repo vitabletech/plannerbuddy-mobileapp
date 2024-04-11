@@ -44,3 +44,4 @@ ios
 !/coverage
 /coverage/*
 !/coverage/lcov.info
+dummy_data/
