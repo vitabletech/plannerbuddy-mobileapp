@@ -25,3 +25,8 @@ export const HeaderLeft = (action, lib, icon, size, color) => (
 );
 export const Loader = () => <ActivityIndicator />;
 export const ItemSeparatorComponent = (styles) => <View style={styles} />;
+export const getLabel = (name) =>
+  name
+    .split(' ')
+    .map((part) => part.charAt(0).toUpperCase())
+    .join('');

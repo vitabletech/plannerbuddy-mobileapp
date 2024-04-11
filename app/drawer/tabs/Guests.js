@@ -1,13 +1,6 @@
 import React from 'react';
-import { View } from 'react-native';
-import { Text } from 'react-native-paper';
+import FetchContactDetails from '../../components/FetchContactDetails/FetchContactDetails';
 
-const Guests = () => {
-  return (
-    <View>
-      <Text>Guests</Text>
-    </View>
-  );
-};
+const Guests = () => <FetchContactDetails />;
 
 export default Guests;

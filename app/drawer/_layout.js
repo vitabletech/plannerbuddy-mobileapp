@@ -1,10 +1,10 @@
 import React from 'react';
 import { Drawer } from 'expo-router/drawer';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
-import { DrawerContentScrollView, DrawerItemList } from '@react-navigation/drawer';
+import { DrawerContentScrollView, DrawerItemList, DrawerItem } from '@react-navigation/drawer';
 import { useTheme } from 'react-native-paper';
 import { useAuth } from '../context/AuthContext';
-import { IconComponent, HeaderRight } from '../utils/utils';
+import { IconComponent } from '../utils/utils';
 import commonStyles from '../styles/common.style';
 
 const screens = [
@@ -29,16 +29,25 @@ const screens = [
   },
 ];
 
-const CustomDrawerContent = (props) => (
-  <DrawerContentScrollView {...props}>
-    <DrawerItemList {...props} />
-  </DrawerContentScrollView>
-);
+const CustomDrawerContent = (props) => {
+  const { onLogout } = useAuth();
+  return (
+    <DrawerContentScrollView {...props}>
+      <DrawerItemList {...props} />
+      <DrawerItem
+        label="Logout"
+        icon={() => IconComponent('Ionicons', 'log-out-outline', 28, 'black')}
+        onPress={() => onLogout()}
+        // eslint-disable-next-line react-native/no-inline-styles
+        labelStyle={{ marginLeft: -16 }}
+      />
+    </DrawerContentScrollView>
+  );
+};
 
 const DrawerLayout = () => {
   const classes = commonStyles();
   const theme = useTheme();
-  const { onLogout } = useAuth();
   return (
     <GestureHandlerRootView style={classes.flex1}>
       <Drawer
@@ -53,8 +62,6 @@ const DrawerLayout = () => {
           drawerActiveTintColor: theme.colors.primary,
           drawerInactiveTintColor: theme.colors.shadow,
           drawerLabelStyle: { marginLeft: -20 },
-          headerRight: () =>
-            HeaderRight(onLogout, 'Ionicons', 'log-out-outline', 28, theme.colors.background),
         }}
       >
         {screens.map((screen) => {

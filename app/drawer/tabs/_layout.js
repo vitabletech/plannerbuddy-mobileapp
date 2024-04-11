@@ -2,13 +2,11 @@ import React from 'react';
 import { Tabs, useNavigation } from 'expo-router';
 import { DrawerActions } from '@react-navigation/native';
 import { useTheme } from 'react-native-paper';
-import { useAuth } from '../../context/AuthContext';
-import { IconComponent, HeaderRight, HeaderLeft } from '../../utils/utils';
+import { IconComponent, HeaderLeft } from '../../utils/utils';
 import { DEFAULT_BOTTOM_TAB_ICON_SIZE } from '../../constants/constants';
 
 const TabLayout = () => {
   const theme = useTheme();
-  const { onLogout } = useAuth();
   const navigation = useNavigation();
   const DrawerToggle = () => {
     navigation.dispatch(DrawerActions.openDrawer());
@@ -55,8 +53,6 @@ const TabLayout = () => {
         headerTintColor: theme.colors.onPrimary,
         headerLeft: () =>
           HeaderLeft(DrawerToggle, 'FontAwesome5', 'bars', 20, theme.colors.background),
-        headerRight: () =>
-          HeaderRight(onLogout, 'Ionicons', 'log-out-outline', 28, theme.colors.background),
         tabBarActiveTintColor: theme.colors.primary,
         tabBarInactiveTintColor: theme.colors.shadow,
         tabBarLabelStyle: {
