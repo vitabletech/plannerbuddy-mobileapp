@@ -12,17 +12,16 @@ export const IconComponent = (lib, iconName, size, color) => {
   return <Component name={iconName} size={size} color={color} />;
 };
 
-export const HeaderRight = (onLogout) => (
+export const HeaderRight = (action, lib, icon, size, color) => (
   <Link href="/" replace asChild>
-    <TouchableOpacity onPress={onLogout}>
-      {IconComponent('Ionicons', 'log-out-outline', 28, '#fff')}
-    </TouchableOpacity>
+    <TouchableOpacity onPress={action}>{IconComponent(lib, icon, size, color)}</TouchableOpacity>
   </Link>
 );
-export const HeaderLeft = (DrawerToggle) => (
-  <TouchableOpacity onPress={DrawerToggle}>
-    {IconComponent('FontAwesome5', 'bars', 28, '#fff')}
-  </TouchableOpacity>
+export const HeaderLeft = (action, lib, icon, size, color) => (
+  // eslint-disable-next-line react-native/no-inline-styles
+  <View style={{ marginLeft: 15, marginRight: 15 }}>
+    <TouchableOpacity onPress={action}>{IconComponent(lib, icon, size, color)}</TouchableOpacity>
+  </View>
 );
 export const Loader = () => <ActivityIndicator />;
 export const ItemSeparatorComponent = (styles) => <View style={styles} />;

@@ -1,10 +1,13 @@
 import React from 'react';
 import { Tabs, useNavigation } from 'expo-router';
 import { DrawerActions } from '@react-navigation/native';
+import { useTheme } from 'react-native-paper';
 import { useAuth } from '../../context/AuthContext';
 import { IconComponent, HeaderRight, HeaderLeft } from '../../utils/utils';
+import { DEFAULT_BOTTOM_TAB_ICON_SIZE } from '../../constants/constants';
 
 const TabLayout = () => {
+  const theme = useTheme();
   const { onLogout } = useAuth();
   const navigation = useNavigation();
   const DrawerToggle = () => {
@@ -15,13 +18,30 @@ const TabLayout = () => {
     {
       name: 'index',
       title: 'Home',
-      icon: ({ size, color }) => IconComponent('FontAwesome', 'home', size, color),
+      icon: ({ color }) =>
+        IconComponent('FontAwesome', 'home', DEFAULT_BOTTOM_TAB_ICON_SIZE, color),
       headerShown: false,
+    },
+    {
+      name: 'Events',
+      title: 'Events',
+      icon: ({ color }) =>
+        IconComponent('MaterialIcons', 'event', DEFAULT_BOTTOM_TAB_ICON_SIZE, color),
+    },
+    {
+      name: 'Guests',
+      title: 'Guests',
+      icon: ({ color }) => IconComponent('Zocial', 'guest', DEFAULT_BOTTOM_TAB_ICON_SIZE, color),
+    },
+    {
+      name: 'CreativeZone',
+      title: 'Creative Zone',
+      icon: ({ color }) => IconComponent('AntDesign', 'gift', DEFAULT_BOTTOM_TAB_ICON_SIZE, color),
     },
     {
       name: 'action',
       title: 'Menu',
-      icon: ({ size, color }) => IconComponent('FontAwesome', 'bars', size, color),
+      icon: () => IconComponent('FontAwesome', 'bars', DEFAULT_BOTTOM_TAB_ICON_SIZE),
       onPress: () => DrawerToggle(),
     },
   ];
@@ -30,11 +50,20 @@ const TabLayout = () => {
     <Tabs
       screenOptions={{
         headerStyle: {
-          backgroundColor: '#171630',
+          backgroundColor: theme.colors.primary,
         },
-        headerTintColor: '#fff',
-        headerLeft: () => HeaderLeft(DrawerToggle),
-        headerRight: () => HeaderRight(onLogout),
+        headerTintColor: theme.colors.onPrimary,
+        headerLeft: () =>
+          HeaderLeft(DrawerToggle, 'FontAwesome5', 'bars', 20, theme.colors.background),
+        headerRight: () =>
+          HeaderRight(onLogout, 'Ionicons', 'log-out-outline', 28, theme.colors.background),
+        tabBarActiveTintColor: theme.colors.primary,
+        tabBarInactiveTintColor: theme.colors.shadow,
+        tabBarLabelStyle: {
+          fontFamily: 'Gilroy-Regular',
+          fontSize: 12,
+          fontWeight: 'bold',
+        },
       }}
     >
       {tabScreens.map((screen) => (

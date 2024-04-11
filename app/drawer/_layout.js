@@ -2,6 +2,7 @@ import React from 'react';
 import { Drawer } from 'expo-router/drawer';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { DrawerContentScrollView, DrawerItemList } from '@react-navigation/drawer';
+import { useTheme } from 'react-native-paper';
 import { useAuth } from '../context/AuthContext';
 import { IconComponent, HeaderRight } from '../utils/utils';
 import commonStyles from '../styles/common.style';
@@ -36,6 +37,7 @@ const CustomDrawerContent = (props) => (
 
 const DrawerLayout = () => {
   const classes = commonStyles();
+  const theme = useTheme();
   const { onLogout } = useAuth();
   return (
     <GestureHandlerRootView style={classes.flex1}>
@@ -43,14 +45,16 @@ const DrawerLayout = () => {
         drawerContent={CustomDrawerContent}
         screenOptions={{
           headerStyle: {
-            backgroundColor: '#171630',
+            backgroundColor: theme.colors.primary,
           },
-          headerTintColor: '#fff',
+          headerTintColor: theme.colors.background,
           drawerHideStatusBarOnOpen: true,
-          drawerActiveBackgroundColor: '#171630',
-          drawerActiveTintColor: '#fff',
+          drawerActiveBackgroundColor: theme.colors.background,
+          drawerActiveTintColor: theme.colors.primary,
+          drawerInactiveTintColor: theme.colors.shadow,
           drawerLabelStyle: { marginLeft: -20 },
-          headerRight: () => HeaderRight(onLogout),
+          headerRight: () =>
+            HeaderRight(onLogout, 'Ionicons', 'log-out-outline', 28, theme.colors.background),
         }}
       >
         {screens.map((screen) => {

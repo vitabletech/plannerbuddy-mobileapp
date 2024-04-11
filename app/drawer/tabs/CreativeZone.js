@@ -2,12 +2,12 @@ import React from 'react';
 import { View } from 'react-native';
 import { Text } from 'react-native-paper';
 
-const Action = () => {
+const CreativeZone = () => {
   return (
     <View>
-      <Text>Action</Text>
+      <Text>CreativeZone</Text>
     </View>
   );
 };
 
-export default Action;
+export default CreativeZone;

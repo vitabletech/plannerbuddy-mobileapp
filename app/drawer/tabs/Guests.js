@@ -2,12 +2,12 @@ import React from 'react';
 import { View } from 'react-native';
 import { Text } from 'react-native-paper';
 
-const Action = () => {
+const Guests = () => {
   return (
     <View>
-      <Text>Action</Text>
+      <Text>Guests</Text>
     </View>
   );
 };
 
-export default Action;
+export default Guests;
