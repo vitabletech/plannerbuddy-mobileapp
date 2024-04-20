@@ -19,7 +19,7 @@ const InitialLayout = ({ stackScreens, colorScheme }) => {
 
       if (token !== '') {
         router.replace('/drawer');
-      } else if (!token) {
+      } else {
         router.replace('/');
       }
     };

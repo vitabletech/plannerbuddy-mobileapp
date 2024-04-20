@@ -1,75 +1,116 @@
-/* eslint-disable no-console */
+/* eslint-disable consistent-return */
+/* eslint-disable react-native/no-inline-styles */
+/* eslint-disable react-native/no-unused-styles */
+/* eslint-disable no-alert */
+import { View, Image, StyleSheet, TouchableOpacity } from 'react-native';
+import { useTheme, Text, TextInput, ActivityIndicator } from 'react-native-paper';
 import React, { useState } from 'react';
+
 import { FontAwesome5 } from '@expo/vector-icons';
-import { View, TouchableOpacity, Image } from 'react-native';
-import { Text, TextInput } from 'react-native-paper';
 import { Link } from 'expo-router';
-import getStyles from './style';
-import fb from '../../assets/images/fb.png';
-import google from '../../assets/images/google.png';
+import { useAuth } from '../../store/AuthContext';
+import getStyles from './styles';
+import commonStyles from '../../styles/common.style';
+import { useGlobal } from '../../store/globalContext';
 
-const LoginForm = () => {
+const Login = () => {
+  const theme = useTheme();
   const styles = getStyles();
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const handleLogin = () => {
-    console.log('Emails:', email);
-    console.log('Password:', password);
+  const commonstyles = commonStyles();
+
+  const [username, setUsername] = useState('atuny0'); // atuny0
+  const [password, setPassword] = useState('9uQFF1Lh'); // 9uQFF1Lh
+  const [loading, setLoading] = useState(false);
+
+  const { onLogin } = useAuth();
+  const { onChange } = useGlobal();
+
+  const login = async () => {
+    setLoading(true);
+    if (!username || !password) {
+      alert('Field is required');
+      setLoading(false);
+      return false;
+    }
+    const result = await onLogin(username, password);
+    if (result && result.error) {
+      alert(result.msg);
+    }
+    setLoading(false);
   };
+
+  function handleSignup() {
+    onChange('signup');
+  }
+
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>Create new account</Text>
-      <View style={styles.inputContainer}>
-        <FontAwesome5 name="envelope" size={20} color="#999" style={styles.icon} />
-        <TextInput
-          label="Email or phone number"
-          value={email}
-          onChangeText={setEmail}
-          style={styles.input}
-        />
-      </View>
+    <>
+      <View style={styles.container}>
+        <Text style={styles.loginHeaderText}>Welcome Back!</Text>
+        <View style={styles.inputContainer}>
+          <FontAwesome5 name="user" size={20} color="#999" style={styles.icon} />
 
-      <View style={styles.inputContainer}>
-        <FontAwesome5 name="lock" size={20} color="#999" style={styles.icon} />
-        <TextInput
-          label="Password"
-          value={password}
-          onChangeText={setPassword}
-          secureTextEntry
-          style={styles.input}
-        />
-      </View>
+          <TextInput
+            autoCapitalize="none"
+            label="Enter you Username"
+            value={username}
+            onChangeText={setUsername}
+            style={styles.input}
+          />
+        </View>
 
-      <TouchableOpacity style={styles.forgotPasswordContainer}>
-        <Text style={styles.forgotPasswordText}>Forgot password?</Text>
-      </TouchableOpacity>
+        {/* <View style={{ height: 10 }} /> */}
+        <View style={styles.inputContainer}>
+          <FontAwesome5 name="lock" size={20} color="#999" style={styles.icon} />
 
-      <View style={styles.loginContainer}>
-        <TouchableOpacity style={styles.loginButton}>
-          <Image source={google} style={styles.icon} resizeMode="cover" />
-          <Text>Google</Text>
+          <TextInput
+            label="Enter Password"
+            value={password}
+            onChangeText={setPassword}
+            secureTextEntry
+            style={styles.input}
+          />
+        </View>
+
+        <TouchableOpacity onPress={login} style={styles.button}>
+          <Text style={{ color: theme.colors.ba }}>Sign in</Text>
         </TouchableOpacity>
 
-        <TouchableOpacity style={styles.loginButton}>
-          <Image source={fb} style={styles.icon} resizeMode="cover" />
-          <Text style={styles.facebookLoginText}>Facebook</Text>
+        <TouchableOpacity style={styles.forgotPasswordContainer}>
+          <Text style={styles.forgotPasswordText}>Forgot password?</Text>
         </TouchableOpacity>
+
+        <Link href="/" asChild>
+          <TouchableOpacity style={styles.outlineButton} onPress={handleSignup}>
+            <Text style={{ color: theme.colors.background }}>Create Account</Text>
+          </TouchableOpacity>
+        </Link>
+
+        <Link href="/privacy" asChild>
+          <TouchableOpacity style={{ alignItems: 'center', marginTop: 10 }}>
+            <Text style={{ color: theme.colors.background }}>Privacy Policy</Text>
+          </TouchableOpacity>
+        </Link>
+
+        <Link href="/drawer" asChild>
+          <TouchableOpacity style={commonstyles.skipoutlineButton}>
+            <Text>Skip</Text>
+          </TouchableOpacity>
+        </Link>
+
+        {loading && (
+          <View
+            style={[
+              StyleSheet.absoluteFill,
+              { backgroundColor: theme.colors.primary, zIndex: 1, justifyContent: 'center' },
+            ]}
+          >
+            <ActivityIndicator color="#fff" size="large" />
+          </View>
+        )}
       </View>
-
-      <TouchableOpacity style={styles.signUpContainer} onPress={handleLogin}>
-        <Text style={styles.signUpText}>Log In</Text>
-      </TouchableOpacity>
-
-      <TouchableOpacity style={styles.createAccountContainer}>
-        <Text style={styles.createAccountText}>
-          Already have an account?
-          <Link href="/" asChild>
-            <Text>Log in</Text>
-          </Link>
-        </Text>
-      </TouchableOpacity>
-    </View>
+    </>
   );
 };
 
-export default LoginForm;
+export default Login;

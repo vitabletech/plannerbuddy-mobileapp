@@ -2,7 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { View, FlatList } from 'react-native';
 import { Text } from 'react-native-paper';
 import * as Contacts from 'expo-contacts';
-import Contact from './ContactList';
+import * as Permissions from 'expo-permissions';
+import Contact from '../FetchContactDetails/ContactList';
 import commonStyles from '../../styles/common.style';
 import Header from './Header';
 
@@ -29,8 +30,11 @@ const FetchContactDetails = () => {
   useEffect(() => {
     const fetchContacts = async () => {
       try {
-        const { status } = await Contacts.requestPermissionsAsync();
-        if (status === 'granted') {
+        let { status, canAskAgain } = await Contacts.requestPermissionsAsync();
+
+        if (status === 'denied') {
+          status = await Permissions.askAsync(Permissions.CONTACTS);
+        } else {
           const { data } = await Contacts.getContactsAsync({
             fields: [Contacts.Fields.PhoneNumbers],
           });

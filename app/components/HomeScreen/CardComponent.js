@@ -12,7 +12,7 @@ const CardComponent = ({ title, count }) => {
           <Avatar.Icon size={24} icon="folder" />
         </Text>
         <Text style={styles.name}>{title}</Text>
-        <Text>{count}</Text>
+        <Text style={styles.name}>{count}</Text>
       </Card.Content>
     </Card>
   );

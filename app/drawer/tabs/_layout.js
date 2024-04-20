@@ -2,7 +2,7 @@ import React from 'react';
 import { Tabs, useNavigation } from 'expo-router';
 import { DrawerActions } from '@react-navigation/native';
 import { useTheme } from 'react-native-paper';
-import { IconComponent, HeaderLeft } from '../../utils/utils';
+import { IconComponent, HeaderLeft, HeaderRight } from '../../utils/utils';
 import { DEFAULT_BOTTOM_TAB_ICON_SIZE } from '../../constants/constants';
 
 const TabLayout = () => {
@@ -29,7 +29,6 @@ const TabLayout = () => {
     {
       name: 'Guests',
       title: 'Guests',
-      headerShown: false,
       icon: ({ color }) => IconComponent('Zocial', 'guest', DEFAULT_BOTTOM_TAB_ICON_SIZE, color),
     },
     {
@@ -51,9 +50,9 @@ const TabLayout = () => {
         headerStyle: {
           backgroundColor: theme.colors.primary,
         },
-        headerTintColor: theme.colors.onPrimary,
+        headerTintColor: theme.colors.onPrimaryContainer,
         headerLeft: () =>
-          HeaderLeft(DrawerToggle, 'FontAwesome5', 'bars', 20, theme.colors.background),
+          HeaderLeft(DrawerToggle, 'FontAwesome5', 'bars', 20, theme.colors.onPrimaryContainer),
         tabBarActiveTintColor: theme.colors.primary,
         tabBarInactiveTintColor: theme.colors.shadow,
         tabBarLabelStyle: {

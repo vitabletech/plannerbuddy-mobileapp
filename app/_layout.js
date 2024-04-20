@@ -4,6 +4,8 @@ import { Provider as PaperProvider } from 'react-native-paper';
 import { AuthProvider } from './context/AuthContext';
 import { themes } from './theme/themes';
 import InitialLayout from './utils/InitialLayout';
+import { GlobalProvider } from './store/globalContext';
+import Home from './';
 
 const RootLayout = () => {
   const colorScheme = useColorScheme();
@@ -38,7 +40,9 @@ const RootLayout = () => {
   return (
     <PaperProvider theme={theme}>
       <AuthProvider>
-        <InitialLayout stackScreens={stackScreens} colorScheme={colorScheme} />
+        <GlobalProvider>
+          <InitialLayout stackScreens={stackScreens} colorScheme={colorScheme} />
+        </GlobalProvider>
       </AuthProvider>
     </PaperProvider>
   );

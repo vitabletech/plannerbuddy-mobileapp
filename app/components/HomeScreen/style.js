@@ -1,5 +1,6 @@
 import { StyleSheet, Dimensions } from 'react-native';
 import { useTheme } from 'react-native-paper';
+import { themes } from '../../theme/themes';
 
 const getStyles = () => {
   const screen = Dimensions.get('window');
@@ -33,14 +34,23 @@ const getStyles = () => {
       width: '100%',
     },
     titleStyle: {
-      color: theme.colors.background,
+      color: theme.colors.onPrimary,
       top: 50,
     },
-    totalDiv: { borderRadius: 26, overflow: 'hidden' },
+    totalDiv: {
+      borderRadius: 26,
+      overflow: 'hidden',
+    },
     welcomeContainer: {
-      backgroundColor: theme.colors.onPrimaryContainer,
+      backgroundColor: theme.colors.primary,
       height: Height * 0.3,
       width: '100%',
+    },
+    content: {
+      backgroundColor: theme.colors.primaryContainer,
+    },
+    name: {
+      color: theme.colors.onPrimaryContainer,
     },
   });
 };

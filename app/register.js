@@ -1,7 +1,7 @@
 import React from 'react';
 import RegisterForm from './components/RegisterForm/RegisterForm';
-import CustomBottomSheet from './components/CustomBottomSheet/CustomBottomSheet';
+// import CustomBottomSheet from './components/CustomBottomSheet/CustomBottomSheet';
 
-const Register = () => <CustomBottomSheet content={<RegisterForm />} />;
+const Register = () => <></>;
 
 export default Register;

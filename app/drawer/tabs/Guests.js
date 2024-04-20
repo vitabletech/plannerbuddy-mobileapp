@@ -1,5 +1,5 @@
 import React from 'react';
-import FetchContactDetails from '../../components/FetchContactDetails/FetchContactDetails';
+import FetchContactDetails from '../../components/Guests/FetchContactDetails';
 
 const Guests = () => <FetchContactDetails />;
 

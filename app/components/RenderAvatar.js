@@ -4,7 +4,7 @@ import { Avatar } from 'react-native-paper';
 import { PLACEHOLDER_IMAGE } from '../constants/constants';
 
 const RenderAvatar = ({ imageUri, ...props }) => (
-  <Avatar.Image {...props} source={{ uri: imageUri }} />
+  <Avatar.Image size={50} {...props} source={{ uri: imageUri }} />
 );
 
 RenderAvatar.defaultProps = {

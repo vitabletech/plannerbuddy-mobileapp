@@ -16,7 +16,7 @@ export const LIGHT_THEME_COLORS = {
     onError: 'rgb(255, 255, 255)',
     errorContainer: 'rgb(255, 218, 214)',
     onErrorContainer: 'rgb(65, 0, 2)',
-    background: 'rgb(255, 251, 255)',
+    background: 'rgb(0, 0, 0)',
     onBackground: 'rgb(30, 26, 29)',
     surface: 'rgb(255, 251, 255)',
     onSurface: 'rgb(30, 26, 29)',
@@ -44,8 +44,8 @@ export const LIGHT_THEME_COLORS = {
 };
 export const DARK_THEME_COLORS = {
   colors: {
-    primary: 'rgb(255, 170, 245)',
-    onPrimary: 'rgb(85, 18, 84)',
+    primary: 'rgb(125,46,122)',
+    onPrimary: 'rgb(255, 170, 245)',
     primaryContainer: 'rgb(111, 44, 109)',
     onPrimaryContainer: 'rgb(255, 215, 246)',
     secondary: 'rgb(79, 216, 235)',

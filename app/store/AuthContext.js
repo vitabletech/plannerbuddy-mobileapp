@@ -4,7 +4,7 @@ import axios from 'axios';
 import * as SecureStore from 'expo-secure-store';
 import { API_URL, JWT_KEY } from '../constants/constants';
 
-const AuthContext = createContext({});
+export const AuthContext = createContext({});
 
 export function useAuth() {
   return useContext(AuthContext);
@@ -66,6 +66,7 @@ export const AuthProvider = ({ children }) => {
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 };
+
 AuthProvider.propTypes = {
   children: PropTypes.node.isRequired, // add PropTypes validation for children
 };
