@@ -14,6 +14,9 @@ const getStyles = () => {
       flex: 1,
       position: 'relative',
     },
+    content: {
+      backgroundColor: theme.colors.primaryContainer,
+    },
     flexBasis50: {
       flex: 1,
       flexBasis: '50%',
@@ -21,6 +24,9 @@ const getStyles = () => {
     flexRow: {
       flexDirection: 'row',
       flexWrap: 'wrap',
+    },
+    name: {
+      color: theme.colors.onPrimaryContainer,
     },
     rightStyle: {
       right: 40,
@@ -45,12 +51,6 @@ const getStyles = () => {
       backgroundColor: theme.colors.primary,
       height: Height * 0.3,
       width: '100%',
-    },
-    content: {
-      backgroundColor: theme.colors.primaryContainer,
-    },
-    name: {
-      color: theme.colors.onPrimaryContainer,
     },
   });
 };

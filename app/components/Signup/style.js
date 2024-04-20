@@ -6,10 +6,21 @@ const getStyles = () => {
   return StyleSheet.create({
     container: {
       backgroundColor: 'white',
+      borderRadius: 15,
       flex: 1,
       justifyContent: 'center',
       padding: 20,
-      borderRadius: 15,
+    },
+    createAccountContainer: {
+      flex: 1,
+      margin: 5,
+    },
+    divider: {
+      borderBottomColor: theme.colors.onPrimary,
+      borderBottomWidth: 1,
+      flexDirection: 'row',
+      justifyContent: 'space-between',
+      marginVertical: 10,
     },
     forgotPasswordContainer: {
       alignItems: 'flex-end',
@@ -49,6 +60,28 @@ const getStyles = () => {
       justifyContent: 'space-between',
       marginBottom: 20,
     },
+    loginOptionText: {
+      marginHorizontal: 20,
+    },
+    loginText: {
+      color: theme.colors.primary,
+      fontSize: 15,
+      fontWeight: 'bold',
+      marginLeft: 10,
+      marginVertical: 'auto',
+    },
+    signUpContainer: {
+      alignItems: 'center',
+      borderColor: theme.colors.primary,
+      borderRadius: 500,
+      borderWidth: 1,
+      flexDirection: 'row',
+      flex: 1,
+      flexDirection: 'row',
+      justifyContent: 'center',
+      paddingHorizontal: 20,
+      paddingVertical: 15,
+    },
     subtitle: {
       borderBottomColor: theme.colors.onTertiaryContainer,
       fontSize: 18,
@@ -60,39 +93,6 @@ const getStyles = () => {
       fontWeight: 'bold',
       marginBottom: 10,
       textAlign: 'center',
-    },
-    loginOptionText: {
-      marginHorizontal: 20,
-    },
-    signUpContainer: {
-      alignItems: 'center',
-      borderColor: theme.colors.primary,
-      borderRadius: 500,
-      borderWidth: 1,
-      flexDirection: 'row',
-      paddingHorizontal: 20,
-      paddingVertical: 15,
-      flex: 1,
-      flexDirection: 'row',
-      justifyContent: 'center',
-    },
-    divider: {
-      flexDirection: 'row',
-      justifyContent: 'space-between',
-      marginVertical: 10,
-      borderBottomColor: theme.colors.onPrimary,
-      borderBottomWidth: 1,
-    },
-    createAccountContainer: {
-      flex: 1,
-      margin: 5,
-    },
-    loginText: {
-      marginVertical: 'auto',
-      marginLeft: 10,
-      color: theme.colors.primary,
-      fontWeight: 'bold',
-      fontSize: 15,
     },
   });
 };

@@ -4,6 +4,19 @@ import { useTheme } from 'react-native-paper';
 const commonStyles = () => {
   const theme = useTheme();
   return StyleSheet.create({
+    button: {
+      alignItems: 'center',
+      backgroundColor: theme.colors.backdrop,
+      borderRadius: 16,
+      height: '100%',
+      justifyContent: 'center',
+      width: 50,
+    },
+    buttonImage: {
+      height: '50%',
+      tintColor: theme.colors.background,
+      width: '50%',
+    },
     flex1: {
       backgroundColor: theme.colors.background,
       flex: 1,
@@ -14,44 +27,27 @@ const commonStyles = () => {
       marginVertical: 60,
       resizeMode: 'contain',
     },
-    title: {
-      alignSelf: 'center',
-      textAlign: 'center',
-    },
-    button: {
-      width: 50,
-      height: '100%',
-      backgroundColor: theme.colors.backdrop,
-      borderRadius: 16,
-      justifyContent: 'center',
-      alignItems: 'center',
-    },
-    buttonImage: {
-      width: '50%',
-      height: '50%',
-      tintColor: theme.colors.background,
-    },
     searchContainer: {
-      justifyContent: 'center',
       alignItems: 'center',
-      flexDirection: 'row',
-      padding: 5,
-      height: 50,
       backgroundColor: theme.colors.primary,
-    },
-    searchWrapper: {
-      flex: 1,
-      backgroundColor: theme.colors.backdrop,
-      marginRight: 12,
+      flexDirection: 'row',
+      height: 50,
       justifyContent: 'center',
-      alignItems: 'center',
-      borderRadius: 16,
-      height: '100%',
+      padding: 5,
     },
     searchInput: {
-      width: '100%',
       height: '100%',
       paddingHorizontal: 16,
+      width: '100%',
+    },
+    searchWrapper: {
+      alignItems: 'center',
+      backgroundColor: theme.colors.backdrop,
+      borderRadius: 16,
+      flex: 1,
+      height: '100%',
+      justifyContent: 'center',
+      marginRight: 12,
     },
     skipoutlineButton: {
       alignItems: 'center',
@@ -62,6 +58,10 @@ const commonStyles = () => {
       marginVertical: 10,
       padding: 12,
       shadowColor: 'black',
+    },
+    title: {
+      alignSelf: 'center',
+      textAlign: 'center',
     },
   });
 };

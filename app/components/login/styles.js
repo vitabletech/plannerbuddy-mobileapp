@@ -13,11 +13,18 @@ const getStyles = () => {
     },
     container: {
       backgroundColor: 'white',
+      borderRadius: 15,
       flex: 1,
       justifyContent: 'center',
       padding: 20,
-      borderRadius: 15,
       paddingTop: 65,
+    },
+    forgotPasswordContainer: {
+      alignItems: 'flex-end',
+      marginVertical: 20,
+    },
+    forgotPasswordText: {
+      color: theme.colors.background,
     },
     header: {
       color: theme.colors.background,
@@ -25,35 +32,20 @@ const getStyles = () => {
       marginBottom: 10,
       textAlign: 'center',
     },
+
+    icon: {
+      height: 20,
+      marginRight: 10,
+      width: 20,
+    },
     image: {
       height: 100,
       resizeMode: 'contain',
       width: '100%',
     },
-    outlineButton: {
-      alignItems: 'center',
-      backgroundColor: theme.colors.elevation.level0,
-      borderColor: theme.colors.onPrimaryContainer,
-      borderRadius: 4,
-      borderWidth: 1,
-      marginVertical: 8,
-      padding: 12,
-    },
-
-    subheader: {
-      color: theme.colors.background,
-      fontSize: 18,
-      marginBottom: 40,
-      textAlign: 'center',
-    },
     input: {
       backgroundColor: theme.colors.elevation.level0,
       flex: 1,
-    },
-    icon: {
-      height: 20,
-      marginRight: 10,
-      width: 20,
     },
     inputContainer: {
       alignItems: 'center',
@@ -82,12 +74,20 @@ const getStyles = () => {
       // zIndex: 1,
       // fontFamily: theme.fonts.displayMedium
     },
-    forgotPasswordContainer: {
-      alignItems: 'flex-end',
-      marginVertical: 20,
+    outlineButton: {
+      alignItems: 'center',
+      backgroundColor: theme.colors.elevation.level0,
+      borderColor: theme.colors.onPrimaryContainer,
+      borderRadius: 4,
+      borderWidth: 1,
+      marginVertical: 8,
+      padding: 12,
     },
-    forgotPasswordText: {
+    subheader: {
       color: theme.colors.background,
+      fontSize: 18,
+      marginBottom: 40,
+      textAlign: 'center',
     },
   });
 };

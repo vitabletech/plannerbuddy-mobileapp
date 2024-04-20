@@ -61,7 +61,7 @@ const Signup = () => {
         <Text style={styles.signUpText}>Signup</Text>
       </TouchableOpacity>
 
-      <View style={styles.divider}></View>
+      <View style={styles.divider} />
 
       <View style={styles.loginContainer}>
         <TouchableOpacity style={styles.loginButton}>
@@ -83,12 +83,6 @@ const Signup = () => {
           </TouchableOpacity>
         </Text>
       </View>
-
-      <Link href="/drawer" asChild>
-        <TouchableOpacity style={commonstyles.skipoutlineButton}>
-          <Text>Skip</Text>
-        </TouchableOpacity>
-      </Link>
     </View>
   );
 };

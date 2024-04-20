@@ -1,11 +1,10 @@
 import React from 'react';
 import { Platform, useColorScheme } from 'react-native';
 import { Provider as PaperProvider } from 'react-native-paper';
-import { AuthProvider } from './context/AuthContext';
+import { AuthProvider } from './store/AuthContext';
 import { themes } from './theme/themes';
 import InitialLayout from './utils/InitialLayout';
 import { GlobalProvider } from './store/globalContext';
-import Home from './';
 
 const RootLayout = () => {
   const colorScheme = useColorScheme();

@@ -1,8 +1,4 @@
-/* eslint-disable consistent-return */
-/* eslint-disable react-native/no-inline-styles */
-/* eslint-disable react-native/no-unused-styles */
-/* eslint-disable no-alert */
-import { View, Image, StyleSheet, TouchableOpacity } from 'react-native';
+import { View, StyleSheet, TouchableOpacity } from 'react-native';
 import { useTheme, Text, TextInput, ActivityIndicator } from 'react-native-paper';
 import React, { useState } from 'react';
 
@@ -44,72 +40,63 @@ const Login = () => {
   }
 
   return (
-    <>
-      <View style={styles.container}>
-        <Text style={styles.loginHeaderText}>Welcome Back!</Text>
-        <View style={styles.inputContainer}>
-          <FontAwesome5 name="user" size={20} color="#999" style={styles.icon} />
+    <View style={styles.container}>
+      <Text style={styles.loginHeaderText}>Welcome Back!</Text>
+      <View style={styles.inputContainer}>
+        <FontAwesome5 name="user" size={20} color="#999" style={styles.icon} />
 
-          <TextInput
-            autoCapitalize="none"
-            label="Enter you Username"
-            value={username}
-            onChangeText={setUsername}
-            style={styles.input}
-          />
-        </View>
-
-        {/* <View style={{ height: 10 }} /> */}
-        <View style={styles.inputContainer}>
-          <FontAwesome5 name="lock" size={20} color="#999" style={styles.icon} />
-
-          <TextInput
-            label="Enter Password"
-            value={password}
-            onChangeText={setPassword}
-            secureTextEntry
-            style={styles.input}
-          />
-        </View>
-
-        <TouchableOpacity onPress={login} style={styles.button}>
-          <Text style={{ color: theme.colors.ba }}>Sign in</Text>
-        </TouchableOpacity>
-
-        <TouchableOpacity style={styles.forgotPasswordContainer}>
-          <Text style={styles.forgotPasswordText}>Forgot password?</Text>
-        </TouchableOpacity>
-
-        <Link href="/" asChild>
-          <TouchableOpacity style={styles.outlineButton} onPress={handleSignup}>
-            <Text style={{ color: theme.colors.background }}>Create Account</Text>
-          </TouchableOpacity>
-        </Link>
-
-        <Link href="/privacy" asChild>
-          <TouchableOpacity style={{ alignItems: 'center', marginTop: 10 }}>
-            <Text style={{ color: theme.colors.background }}>Privacy Policy</Text>
-          </TouchableOpacity>
-        </Link>
-
-        <Link href="/drawer" asChild>
-          <TouchableOpacity style={commonstyles.skipoutlineButton}>
-            <Text>Skip</Text>
-          </TouchableOpacity>
-        </Link>
-
-        {loading && (
-          <View
-            style={[
-              StyleSheet.absoluteFill,
-              { backgroundColor: theme.colors.primary, zIndex: 1, justifyContent: 'center' },
-            ]}
-          >
-            <ActivityIndicator color="#fff" size="large" />
-          </View>
-        )}
+        <TextInput
+          autoCapitalize="none"
+          label="Enter you Username"
+          value={username}
+          onChangeText={setUsername}
+          style={styles.input}
+        />
       </View>
-    </>
+
+      {/* <View style={{ height: 10 }} /> */}
+      <View style={styles.inputContainer}>
+        <FontAwesome5 name="lock" size={20} color="#999" style={styles.icon} />
+
+        <TextInput
+          label="Enter Password"
+          value={password}
+          onChangeText={setPassword}
+          secureTextEntry
+          style={styles.input}
+        />
+      </View>
+
+      <TouchableOpacity onPress={login} style={styles.button}>
+        <Text style={{ color: theme.colors.primary }}>Sign in</Text>
+      </TouchableOpacity>
+
+      <TouchableOpacity style={styles.forgotPasswordContainer}>
+        <Text style={styles.forgotPasswordText}>Forgot password?</Text>
+      </TouchableOpacity>
+
+      <Link href="/" asChild>
+        <TouchableOpacity style={styles.outlineButton} onPress={handleSignup}>
+          <Text style={{ color: theme.colors.background }}>Create Account</Text>
+        </TouchableOpacity>
+      </Link>
+
+      <Link href="/privacy" asChild>
+        <TouchableOpacity style={{ alignItems: 'center', marginTop: 10 }}>
+          <Text style={{ color: theme.colors.background }}>Privacy Policy</Text>
+        </TouchableOpacity>
+      </Link>
+      {loading && (
+        <View
+          style={[
+            StyleSheet.absoluteFill,
+            { backgroundColor: theme.colors.primary, zIndex: 1, justifyContent: 'center' },
+          ]}
+        >
+          <ActivityIndicator color="#fff" size="large" />
+        </View>
+      )}
+    </View>
   );
 };
 

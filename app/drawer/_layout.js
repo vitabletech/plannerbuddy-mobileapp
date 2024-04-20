@@ -3,7 +3,7 @@ import { Drawer } from 'expo-router/drawer';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { DrawerContentScrollView, DrawerItemList, DrawerItem } from '@react-navigation/drawer';
 import { useTheme } from 'react-native-paper';
-import { useAuth } from '../context/AuthContext';
+import { useAuth } from '../store/AuthContext';
 import { IconComponent } from '../utils/utils';
 import commonStyles from '../styles/common.style';
 

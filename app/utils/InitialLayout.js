@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { Stack, useRouter } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
 import { ActivityIndicator, useTheme } from 'react-native-paper';
-import { useAuth } from '../context/AuthContext';
+import { useAuth } from '../store/AuthContext';
 import loadFonts from '../theme/loadFonts';
 import commonStyles from '../styles/common.style';
 
@@ -16,8 +16,7 @@ const InitialLayout = ({ stackScreens, colorScheme }) => {
   useEffect(() => {
     const handleNavigation = () => {
       if (!initialized || !isReady) return;
-
-      if (token !== '') {
+      if (token) {
         router.replace('/drawer');
       } else {
         router.replace('/');
