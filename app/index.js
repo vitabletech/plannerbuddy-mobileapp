@@ -1,6 +1,7 @@
-import Login from './components/login/Login';
-import CustomBottomSheet from './components/CustomBottomSheet/CustomBottomSheet';
+import React from 'react';
+import Login from './components/Login/Login';
+import VTBottomSheet from './components/CustomBottomSheet/VTBottomSheet';
 
-const LoginScreen = () => <CustomBottomSheet content={<Login />} />;
+const LoginScreen = () => <VTBottomSheet content={<Login />} />;
 
 export default LoginScreen;

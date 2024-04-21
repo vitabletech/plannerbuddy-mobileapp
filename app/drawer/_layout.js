@@ -36,10 +36,10 @@ const CustomDrawerContent = (props) => {
       <DrawerItemList {...props} />
       <DrawerItem
         label="Logout"
-        icon={() => IconComponent('Ionicons', 'log-out-outline', 28, 'black')}
+        icon={() => IconComponent('Ionicons', 'log-out-outline', 28)}
         onPress={() => onLogout()}
         // eslint-disable-next-line react-native/no-inline-styles
-        labelStyle={{ marginLeft: -16, fontWeight: '900', color: 'white' }}
+        labelStyle={{ marginLeft: -16, fontWeight: '900' }}
       />
     </DrawerContentScrollView>
   );
@@ -58,12 +58,12 @@ const DrawerLayout = () => {
           },
           headerTintColor: theme.colors.background,
           drawerHideStatusBarOnOpen: true,
-          drawerActiveBackgroundColor: theme.colors.background,
+          drawerActiveBackgroundColor: theme.colors.primary,
           drawerActiveTintColor: theme.colors.onPrimary,
           drawerInactiveTintColor: theme.colors.onPrimaryContainer,
           drawerLabelStyle: { marginLeft: -20 },
           drawerStyle: {
-            backgroundColor: theme.colors.primaryContainer,
+            backgroundColor: theme.colors.onPrimary,
           },
         }}
       >

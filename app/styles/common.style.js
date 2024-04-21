@@ -49,16 +49,6 @@ const commonStyles = () => {
       justifyContent: 'center',
       marginRight: 12,
     },
-    skipoutlineButton: {
-      alignItems: 'center',
-      backgroundColor: theme.colors.elevation.level0,
-      borderColor: theme.colors.onPrimary,
-      borderRadius: 20,
-      borderWidth: 2,
-      marginVertical: 10,
-      padding: 12,
-      shadowColor: 'black',
-    },
     title: {
       alignSelf: 'center',
       textAlign: 'center',

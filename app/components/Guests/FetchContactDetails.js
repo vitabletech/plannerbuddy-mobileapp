@@ -30,7 +30,7 @@ const FetchContactDetails = () => {
   useEffect(() => {
     const fetchContacts = async () => {
       try {
-        let { status, canAskAgain } = await Contacts.requestPermissionsAsync();
+        let { status } = await Contacts.requestPermissionsAsync();
 
         if (status === 'denied') {
           status = await Permissions.askAsync(Permissions.CONTACTS);

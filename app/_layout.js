@@ -38,7 +38,7 @@ const RootLayout = () => {
   return (
     <PaperProvider theme={theme}>
       <AuthProvider>
-          <InitialLayout stackScreens={stackScreens} colorScheme={colorScheme} />
+        <InitialLayout stackScreens={stackScreens} colorScheme={colorScheme} />
       </AuthProvider>
     </PaperProvider>
   );

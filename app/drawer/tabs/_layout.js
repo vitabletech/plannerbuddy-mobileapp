@@ -2,7 +2,7 @@ import React from 'react';
 import { Tabs, useNavigation } from 'expo-router';
 import { DrawerActions } from '@react-navigation/native';
 import { useTheme } from 'react-native-paper';
-import { IconComponent, HeaderLeft, HeaderRight } from '../../utils/utils';
+import { IconComponent, HeaderLeft } from '../../utils/utils';
 import { DEFAULT_BOTTOM_TAB_ICON_SIZE } from '../../constants/constants';
 
 const TabLayout = () => {

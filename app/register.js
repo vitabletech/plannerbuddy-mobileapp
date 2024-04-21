@@ -1,7 +1,7 @@
 import React from 'react';
 import Signup from './components/Signup/Signup';
-import CustomBottomSheet from './components/CustomBottomSheet/CustomBottomSheet';
+import VTBottomSheet from './components/CustomBottomSheet/VTBottomSheet';
 
-const Register = () => <CustomBottomSheet content={<Signup />} />;
+const Register = () => <VTBottomSheet content={<Signup />} />;
 
 export default Register;

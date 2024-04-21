@@ -1,6 +1,5 @@
 import { StyleSheet, Dimensions } from 'react-native';
 import { useTheme } from 'react-native-paper';
-import { themes } from '../../theme/themes';
 
 const getStyles = () => {
   const screen = Dimensions.get('window');

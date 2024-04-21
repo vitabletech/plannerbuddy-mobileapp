@@ -4,14 +4,6 @@ import { useTheme } from 'react-native-paper';
 const getStyles = () => {
   const theme = useTheme();
   return StyleSheet.create({
-    forgotPasswordContainer: {
-      marginVertical: 20,
-    },
-    image: {
-      height: 100,
-      resizeMode: 'contain',
-      width: '100%',
-    },
     outlineButton: {
       alignItems: 'center',
       backgroundColor: theme.colors.primary,
@@ -22,16 +14,10 @@ const getStyles = () => {
     },
     positionCenter: {
       alignItems: 'center',
+      borderColor: theme.colors.primary,
       flexDirection: 'row',
+      flex: 1,
       justifyContent: 'center',
-      marginTop: 10,
-    },
-    rowReverse: {
-      flexDirection: 'row-reverse',
-    },
-    rowSpaceBetween: {
-      flexDirection: 'row',
-      justifyContent: 'space-between',
     },
     textAlignCenter: {
       textAlign: 'center',

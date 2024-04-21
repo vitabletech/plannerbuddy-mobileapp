@@ -6,28 +6,20 @@ const getStyles = () => {
   const screen = Dimensions.get('window');
   const Height = screen.height;
   return StyleSheet.create({
-    bottomSheet: {
-      backgroundColor: theme.colors.surface,
-      borderTopLeftRadius: 20,
-      borderTopRightRadius: 20,
-      padding: 20,
-    },
     container: {
       backgroundColor: theme.colors.primary,
       flex: 1,
-      justifyContent: 'flex-end',
     },
     content: {
-      alignItems: 'center',
       flex: 1,
-      justifyContent: 'center',
+    },
+    contentContainer: {
+      flex: 1,
+      padding: 20,
     },
     image: {
       alignSelf: 'center',
-      height: Height * 0.2,
-    },
-    imageContainer: {
-      height: Height * 0.2,
+      height: Height * 0.3,
     },
   });
 };
