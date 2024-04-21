@@ -22,19 +22,14 @@ const TabLayout = () => {
     },
     {
       name: 'Events',
-      title: 'Events',
+      title: 'Create Events',
       icon: ({ color }) =>
         IconComponent('MaterialIcons', 'event', DEFAULT_BOTTOM_TAB_ICON_SIZE, color),
     },
     {
       name: 'Guests',
-      title: 'Guests',
+      title: 'Add Guests',
       icon: ({ color }) => IconComponent('Zocial', 'guest', DEFAULT_BOTTOM_TAB_ICON_SIZE, color),
-    },
-    {
-      name: 'CreativeZone',
-      title: 'Creative Zone',
-      icon: ({ color }) => IconComponent('AntDesign', 'gift', DEFAULT_BOTTOM_TAB_ICON_SIZE, color),
     },
     {
       name: 'action',

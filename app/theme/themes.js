@@ -6,11 +6,11 @@ export const themes = {
   light: {
     ...MD3LightTheme,
     ...LIGHT_THEME_COLORS,
-    fonts: configureFonts({ config: fontConfig, isV3: true }),
+    fonts: configureFonts({ config: fontConfig }),
   },
   dark: {
     ...MD3DarkTheme,
     ...DARK_THEME_COLORS,
-    fonts: configureFonts({ config: fontConfig, isV3: true }),
+    fonts: configureFonts({ config: fontConfig }),
   },
 };

@@ -6,6 +6,10 @@ const getStyles = () => {
   const Height = screen.height;
   const theme = useTheme();
   return StyleSheet.create({
+    card: {
+      marginRight: 20,
+      width: 300,
+    },
     container: {
       flex: 1,
       position: 'relative',
@@ -33,13 +37,16 @@ const getStyles = () => {
       right: 40,
       top: 70,
     },
+
+    scrollView: {
+      marginHorizontal: 20,
+    },
     surfaceContainer: {
       backgroundColor: theme.colors.onPrimary,
       borderRadius: 20,
       paddingBottom: '5%',
       paddingTop: '5%',
     },
-
     titleStyle: {
       color: theme.colors.onPrimary,
       fontSize: 20,

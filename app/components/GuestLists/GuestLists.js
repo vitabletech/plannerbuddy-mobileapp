@@ -18,7 +18,7 @@ const GuestLists = () => {
     fetch(`${API_URL}users?skip=${page}`)
       .then((response) => response.json())
       .then((data) => {
-        setUsers([...users, ...data.users]);
+        setUsers((prevUsers) => [...prevUsers, ...data.users]);
         setLoading(false);
       })
       .catch((error) => {

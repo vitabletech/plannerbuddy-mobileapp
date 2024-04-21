@@ -106,7 +106,7 @@ const Login = () => {
             </TouchableOpacity>
           </Link>
         </View>
-        <Link href="/privacy" asChild>
+        <Link replace href="/privacy" asChild>
           <TouchableOpacity style={styles.positionCenter}>
             <Text>Privacy Policy</Text>
           </TouchableOpacity>
