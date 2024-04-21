@@ -46,29 +46,13 @@ const getStyles = () => {
       marginBottom: 20,
       paddingBottom: 5,
     },
-    loginButton: {
+    outlineButton: {
       alignItems: 'center',
-      borderColor: theme.colors.primary,
-      borderRadius: 500,
+      backgroundColor: theme.colors.primary,
+      borderRadius: 4,
       borderWidth: 1,
-      flexDirection: 'row',
-      paddingHorizontal: 20,
-      paddingVertical: 10,
-    },
-    loginContainer: {
-      flexDirection: 'row',
-      justifyContent: 'space-between',
-      marginBottom: 20,
-    },
-    loginOptionText: {
-      marginHorizontal: 20,
-    },
-    loginText: {
-      color: theme.colors.primary,
-      fontSize: 15,
-      fontWeight: 'bold',
-      marginLeft: 10,
-      marginVertical: 'auto',
+      marginVertical: 8,
+      padding: 12,
     },
     signUpContainer: {
       alignItems: 'center',
@@ -79,8 +63,6 @@ const getStyles = () => {
       flex: 1,
       flexDirection: 'row',
       justifyContent: 'center',
-      paddingHorizontal: 20,
-      paddingVertical: 15,
     },
     subtitle: {
       borderBottomColor: theme.colors.onTertiaryContainer,

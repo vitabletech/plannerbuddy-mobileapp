@@ -38,7 +38,7 @@ const InitialLayout = ({ stackScreens, colorScheme }) => {
 
   return (
     <>
-      <StatusBar style={colorScheme} backgroundColor={theme.colors.onPrimaryContainer} />
+      <StatusBar style={colorScheme} backgroundColor={theme.colors.primary} />
       <Stack
         screenOptions={{
           headerStyle: {

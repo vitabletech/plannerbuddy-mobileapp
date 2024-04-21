@@ -4,7 +4,6 @@ import { Provider as PaperProvider } from 'react-native-paper';
 import { AuthProvider } from './store/AuthContext';
 import { themes } from './theme/themes';
 import InitialLayout from './utils/InitialLayout';
-import { GlobalProvider } from './store/globalContext';
 
 const RootLayout = () => {
   const colorScheme = useColorScheme();
@@ -13,7 +12,7 @@ const RootLayout = () => {
   const stackScreens = [
     {
       name: 'index',
-      options: { title: 'Home', headerShown: false },
+      options: { headerShown: false },
     },
     {
       name: 'drawer',
@@ -21,7 +20,7 @@ const RootLayout = () => {
     },
     {
       name: 'register',
-      options: { title: 'Create Account', headerLeft: null },
+      options: { headerShown: false },
     },
     {
       name: 'privacy',
@@ -39,9 +38,7 @@ const RootLayout = () => {
   return (
     <PaperProvider theme={theme}>
       <AuthProvider>
-        <GlobalProvider>
           <InitialLayout stackScreens={stackScreens} colorScheme={colorScheme} />
-        </GlobalProvider>
       </AuthProvider>
     </PaperProvider>
   );

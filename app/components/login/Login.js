@@ -1,25 +1,26 @@
 import { View, StyleSheet, TouchableOpacity } from 'react-native';
-import { useTheme, Text, TextInput, ActivityIndicator } from 'react-native-paper';
+import {
+  useTheme,
+  Text,
+  TextInput,
+  ActivityIndicator,
+  Checkbox,
+} from 'react-native-paper';
 import React, { useState } from 'react';
 
-import { FontAwesome5 } from '@expo/vector-icons';
 import { Link } from 'expo-router';
 import { useAuth } from '../../store/AuthContext';
 import getStyles from './styles';
-import commonStyles from '../../styles/common.style';
-import { useGlobal } from '../../store/globalContext';
 
 const Login = () => {
   const theme = useTheme();
   const styles = getStyles();
-  const commonstyles = commonStyles();
 
-  const [username, setUsername] = useState('atuny0'); // atuny0
-  const [password, setPassword] = useState('9uQFF1Lh'); // 9uQFF1Lh
+  const [username, setUsername] = useState(''); // atuny0
+  const [password, setPassword] = useState(''); // 9uQFF1Lh
   const [loading, setLoading] = useState(false);
 
   const { onLogin } = useAuth();
-  const { onChange } = useGlobal();
 
   const login = async () => {
     setLoading(true);
@@ -35,55 +36,57 @@ const Login = () => {
     setLoading(false);
   };
 
-  function handleSignup() {
-    onChange('signup');
-  }
-
   return (
     <View style={styles.container}>
       <Text style={styles.loginHeaderText}>Welcome Back!</Text>
-      <View style={styles.inputContainer}>
-        <FontAwesome5 name="user" size={20} color="#999" style={styles.icon} />
-
-        <TextInput
-          autoCapitalize="none"
-          label="Enter you Username"
-          value={username}
-          onChangeText={setUsername}
-          style={styles.input}
+      <TextInput
+        autoCapitalize="none"
+        label="Enter you Username"
+        value={username}
+        onChangeText={setUsername}
+        left={<TextInput.Icon icon="account" />}
+      />
+      <View style={{ marginVertical: 10 }} />
+      <TextInput
+        label="Enter Password"
+        value={password}
+        onChangeText={setPassword}
+        secureTextEntry
+        left={<TextInput.Icon icon="eye" />}
+      />
+      <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
+        <Checkbox.Item
+          labelVariant="headlineMedium"
+          label="Remember me"
+          status="checked"
+          style={{ flexDirection: 'row-reverse' }}
         />
-      </View>
-
-      {/* <View style={{ height: 10 }} /> */}
-      <View style={styles.inputContainer}>
-        <FontAwesome5 name="lock" size={20} color="#999" style={styles.icon} />
-
-        <TextInput
-          label="Enter Password"
-          value={password}
-          onChangeText={setPassword}
-          secureTextEntry
-          style={styles.input}
-        />
-      </View>
-
-      <TouchableOpacity onPress={login} style={styles.button}>
-        <Text style={{ color: theme.colors.primary }}>Sign in</Text>
-      </TouchableOpacity>
-
-      <TouchableOpacity style={styles.forgotPasswordContainer}>
-        <Text style={styles.forgotPasswordText}>Forgot password?</Text>
-      </TouchableOpacity>
-
-      <Link href="/" asChild>
-        <TouchableOpacity style={styles.outlineButton} onPress={handleSignup}>
-          <Text style={{ color: theme.colors.background }}>Create Account</Text>
+        <TouchableOpacity style={styles.forgotPasswordContainer}>
+          <Text>Forgot password?</Text>
         </TouchableOpacity>
-      </Link>
+      </View>
+      <TouchableOpacity onPress={login} style={styles.outlineButton}>
+        <Text style={{ color: theme.colors.onPrimary }}>Log in</Text>
+      </TouchableOpacity>
 
+      <View
+        style={{
+          alignItems: 'center',
+          justifyContent: 'center',
+          marginTop: 10,
+          flexDirection: 'row',
+        }}
+      >
+        <Text>Don’t have any account? </Text>
+        <Link href="/register" asChild>
+          <TouchableOpacity>
+            <Text style={{ color: theme.colors.primary }}>Signup</Text>
+          </TouchableOpacity>
+        </Link>
+      </View>
       <Link href="/privacy" asChild>
         <TouchableOpacity style={{ alignItems: 'center', marginTop: 10 }}>
-          <Text style={{ color: theme.colors.background }}>Privacy Policy</Text>
+          <Text>Privacy Policy</Text>
         </TouchableOpacity>
       </Link>
       {loading && (
