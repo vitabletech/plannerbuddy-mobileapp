@@ -17,8 +17,8 @@ const Login = () => {
   const theme = useTheme();
   const styles = getStyles();
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
-  const [username, setUsername] = useState(''); // atuny0
-  const [password, setPassword] = useState(''); // 9uQFF1Lh
+  const [username, setUsername] = useState('atuny0'); // atuny0
+  const [password, setPassword] = useState('9uQFF1Lh'); // 9uQFF1Lh
   const [loading, setLoading] = useState(false);
   const [hasError, sethasError] = useState(false);
   const { onLogin } = useAuth();

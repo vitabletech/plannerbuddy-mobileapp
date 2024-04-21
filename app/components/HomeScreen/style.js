@@ -6,9 +6,6 @@ const getStyles = () => {
   const Height = screen.height;
   const theme = useTheme();
   return StyleSheet.create({
-    borderRadius: {
-      borderRadius: 0,
-    },
     container: {
       flex: 1,
       position: 'relative',
@@ -16,9 +13,10 @@ const getStyles = () => {
     content: {
       backgroundColor: theme.colors.primaryContainer,
     },
-    flexBasis50: {
+    dashboard: { padding: 20 },
+    flexBasis25: {
       flex: 1,
-      flexBasis: '50%',
+      flexBasis: '25%',
     },
     flexRow: {
       flexDirection: 'row',
@@ -27,28 +25,32 @@ const getStyles = () => {
     name: {
       color: theme.colors.onPrimaryContainer,
     },
+    positionCenter: {
+      alignItems: 'center',
+      justifyContent: 'center',
+    },
     rightStyle: {
       right: 40,
-      top: 50,
+      top: 70,
     },
-    surface: {
-      backgroundColor: theme.colors.elevation.level0,
-      height: Height * 0.3,
-      marginTop: '15%',
-      padding: 16,
-      width: '100%',
+    surfaceContainer: {
+      backgroundColor: theme.colors.onPrimary,
+      borderRadius: 20,
+      paddingBottom: '5%',
+      paddingTop: '5%',
     },
+
     titleStyle: {
       color: theme.colors.onPrimary,
-      top: 50,
-    },
-    totalDiv: {
-      borderRadius: 26,
-      overflow: 'hidden',
+      fontSize: 20,
+      fontWeight: 'bold',
+      top: 70,
     },
     welcomeContainer: {
       backgroundColor: theme.colors.primary,
-      height: Height * 0.3,
+      borderBottomLeftRadius: 20,
+      borderBottomRightRadius: 20,
+      height: Height * 0.2,
       width: '100%',
     },
   });
