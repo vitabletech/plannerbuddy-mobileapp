@@ -27,6 +27,11 @@ const commonStyles = () => {
       marginVertical: 60,
       resizeMode: 'contain',
     },
+    profileContainer: {
+      flex: 1,
+      margin: 10,
+      gap: 10,
+    },
     searchContainer: {
       alignItems: 'center',
       backgroundColor: theme.colors.primary,
@@ -52,6 +57,9 @@ const commonStyles = () => {
     title: {
       alignSelf: 'center',
       textAlign: 'center',
+    },
+    inputField: {
+      marginVertical: 10,
     },
   });
 };
