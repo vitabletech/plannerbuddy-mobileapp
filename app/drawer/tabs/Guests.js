@@ -1,6 +1,6 @@
 import React from 'react';
-import FetchContactDetails from '../../components/Guests/FetchContactDetails';
+import AddGuests from '../../components/Guests/AddGuests';
 
-const Guests = () => <FetchContactDetails />;
+const Guests = () => <AddGuests />;
 
 export default Guests;
