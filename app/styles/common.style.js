@@ -22,6 +22,9 @@ const commonStyles = () => {
       flex: 1,
       justifyContent: 'center',
     },
+    inputField: {
+      marginVertical: 10,
+    },
     logo: {
       marginLeft: 70,
       marginVertical: 60,
@@ -29,8 +32,8 @@ const commonStyles = () => {
     },
     profileContainer: {
       flex: 1,
-      margin: 10,
       gap: 10,
+      margin: 10,
     },
     searchContainer: {
       alignItems: 'center',
@@ -57,9 +60,6 @@ const commonStyles = () => {
     title: {
       alignSelf: 'center',
       textAlign: 'center',
-    },
-    inputField: {
-      marginVertical: 10,
     },
   });
 };

@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useState } from 'react';
 import { View } from 'react-native';
 import { Text, TextInput, Avatar, Card, IconButton } from 'react-native-paper';
 import commonStyles from '../styles/common.style';
@@ -18,23 +18,23 @@ const profile = () => {
   const [contact, setContact] = useState(person.contact);
   const [enableEdit, setEnableEdit] = useState(true);
 
-  function handleEdit() {
+  const handleEdit = () => {
     setEnableEdit((state) => !state);
-  }
+  };
 
-  function saveEdit() {
+  const saveEdit = () => {
     setName(person.name);
     setEmail(person.email);
     setContact(person.contact);
     setAddress(person.address);
     setEnableEdit((state) => !state);
-  }
+  };
 
-  function handleChance(id, e) {
+  const handleChance = (id, e) => {
     if (e && e !== '') {
       person = { ...person, [id]: e };
     }
-  }
+  };
 
   return (
     <View style={classes.profileContainer}>

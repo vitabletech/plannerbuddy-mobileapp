@@ -1,6 +1,6 @@
 import React, { useState, useRef, useCallback } from 'react';
 import { View } from 'react-native';
-import { useTheme, Text, TextInput, HelperText, Button, Modal } from 'react-native-paper';
+import { useTheme, Text, TextInput, HelperText, Button, Modal, Card } from 'react-native-paper';
 import FetchContactDetails from './FetchContactDetails';
 import getStyles from './styles';
 
@@ -75,80 +75,84 @@ const AddGuests = () => {
   return (
     <>
       <View style={styles.mainContainer}>
-        <View>
-          <TextInput
-            label="Guest Full Name"
-            value={formData.name}
-            onChangeText={(text) => handleChange('name', text)}
-            left={<TextInput.Icon icon="account" />}
-            onSubmitEditing={() => emailInputRef.current.focus()}
-          />
-          <HelperText type="error" visible={!!error.name}>
-            {error.name}
-          </HelperText>
-          <TextInput
-            ref={phoneNumberInputRef}
-            label="Phone Number"
-            value={formData.phoneNumber}
-            onChangeText={(text) => handleChange('phoneNumber', text)}
-            onSubmitEditing={() => addressInputRef.current.focus()}
-            left={<TextInput.Icon icon="phone" />}
-          />
-          <HelperText type="error" visible={!!error.phoneNumber}>
-            {error.phoneNumber}
-          </HelperText>
-          <TextInput
-            ref={emailInputRef}
-            label="Email"
-            value={formData.email}
-            onChangeText={(text) => handleChange('email', text)}
-            onSubmitEditing={() => phoneNumberInputRef.current.focus()}
-            left={<TextInput.Icon icon="email" />}
-          />
-          <HelperText type="error" visible={!!error.email}>
-            {error.email}
-          </HelperText>
-          <TextInput
-            ref={addressInputRef}
-            label="Address"
-            value={formData.address}
-            onChangeText={(text) => handleChange('address', text)}
-            onSubmitEditing={() => tagsInputRef.current.focus()}
-            left={<TextInput.Icon icon="home" />}
-          />
-          <HelperText type="error" visible={!!error.address}>
-            {error.address}
-          </HelperText>
+        <Card>
+          <Card.Content>
+            <View>
+              <TextInput
+                label="Guest Full Name"
+                value={formData.name}
+                onChangeText={(text) => handleChange('name', text)}
+                left={<TextInput.Icon icon="account" />}
+                onSubmitEditing={() => emailInputRef.current.focus()}
+              />
+              <HelperText type="error" visible={!!error.name}>
+                {error.name}
+              </HelperText>
+              <TextInput
+                ref={phoneNumberInputRef}
+                label="Phone Number"
+                value={formData.phoneNumber}
+                onChangeText={(text) => handleChange('phoneNumber', text)}
+                onSubmitEditing={() => addressInputRef.current.focus()}
+                left={<TextInput.Icon icon="phone" />}
+              />
+              <HelperText type="error" visible={!!error.phoneNumber}>
+                {error.phoneNumber}
+              </HelperText>
+              <TextInput
+                ref={emailInputRef}
+                label="Email"
+                value={formData.email}
+                onChangeText={(text) => handleChange('email', text)}
+                onSubmitEditing={() => phoneNumberInputRef.current.focus()}
+                left={<TextInput.Icon icon="email" />}
+              />
+              <HelperText type="error" visible={!!error.email}>
+                {error.email}
+              </HelperText>
+              <TextInput
+                ref={addressInputRef}
+                label="Address"
+                value={formData.address}
+                onChangeText={(text) => handleChange('address', text)}
+                onSubmitEditing={() => tagsInputRef.current.focus()}
+                left={<TextInput.Icon icon="home" />}
+              />
+              <HelperText type="error" visible={!!error.address}>
+                {error.address}
+              </HelperText>
 
-          <TextInput
-            ref={tagsInputRef}
-            label="Tags"
-            value={formData.tags}
-            onChangeText={(text) => handleChange('tags', text)}
-            onSubmitEditing={handleAddGuests}
-            left={<TextInput.Icon icon="tag" />}
-          />
-          <HelperText type="error" visible={!!error.tags}>
-            {error.tags}
-          </HelperText>
-        </View>
-        <View style={styles.justify}>
-          <Button icon="delete" mode="contained" onPress={handleClearForm} style={styles.mr10}>
-            <Text style={{ color: theme.colors.onPrimary }}>Clear</Text>
-          </Button>
-          <Button icon="content-save" mode="contained" onPress={handleAddGuests}>
-            <Text style={{ color: theme.colors.onPrimary }}>Save Guests</Text>
-          </Button>
-        </View>
-        <Button
-          icon="account-sync"
-          mode="contained-tonal"
-          textColor={theme.colors.primary}
-          onPress={() => setModalVisible(!modalVisible)}
-          style={styles.mainContainer}
-        >
-          <Text style={{ color: theme.colors.primary }}>Sync Guests From Contact</Text>
-        </Button>
+              <TextInput
+                ref={tagsInputRef}
+                label="Tags"
+                value={formData.tags}
+                onChangeText={(text) => handleChange('tags', text)}
+                onSubmitEditing={handleAddGuests}
+                left={<TextInput.Icon icon="tag" />}
+              />
+              <HelperText type="error" visible={!!error.tags}>
+                {error.tags}
+              </HelperText>
+            </View>
+            <View style={styles.justify}>
+              <Button icon="delete" mode="contained" onPress={handleClearForm} style={styles.mr10}>
+                <Text style={{ color: theme.colors.onPrimary }}>Clear</Text>
+              </Button>
+              <Button icon="content-save" mode="contained" onPress={handleAddGuests}>
+                <Text style={{ color: theme.colors.onPrimary }}>Save Guests</Text>
+              </Button>
+            </View>
+            <Button
+              icon="account-sync"
+              mode="contained-tonal"
+              textColor={theme.colors.primary}
+              onPress={() => setModalVisible(!modalVisible)}
+              style={styles.mainContainer}
+            >
+              <Text style={{ color: theme.colors.primary }}>Sync Guests From Contact</Text>
+            </Button>
+          </Card.Content>
+        </Card>
       </View>
       <Modal visible={modalVisible} onDismiss={() => setModalVisible(false)} style={styles.model}>
         <View style={styles.modalBackground}>
