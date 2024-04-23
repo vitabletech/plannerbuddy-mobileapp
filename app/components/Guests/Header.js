@@ -1,48 +1,57 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import { TouchableOpacity } from 'react-native-gesture-handler';
-import { View, Image, TextInput } from 'react-native';
-import commonStyles from '../../styles/common.style';
-import search from '../../assets/icons/search.png';
-import edit from '../../assets/icons/edit.png';
+import { Appbar, Searchbar } from 'react-native-paper';
+import getStyles from './styles';
 
-const Header = ({ onEdit, onSearch, isSelected }) => {
-  const [isEditVisible, setIsEditVisible] = useState(true);
-  const style = commonStyles();
-  console.log('isSelected ::', isSelected);
-  console.log('onSearch ::', onSearch);
+const Header = ({ onSearch, onEdit, isSelected, setSelectedContacts }) => {
+  const styles = getStyles();
+  const [isSearchVisible, setIsSearchVisible] = useState(false);
+  const [isEditVisible, setIsEditVisible] = useState(false);
+  const [searchQuery, setSearchQuery] = useState('');
 
+  const handleSearchChange = (query) => {
+    setSearchQuery(query);
+    onSearch(query);
+  };
   const handleEditPress = () => {
     setIsEditVisible(!isEditVisible);
+    setSelectedContacts([]);
     onEdit();
+  };
+  const onSave = () => {
+    console.log('Save');
   };
 
   return (
-    <View style={style.searchContainer}>
-      <View style={style.searchWrapper}>
-        <TextInput
-          style={style.searchInput}
-          placeholder="What are you looking for?"
-          placeholderTextColor="grey"
+    <>
+      <Appbar.Header style={styles.header}>
+        <Appbar.Content title={`${isSelected} Selected`} />
+        <Appbar.Action icon="magnify" onPress={() => setIsSearchVisible(!isSearchVisible)} />
+        {isEditVisible ? (
+          <Appbar.Action icon="close" onPress={handleEditPress} />
+        ) : (
+          <Appbar.Action icon="pencil" onPress={handleEditPress} />
+        )}
+        {isEditVisible && isSelected && (
+          <Appbar.Action icon="content-save" onPress={() => onSave()} />
+        )}
+      </Appbar.Header>
+      {isSearchVisible && (
+        <Searchbar
+          placeholder="Search"
+          onChangeText={handleSearchChange}
+          value={searchQuery}
+          style={styles.searchBar}
         />
-      </View>
-
-      {isEditVisible ? (
-        <TouchableOpacity style={style.button} onPress={handleEditPress}>
-          <Image source={search} resizeMode="contain" style={style.buttonImage} />
-        </TouchableOpacity>
-      ) : (
-        <TouchableOpacity style={style.button} onPress={handleEditPress}>
-          <Image source={edit} resizeMode="contain" style={style.buttonImage} />
-        </TouchableOpacity>
       )}
-    </View>
+    </>
   );
 };
 Header.propTypes = {
   onEdit: PropTypes.func.isRequired,
   onSearch: PropTypes.func.isRequired,
   isSelected: PropTypes.number.isRequired,
+  setSelectedContacts: PropTypes.func.isRequired,
 };
 
 export default Header;

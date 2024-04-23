@@ -1,7 +1,7 @@
 import React from 'react';
 import { List } from 'react-native-paper';
 import PropTypes from 'prop-types';
-import RenderAvatar from '../RenderAvatar';
+import RenderAvatar from '../RenderAvatar/RenderAvatar';
 
 const UserDataList = React.memo(({ userData }) => (
   <List.Item

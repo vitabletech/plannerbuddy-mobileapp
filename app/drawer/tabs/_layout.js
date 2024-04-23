@@ -8,9 +8,7 @@ import { DEFAULT_BOTTOM_TAB_ICON_SIZE } from '../../constants/constants';
 const TabLayout = () => {
   const theme = useTheme();
   const navigation = useNavigation();
-  const DrawerToggle = () => {
-    navigation.dispatch(DrawerActions.openDrawer());
-  };
+  const DrawerToggle = () => navigation.dispatch(DrawerActions.openDrawer());
   // Define the tab screens data
   const tabScreens = [
     {

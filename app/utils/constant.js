@@ -5,6 +5,7 @@ import {
   MaterialIcons,
   Zocial,
   AntDesign,
+  MaterialCommunityIcons,
 } from '@expo/vector-icons';
 
 export const iconLibraries = {
@@ -14,4 +15,5 @@ export const iconLibraries = {
   MaterialIcons,
   Zocial,
   AntDesign,
+  MaterialCommunityIcons,
 };

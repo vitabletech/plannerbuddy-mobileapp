@@ -1,5 +1,5 @@
 import React from 'react';
-import RenderAvatar from '../RenderAvatar';
+import RenderAvatar from '../RenderAvatar/RenderAvatar';
 
 export const dashboardDataCount = [
   { title: 'Event', icon: 'calendar' },
