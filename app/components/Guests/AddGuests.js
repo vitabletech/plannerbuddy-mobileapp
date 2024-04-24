@@ -23,7 +23,6 @@ const AddGuests = () => {
     }));
   };
 
-  const [modalVisible, setModalVisible] = useState(false);
   const [error, setError] = useState(false);
 
   // Create refs for the inputs
@@ -142,15 +141,6 @@ const AddGuests = () => {
               <Text style={{ color: theme.colors.onPrimary }}>Save Guests</Text>
             </Button>
           </View>
-          <Button
-            icon="account-sync"
-            mode="contained-tonal"
-            textColor={theme.colors.primary}
-            onPress={() => setModalVisible(!modalVisible)}
-            style={styles.mainContainer}
-          >
-            <Text style={{ color: theme.colors.primary }}>Sync Guests From Contact</Text>
-          </Button>
         </Card.Content>
       </Card>
     </View>

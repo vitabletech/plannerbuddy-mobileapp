@@ -2,11 +2,11 @@ import React from 'react';
 import Carousel from 'react-native-reanimated-carousel';
 import { View, Dimensions } from 'react-native';
 import { Card, Text, Avatar, Button } from 'react-native-paper';
-import { RecentEventsCards } from './utils';
+import { UpcomingEventsCards } from './utils';
 import getStyles from './style';
 import commonStyles from '../../styles/common.style';
 
-const RecentEvents = () => {
+const UpcomingEvents = () => {
   const styles = commonStyles();
   const classes = getStyles();
   const sliderWidth = Dimensions.get('window').width;
@@ -39,24 +39,24 @@ const RecentEvents = () => {
   return (
     <>
       <View style={classes.recentEventsContainer}>
-        <Text style={classes.recentEventsHeadingText}>Recent Events</Text>
+        <Text style={classes.recentEventsHeadingText}>Upcoming Events</Text>
         {/* eslint-disable-next-line react-native/no-raw-text */}
-        <Button onPress={() => {}}>{RecentEventsCards.length ? 'View All' : 'Add Events'}</Button>
+        <Button onPress={() => {}}>{UpcomingEventsCards.length ? 'View All' : 'Add Events'}</Button>
       </View>
-      {RecentEventsCards.length ? (
+      {UpcomingEventsCards.length ? (
         <Carousel
           width={sliderWidth}
           height={height}
-          data={RecentEventsCards}
+          data={UpcomingEventsCards}
           scrollAnimationDuration={1000}
           renderItem={renderItem}
           mode="parallax"
         />
       ) : (
-        <Text style={styles.title}>No Recent Events Found</Text>
+        <Text style={styles.title}>No Upcoming Events Found</Text>
       )}
     </>
   );
 };
 
-export default RecentEvents;
+export default UpcomingEvents;

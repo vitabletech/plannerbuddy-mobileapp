@@ -26,7 +26,7 @@ const GuestComponent = () => {
               </Text>
               <Text
                 // eslint-disable-next-line react-native/no-inline-styles
-                style={[styles.guestLabel, classes.position_relative, { top: 10 }]}
+                style={[styles.guestLabel, classes.position_relative, { top: 10, zIndex: 1 }]}
                 variant="titleSmall"
               >
                 Guest
