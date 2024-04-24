@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { Appbar, Searchbar } from 'react-native-paper';
 import getStyles from './styles';
 
-const Header = ({ onSearch, onEdit, isSelected, setSelectedContacts }) => {
+const Header = ({ onSearch, isSelected, setSelectedContacts }) => {
   const styles = getStyles();
   const [isSearchVisible, setIsSearchVisible] = useState(false);
   const [isEditVisible, setIsEditVisible] = useState(false);
@@ -16,7 +16,6 @@ const Header = ({ onSearch, onEdit, isSelected, setSelectedContacts }) => {
   const handleEditPress = () => {
     setIsEditVisible(!isEditVisible);
     setSelectedContacts([]);
-    onEdit();
   };
   const onSave = () => {
     console.log('Save');
@@ -30,10 +29,8 @@ const Header = ({ onSearch, onEdit, isSelected, setSelectedContacts }) => {
           icon={isSearchVisible ? 'magnify-close' : 'magnify'}
           onPress={() => setIsSearchVisible(!isSearchVisible)}
         />
-        <Appbar.Action icon={isEditVisible ? 'close' : 'pencil'} onPress={handleEditPress} />
-        {isEditVisible && isSelected && (
-          <Appbar.Action icon="content-save" onPress={() => onSave()} />
-        )}
+        {isSelected && <Appbar.Action icon="content-save" onPress={() => onSave()} />}
+        {isSelected && <Appbar.Action icon="close" onPress={handleEditPress} />}
       </Appbar.Header>
       {isSearchVisible && (
         <Searchbar
@@ -47,7 +44,6 @@ const Header = ({ onSearch, onEdit, isSelected, setSelectedContacts }) => {
   );
 };
 Header.propTypes = {
-  onEdit: PropTypes.func.isRequired,
   onSearch: PropTypes.func.isRequired,
   isSelected: PropTypes.number.isRequired,
   setSelectedContacts: PropTypes.func.isRequired,

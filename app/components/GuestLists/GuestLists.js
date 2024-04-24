@@ -51,6 +51,10 @@ const GuestLists = () => {
           onEndReached={handleLoadMore}
           onEndReachedThreshold={0.1}
           ListFooterComponent={() => loading && Loader()}
+          initialNumToRender={10}
+          maxToRenderPerBatch={10}
+          windowSize={5}
+          removeClippedSubviews
         />
       )}
     </View>
