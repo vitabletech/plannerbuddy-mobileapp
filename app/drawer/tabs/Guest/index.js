@@ -1,5 +1,5 @@
 import React from 'react';
-import AddGuests from '../../components/Guests/AddGuests';
+import AddGuests from '../../../components/Guests/AddGuests';
 
 const Guests = () => <AddGuests />;
 

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { View, FlatList, Button, Linking, Platform } from 'react-native';
-import { Text } from 'react-native-paper';
+import { Card, Text } from 'react-native-paper';
 import * as Contacts from 'expo-contacts';
 import Contact from './ContactList';
 import commonStyles from '../../styles/common.style';
@@ -91,11 +91,7 @@ const FetchContactDetails = () => {
     );
   }
 
-  const noContactsFound = () => (
-    <View style={styles.flex1}>
-      <Text style={styles.title}>No contacts found.</Text>
-    </View>
-  );
+  const noContactsFound = () => <Text style={styles.title}>No contacts found.</Text>;
 
   const onEdit = () => {
     setIsEdit(!isEdit);
@@ -109,12 +105,16 @@ const FetchContactDetails = () => {
         isSelected={selectedContacts.length}
         setSelectedContacts={setSelectedContacts}
       />
-      <FlatList
-        data={filteredContactList}
-        keyExtractor={(item) => item?.id?.toString()}
-        ListEmptyComponent={noContactsFound}
-        renderItem={renderContactItem}
-      />
+      <Card>
+        <Card.Content>
+          <FlatList
+            data={filteredContactList}
+            keyExtractor={(item) => item?.id?.toString()}
+            ListEmptyComponent={noContactsFound}
+            renderItem={renderContactItem}
+          />
+        </Card.Content>
+      </Card>
     </View>
   );
 };

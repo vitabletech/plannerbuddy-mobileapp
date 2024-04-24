@@ -18,7 +18,6 @@ const commonStyles = () => {
       width: '50%',
     },
     flex1: {
-      backgroundColor: theme.colors.background,
       flex: 1,
       justifyContent: 'center',
     },

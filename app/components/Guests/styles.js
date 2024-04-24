@@ -19,7 +19,7 @@ const getStyles = () => {
     },
     modalBackground: {
       backgroundColor: theme.colors.background,
-      height: screenHeight * 0.5,
+      height: screenHeight * 0.8,
     },
     model: {
       justifyContent: 'flex-end',

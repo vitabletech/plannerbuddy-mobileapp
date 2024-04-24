@@ -25,7 +25,7 @@ const TabLayout = () => {
         IconComponent('MaterialIcons', 'event', DEFAULT_BOTTOM_TAB_ICON_SIZE, color),
     },
     {
-      name: 'Guests',
+      name: 'Guest',
       title: 'Add Guests',
       icon: ({ color }) => IconComponent('Zocial', 'guest', DEFAULT_BOTTOM_TAB_ICON_SIZE, color),
     },

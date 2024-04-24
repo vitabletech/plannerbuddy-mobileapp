@@ -26,12 +26,11 @@ const Header = ({ onSearch, onEdit, isSelected, setSelectedContacts }) => {
     <>
       <Appbar.Header style={styles.header}>
         <Appbar.Content title={`${isSelected} Selected`} />
-        <Appbar.Action icon="magnify" onPress={() => setIsSearchVisible(!isSearchVisible)} />
-        {isEditVisible ? (
-          <Appbar.Action icon="close" onPress={handleEditPress} />
-        ) : (
-          <Appbar.Action icon="pencil" onPress={handleEditPress} />
-        )}
+        <Appbar.Action
+          icon={isSearchVisible ? 'magnify-close' : 'magnify'}
+          onPress={() => setIsSearchVisible(!isSearchVisible)}
+        />
+        <Appbar.Action icon={isEditVisible ? 'close' : 'pencil'} onPress={handleEditPress} />
         {isEditVisible && isSelected && (
           <Appbar.Action icon="content-save" onPress={() => onSave()} />
         )}
