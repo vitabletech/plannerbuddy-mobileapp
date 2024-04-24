@@ -4,6 +4,9 @@ import { useTheme } from 'react-native-paper';
 const commonStyles = () => {
   const theme = useTheme();
   return StyleSheet.create({
+    alignItems_center: {
+      alignItems: 'center',
+    },
     button: {
       alignItems: 'center',
       backgroundColor: theme.colors.backdrop,
@@ -19,15 +22,44 @@ const commonStyles = () => {
     },
     flex1: {
       flex: 1,
-      justifyContent: 'center',
+    },
+    flexEnd: {
+      alignItems: 'flex-end',
+    },
+    flexRow: {
+      flexDirection: 'row',
     },
     inputField: {
       marginVertical: 10,
+    },
+    jstCenter: {
+      justifyContent: 'center',
     },
     logo: {
       marginLeft: 70,
       marginVertical: 60,
       resizeMode: 'contain',
+    },
+    mb10: {
+      marginBottom: 10,
+    },
+    mr10: {
+      marginRight: 10,
+    },
+    position_absolute: {
+      position: 'absolute',
+    },
+    position_fixed: {
+      position: 'fixed',
+    },
+    position_relative: {
+      position: 'relative',
+    },
+    position_static: {
+      position: 'static',
+    },
+    position_sticky: {
+      position: 'sticky',
     },
     profileContainer: {
       flex: 1,
@@ -56,6 +88,10 @@ const commonStyles = () => {
       justifyContent: 'center',
       marginRight: 12,
     },
+    textDecorationLine: {
+      textDecorationLine: 'underline',
+    },
+    textWhite: { color: theme.colors.background },
     title: {
       alignSelf: 'center',
       textAlign: 'center',

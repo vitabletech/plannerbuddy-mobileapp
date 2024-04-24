@@ -17,7 +17,14 @@ const getStyles = () => {
     content: {
       backgroundColor: theme.colors.primaryContainer,
     },
-    dashboard: { padding: 20 },
+    dashboard: {
+      marginBottom: '-6%',
+      padding: 20,
+    },
+    event_title: {
+      fontSize: 20,
+      fontWeight: 'bold',
+    },
     flexBasis25: {
       flex: 1,
       flexBasis: '25%',
@@ -26,6 +33,11 @@ const getStyles = () => {
       flexDirection: 'row',
       flexWrap: 'wrap',
     },
+    guestContainer: {
+      marginTop: '-20%',
+      padding: 20,
+    },
+    guestLabel: { color: theme.colors.background, marginLeft: 10 },
     name: {
       color: theme.colors.onPrimaryContainer,
     },
@@ -33,13 +45,21 @@ const getStyles = () => {
       alignItems: 'center',
       justifyContent: 'center',
     },
+    recentEventsContainer: {
+      alignItems: 'center',
+      flexDirection: 'row',
+      justifyContent: 'space-between',
+      marginBottom: 10,
+      paddingLeft: 20,
+      paddingRight: 20,
+    },
+    recentEventsHeadingText: {
+      fontSize: 24,
+      fontWeight: 'bold',
+    },
     rightStyle: {
       right: 40,
       top: 70,
-    },
-
-    scrollView: {
-      marginHorizontal: 20,
     },
     surfaceContainer: {
       backgroundColor: theme.colors.onPrimary,
@@ -53,11 +73,16 @@ const getStyles = () => {
       fontWeight: 'bold',
       top: 70,
     },
+    totalGuest: {
+      borderRadius: 20,
+      padding: '5%',
+    },
     welcomeContainer: {
       backgroundColor: theme.colors.primary,
       borderBottomLeftRadius: 20,
       borderBottomRightRadius: 20,
       height: Height * 0.2,
+      marginBottom: '-3%',
       width: '100%',
     },
   });

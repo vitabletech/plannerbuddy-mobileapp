@@ -25,9 +25,6 @@ const getStyles = () => {
       justifyContent: 'flex-end',
       margin: 0,
     },
-    mr10: {
-      marginRight: 10,
-    },
     outlineButton: {
       alignItems: 'center',
       backgroundColor: theme.colors.primary,
