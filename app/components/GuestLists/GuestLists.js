@@ -40,7 +40,7 @@ const GuestLists = () => {
   const renderItem = ({ item }) => <UserDataList userData={item} />;
 
   return (
-    <View style={stylesflex1}>
+    <View style={styles.flex1}>
       {users.length !== 0 && (
         <FlatList
           data={users}
