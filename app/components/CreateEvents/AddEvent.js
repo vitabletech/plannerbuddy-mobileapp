@@ -1,10 +1,11 @@
 import React, { useState, useCallback } from 'react';
+import PropTypes from 'prop-types';
 import { View } from 'react-native';
 import { Dialog, Portal, Text, Button, TextInput } from 'react-native-paper';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { DatePickerModal } from 'react-native-paper-dates';
 
-export default function AddEventModal({ visible, setShowModal }) {
+const AddEventModal = ({ visible, setShowModal }) => {
   const [date, setDate] = useState(undefined);
   console.log(date);
   const [open, setOpen] = useState(false);
@@ -25,7 +26,7 @@ export default function AddEventModal({ visible, setShowModal }) {
   return (
     <Portal>
       <Dialog visible={visible} onDismiss={hideDialog}>
-        <KeyboardAwareScrollView scrollEnabled={true} viewIsInsideTabBar>
+        <KeyboardAwareScrollView scrollEnabled viewIsInsideTabBar>
           <Dialog.Title>Create new Event</Dialog.Title>
 
           <Dialog.Content>
@@ -55,4 +56,10 @@ export default function AddEventModal({ visible, setShowModal }) {
       </Dialog>
     </Portal>
   );
-}
+};
+
+AddEventModal.propTypes = {
+  visible: PropTypes.bool.isRequired,
+  setShowModal: PropTypes.func.isRequired,
+};
+export default AddEventModal;

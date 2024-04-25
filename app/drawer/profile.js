@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
-import { View, KeyboardAvoidingView } from 'react-native';
 import { Text, TextInput, Avatar, Card, IconButton } from 'react-native-paper';
-import commonStyles from '../styles/common.style';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
+import commonStyles from '../styles/common.style';
 
 let person = {
   name: 'Pankaj Saini',
@@ -41,7 +40,7 @@ const profile = () => {
     <KeyboardAwareScrollView
       style={classes.profileContainer}
       resetScrollToCoords={{ x: 0, y: 0 }}
-      scrollEnabled={true}
+      scrollEnabled
     >
       <Card style={classes.profileCard}>
         <Card.Content>

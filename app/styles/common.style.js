@@ -65,13 +65,13 @@ const commonStyles = () => {
     position_sticky: {
       position: 'sticky',
     },
+    profileCard: {
+      marginVertical: 10,
+    },
     profileContainer: {
       flex: 1,
       gap: 10,
       margin: 10,
-    },
-    profileCard: {
-      marginVertical: 10,
     },
     searchContainer: {
       alignItems: 'center',

@@ -1,14 +1,14 @@
 import React, { useState } from 'react';
 import { View } from 'react-native';
-import { Avatar, Text, Card, IconButton, Button } from 'react-native-paper';
+import { Avatar, Card, IconButton, Button } from 'react-native-paper';
 import AddEventModal from '../../components/CreateEvents/AddEvent';
 
 const Events = () => {
   const [showModal, setShowModal] = useState(false);
 
-  function handleAddEvent() {
+  const handleAddEvent = () => {
     setShowModal((state) => !state);
-  }
+  };
 
   return (
     <>
