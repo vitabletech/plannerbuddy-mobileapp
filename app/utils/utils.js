@@ -1,7 +1,7 @@
 import React from 'react';
-import { TouchableOpacity, View } from 'react-native';
+import { TouchableOpacity, View, Share } from 'react-native';
 import { ActivityIndicator } from 'react-native-paper';
-import { iconLibraries } from './constant';
+import { iconLibraries, ON_SHARE_APP_MESSAGE } from './constant';
 
 export const IconComponent = (lib, iconName, size, color) => {
   const Component = iconLibraries[lib];
@@ -19,8 +19,11 @@ export const HeaderLeft = (action, lib, icon, size, color) => (
 );
 export const Loader = () => <ActivityIndicator />;
 export const ItemSeparatorComponent = (styles) => <View style={styles} />;
-export const getLabel = (name) =>
-  name
-    .split(' ')
-    .map((part) => part.charAt(0).toUpperCase())
-    .join('');
+
+export const onShare = async () => {
+  try {
+    await Share.share({ message: ON_SHARE_APP_MESSAGE });
+  } catch (error) {
+    alert(error.message);
+  }
+};

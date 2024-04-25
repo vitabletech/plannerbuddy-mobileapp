@@ -46,6 +46,10 @@ const commonStyles = () => {
     mr10: {
       marginRight: 10,
     },
+    negativeMarginBold: {
+      fontWeight: 'bold',
+      marginBottom: -10,
+    },
     position_absolute: {
       position: 'absolute',
     },

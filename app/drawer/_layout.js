@@ -4,30 +4,10 @@ import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { DrawerContentScrollView, DrawerItemList, DrawerItem } from '@react-navigation/drawer';
 import { useTheme } from 'react-native-paper';
 import { useAuth } from '../store/AuthContext';
-import { IconComponent } from '../utils/utils';
+import { IconComponent, onShare } from '../utils/utils';
 import commonStyles from '../styles/common.style';
-
-const screens = [
-  {
-    name: 'tabs',
-    drawerLabel: 'Home',
-    headerTitle: 'Home',
-    icon: { lib: 'Ionicons', name: 'home' },
-    headerShown: false,
-  },
-  {
-    name: 'profile',
-    drawerLabel: 'Profile',
-    headerTitle: 'Profile',
-    icon: { lib: 'Ionicons', name: 'person-outline' },
-  },
-  {
-    name: 'ViewGuests',
-    drawerLabel: 'Guest Lists',
-    headerTitle: 'Guest Lists',
-    icon: { lib: 'Ionicons', name: 'person-outline' },
-  },
-];
+import { DEFAULT_DRAWER_ICON_SIZE } from '../constants/constants';
+import { DRAWER_SCREEN } from '../utils/constant';
 
 const CustomDrawerContent = (props) => {
   const { onLogout } = useAuth();
@@ -35,8 +15,15 @@ const CustomDrawerContent = (props) => {
     <DrawerContentScrollView {...props}>
       <DrawerItemList {...props} />
       <DrawerItem
+        label="Share This App"
+        icon={() => IconComponent('Entypo', 'share', DEFAULT_DRAWER_ICON_SIZE)}
+        onPress={onShare}
+        // eslint-disable-next-line react-native/no-inline-styles
+        labelStyle={{ marginLeft: -16, fontWeight: '900' }}
+      />
+      <DrawerItem
         label="Logout"
-        icon={() => IconComponent('Ionicons', 'log-out-outline', 28)}
+        icon={() => IconComponent('Ionicons', 'log-out-outline', DEFAULT_DRAWER_ICON_SIZE)}
         onPress={() => onLogout()}
         // eslint-disable-next-line react-native/no-inline-styles
         labelStyle={{ marginLeft: -16, fontWeight: '900' }}
@@ -67,7 +54,7 @@ const DrawerLayout = () => {
           },
         }}
       >
-        {screens.map((screen) => {
+        {DRAWER_SCREEN.map((screen) => {
           return (
             <Drawer.Screen
               key={screen.name}

@@ -12,7 +12,7 @@ const FetchContactDetails = () => {
   const { contactList, isLoading, fetchContacts } = useContacts();
   const [filteredContactList, setFilteredContactList] = useState(contactList);
   const [selectedContacts, setSelectedContacts] = useState([]);
-  const [permissionDenied, setPermissionDenied] = useState(false);
+  const [permissionDenied, setPermissionDenied] = useState(true);
 
   useEffect(() => {
     setFilteredContactList(contactList);
@@ -33,7 +33,6 @@ const FetchContactDetails = () => {
   if (isLoading) {
     return <ActivityIndicator style={styles.flex1} />;
   }
-
   if (permissionDenied) {
     return PermissionDenied(
       requestPermission(fetchContacts, setPermissionDenied),

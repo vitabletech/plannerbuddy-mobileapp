@@ -43,9 +43,9 @@ const TabLayout = () => {
         headerStyle: {
           backgroundColor: theme.colors.primary,
         },
-        headerTintColor: theme.colors.onPrimaryContainer,
+        headerTintColor: theme.colors.background,
         headerLeft: () =>
-          HeaderLeft(DrawerToggle, 'FontAwesome5', 'bars', 20, theme.colors.onPrimaryContainer),
+          HeaderLeft(DrawerToggle, 'FontAwesome5', 'bars', 20, theme.colors.background),
         tabBarActiveTintColor: theme.colors.primary,
         tabBarInactiveTintColor: theme.colors.shadow,
         tabBarLabelStyle: {
