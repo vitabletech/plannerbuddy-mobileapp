@@ -26,7 +26,7 @@ const CustomDrawerContent = (props) => {
     <>
       <DrawerContentScrollView {...props}>
         <View style={styles.drawerHeader}>
-          <Image source={bigLogo} resizeMode="contain" style={{ width: '100%' }} />
+          <Image source={bigLogo} resizeMode="contain" style={styles.w100} />
         </View>
         <Divider />
         <DrawerItemList {...props} />

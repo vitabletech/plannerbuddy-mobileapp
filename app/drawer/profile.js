@@ -61,6 +61,7 @@ const profile = () => {
         />
         <Card.Content>
           <TextInput
+            mode="outlined"
             disabled={enableEdit}
             label="Name"
             defaultValue={name}
@@ -68,6 +69,7 @@ const profile = () => {
             style={classes.inputField}
           />
           <TextInput
+            mode="outlined"
             disabled={enableEdit}
             label="Email"
             defaultValue={email}
@@ -75,6 +77,7 @@ const profile = () => {
             style={classes.inputField}
           />
           <TextInput
+            mode="outlined"
             disabled={enableEdit}
             label="Contact"
             defaultValue={contact}
@@ -82,6 +85,7 @@ const profile = () => {
             style={classes.inputField}
           />
           <TextInput
+            mode="outlined"
             disabled={enableEdit}
             label="Address"
             defaultValue={address}

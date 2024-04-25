@@ -70,6 +70,7 @@ const Signup = () => {
       </Text>
       <View>
         <TextInput
+          mode="outlined"
           label="Full Name"
           value={name}
           onChangeText={setName}
@@ -82,6 +83,7 @@ const Signup = () => {
       </View>
       <View>
         <TextInput
+          mode="outlined"
           ref={emailInputRef}
           label="Email"
           value={email}
@@ -96,6 +98,7 @@ const Signup = () => {
 
       <View>
         <TextInput
+          mode="outlined"
           ref={passwordInputRef}
           label="Enter Password"
           value={password}
@@ -115,6 +118,7 @@ const Signup = () => {
       </View>
       <View>
         <TextInput
+          mode="outlined"
           ref={confirmPasswordInputRef}
           label="Confirm Password"
           value={confirmPassword}

@@ -51,6 +51,7 @@ const Login = () => {
       <View>
         <View>
           <TextInput
+            mode="outlined"
             autoCapitalize="none"
             label="Enter Your Email"
             value={username}
@@ -64,6 +65,7 @@ const Login = () => {
         </View>
         <View>
           <TextInput
+            mode="outlined"
             label="Enter Password"
             ref={passwordInputRef}
             value={password}

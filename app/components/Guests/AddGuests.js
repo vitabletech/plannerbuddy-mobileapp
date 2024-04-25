@@ -77,6 +77,7 @@ const AddGuests = () => {
         <Card.Content>
           <View>
             <TextInput
+              mode="outlined"
               label="Guest Full Name"
               value={formData.name}
               onChangeText={(text) => handleChange('name', text)}
@@ -87,6 +88,7 @@ const AddGuests = () => {
               {error.name}
             </HelperText>
             <TextInput
+              mode="outlined"
               ref={phoneNumberInputRef}
               label="Phone Number"
               value={formData.phoneNumber}
@@ -98,6 +100,7 @@ const AddGuests = () => {
               {error.phoneNumber}
             </HelperText>
             <TextInput
+              mode="outlined"
               ref={emailInputRef}
               label="Email"
               value={formData.email}
@@ -109,6 +112,7 @@ const AddGuests = () => {
               {error.email}
             </HelperText>
             <TextInput
+              mode="outlined"
               ref={addressInputRef}
               label="Address"
               value={formData.address}
@@ -121,6 +125,7 @@ const AddGuests = () => {
             </HelperText>
 
             <TextInput
+              mode="outlined"
               ref={tagsInputRef}
               label="Tags"
               value={formData.tags}

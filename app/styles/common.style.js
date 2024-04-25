@@ -100,6 +100,9 @@ const commonStyles = () => {
       alignSelf: 'center',
       textAlign: 'center',
     },
+    w100: {
+      width: '100%',
+    },
   });
 };
 export default commonStyles;
