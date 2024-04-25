@@ -7,7 +7,7 @@ import commonStyles from '../../styles/common.style';
 
 const DashboardCarousel = () => {
   const styles = commonStyles();
-  const sliderWidth = Dimensions.get('window').width;
+  const sliderWidth = Dimensions.get('window').width + 10;
   const height = Dimensions.get('window').width * 0.5;
   const renderItem = ({ item }) => {
     return (
@@ -36,6 +36,7 @@ const DashboardCarousel = () => {
       scrollAnimationDuration={1000}
       renderItem={renderItem}
       mode="parallax"
+      style={styles.templateContainer}
     />
   );
 };

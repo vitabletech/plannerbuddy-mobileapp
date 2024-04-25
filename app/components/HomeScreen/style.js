@@ -18,8 +18,9 @@ const getStyles = () => {
       backgroundColor: theme.colors.primaryContainer,
     },
     dashboard: {
-      marginBottom: '-6%',
-      padding: 20,
+      padding: 10,
+      marginTop: 10,
+      marginBottom: '-3%',
     },
     event_title: {
       fontSize: 20,
@@ -32,6 +33,9 @@ const getStyles = () => {
     flexRow: {
       flexDirection: 'row',
       flexWrap: 'wrap',
+    },
+    templateContainer: {
+      marginTop: '-20%',
     },
     guestContainer: {
       marginTop: '-20%',
@@ -76,6 +80,7 @@ const getStyles = () => {
     totalGuest: {
       borderRadius: 20,
       padding: '5%',
+      marginHorizontal: -10,
     },
     welcomeContainer: {
       backgroundColor: theme.colors.primary,

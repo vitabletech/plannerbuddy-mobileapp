@@ -12,7 +12,7 @@ const DashboardItem = () => {
         <View style={styles.flexRow}>
           {dashboardDataCount.map((data) => (
             <View key={data.title} style={[styles.flexBasis25, styles.positionCenter]}>
-              <Avatar.Icon size={24} icon={data.icon} />
+              <Avatar.Icon size={30} icon={data.icon} />
               <Text style={styles.name}>{data.title}</Text>
             </View>
           ))}

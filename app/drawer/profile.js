@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
-import { View } from 'react-native';
+import { View, KeyboardAvoidingView } from 'react-native';
 import { Text, TextInput, Avatar, Card, IconButton } from 'react-native-paper';
 import commonStyles from '../styles/common.style';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 
 let person = {
   name: 'Pankaj Saini',
@@ -37,8 +38,12 @@ const profile = () => {
   };
 
   return (
-    <View style={classes.profileContainer}>
-      <Card>
+    <KeyboardAwareScrollView
+      style={classes.profileContainer}
+      resetScrollToCoords={{ x: 0, y: 0 }}
+      scrollEnabled={true}
+    >
+      <Card style={classes.profileCard}>
         <Card.Content>
           <Text variant="titleLarge">{name}</Text>
           <Text variant="bodyMedium">Contact : {contact}</Text>
@@ -94,7 +99,7 @@ const profile = () => {
           />
         </Card.Content>
       </Card>
-    </View>
+    </KeyboardAwareScrollView>
   );
 };
 

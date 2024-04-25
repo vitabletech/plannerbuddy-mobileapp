@@ -70,6 +70,9 @@ const commonStyles = () => {
       gap: 10,
       margin: 10,
     },
+    profileCard: {
+      marginVertical: 10,
+    },
     searchContainer: {
       alignItems: 'center',
       backgroundColor: theme.colors.primary,
