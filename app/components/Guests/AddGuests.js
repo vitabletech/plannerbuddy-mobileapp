@@ -6,8 +6,7 @@ import getStyles from './styles';
 
 const AddGuests = () => {
   const theme = useTheme();
-  const styles = getStyles();
-  const classes = commonStyles();
+  const styles = { ...getStyles(), ...commonStyles() };
   const [formData, setFormData] = useState({
     name: '',
     phoneNumber: '',
@@ -134,7 +133,7 @@ const AddGuests = () => {
             </HelperText>
           </View>
           <View style={styles.justify}>
-            <Button icon="delete" mode="contained" onPress={handleClearForm} style={classes.mr10}>
+            <Button icon="delete" mode="contained" onPress={handleClearForm} style={styles.mr10}>
               <Text style={{ color: theme.colors.onPrimary }}>Clear</Text>
             </Button>
             <Button icon="content-save" mode="contained" onPress={handleAddGuests}>

@@ -7,8 +7,7 @@ import commonStyles from '../../styles/common.style';
 import getStyles from './style';
 
 const GuestLists = () => {
-  const classes = commonStyles();
-  const styles = getStyles();
+  const styles = { ...getStyles(), ...commonStyles() };
   const [users, setUsers] = useState([]);
   const [loading, setLoading] = useState(false);
   const [page, setPage] = useState(0);
@@ -41,7 +40,7 @@ const GuestLists = () => {
   const renderItem = ({ item }) => <UserDataList userData={item} />;
 
   return (
-    <View style={classes.flex1}>
+    <View style={stylesflex1}>
       {users.length !== 0 && (
         <FlatList
           data={users}
