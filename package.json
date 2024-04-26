@@ -5,6 +5,7 @@
   "engines": {
     "node": ">=20.0.0"
   },
+  "private": true,
   "scripts": {
     "start": "expo start -c",
     "tunnel": "expo start --tunnel",
