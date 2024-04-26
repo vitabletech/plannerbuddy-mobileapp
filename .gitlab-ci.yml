@@ -8,6 +8,6 @@
 stages:
 - Static Application Security Testing
 sast:
-  stage: test
+  stage: Static Application Security Testing
 include:
 - template: Security/SAST.gitlab-ci.yml
