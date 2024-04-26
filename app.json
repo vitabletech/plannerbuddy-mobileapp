@@ -1,10 +1,12 @@
 {
   "expo": {
-    "name": "AwesomeProject",
-    "slug": "test",
-    "scheme": "com.msrajawat298.test",
-    "version": "1.0.1",
+    "name": "PB",
+    "slug": "plannerbuddy",
+    "description": "Streamline Your Guest's and Event's Details With Planner Buddy",
+    "scheme": "com.vitabletech.plannerbuddy",
+    "version": "1.0.0",
     "orientation": "portrait",
+    "owner": "Vitabletech",
     "icon": "./app/assets/icon.png",
     "userInterfaceStyle": "automatic",
     "splash": {
@@ -17,7 +19,7 @@
     ],
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.msrajawat298.test"
+      "bundleIdentifier": "com.vitabletech.plannerbuddy"
     },
     "android": {
       "userInterfaceStyle": "automatic",
@@ -25,18 +27,12 @@
         "foregroundImage": "./app/assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
       },
-      "package": "com.msrajawat298.test",
-      "versionCode": 11
+      "package": "com.vitabletech.plannerbuddy",
+      "versionCode": 1
     },
     "web": {
       "favicon": "./app/assets/favicon.png"
     },
-    "extra": {
-      "eas": {
-        "projectId": "80decbf6-d694-4bfb-88e9-7fef074edf00"
-      }
-    },
-    "owner": "msrajawat298",
     "plugins": [
       "expo-secure-store",
       "expo-contacts"
