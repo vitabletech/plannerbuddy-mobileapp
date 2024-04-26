@@ -1,13 +1,12 @@
 import React from 'react';
 import { DrawerContentScrollView, DrawerItemList, DrawerItem } from '@react-navigation/drawer';
-import { View, Image } from 'react-native';
+import { View } from 'react-native';
 import { Divider, useTheme } from 'react-native-paper';
 import { useAuth } from '../../store/AuthContext';
 import { IconComponent, onShare } from '../../utils/utils';
 import { DEFAULT_DRAWER_ICON_SIZE } from '../../constants/constants';
 import getStyles from './styles';
 import commonStyles from '../../styles/common.style';
-import bigLogo from '../../assets/bigLogo.png';
 
 const CustomDrawerContent = (props) => {
   const { colors } = useTheme();
@@ -25,9 +24,6 @@ const CustomDrawerContent = (props) => {
   return (
     <>
       <DrawerContentScrollView {...props}>
-        <View style={styles.drawerHeader}>
-          <Image source={bigLogo} resizeMode="contain" style={styles.w100} />
-        </View>
         <Divider />
         <DrawerItemList {...props} />
       </DrawerContentScrollView>

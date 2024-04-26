@@ -20,6 +20,11 @@ const commonStyles = () => {
       tintColor: theme.colors.background,
       width: '50%',
     },
+    centerContent: {
+      alignItems: 'center',
+      flex: 1,
+      justifyContent: 'center',
+    },
     flex1: {
       flex: 1,
     },

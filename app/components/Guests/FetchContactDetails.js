@@ -5,17 +5,18 @@ import { useContacts } from '../../hooks/useContacts';
 import Contact from './ContactList';
 import commonStyles from '../../styles/common.style';
 import Header from './Header';
-import { noContactsFound, requestPermission, PermissionDenied, filterContacts } from './utils';
+import { noContactsFound, PermissionDenied, filterContacts } from './utils';
 
 const FetchContactDetails = () => {
   const styles = commonStyles();
-  const { contactList, isLoading, fetchContacts } = useContacts();
+  const { contactList, isLoading, fetchContacts, isAccess } = useContacts();
   const [filteredContactList, setFilteredContactList] = useState(contactList);
   const [selectedContacts, setSelectedContacts] = useState([]);
-  const [permissionDenied, setPermissionDenied] = useState(true);
+  const [permissionDenied, setPermissionDenied] = useState(false);
 
   useEffect(() => {
     setFilteredContactList(contactList);
+    setPermissionDenied(!isAccess);
   }, [contactList]);
 
   const handleSearch = (searchQuery) => {
@@ -34,11 +35,7 @@ const FetchContactDetails = () => {
     return <ActivityIndicator style={styles.flex1} />;
   }
   if (permissionDenied) {
-    return PermissionDenied(
-      requestPermission(fetchContacts, setPermissionDenied),
-      styles.flex1,
-      styles.title,
-    );
+    return PermissionDenied(fetchContacts, setPermissionDenied, styles.centerContent, styles.title);
   }
 
   return (

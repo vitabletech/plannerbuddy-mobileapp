@@ -4,6 +4,7 @@ import * as Contacts from 'expo-contacts';
 export const useContacts = () => {
   const [contactList, setContactList] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [isAccess, setIsAccess] = useState(false);
 
   const fetchContacts = async () => {
     try {
@@ -11,7 +12,7 @@ export const useContacts = () => {
       if (status === 'denied') {
         throw new Error('Permission denied');
       }
-
+      setIsAccess(true);
       const { data } = await Contacts.getContactsAsync({
         fields: [Contacts.Fields.PhoneNumbers],
       });
@@ -30,5 +31,5 @@ export const useContacts = () => {
     fetchContacts();
   }, []);
 
-  return { contactList, isLoading, fetchContacts };
+  return { contactList, isLoading, fetchContacts, isAccess };
 };

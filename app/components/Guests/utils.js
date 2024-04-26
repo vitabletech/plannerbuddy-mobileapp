@@ -18,11 +18,13 @@ export const requestPermission = async (fetchContacts, setPermissionDenied) => {
     setPermissionDenied(false);
   }
 };
-export const PermissionDenied = (askPermission, bodyClass, textColor) => {
+export const PermissionDenied = (fetchContacts, setPermissionDenied, bodyClass, textColor) => {
   return (
     <View style={bodyClass}>
       <Text style={textColor}>Permission denied. Please allow access to contacts.</Text>
-      <Button title="Request Permission" onPress={askPermission} />
+      <Button onPress={() => requestPermission(fetchContacts, setPermissionDenied)}>
+        Request Permission
+      </Button>
     </View>
   );
 };
