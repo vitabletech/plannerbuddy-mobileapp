@@ -1,26 +1,21 @@
-import React, { useState } from 'react';
-import { View } from 'react-native';
-import { Avatar, Card, IconButton, Button } from 'react-native-paper';
+import React from 'react';
+import { ScrollView, View } from 'react-native';
+import { Button } from 'react-native-paper';
 import AddEventModal from '../../components/CreateEvents/AddEvent';
+import getStyles from '../../components/CreateEvents/styles';
+import EventCard from '../../components/Event/Event';
+import { useEventContext } from '../../store/EventContext';
 
 const Events = () => {
-  const [showModal, setShowModal] = useState(false);
-
-  const handleAddEvent = () => {
-    setShowModal((state) => !state);
-  };
-
+  const styles = getStyles();
+  const { events, showModal, openDialog } = useEventContext();
   return (
     <>
-      {showModal && <AddEventModal visible={showModal} setShowModal={setShowModal} />}
-      <View>
-        <Card.Title
-          title="Card Title"
-          subtitle="Card Subtitle"
-          left={(props) => <Avatar.Icon {...props} icon="folder" />}
-          right={(props) => <IconButton {...props} icon="dots-vertical" onPress={() => {}} />}
-        />
-      </View>
+      {showModal && <AddEventModal />}
+      <ScrollView>
+        {events &&
+          events.map((event, idx) => <EventCard key={idx} styles={styles} event={event} />)}
+      </ScrollView>
       <View style={{ flexDirection: 'column', flex: 1 }}>
         <Button
           style={{
@@ -31,7 +26,7 @@ const Events = () => {
           }}
           icon="calendar-plus"
           mode="elevated"
-          onPress={handleAddEvent}
+          onPress={openDialog}
         >
           Create Event
         </Button>

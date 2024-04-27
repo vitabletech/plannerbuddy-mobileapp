@@ -1,15 +1,33 @@
-import React, { useState, useCallback } from 'react';
-import PropTypes from 'prop-types';
+import React, { useState, useCallback, useEffect } from 'react';
 import { View } from 'react-native';
-import { Dialog, Portal, Text, Button, TextInput } from 'react-native-paper';
+import { Dialog, Portal, Button, TextInput } from 'react-native-paper';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { DatePickerModal } from 'react-native-paper-dates';
+import getStyles from './styles';
+import { useEventContext } from '../../store/EventContext';
 
-const AddEventModal = ({ visible, setShowModal }) => {
-  const [date, setDate] = useState(undefined);
-  console.log(date);
+let EVENT = {
+  id: '',
+  name: '',
+  address: '',
+  date: '',
+};
+
+const AddEventModal = () => {
+  const styles = getStyles();
   const [open, setOpen] = useState(false);
-  const hideDialog = () => setShowModal((state) => !state);
+  const [date, setDate] = useState(undefined);
+  const [event, setEvent] = useState(EVENT);
+  const { events, mode, editIndex, addEvent, showModal, closeDialog, updateEvent } =
+    useEventContext();
+
+  useEffect(() => {
+    if (mode === 'edit') {
+      const selectedEvent = events.find((eve) => eve.id === editIndex);
+      setEvent(selectedEvent);
+      setDate(new Date(event.date));
+    }
+  }, [mode]);
 
   const onDismissSingle = useCallback(() => {
     setOpen(false);
@@ -23,18 +41,60 @@ const AddEventModal = ({ visible, setShowModal }) => {
     [setOpen, setDate],
   );
 
+  const handleSelectDate = () => {
+    setOpen((state) => !state);
+  };
+
+  const handleChance = (id, e) => {
+    if (e && e !== '') {
+      setEvent((event) => ({ ...event, [id]: e }));
+    }
+  };
+
+  const handleAddEvent = () => {
+    addEvent({ ...event, date: date.toDateString() });
+    closeDialog();
+  };
+
+  const handleCloseDialog = () => {
+    EVENT = { id: '', name: '', address: '', date: '' };
+    closeDialog();
+  };
+
+  const handleUpdateEvent = () => {
+    updateEvent(event.id, event);
+    closeDialog();
+  };
+
   return (
     <Portal>
-      <Dialog visible={visible} onDismiss={hideDialog}>
+      <Dialog visible={showModal} onDismiss={handleCloseDialog}>
         <KeyboardAwareScrollView scrollEnabled viewIsInsideTabBar>
-          <Dialog.Title>Create new Event</Dialog.Title>
+          <Dialog.Title>{mode === 'add' ? 'Create New Event' : 'Edit Event'}</Dialog.Title>
 
-          <Dialog.Content>
-            <TextInput mode="outlined" label="Event Name" />
+          <Dialog.Content style={styles.contentContainer}>
+            <TextInput
+              style={styles.input}
+              mode="outlined"
+              value={event.name}
+              label="Event name"
+              onChangeText={(e) => handleChance('name', e)}
+            />
 
-            <TextInput mode="outlined" label="Address" />
-            <Button onPress={() => setOpen((state) => !state)}>Select Date</Button>
-            {date && <Text variant="displaySmall">{date.toDateString()}</Text>}
+            <TextInput
+              style={styles.input}
+              mode="outlined"
+              value={event.address}
+              label="Address"
+              onChangeText={(e) => handleChance('address', e)}
+            />
+            <TextInput
+              style={styles.input}
+              mode="outlined"
+              label="Date"
+              value={date ? date.toDateString() : ''}
+              onFocus={handleSelectDate}
+            />
             <View>
               <DatePickerModal
                 locale="en"
@@ -49,8 +109,12 @@ const AddEventModal = ({ visible, setShowModal }) => {
           </Dialog.Content>
 
           <Dialog.Actions>
-            <Button onPress={() => console.log('Cancel')}>Cancel</Button>
-            <Button onPress={() => console.log('Ok')}>Ok</Button>
+            <Button onPress={closeDialog}>Cancel</Button>
+            {mode === 'add' ? (
+              <Button onPress={handleAddEvent}>Ok</Button>
+            ) : (
+              <Button onPress={handleUpdateEvent}>Update</Button>
+            )}
           </Dialog.Actions>
         </KeyboardAwareScrollView>
       </Dialog>
@@ -58,8 +122,4 @@ const AddEventModal = ({ visible, setShowModal }) => {
   );
 };
 
-AddEventModal.propTypes = {
-  visible: PropTypes.bool.isRequired,
-  setShowModal: PropTypes.func.isRequired,
-};
 export default AddEventModal;
