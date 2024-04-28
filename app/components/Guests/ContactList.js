@@ -11,12 +11,8 @@ const toggleContactSelection = (setSelectedContacts, contactId) => {
   });
 };
 
-const selector = (selectedContacts, setSelectedContacts, contactId) => (
-  <Checkbox
-    status={selectedContacts.includes(contactId) ? 'checked' : 'unchecked'}
-    onPress={() => toggleContactSelection(setSelectedContacts, contactId)}
-  />
-);
+const selector = (selectedContacts, contactId) =>
+  selectedContacts.includes(contactId) ? <Avatar.Icon size={25} icon="check" /> : '';
 
 const Contact = React.memo(({ userData, selectedContacts, setSelectedContacts }) => {
   const { name, phoneNumbers } = userData;
@@ -27,8 +23,9 @@ const Contact = React.memo(({ userData, selectedContacts, setSelectedContacts })
     <List.Item
       title={name}
       description={phoneNumber}
+      onPress={() => toggleContactSelection(setSelectedContacts, userData.id)}
       left={() => renderAvatar()}
-      right={() => selector(selectedContacts, setSelectedContacts, userData?.name)}
+      right={() => selector(selectedContacts, userData.id)}
     />
   );
 });

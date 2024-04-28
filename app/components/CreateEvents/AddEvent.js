@@ -11,6 +11,7 @@ let EVENT = {
   name: '',
   address: '',
   date: '',
+  guests: [],
 };
 
 const AddEventModal = () => {

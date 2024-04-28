@@ -6,8 +6,8 @@ const getStyles = () => {
   const theme = useTheme();
   return StyleSheet.create({
     header: {
-      height: 40,
-      marginTop: -20,
+      // height: 40,
+      marginTop: -50,
     },
     justify: {
       flexDirection: 'row',
@@ -41,7 +41,7 @@ const getStyles = () => {
       justifyContent: 'center',
     },
     searchBar: {
-      marginTop: 5,
+      // marginTop: 5,
     },
     textAlignCenter: {
       textAlign: 'center',

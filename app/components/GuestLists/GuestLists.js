@@ -14,7 +14,7 @@ const GuestLists = () => {
 
   const fetchData = useCallback(() => {
     setLoading(true);
-    fetch(`${API_URL}users?skip=${page}`)
+    fetch(`${API_URL}users?skip=${page}&limit=10`)
       .then((response) => response.json())
       .then((data) => {
         setUsers((prevUsers) => [...prevUsers, ...data.users]);
@@ -48,7 +48,7 @@ const GuestLists = () => {
           renderItem={(item) => renderItem(item)}
           ItemSeparatorComponent={() => ItemSeparatorComponent(styles.itemSeparator)}
           onEndReached={handleLoadMore}
-          onEndReachedThreshold={0.1}
+          // onEndReachedThreshold={0.1}
           ListFooterComponent={() => loading && Loader()}
           initialNumToRender={10}
           maxToRenderPerBatch={10}

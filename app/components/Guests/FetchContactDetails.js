@@ -6,6 +6,7 @@ import Contact from './ContactList';
 import commonStyles from '../../styles/common.style';
 import Header from './Header';
 import { noContactsFound, PermissionDenied, filterContacts } from './utils';
+import { useEventContext } from '../../store/EventContext';
 
 const FetchContactDetails = () => {
   const styles = commonStyles();
@@ -13,6 +14,8 @@ const FetchContactDetails = () => {
   const [filteredContactList, setFilteredContactList] = useState(contactList);
   const [selectedContacts, setSelectedContacts] = useState([]);
   const [permissionDenied, setPermissionDenied] = useState(false);
+
+  const { addGuests, addGuestsToEvent } = useEventContext();
 
   useEffect(() => {
     setFilteredContactList(contactList);
@@ -38,12 +41,18 @@ const FetchContactDetails = () => {
     return PermissionDenied(fetchContacts, setPermissionDenied, styles.centerContent, styles.title);
   }
 
+  const handleSaveSelectedContacts = () => {
+    addGuests(selectedContacts);
+    // addGuestsToEvent();
+  };
+
   return (
     <View style={styles.flex1}>
       <Header
         onSearch={handleSearch}
         isSelected={selectedContacts.length}
         setSelectedContacts={setSelectedContacts}
+        saveList={handleSaveSelectedContacts}
       />
       <Card>
         <Card.Content>
