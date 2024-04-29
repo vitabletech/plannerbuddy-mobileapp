@@ -5,12 +5,56 @@ import { API_URL } from '../../constants/constants';
 import { Loader, ItemSeparatorComponent } from '../../utils/utils';
 import commonStyles from '../../styles/common.style';
 import getStyles from './style';
+import Header from '../Guests/Header';
+import { useEventContext } from '../../store/EventContext';
+import { filterContacts } from '../Guests/utils';
 
-const GuestLists = () => {
+const GuestLists = ({ selectMode }) => {
   const styles = { ...getStyles(), ...commonStyles() };
   const [users, setUsers] = useState([]);
   const [loading, setLoading] = useState(false);
   const [page, setPage] = useState(0);
+
+  const { events, editIndex, addGuestsToEvent } = useEventContext();
+
+  const [contactList, setContactList] = useState([]);
+  const [filteredContactList, setFilteredContactList] = useState(contactList);
+  const [selectedContacts, setSelectedContacts] = useState([]);
+
+  const handleSearch = (searchQuery) => {
+    filterContacts(searchQuery, contactList, setFilteredContactList);
+  };
+
+  useEffect(() => {
+    if (selectMode) {
+      setSelectedContacts(events[editIndex]?.guests.map((guest) => guest.id));
+    }
+  }, [selectMode]);
+
+  const handleSaveSelectedContacts = () => {
+    let selectedContactsObjects = [];
+    selectedContacts.forEach((contactId) => {
+      selectedContactsObjects.push(
+        contactList.find((contact) => {
+          if (contact.id === contactId) {
+            return {
+              id: contact.id,
+              firstName: contact.firstName,
+              lastName: contact.lastName,
+              phone: contact.phone,
+            };
+          }
+        }),
+      );
+    });
+    console.log(selectedContactsObjects);
+    addGuestsToEvent(selectedContactsObjects);
+    alert('Guests added successfully');
+  };
+
+  useEffect(() => {
+    setFilteredContactList(contactList);
+  }, [contactList]);
 
   const fetchData = useCallback(() => {
     setLoading(true);
@@ -18,6 +62,13 @@ const GuestLists = () => {
       .then((response) => response.json())
       .then((data) => {
         setUsers((prevUsers) => [...prevUsers, ...data.users]);
+        let users = data.users.map((user) => ({
+          id: user.id,
+          firstName: user.firstName,
+          lastName: user.lastName,
+          phone: user.phone,
+        }));
+        setContactList((prevContactList) => [...prevContactList, ...users]);
         setLoading(false);
       })
       .catch((error) => {
@@ -37,13 +88,28 @@ const GuestLists = () => {
     }
   }, [loading]);
 
-  const renderItem = ({ item }) => <UserDataList userData={item} />;
+  const renderItem = ({ item }) => (
+    <UserDataList
+      userData={item}
+      selectedContacts={selectedContacts}
+      setSelectedContacts={setSelectedContacts}
+      selectMode={selectMode}
+    />
+  );
 
   return (
     <View style={styles.flex1}>
+      {selectMode && selectedContacts && (
+        <Header
+          onSearch={handleSearch}
+          isSelected={selectedContacts.length}
+          setSelectedContacts={setSelectedContacts}
+          saveList={handleSaveSelectedContacts}
+        />
+      )}
       {users.length !== 0 && (
         <FlatList
-          data={users}
+          data={filteredContactList}
           keyExtractor={(usersData) => `${usersData?.item?.id?.toString()}-${Math.random()}`}
           renderItem={(item) => renderItem(item)}
           ItemSeparatorComponent={() => ItemSeparatorComponent(styles.itemSeparator)}

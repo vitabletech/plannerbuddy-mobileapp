@@ -15,15 +15,13 @@ import RBSheet from 'react-native-raw-bottom-sheet';
 import GuestLists from '../GuestLists/GuestLists';
 import { ScrollView } from 'react-native-virtualized-view';
 import FetchContactDetails from '../Guests/FetchContactDetails';
+import { router } from 'expo-router';
 
 export default function EventCard({ styles, event }) {
   const refStandard = useRef();
   const [visible, setVisible] = useState(false);
-  const [openSelectGuests, setOpenSelectGuests] = useState(false);
   const icon = event.name.toLowerCase().includes('birth') ? 'cake' : 'party-popper';
-  const { events, setMode, openDialog, setEditIndex, deleteEvent, addGuestsToEvent } =
-    useEventContext();
-  console.log(events);
+  const { setMode, openDialog, setEditIndex, deleteEvent } = useEventContext();
   const handleEditEvent = () => {
     setMode('edit');
     setEditIndex(event.id);
@@ -33,33 +31,31 @@ export default function EventCard({ styles, event }) {
   const handleOpenSelectGuests = () => {
     setMode('getGuests');
     setEditIndex(event.id);
-    setOpenSelectGuests(true);
     refStandard.current.open();
   };
 
-  const handleSelectedGuests = () => {
-    addGuestsToEvent();
+  const handleCloseSelectGuests = () => {
+    setEditIndex(null);
+    refStandard.current.close();
+  };
+
+  const handleEventDetails = () => {
+    router.push(`eventDetails?id=${event.id}`);
   };
 
   return (
     <>
       <RBSheet ref={refStandard} height={700}>
-        <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-          <Button style={styles.button} onPress={handleSelectedGuests}>
-            Select Guests
-          </Button>
-          <Button style={styles.button} onPress={() => refStandard.current.close()}>
-            Close
-          </Button>
+        <View style={{ flexDirection: 'row', justifyContent: 'flex-end' }}>
+          <Button onPress={handleCloseSelectGuests}>Close</Button>
         </View>
 
         <ScrollView>
-          {/* <FetchContactDetails /> */}
-          <GuestLists />
+          <GuestLists selectMode />
         </ScrollView>
       </RBSheet>
 
-      <Card style={styles.eventCard}>
+      <Card style={styles.eventCard} onPress={handleEventDetails}>
         <Card.Title
           title={event.name}
           titleNumberOfLines={2}

@@ -12,44 +12,44 @@ const DrawerLayout = () => {
   const classes = commonStyles();
   const theme = useTheme();
   return (
-    <EventProvider>
-      <GestureHandlerRootView style={classes.flex1}>
-        <Drawer
-          drawerContent={CustomDrawerContent}
-          screenOptions={{
-            headerStyle: {
-              backgroundColor: theme.colors.primary,
-            },
-            headerTintColor: theme.colors.background,
-            drawerHideStatusBarOnOpen: true,
-            drawerActiveBackgroundColor: theme.colors.primary,
-            drawerActiveTintColor: theme.colors.onPrimary,
-            drawerInactiveTintColor: theme.colors.onPrimaryContainer,
-            drawerLabelStyle: { marginLeft: -20 },
-            drawerStyle: {
-              backgroundColor: theme.colors.onPrimary,
-            },
-          }}
-        >
-          {DRAWER_SCREEN.map((screen) => {
-            return (
-              <Drawer.Screen
-                key={screen.name}
-                name={screen.name}
-                initialParams={screen.uri ? { uri: screen.uri } : null}
-                options={{
-                  drawerLabel: screen.drawerLabel,
-                  headerTitle: screen.headerTitle,
-                  headerShown: screen.headerShown,
-                  drawerIcon: ({ size, color }) =>
-                    IconComponent(screen.icon.lib, screen.icon.name, size, color),
-                }}
-              />
-            );
-          })}
-        </Drawer>
-      </GestureHandlerRootView>
-    </EventProvider>
+    // <EventProvider>
+    <GestureHandlerRootView style={classes.flex1}>
+      <Drawer
+        drawerContent={CustomDrawerContent}
+        screenOptions={{
+          headerStyle: {
+            backgroundColor: theme.colors.primary,
+          },
+          headerTintColor: theme.colors.background,
+          drawerHideStatusBarOnOpen: true,
+          drawerActiveBackgroundColor: theme.colors.primary,
+          drawerActiveTintColor: theme.colors.onPrimary,
+          drawerInactiveTintColor: theme.colors.onPrimaryContainer,
+          drawerLabelStyle: { marginLeft: -20 },
+          drawerStyle: {
+            backgroundColor: theme.colors.onPrimary,
+          },
+        }}
+      >
+        {DRAWER_SCREEN.map((screen) => {
+          return (
+            <Drawer.Screen
+              key={screen.name}
+              name={screen.name}
+              initialParams={screen.uri ? { uri: screen.uri } : null}
+              options={{
+                drawerLabel: screen.drawerLabel,
+                headerTitle: screen.headerTitle,
+                headerShown: screen.headerShown,
+                drawerIcon: ({ size, color }) =>
+                  IconComponent(screen.icon.lib, screen.icon.name, size, color),
+              }}
+            />
+          );
+        })}
+      </Drawer>
+    </GestureHandlerRootView>
+    // </EventProvider>
   );
 };
 export default DrawerLayout;
