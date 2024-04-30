@@ -1,4 +1,5 @@
 import React, { useEffect, useState, useCallback } from 'react';
+import PropTypes from 'prop-types';
 import { FlatList, View } from 'react-native';
 import UserDataList from './UserDataList';
 import { API_URL } from '../../constants/constants';
@@ -32,7 +33,7 @@ const GuestLists = ({ selectMode }) => {
   }, [selectMode]);
 
   const handleSaveSelectedContacts = () => {
-    let selectedContactsObjects = [];
+    const selectedContactsObjects = [];
     selectedContacts.forEach((contactId) => {
       selectedContactsObjects.push(
         contactList.find((contact) => {
@@ -44,10 +45,10 @@ const GuestLists = ({ selectMode }) => {
               phone: contact.phone,
             };
           }
+          return false;
         }),
       );
     });
-    console.log(selectedContactsObjects);
     addGuestsToEvent(selectedContactsObjects);
     alert('Guests added successfully');
   };
@@ -62,13 +63,13 @@ const GuestLists = ({ selectMode }) => {
       .then((response) => response.json())
       .then((data) => {
         setUsers((prevUsers) => [...prevUsers, ...data.users]);
-        let users = data.users.map((user) => ({
+        const usersData = data.users.map((user) => ({
           id: user.id,
           firstName: user.firstName,
           lastName: user.lastName,
           phone: user.phone,
         }));
-        setContactList((prevContactList) => [...prevContactList, ...users]);
+        setContactList((prevContactList) => [...prevContactList, ...usersData]);
         setLoading(false);
       })
       .catch((error) => {
@@ -124,5 +125,9 @@ const GuestLists = ({ selectMode }) => {
       )}
     </View>
   );
+};
+
+GuestLists.propTypes = {
+  selectMode: PropTypes.bool.isRequired,
 };
 export default GuestLists;

@@ -57,16 +57,10 @@ export const EventProvider = ({ children }) => {
   const handleSetEditIndex = (index) => setEditIndex(index);
 
   const addGuestsToEvent = (guests) => {
-    console.log('guests : ', guests.length);
-    console.log('guests : ', guests);
-
     const updatedEvent = [...events];
-    let event = updatedEvent.find((e) => e.id === editIndex);
+    const event = updatedEvent.find((e) => e.id === editIndex);
     event.guests = [...guests];
-    console.log('event : ', event);
     updatedEvent[editIndex] = { ...event };
-    // updatedEvent.splice(editIndex, 1);
-    // updatedEvent.splice(editIndex, 0, event);
     setMode('add');
     setEvents(updatedEvent);
   };

@@ -1,22 +1,20 @@
 import React, { useState } from 'react';
 import { Avatar, Card, IconButton, Text, List } from 'react-native-paper';
 import { View } from 'react-native';
-import { useEventContext } from './store/EventContext';
 import { useLocalSearchParams } from 'expo-router';
-import getStyles from './components/CreateEvents/styles';
 import { ScrollView } from 'react-native-virtualized-view';
+import { useEventContext } from './store/EventContext';
+import getStyles from './components/CreateEvents/styles';
+import commonStyles from './styles/common.style';
 
-export default function eventDetails() {
-  const styles = getStyles();
+const eventDetails = () => {
+  const styles = { ...getStyles(), ...commonStyles() };
   const { id } = useLocalSearchParams();
   const { events } = useEventContext();
   const event = events[id];
-  console.log(events);
-
   const [expanded, setExpanded] = useState(false);
-
+  const [visible, setVisible] = useState(false);
   const handlePress = () => setExpanded((state) => !state);
-
   const icon = event.name.toLowerCase().includes('birth') ? 'cake' : 'party-popper';
   return (
     <Card>
@@ -27,11 +25,7 @@ export default function eventDetails() {
         subtitle={event.date}
         left={(props) => <Avatar.Icon {...props} icon={icon} />}
         right={(props) => (
-          <IconButton
-            {...props}
-            icon="dots-vertical"
-            onPress={() => setVisible((state) => !state)}
-          />
+          <IconButton {...props} icon="dots-vertical" onPress={() => setVisible(!visible)} />
         )}
       />
       <View style={styles.locationContainer}>
@@ -58,7 +52,7 @@ export default function eventDetails() {
                   left={(props) => (
                     <Avatar.Text
                       size={45}
-                      labelStyle={{ color: 'white' }}
+                      labelStyle={styles.textWhite}
                       {...props}
                       label={guest.firstName[0]}
                     />
@@ -71,4 +65,6 @@ export default function eventDetails() {
       </List.Section>
     </Card>
   );
-}
+};
+
+export default eventDetails;

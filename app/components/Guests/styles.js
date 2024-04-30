@@ -5,6 +5,9 @@ const getStyles = () => {
   const screenHeight = Dimensions.get('window').height;
   const theme = useTheme();
   return StyleSheet.create({
+    font15: {
+      fontSize: 15,
+    },
     header: {
       // height: 40,
       marginTop: -50,
@@ -39,9 +42,6 @@ const getStyles = () => {
       flexDirection: 'row',
       flex: 1,
       justifyContent: 'center',
-    },
-    searchBar: {
-      // marginTop: 5,
     },
     textAlignCenter: {
       textAlign: 'center',

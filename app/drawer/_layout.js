@@ -6,7 +6,6 @@ import { IconComponent } from '../utils/utils';
 import commonStyles from '../styles/common.style';
 import { DRAWER_SCREEN } from '../utils/constant';
 import CustomDrawerContent from '../components/CustomDrawerContent/CustomDrawerContent';
-import { EventProvider } from '../store/EventContext';
 
 const DrawerLayout = () => {
   const classes = commonStyles();

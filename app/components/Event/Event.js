@@ -1,23 +1,15 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef } from 'react';
+import PropTypes from 'prop-types';
 import { View } from 'react-native';
-import {
-  Avatar,
-  Card,
-  IconButton,
-  Button,
-  Text,
-  Menu,
-  Divider,
-  PaperProvider,
-} from 'react-native-paper';
-import { useEventContext } from '../../store/EventContext';
+import { Avatar, Card, Button, Text } from 'react-native-paper';
 import RBSheet from 'react-native-raw-bottom-sheet';
-import GuestLists from '../GuestLists/GuestLists';
 import { ScrollView } from 'react-native-virtualized-view';
-import FetchContactDetails from '../Guests/FetchContactDetails';
 import { router } from 'expo-router';
+import { useEventContext } from '../../store/EventContext';
+import GuestLists from '../GuestLists/GuestLists';
+import { AvatarIcon, renderIconButton } from '../../utils/utils';
 
-export default function EventCard({ styles, event }) {
+const EventCard = ({ styles, event }) => {
   const refStandard = useRef();
   const [visible, setVisible] = useState(false);
   const icon = event.name.toLowerCase().includes('birth') ? 'cake' : 'party-popper';
@@ -46,7 +38,7 @@ export default function EventCard({ styles, event }) {
   return (
     <>
       <RBSheet ref={refStandard} height={700}>
-        <View style={{ flexDirection: 'row', justifyContent: 'flex-end' }}>
+        <View style={[styles.flexRow, styles.flexEnd]}>
           <Button onPress={handleCloseSelectGuests}>Close</Button>
         </View>
 
@@ -61,14 +53,14 @@ export default function EventCard({ styles, event }) {
           titleNumberOfLines={2}
           titleStyle={styles.eventTitle}
           subtitle={event.date}
-          left={(props) => <Avatar.Icon {...props} icon={icon} />}
-          right={(props) => (
-            <IconButton
-              {...props}
-              icon="dots-vertical"
-              onPress={() => setVisible((state) => !state)}
-            />
-          )}
+          left={(props) => AvatarIcon(icon, props)}
+          right={(props) =>
+            renderIconButton({
+              icon: 'dots-vertical',
+              ...props,
+              onPress: () => setVisible((state) => !state),
+            })
+          }
         />
         <View style={styles.locationContainer}>
           <Avatar.Icon style={styles.locationImage} size={18} icon="map-marker" />
@@ -76,7 +68,7 @@ export default function EventCard({ styles, event }) {
         </View>
         {visible && (
           <Card.Actions style={styles.actionsContainer}>
-            <Button style={{ marginRight: 'auto' }} onPress={handleOpenSelectGuests}>
+            <Button style={styles} onPress={handleOpenSelectGuests}>
               Add Guests
             </Button>
             <Button onPress={() => deleteEvent(event.id)}>Delete</Button>
@@ -86,4 +78,13 @@ export default function EventCard({ styles, event }) {
       </Card>
     </>
   );
-}
+};
+
+EventCard.propTypes = {
+  // eslint-disable-next-line react/forbid-prop-types
+  styles: PropTypes.object.isRequired,
+  // eslint-disable-next-line react/forbid-prop-types
+  event: PropTypes.object.isRequired,
+};
+
+export default EventCard;

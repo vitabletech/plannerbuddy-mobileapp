@@ -3,31 +3,26 @@ import { ScrollView, View } from 'react-native';
 import { Button, Text } from 'react-native-paper';
 import AddEventModal from '../../components/CreateEvents/AddEvent';
 import getStyles from '../../components/CreateEvents/styles';
+import commonStyles from '../../styles/common.style';
 import EventCard from '../../components/Event/Event';
 import { useEventContext } from '../../store/EventContext';
 
 const Events = () => {
-  const styles = getStyles();
+  const styles = { ...getStyles(), ...commonStyles() };
   const { events, showModal, openDialog } = useEventContext();
-  console.log('all events : ', events);
   return (
     <>
       {showModal && <AddEventModal />}
       <ScrollView>
         {events && events.length > 0 ? (
-          events.map((event, idx) => <EventCard key={idx} styles={styles} event={event} />)
+          events.map((event) => <EventCard key={event.id} styles={styles} event={event} />)
         ) : (
-          <Text style={{ textAlign: 'center', fontSize: 20, marginTop: '10%' }}>No Events</Text>
+          <Text style={styles.centerTextLargeMarginTop}>No Events</Text>
         )}
       </ScrollView>
-      <View style={{ flexDirection: 'column', flex: 1 }}>
+      <View style={styles.columnFlexOne}>
         <Button
-          style={{
-            alignSelf: 'flex-end',
-            position: 'absolute',
-            bottom: 15,
-            right: 15,
-          }}
+          style={styles.absolutePositionBottomRight}
           icon="calendar-plus"
           mode="elevated"
           onPress={openDialog}

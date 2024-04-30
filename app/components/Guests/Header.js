@@ -24,7 +24,7 @@ const Header = ({ onSearch, isSelected, setSelectedContacts, saveList }) => {
   return (
     <>
       <Appbar.Header style={styles.header}>
-        <Appbar.Content title={`${isSelected} Selected`} titleStyle={{ fontSize: 15 }} />
+        <Appbar.Content title={`${isSelected} Selected`} titleStyle={styles.font15} />
         <Appbar.Action
           icon={isSearchVisible ? 'magnify-close' : 'magnify'}
           onPress={() => setIsSearchVisible(!isSearchVisible)}
@@ -47,6 +47,7 @@ Header.propTypes = {
   onSearch: PropTypes.func.isRequired,
   isSelected: PropTypes.number.isRequired,
   setSelectedContacts: PropTypes.func.isRequired,
+  saveList: PropTypes.func.isRequired,
 };
 
 export default Header;

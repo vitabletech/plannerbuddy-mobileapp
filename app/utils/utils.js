@@ -1,6 +1,6 @@
 import React from 'react';
 import { TouchableOpacity, View, Share } from 'react-native';
-import { ActivityIndicator } from 'react-native-paper';
+import { ActivityIndicator, Avatar, IconButton } from 'react-native-paper';
 import { iconLibraries, ON_SHARE_APP_MESSAGE } from './constant';
 
 export const IconComponent = (lib, iconName, size, color) => {
@@ -26,4 +26,31 @@ export const onShare = async () => {
   } catch (error) {
     alert(error.message);
   }
+};
+
+export const AvatarIcon = (icon, props) => <Avatar.Icon icon={icon} {...props} />;
+export const AvatarText = (props) => <Avatar.Icon {...props} />;
+
+export const renderIconButton = (buttonProps) => <IconButton {...buttonProps} />;
+
+export const formatDate = (date) => {
+  const d = new Date(date);
+  const day = d.getDate();
+  const month = [
+    'January',
+    'February',
+    'March',
+    'April',
+    'May',
+    'June',
+    'July',
+    'August',
+    'September',
+    'October',
+    'November',
+    'December',
+  ][d.getMonth()];
+  const year = d.getFullYear();
+
+  return `${day} ${month} ${year}`;
 };
