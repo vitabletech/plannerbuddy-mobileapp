@@ -4,6 +4,7 @@ import { Provider as PaperProvider } from 'react-native-paper';
 import { AuthProvider } from './store/AuthContext';
 import { themes } from './theme/themes';
 import InitialLayout from './utils/InitialLayout';
+import ErrorBoundary from './components/ErrorBoundary/ErrorBoundary';
 import { EventProvider } from './store/EventContext';
 
 const RootLayout = () => {
@@ -37,13 +38,15 @@ const RootLayout = () => {
   ];
 
   return (
-    <EventProvider>
-      <PaperProvider theme={theme}>
-        <AuthProvider>
-          <InitialLayout stackScreens={stackScreens} colorScheme={colorScheme} />
-        </AuthProvider>
-      </PaperProvider>
-    </EventProvider>
+    <ErrorBoundary>
+      <EventProvider>
+        <PaperProvider theme={theme}>
+          <AuthProvider>
+            <InitialLayout stackScreens={stackScreens} colorScheme={colorScheme} />
+          </AuthProvider>
+        </PaperProvider>
+      </EventProvider>
+    </ErrorBoundary>
   );
 };
 export default RootLayout;
