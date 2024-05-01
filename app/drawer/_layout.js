@@ -11,6 +11,7 @@ const DrawerLayout = () => {
   const classes = commonStyles();
   const theme = useTheme();
   return (
+    // <EventProvider>
     <GestureHandlerRootView style={classes.flex1}>
       <Drawer
         drawerContent={CustomDrawerContent}
@@ -47,6 +48,7 @@ const DrawerLayout = () => {
         })}
       </Drawer>
     </GestureHandlerRootView>
+    // </EventProvider>
   );
 };
 export default DrawerLayout;

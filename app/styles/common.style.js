@@ -4,6 +4,12 @@ import { useTheme } from 'react-native-paper';
 const commonStyles = () => {
   const theme = useTheme();
   return StyleSheet.create({
+    absolutePositionBottomRight: {
+      alignSelf: 'flex-end',
+      bottom: 15,
+      position: 'absolute',
+      right: 15,
+    },
     alignItems_center: {
       alignItems: 'center',
     },
@@ -24,6 +30,15 @@ const commonStyles = () => {
       alignItems: 'center',
       flex: 1,
       justifyContent: 'center',
+    },
+    centerTextLargeMarginTop: {
+      fontSize: 20,
+      marginTop: '10%',
+      textAlign: 'center',
+    },
+    columnFlexOne: {
+      flex: 1,
+      flexDirection: 'column',
     },
     flex1: {
       flex: 1,
@@ -50,6 +65,9 @@ const commonStyles = () => {
     },
     mr10: {
       marginRight: 10,
+    },
+    mrAuto: {
+      marginRight: 'auto',
     },
     negativeMarginBold: {
       fontWeight: 'bold',

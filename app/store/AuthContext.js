@@ -26,9 +26,9 @@ export const AuthProvider = ({ children }) => {
     loadToken();
   }, []);
 
-  const handleLogin = async (username, password) => {
+  const handleLogin = async (email, password) => {
     try {
-      const result = await axios.post(`${API_URL}auth/login`, { username, password });
+      const result = await axios.post(`${API_URL}auth/login`, { email, password });
       setToken(result.data.token);
       axios.defaults.headers.common.Authorization = `Bearer ${result.data.token}`;
       await SecureStore.setItemAsync(JWT_KEY, result.data.token);
@@ -38,9 +38,9 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
-  const handleRegister = async (username, email, password) => {
+  const handleRegister = async (fullName, email, password) => {
     try {
-      const result = await axios.post(`${API_URL}users/add`, { username, email, password });
+      const result = await axios.post(`${API_URL}users/add`, { fullName, email, password });
       return result;
     } catch (error) {
       return { error: true, msg: error.message };

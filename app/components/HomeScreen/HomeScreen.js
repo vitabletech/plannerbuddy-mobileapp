@@ -1,23 +1,51 @@
-import React from 'react';
-import { ScrollView } from 'react-native';
+import React, { lazy, Suspense } from 'react';
+import { ScrollView, View } from 'react-native';
+import { ActivityIndicator } from 'react-native-paper';
 import WelcomeContainer from './WelcomeContainer';
-import DashboardCarousel from './DashboardCarousel';
 import DashboardItem from './DashboardItem';
+import DashboardCarousel from './DashboardCarousel';
 import GuestComponent from './GuestComponent';
-import RecentEvents from './RecentEvents';
-import UpcomingEvents from './UpcomingEvents';
 import getStyles from './style';
+import commonStyles from '../../styles/common.style';
+import withErrorBoundary from '../ErrorBoundary/WithErrorBoundary';
+
+const RecentEvents = lazy(() => import('./RecentEvents'));
+const UpcomingEvents = lazy(() => import('./UpcomingEvents'));
+
+// Wrap your components with the withErrorBoundary HOC
+const DashboardItemWithErrorBoundary = withErrorBoundary(DashboardItem);
+const WelcomeContainerWithErrorBoundary = withErrorBoundary(WelcomeContainer);
+const DashboardCarouselWithErrorBoundary = withErrorBoundary(DashboardCarousel);
+const GuestComponentWithErrorBoundary = withErrorBoundary(GuestComponent);
+const RecentEventsWithErrorBoundary = withErrorBoundary(RecentEvents);
+const UpcomingEventsWithErrorBoundary = withErrorBoundary(UpcomingEvents);
 
 const HomeScreen = () => {
-  const styles = getStyles();
+  const styles = { ...getStyles(), ...commonStyles() };
   return (
     <ScrollView style={styles.container}>
-      <WelcomeContainer />
-      <DashboardItem />
-      <DashboardCarousel />
-      <GuestComponent />
-      <RecentEvents />
-      <UpcomingEvents />
+      <WelcomeContainerWithErrorBoundary />
+      <DashboardItemWithErrorBoundary />
+      <DashboardCarouselWithErrorBoundary />
+      <GuestComponentWithErrorBoundary />
+      <Suspense
+        fallback={
+          <View style={styles.centerContent}>
+            <ActivityIndicator animating />
+          </View>
+        }
+      >
+        <RecentEventsWithErrorBoundary />
+      </Suspense>
+      <Suspense
+        fallback={
+          <View style={styles.centerContent}>
+            <ActivityIndicator animating />
+          </View>
+        }
+      >
+        <UpcomingEventsWithErrorBoundary />
+      </Suspense>
     </ScrollView>
   );
 };
