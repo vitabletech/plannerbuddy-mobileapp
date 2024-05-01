@@ -1,38 +1,52 @@
-import React, { useState } from 'react';
-import { Text, TextInput, Avatar, Card, IconButton } from 'react-native-paper';
+import React, { useState, useRef } from 'react';
+import { Text, Avatar, Card, IconButton } from 'react-native-paper';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import commonStyles from '../styles/common.style';
-
-let person = {
-  name: 'Pankaj Saini',
-  email: 'abc@xyz.com',
-  address: 'abcabcabcabc',
-  contact: '1231231234',
-};
+import { fetchUserDetails } from '../utils/utils';
+import VTTextInput from '../components/VTTextInput/VTTextInput';
+import useInput from '../hooks/useInput';
 
 const profile = () => {
+  const person = fetchUserDetails();
   const classes = commonStyles();
-  const [name, setName] = useState(person.name);
-  const [address, setAddress] = useState(person.address);
-  const [email, setEmail] = useState(person.email);
-  const [contact, setContact] = useState(person.contact);
+  const emailInputRef = useRef(null);
+  const phoneInputRef = useRef(null);
+  const addressInputRef = useRef(null);
   const [enableEdit, setEnableEdit] = useState(true);
+
+  const nameInput = useInput(person.name, (value) => (value.trim() ? null : 'Name is required'));
+  const emailInput = useInput(person.email, (value) =>
+    value.trim() && /\S+@\S+\.\S+/.test(value) ? null : 'Please enter a valid email',
+  );
+  const phoneInput = useInput(person.contact, (value) =>
+    value && value.length >= 10 ? null : 'Please Enter Valid Mobile Number',
+  );
+  const addressInput = useInput(person.address, (value) =>
+    value && value.length >= 8 ? null : 'Please Enter Valid Address',
+  );
 
   const handleEdit = () => {
     setEnableEdit((state) => !state);
   };
-
-  const saveEdit = () => {
-    setName(person.name);
-    setEmail(person.email);
-    setContact(person.contact);
-    setAddress(person.address);
+  const resetForm = () => {
+    nameInput.reset(person.name);
+    emailInput.reset(person.email);
+    phoneInput.reset(person.contact);
+    addressInput.reset(person.address);
     setEnableEdit((state) => !state);
   };
 
-  const handleChance = (id, e) => {
-    if (e && e !== '') {
-      person = { ...person, [id]: e };
+  const saveEdit = () => {
+    nameInput.onBlur();
+    emailInput.onBlur();
+    phoneInput.onBlur();
+    addressInput.onBlur();
+    if (nameInput.value && emailInput.value && phoneInput.value && addressInput.value) {
+      person.name = nameInput.value;
+      person.email = emailInput.value;
+      person.contact = phoneInput.value;
+      person.address = addressInput.value;
+      setEnableEdit((state) => !state);
     }
   };
 
@@ -44,57 +58,58 @@ const profile = () => {
     >
       <Card style={classes.profileCard}>
         <Card.Content>
-          <Text variant="titleLarge">{name}</Text>
-          <Text variant="bodyMedium">Contact : {contact}</Text>
-          <Text variant="bodyMedium">Email: {email}</Text>
+          <Text variant="titleLarge">{person.name}</Text>
+          <Text variant="bodyMedium">Contact : {person.contact}</Text>
+          <Text variant="bodyMedium">Email: {person.email}</Text>
         </Card.Content>
       </Card>
 
       <Card>
         <Card.Title
-          title={name}
-          subtitle={contact}
-          left={(props) => <Avatar.Text {...props} label={name[0]} />}
+          title={person.name}
+          subtitle={person.contact}
+          left={(props) => <Avatar.Text {...props} label={person.name[0]} />}
           right={(props) =>
             enableEdit ? (
               <IconButton {...props} icon="pencil" onPress={handleEdit} />
             ) : (
-              <IconButton {...props} icon="content-save-outline" onPress={saveEdit} />
+              <>
+                <IconButton {...props} icon="close" onPress={resetForm} />
+                <IconButton {...props} icon="content-save-outline" onPress={saveEdit} />
+              </>
             )
           }
         />
         <Card.Content>
-          <TextInput
-            mode="outlined"
-            disabled={enableEdit}
+          <VTTextInput
             label="Name"
-            defaultValue={name}
-            onChangeText={(e) => handleChance('name', e)}
+            {...nameInput}
+            disabled={enableEdit}
+            onSubmitEditing={() => emailInputRef.current.focus()}
             style={classes.inputField}
           />
-          <TextInput
-            mode="outlined"
-            disabled={enableEdit}
+          <VTTextInput
             label="Email"
-            defaultValue={email}
-            onChangeText={(e) => handleChance('email', e)}
-            style={classes.inputField}
-          />
-          <TextInput
-            mode="outlined"
+            {...emailInput}
             disabled={enableEdit}
-            label="Contact"
-            defaultValue={contact}
-            onChangeText={(e) => handleChance('contact', e)}
+            onSubmitEditing={() => phoneInputRef.current.focus()}
             style={classes.inputField}
+            ref={emailInputRef}
           />
-          <TextInput
-            mode="outlined"
+          <VTTextInput
+            label="Phone Number"
+            {...phoneInput}
             disabled={enableEdit}
+            onSubmitEditing={() => addressInputRef.current.focus()}
+            style={classes.inputField}
+            ref={phoneInputRef}
+          />
+          <VTTextInput
             label="Address"
-            defaultValue={address}
-            onChangeText={(e) => handleChance('address', e)}
+            {...addressInput}
+            disabled={enableEdit}
             style={classes.inputField}
+            ref={addressInputRef}
           />
         </Card.Content>
       </Card>

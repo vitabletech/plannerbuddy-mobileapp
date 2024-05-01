@@ -28,7 +28,7 @@ export const AuthProvider = ({ children }) => {
 
   const handleLogin = async (email, password) => {
     try {
-      const result = await axios.post(`${API_URL}auth/login`, { email, password });
+      const result = await axios.post(`${API_URL}auth/login`, { username: email, password });
       setToken(result.data.token);
       axios.defaults.headers.common.Authorization = `Bearer ${result.data.token}`;
       await SecureStore.setItemAsync(JWT_KEY, result.data.token);

@@ -54,3 +54,13 @@ export const formatDate = (date) => {
 
   return `${day} ${month} ${year}`;
 };
+
+export const fetchUserDetails = () => {
+  const person = {
+    name: 'Pankaj Saini',
+    email: 'abc@xyz.com',
+    address: 'abcabcabcabc',
+    contact: '1231231234',
+  };
+  return person;
+};
