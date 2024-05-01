@@ -10,6 +10,7 @@ import { useEventContext } from '../../store/EventContext';
 const Events = () => {
   const styles = { ...getStyles(), ...commonStyles() };
   const { events, showModal, openDialog } = useEventContext();
+  console.log('events', events);
   return (
     <>
       {showModal && <AddEventModal />}

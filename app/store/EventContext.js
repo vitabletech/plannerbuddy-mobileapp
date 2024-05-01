@@ -44,11 +44,15 @@ export const EventProvider = ({ children }) => {
     setEvents(remainingEvent);
   };
 
-  const handleUpdateEvent = (id, event) => {
-    const updatedEvent = [...events];
-    updatedEvent.splice(id, 1);
-    updatedEvent.splice(id, 0, event);
-    setEvents(updatedEvent);
+  const handleUpdateEvent = (id, payload) => {
+    const updatedEvent = { ...payload.event };
+    let allEvents = [...events];
+    allEvents = allEvents.map((event) => {
+      if (event.id === id) return updatedEvent;
+      return event;
+    });
+    setEvents(allEvents);
+    setMode(null);
   };
 
   const handleDialogClose = () => setShowModal((state) => !state);

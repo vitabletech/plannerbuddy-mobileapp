@@ -43,7 +43,7 @@ UserDataList.propTypes = {
     password: PropTypes.string,
     image: PropTypes.string,
   }).isRequired,
-  selectedContacts: PropTypes.arrayOf(PropTypes.string).isRequired,
+  selectedContacts: PropTypes.arrayOf(PropTypes.number).isRequired,
   setSelectedContacts: PropTypes.func.isRequired,
   selectMode: PropTypes.bool.isRequired,
 };

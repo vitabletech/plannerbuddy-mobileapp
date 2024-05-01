@@ -8,14 +8,11 @@ const getStyles = () => {
       flex: 1,
       flexDirection: 'row',
     },
-    button: {
-      backgroundColor: theme.colors.onPrimary,
-      borderColor: theme.colors.primary,
-      borderCurve: 5,
-      borderWidth: 1,
-      margin: 3,
-      padding: 1,
-      width: 'auto',
+    addButton: {
+      marginEnd: 'auto',
+    },
+    closeButton: {
+      alignSelf: 'flex-end',
     },
     container: {
       backgroundColor: theme.colors.primaryContainer,

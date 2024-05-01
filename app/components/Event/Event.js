@@ -32,13 +32,13 @@ const EventCard = ({ styles, event }) => {
   };
 
   const handleEventDetails = () => {
-    router.push(`eventDetails?id=${event.id}`);
+    router.push(`eventDetails?eventId=${event.id}`);
   };
 
   return (
     <>
       <RBSheet ref={refStandard} height={700}>
-        <View style={[styles.flexRow, styles.flexEnd]}>
+        <View style={styles.closeButton}>
           <Button onPress={handleCloseSelectGuests}>Close</Button>
         </View>
 
@@ -68,7 +68,7 @@ const EventCard = ({ styles, event }) => {
         </View>
         {visible && (
           <Card.Actions style={styles.actionsContainer}>
-            <Button style={styles} onPress={handleOpenSelectGuests}>
+            <Button style={styles.addButton} onPress={handleOpenSelectGuests}>
               Add Guests
             </Button>
             <Button onPress={() => deleteEvent(event.id)}>Delete</Button>

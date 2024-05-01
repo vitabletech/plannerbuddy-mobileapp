@@ -17,7 +17,7 @@ let EVENT = {
 const AddEventModal = () => {
   const styles = getStyles();
   const [open, setOpen] = useState(false);
-  const [date, setDate] = useState(undefined);
+  const [selectedDate, setSelectedDate] = useState(undefined);
   const [event, setEvent] = useState(EVENT);
   const [error, setError] = useState(false);
   // Create refs for the inputs
@@ -31,7 +31,7 @@ const AddEventModal = () => {
     if (mode === 'edit') {
       const selectedEvent = events.find((eve) => eve.id === editIndex);
       setEvent(selectedEvent);
-      setDate(new Date(event.date));
+      setSelectedDate(new Date(selectedEvent.date));
     }
   }, [mode]);
 
@@ -48,9 +48,10 @@ const AddEventModal = () => {
   const onConfirmSingle = useCallback(
     (params) => {
       setOpen(false);
-      setDate(params.date);
+      setSelectedDate(params.date);
+      setEvent((current) => ({ ...current, date: params.date.toDateString() }));
     },
-    [setOpen, setDate],
+    [setOpen, setSelectedDate],
   );
 
   const handleSelectDate = () => {
@@ -65,20 +66,20 @@ const AddEventModal = () => {
     if (!event.address.trim() || event.address.length < 8) {
       errors.address = 'Please enter a valid address';
     }
-    if (!date) {
+    if (!selectedDate) {
       errors.date = 'Please select a date';
     }
     setError(errors);
     return Object.keys(errors).length === 0;
-  }, [event, date]);
+  }, [event, selectedDate]);
 
   const handleAddEvent = useCallback(() => {
     const isValid = validateInput();
     if (isValid) {
-      addEvent({ ...event, date: date.toDateString() });
+      addEvent({ ...event });
       closeDialog();
     }
-  }, [event, date, validateInput]);
+  }, [event, selectedDate, validateInput]);
 
   const handleCloseDialog = useCallback(() => {
     EVENT = { id: '', name: '', address: '', date: '' };
@@ -87,7 +88,7 @@ const AddEventModal = () => {
   }, [closeDialog]);
 
   const handleUpdateEvent = useCallback(() => {
-    updateEvent(event.id, event);
+    updateEvent(event.id, { event: { ...event } });
     closeDialog();
   }, [event, updateEvent]);
 
@@ -95,7 +96,7 @@ const AddEventModal = () => {
     <Portal>
       <Dialog visible={showModal} onDismiss={handleCloseDialog}>
         <KeyboardAwareScrollView scrollEnabled viewIsInsideTabBar>
-          <Dialog.Title>{mode === 'add' ? 'Create New Event' : 'Edit Event'}</Dialog.Title>
+          <Dialog.Title>{mode === 'edit' ? 'Edit Event' : 'Create New Event'}</Dialog.Title>
 
           <Dialog.Content style={styles.contentContainer}>
             <TextInput
@@ -126,7 +127,7 @@ const AddEventModal = () => {
               style={styles.input}
               mode="outlined"
               label="Date"
-              value={date ? date.toDateString() : ''}
+              value={selectedDate ? selectedDate.toDateString() : ''}
               onFocus={handleSelectDate}
             />
             <View>
@@ -135,22 +136,22 @@ const AddEventModal = () => {
                 mode="single"
                 visible={open}
                 onDismiss={onDismissSingle}
-                date={date}
+                date={selectedDate}
                 onConfirm={onConfirmSingle}
                 presentationStyle="pageSheet"
               />
-              <HelperText type="error" visible={!!error.date}>
-                {error.date}
+              <HelperText type="error" visible={!!error.selectedDate}>
+                {error.selectedDate}
               </HelperText>
             </View>
           </Dialog.Content>
 
           <Dialog.Actions>
             <Button onPress={closeDialog}>Cancel</Button>
-            {mode === 'add' ? (
-              <Button onPress={handleAddEvent}>Ok</Button>
-            ) : (
+            {mode === 'edit' ? (
               <Button onPress={handleUpdateEvent}>Update</Button>
+            ) : (
+              <Button onPress={handleAddEvent}>Ok</Button>
             )}
           </Dialog.Actions>
         </KeyboardAwareScrollView>
