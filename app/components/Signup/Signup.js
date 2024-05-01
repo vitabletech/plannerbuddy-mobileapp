@@ -36,6 +36,11 @@ const Signup = () => {
     if (nameInput.value && emailInput.value && passwordInput.value) {
       const data = await onRegister(nameInput.value, emailInput.value, passwordInput.value);
       if (data) alert(data.error ? data.msg : 'Account created successfully');
+      // Clear input fields after successful signup
+      nameInput.onChangeText('');
+      emailInput.onChangeText('');
+      passwordInput.onChangeText('');
+      confirmPasswordInput.onChangeText('');
     }
   };
 
