@@ -10,7 +10,7 @@ const getStyles = () => {
     },
     header: {
       // height: 40,
-      marginTop: -50,
+      marginTop: -40,
     },
     justify: {
       flexDirection: 'row',

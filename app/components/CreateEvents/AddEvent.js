@@ -66,7 +66,7 @@ const AddEventModal = () => {
     if (!event.address.trim() || event.address.length < 8) {
       errors.address = 'Please enter a valid address';
     }
-    if (!selectedDate) {
+    if (!selectedDate || selectedDate === undefined) {
       errors.date = 'Please select a date';
     }
     setError(errors);
@@ -140,8 +140,8 @@ const AddEventModal = () => {
                 onConfirm={onConfirmSingle}
                 presentationStyle="pageSheet"
               />
-              <HelperText type="error" visible={!!error.selectedDate}>
-                {error.selectedDate}
+              <HelperText type="error" visible={selectedDate === undefined}>
+                {error.date}
               </HelperText>
             </View>
           </Dialog.Content>
