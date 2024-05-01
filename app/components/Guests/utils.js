@@ -31,12 +31,17 @@ export const PermissionDenied = (fetchContacts, setPermissionDenied, bodyClass, 
 
 export const filterContacts = (searchQuery, contactList, setFilteredContactList) => {
   if (searchQuery) {
-    const filteredContacts = contactList.filter(
-      (contact) =>
-        contact.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+    const filteredContacts = contactList.filter((contact) => {
+      let name;
+      if (contact.firstName && contact.lastName) {
+        name = `${contact.firstName} ${contact.lastName}`;
+      }
+      return (
+        (name && name.toLowerCase().includes(searchQuery.toLowerCase())) ||
         (contact.phoneNumbers &&
-          contact.phoneNumbers.some((number) => number.number.includes(searchQuery))),
-    );
+          contact.phoneNumbers.some((number) => number.number.includes(searchQuery)))
+      );
+    });
     setFilteredContactList(filteredContacts);
   } else {
     setFilteredContactList(contactList);

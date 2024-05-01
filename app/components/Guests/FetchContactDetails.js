@@ -44,6 +44,7 @@ const FetchContactDetails = () => {
         onSearch={handleSearch}
         isSelected={selectedContacts.length}
         setSelectedContacts={setSelectedContacts}
+        saveList={() => {}}
       />
       <Card>
         <Card.Content>

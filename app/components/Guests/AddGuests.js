@@ -61,7 +61,6 @@ const AddGuests = () => {
     if (!formData.phoneNumber) {
       errors.phoneNumber = 'Phone Number Should not be empty';
     }
-    console.log('errors', errors);
     setError(errors);
     return Object.keys(errors).length > 0;
   };

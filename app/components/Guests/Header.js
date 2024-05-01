@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { Appbar, Searchbar } from 'react-native-paper';
 import getStyles from './styles';
 
-const Header = ({ onSearch, isSelected, setSelectedContacts }) => {
+const Header = ({ onSearch, isSelected, setSelectedContacts, saveList }) => {
   const styles = getStyles();
   const [isSearchVisible, setIsSearchVisible] = useState(false);
   const [isEditVisible, setIsEditVisible] = useState(false);
@@ -18,13 +18,13 @@ const Header = ({ onSearch, isSelected, setSelectedContacts }) => {
     setSelectedContacts([]);
   };
   const onSave = () => {
-    console.log('Save');
+    saveList();
   };
 
   return (
     <>
       <Appbar.Header style={styles.header}>
-        <Appbar.Content title={`${isSelected} Selected`} />
+        <Appbar.Content title={`${isSelected} Selected`} titleStyle={styles.font15} />
         <Appbar.Action
           icon={isSearchVisible ? 'magnify-close' : 'magnify'}
           onPress={() => setIsSearchVisible(!isSearchVisible)}
@@ -47,6 +47,7 @@ Header.propTypes = {
   onSearch: PropTypes.func.isRequired,
   isSelected: PropTypes.number.isRequired,
   setSelectedContacts: PropTypes.func.isRequired,
+  saveList: PropTypes.func.isRequired,
 };
 
 export default Header;

@@ -1,5 +1,5 @@
 import React from 'react';
-import { List, Avatar, Checkbox } from 'react-native-paper';
+import { List, Avatar } from 'react-native-paper';
 import PropTypes from 'prop-types';
 
 const toggleContactSelection = (setSelectedContacts, contactId) => {
@@ -11,12 +11,8 @@ const toggleContactSelection = (setSelectedContacts, contactId) => {
   });
 };
 
-const selector = (selectedContacts, setSelectedContacts, contactId) => (
-  <Checkbox
-    status={selectedContacts.includes(contactId) ? 'checked' : 'unchecked'}
-    onPress={() => toggleContactSelection(setSelectedContacts, contactId)}
-  />
-);
+const selector = (selectedContacts, contactId) =>
+  selectedContacts.includes(contactId) ? <Avatar.Icon size={25} icon="check" /> : '';
 
 const Contact = React.memo(({ userData, selectedContacts, setSelectedContacts }) => {
   const { name, phoneNumbers } = userData;
@@ -27,8 +23,9 @@ const Contact = React.memo(({ userData, selectedContacts, setSelectedContacts })
     <List.Item
       title={name}
       description={phoneNumber}
+      onPress={() => toggleContactSelection(setSelectedContacts, userData.id)}
       left={() => renderAvatar()}
-      right={() => selector(selectedContacts, setSelectedContacts, userData?.name)}
+      right={() => selector(selectedContacts, userData.id)}
     />
   );
 });
@@ -36,6 +33,7 @@ const Contact = React.memo(({ userData, selectedContacts, setSelectedContacts })
 Contact.propTypes = {
   userData: PropTypes.shape({
     name: PropTypes.string,
+    id: PropTypes.number.isRequired,
     phoneNumbers: PropTypes.arrayOf(
       PropTypes.shape({
         id: PropTypes.string,
