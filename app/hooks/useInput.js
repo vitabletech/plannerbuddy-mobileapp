@@ -15,7 +15,7 @@ const useInput = (initialValue, validationFunction) => {
   };
   const reset = () => {
     setValue(initialValue);
-    handleBlur();
+    setError(null);
   };
   return {
     value,

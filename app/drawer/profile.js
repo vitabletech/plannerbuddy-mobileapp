@@ -1,4 +1,5 @@
 import React, { useState, useRef } from 'react';
+import { View } from 'react-native';
 import { Text, Avatar, Card, IconButton } from 'react-native-paper';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import commonStyles from '../styles/common.style';
@@ -7,7 +8,8 @@ import VTTextInput from '../components/VTTextInput/VTTextInput';
 import useInput from '../hooks/useInput';
 
 const profile = () => {
-  const person = fetchUserDetails();
+  const personDetails = fetchUserDetails();
+  const [person, setPerson] = useState(personDetails);
   const classes = commonStyles();
   const emailInputRef = useRef(null);
   const phoneInputRef = useRef(null);
@@ -42,10 +44,12 @@ const profile = () => {
     phoneInput.onBlur();
     addressInput.onBlur();
     if (nameInput.value && emailInput.value && phoneInput.value && addressInput.value) {
-      person.name = nameInput.value;
-      person.email = emailInput.value;
-      person.contact = phoneInput.value;
-      person.address = addressInput.value;
+      setPerson({
+        name: nameInput.value,
+        email: emailInput.value,
+        contact: phoneInput.value,
+        address: addressInput.value,
+      });
       setEnableEdit((state) => !state);
     }
   };
@@ -73,10 +77,10 @@ const profile = () => {
             enableEdit ? (
               <IconButton {...props} icon="pencil" onPress={handleEdit} />
             ) : (
-              <>
-                <IconButton {...props} icon="close" onPress={resetForm} />
+              <View style={[classes.flex1, classes.flexRow]}>
                 <IconButton {...props} icon="content-save-outline" onPress={saveEdit} />
-              </>
+                <IconButton {...props} icon="close" onPress={resetForm} />
+              </View>
             )
           }
         />
