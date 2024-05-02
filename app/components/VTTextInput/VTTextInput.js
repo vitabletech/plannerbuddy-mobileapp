@@ -15,9 +15,11 @@ const VTTextInput = forwardRef(({ label, value, onChangeText, onBlur, error, ...
         ref={ref}
         {...props}
       />
-      <HelperText type="error" visible={error}>
-        {error}
-      </HelperText>
+      {error && (
+        <HelperText type="error" visible={error}>
+          {error}
+        </HelperText>
+      )}
     </View>
   );
 });

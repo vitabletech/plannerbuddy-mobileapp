@@ -1,5 +1,5 @@
 import React from 'react';
-import FetchContactDetails from '../../../components/Guests/FetchContactDetails';
+import FetchContactDetails from '../../components/Guests/FetchContactDetails';
 
 const SyncContact = () => <FetchContactDetails />;
 

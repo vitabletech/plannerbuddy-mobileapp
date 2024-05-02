@@ -17,7 +17,7 @@ const InitialLayout = ({ stackScreens, colorScheme }) => {
     const handleNavigation = () => {
       if (!initialized || !isReady) return;
       if (token) {
-        router.replace('/drawer');
+        router.replace('/Screens');
       } else {
         router.replace('/');
       }

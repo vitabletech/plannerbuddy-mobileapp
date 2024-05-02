@@ -1,11 +1,11 @@
 import React from 'react';
 import { ScrollView, View } from 'react-native';
 import { Button, Text } from 'react-native-paper';
-import AddEventModal from '../../components/CreateEvents/AddEvent';
-import getStyles from '../../components/CreateEvents/styles';
-import commonStyles from '../../styles/common.style';
-import EventCard from '../../components/Event/Event';
-import { useEventContext } from '../../store/EventContext';
+import AddEventModal from '../components/CreateEvents/AddEvent';
+import getStyles from '../components/CreateEvents/styles';
+import commonStyles from '../styles/common.style';
+import EventCard from '../components/Event/Event';
+import { useEventContext } from '../store/EventContext';
 
 const Events = () => {
   const styles = { ...getStyles(), ...commonStyles() };

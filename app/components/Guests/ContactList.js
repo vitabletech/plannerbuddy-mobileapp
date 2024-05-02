@@ -33,7 +33,7 @@ const Contact = React.memo(({ userData, selectedContacts, setSelectedContacts })
 Contact.propTypes = {
   userData: PropTypes.shape({
     name: PropTypes.string,
-    id: PropTypes.number.isRequired,
+    id: PropTypes.string.isRequired,
     phoneNumbers: PropTypes.arrayOf(
       PropTypes.shape({
         id: PropTypes.string,

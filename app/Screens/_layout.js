@@ -1,14 +1,11 @@
 import React from 'react';
-import { Tabs, useNavigation } from 'expo-router';
-import { DrawerActions } from '@react-navigation/native';
+import { Tabs } from 'expo-router';
 import { useTheme } from 'react-native-paper';
-import { IconComponent, HeaderLeft } from '../../utils/utils';
-import { DEFAULT_BOTTOM_TAB_ICON_SIZE } from '../../constants/constants';
+import { IconComponent } from '../utils/utils';
+import { DEFAULT_BOTTOM_TAB_ICON_SIZE } from '../constants/constants';
 
 const TabLayout = () => {
   const theme = useTheme();
-  const navigation = useNavigation();
-  const DrawerToggle = () => navigation.dispatch(DrawerActions.openDrawer());
   // Define the tab screens data
   const tabScreens = [
     {
@@ -20,20 +17,19 @@ const TabLayout = () => {
     },
     {
       name: 'Events',
-      title: 'Create Events',
+      title: 'Events',
       icon: ({ color }) =>
         IconComponent('MaterialIcons', 'event', DEFAULT_BOTTOM_TAB_ICON_SIZE, color),
     },
     {
       name: 'Guest',
-      title: 'Add Guests',
+      title: 'Guests',
       icon: ({ color }) => IconComponent('Zocial', 'guest', DEFAULT_BOTTOM_TAB_ICON_SIZE, color),
     },
     {
-      name: 'action',
-      title: 'Menu',
-      icon: () => IconComponent('FontAwesome', 'bars', DEFAULT_BOTTOM_TAB_ICON_SIZE),
-      onPress: () => DrawerToggle(),
+      name: 'profile',
+      title: 'Profile',
+      icon: () => IconComponent('AntDesign', 'setting', DEFAULT_BOTTOM_TAB_ICON_SIZE),
     },
   ];
 
@@ -44,8 +40,6 @@ const TabLayout = () => {
           backgroundColor: theme.colors.primary,
         },
         headerTintColor: theme.colors.background,
-        headerLeft: () =>
-          HeaderLeft(DrawerToggle, 'FontAwesome5', 'bars', 20, theme.colors.background),
         tabBarActiveTintColor: theme.colors.primary,
         tabBarInactiveTintColor: theme.colors.shadow,
         tabBarLabelStyle: {

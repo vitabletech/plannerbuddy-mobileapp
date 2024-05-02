@@ -1,5 +1,5 @@
 import React from 'react';
-import GuestLists from '../components/GuestLists/GuestLists';
+import GuestLists from '../../components/GuestLists/GuestLists';
 
 const ViewGuests = () => <GuestLists selectMode={false} />;
 

@@ -2,10 +2,10 @@ import React, { useState, useRef } from 'react';
 import { View } from 'react-native';
 import { Text, Avatar, Card, IconButton } from 'react-native-paper';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
-import commonStyles from '../styles/common.style';
-import { fetchUserDetails } from '../utils/utils';
-import VTTextInput from '../components/VTTextInput/VTTextInput';
-import useInput from '../hooks/useInput';
+import commonStyles from '../../styles/common.style';
+import { fetchUserDetails } from '../../utils/utils';
+import VTTextInput from '../VTTextInput/VTTextInput';
+import useInput from '../../hooks/useInput';
 
 const profile = () => {
   const personDetails = fetchUserDetails();

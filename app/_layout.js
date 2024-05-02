@@ -17,12 +17,15 @@ const RootLayout = () => {
       options: { headerShown: false },
     },
     {
-      name: 'drawer',
+      name: 'Screens',
       options: { headerShown: false },
     },
     {
       name: 'register',
       options: { headerShown: false },
+    },
+    {
+      name: 'help',
     },
     {
       name: 'privacy',

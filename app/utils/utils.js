@@ -74,3 +74,16 @@ export const fetchEventDetails = () => {
   };
   return events;
 };
+
+export const SETTING_ACTIONS = (navigation) => [
+  {
+    icon: 'chat',
+    label: 'Chat Support',
+    onPress: () => navigation.navigate('help'),
+  },
+  {
+    icon: 'share',
+    label: 'Share App',
+    onPress: () => onShare(),
+  },
+];
