@@ -92,10 +92,10 @@ const Login = () => {
             </TouchableOpacity>
           </Link>
         </View>
-        <Link replace href="/forget" asChild>
+        <Link href="/forget" asChild>
           <Button>Forgot password?</Button>
         </Link>
-        <Link replace href="/privacy" asChild>
+        <Link href="/privacy" asChild>
           <TouchableOpacity style={styles.positionCenter}>
             <Text>Privacy Policy</Text>
           </TouchableOpacity>

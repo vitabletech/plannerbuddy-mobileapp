@@ -6,7 +6,7 @@ import { ScrollView } from 'react-native-virtualized-view';
 import { useEventContext } from './store/EventContext';
 import getStyles from './components/CreateEvents/styles';
 import commonStyles from './styles/common.style';
-import ConfirmDialog from './components/dialog';
+import ConfirmDialog from './components/ConfirmDialog/ConfirmDialog';
 
 const eventDetails = () => {
   const styles = { ...getStyles(), ...commonStyles() };

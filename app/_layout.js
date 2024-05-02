@@ -26,6 +26,13 @@ const RootLayout = () => {
     },
     {
       name: 'help',
+      options: {
+        presentation: 'modal',
+        title: 'Chat Support',
+        headerStyle: { backgroundColor: theme.colors.onPrimaryContainer },
+        headerTintColor: theme.colors.background,
+        headerShown: Platform.OS !== 'ios',
+      },
     },
     {
       name: 'privacy',

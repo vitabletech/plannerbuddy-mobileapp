@@ -5,10 +5,11 @@ import { Link } from 'expo-router';
 import VTTextInput from '../VTTextInput/VTTextInput';
 import useInput from '../../hooks/useInput';
 import getStyles from './styles';
+import commonStyles from '../../styles/common.style';
 import { useAuth } from '../../store/AuthContext';
 
 const Signup = () => {
-  const styles = getStyles();
+  const styles = { ...getStyles(), ...commonStyles() };
   const { onRegister } = useAuth();
 
   const emailInputRef = useRef(null);
@@ -90,7 +91,7 @@ const Signup = () => {
         }
       />
       <TouchableOpacity onPress={handleSignup} style={styles.outlineButton}>
-        <Text>Sign Up</Text>
+        <Text style={styles.textWhite}>Sign Up</Text>
       </TouchableOpacity>
       <View style={styles.positionCenter}>
         <Text>Already have an account? </Text>
