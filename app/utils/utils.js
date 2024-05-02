@@ -64,3 +64,13 @@ export const fetchUserDetails = () => {
   };
   return person;
 };
+export const fetchEventDetails = () => {
+  const events = {
+    id: '',
+    name: '',
+    address: '',
+    date: '',
+    guests: [],
+  };
+  return events;
+};

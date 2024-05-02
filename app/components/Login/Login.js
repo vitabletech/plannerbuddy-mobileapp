@@ -14,8 +14,10 @@ const Login = () => {
   const [visible, setVisible] = useState(false);
   const [message, setMessage] = useState('');
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
-  const emailInput = useInput('', (value) => (value.trim() ? null : 'Username is required'));
-  const passwordInput = useInput('', (value) => (value.trim() ? null : 'Password is required'));
+  const emailInput = useInput('atuny0', (value) => (value.trim() ? null : 'Username is required'));
+  const passwordInput = useInput('9uQFF1Lh', (value) =>
+    value.trim() ? null : 'Password is required',
+  );
 
   const [loading, setLoading] = useState(false);
   const { onLogin } = useAuth();

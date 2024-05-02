@@ -5,17 +5,11 @@ import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view
 import { DatePickerModal } from 'react-native-paper-dates';
 import getStyles from './styles';
 import { useEventContext } from '../../store/EventContext';
-
-let EVENT = {
-  id: '',
-  name: '',
-  address: '',
-  date: '',
-  guests: [],
-};
+import { fetchEventDetails } from '../../utils/utils';
 
 const AddEventModal = () => {
   const styles = getStyles();
+  let EVENT = fetchEventDetails();
   const [open, setOpen] = useState(false);
   const [selectedDate, setSelectedDate] = useState(undefined);
   const [event, setEvent] = useState(EVENT);
@@ -40,9 +34,7 @@ const AddEventModal = () => {
   }, [setOpen]);
 
   const handleChance = (id, e) => {
-    if (e && e !== '') {
-      setEvent(() => ({ ...event, [id]: e }));
-    }
+    setEvent(() => ({ ...event, [id]: e }));
   };
 
   const onConfirmSingle = useCallback(
