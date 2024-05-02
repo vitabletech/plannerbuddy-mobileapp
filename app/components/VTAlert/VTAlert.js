@@ -1,12 +1,15 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { Dialog, Portal, Text, Button } from 'react-native-paper';
 import commonStyles from '../../styles/common.style';
 
-const Alert = ({ title, body, icon, isVisible }) => {
+const VTAlert = ({ title, body, icon, isVisible }) => {
   const [visible, setVisible] = useState(isVisible);
   const styles = commonStyles();
   const hideDialog = () => setVisible(false);
+  useEffect(() => {
+    setVisible(isVisible);
+  }, [isVisible]);
 
   return (
     <Portal>
@@ -28,16 +31,16 @@ const Alert = ({ title, body, icon, isVisible }) => {
   );
 };
 
-Alert.defaultProps = {
+VTAlert.defaultProps = {
   title: '',
   body: 'Default Message',
   icon: 'alert-circle',
 };
 
-Alert.propTypes = {
+VTAlert.propTypes = {
   title: PropTypes.string,
   body: PropTypes.string,
   icon: PropTypes.string,
   isVisible: PropTypes.bool.isRequired,
 };
-export default Alert;
+export default VTAlert;

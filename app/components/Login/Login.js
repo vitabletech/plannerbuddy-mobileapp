@@ -1,42 +1,49 @@
+import React, { useState, useRef, useMemo } from 'react';
 import { View, TouchableOpacity } from 'react-native';
-import {
-  useTheme,
-  Text,
-  TextInput,
-  ActivityIndicator,
-  Checkbox,
-  HelperText,
-} from 'react-native-paper';
-import React, { useState, useRef } from 'react';
-
+import { useTheme, Text, TextInput, ActivityIndicator, Button } from 'react-native-paper';
 import { Link } from 'expo-router';
 import { useAuth } from '../../store/AuthContext';
 import getStyles from './styles';
+import VTTextInput from '../VTTextInput/VTTextInput';
+import useInput from '../../hooks/useInput';
+import VTAlert from '../VTAlert/VTAlert';
 
 const Login = () => {
   const theme = useTheme();
   const styles = getStyles();
+  const [visible, setVisible] = useState(false);
+  const [message, setMessage] = useState('');
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
-  const [username, setUsername] = useState('atuny0'); // atuny0
-  const [password, setPassword] = useState('9uQFF1Lh'); // 9uQFF1Lh
+  const emailInput = useInput('', (value) => (value.trim() ? null : 'Username is required'));
+  const passwordInput = useInput('', (value) => (value.trim() ? null : 'Password is required'));
+
   const [loading, setLoading] = useState(false);
-  const [hasError, sethasError] = useState(false);
   const { onLogin } = useAuth();
   const passwordInputRef = useRef(null);
   const login = async () => {
     setLoading(true);
-    if (!username || !password) {
-      sethasError(true);
+    // Trigger validation for all input fields
+    emailInput.onBlur();
+    passwordInput.onBlur();
+    if (!emailInput.value || !passwordInput.value) {
       setLoading(false);
       return false;
     }
-    const result = await onLogin(username, password);
+    const result = await onLogin(emailInput.value, passwordInput.value);
     if (result?.error) {
-      alert(result?.msg);
+      setVisible(true);
+      setMessage(result?.msg);
+      passwordInput.reset('');
     }
     setLoading(false);
     return true;
   };
+
+  // Memoized components
+  const AlertComponent = useMemo(
+    () => <VTAlert isVisible={visible} body={message} />,
+    [visible, message],
+  );
 
   return (
     <>
@@ -48,51 +55,26 @@ const Login = () => {
           Please enter your account here
         </Text>
       </View>
+      {AlertComponent}
       <View>
-        <View>
-          <TextInput
-            mode="outlined"
-            autoCapitalize="none"
-            label="Enter Your Email"
-            value={username}
-            onChangeText={setUsername}
-            onSubmitEditing={() => passwordInputRef.current.focus()}
-            left={<TextInput.Icon icon="account" />}
-          />
-          <HelperText type="error" visible={hasError && !username}>
-            <Text>Username is invalid!</Text>
-          </HelperText>
-        </View>
-        <View>
-          <TextInput
-            mode="outlined"
-            label="Enter Password"
-            ref={passwordInputRef}
-            value={password}
-            onChangeText={setPassword}
-            secureTextEntry={!isPasswordVisible}
-            left={
-              <TextInput.Icon
-                icon={isPasswordVisible ? 'eye' : 'eye-off'}
-                onPress={() => setIsPasswordVisible(!isPasswordVisible)}
-              />
-            }
-          />
-          <HelperText type="error" visible={hasError && !password}>
-            <Text>Password is invalid!</Text>
-          </HelperText>
-        </View>
-        <View style={styles.rowSpaceBetween}>
-          <Checkbox.Item
-            labelVariant="labelLarge"
-            label="Remember me"
-            status="checked"
-            style={styles.rowReverse}
-          />
-          <TouchableOpacity style={styles.forgotPasswordContainer}>
-            <Text>Forgot password?</Text>
-          </TouchableOpacity>
-        </View>
+        <VTTextInput
+          label="Enter Your Email"
+          {...emailInput}
+          left={<TextInput.Icon icon="account" />}
+          onSubmitEditing={() => passwordInputRef.current.focus()}
+        />
+        <VTTextInput
+          label="Enter Password"
+          ref={passwordInputRef}
+          secureTextEntry={!isPasswordVisible}
+          left={
+            <TextInput.Icon
+              icon={isPasswordVisible ? 'eye' : 'eye-off'}
+              onPress={() => setIsPasswordVisible((state) => !state)}
+            />
+          }
+          {...passwordInput}
+        />
         {loading ? (
           <ActivityIndicator style={styles.outlineButton} color={theme.colors.onPrimary} />
         ) : (
@@ -108,6 +90,9 @@ const Login = () => {
             </TouchableOpacity>
           </Link>
         </View>
+        <Link replace href="/forget" asChild>
+          <Button>Forgot password?</Button>
+        </Link>
         <Link replace href="/privacy" asChild>
           <TouchableOpacity style={styles.positionCenter}>
             <Text>Privacy Policy</Text>

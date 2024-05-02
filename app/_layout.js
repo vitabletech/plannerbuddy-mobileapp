@@ -32,7 +32,16 @@ const RootLayout = () => {
         headerStyle: { backgroundColor: theme.colors.onPrimaryContainer },
         headerTintColor: theme.colors.background,
         headerShown: Platform.OS !== 'ios',
-        headerLeft: null,
+      },
+    },
+    {
+      name: 'forget',
+      options: {
+        presentation: 'modal',
+        title: 'Forget Password',
+        headerStyle: { backgroundColor: theme.colors.onPrimaryContainer },
+        headerTintColor: theme.colors.background,
+        headerShown: Platform.OS !== 'ios',
       },
     },
   ];

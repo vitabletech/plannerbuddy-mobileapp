@@ -1,6 +1,6 @@
-import React, { useRef } from 'react';
+import React, { useRef, useState } from 'react';
 import { View, TouchableOpacity } from 'react-native';
-import { Text } from 'react-native-paper';
+import { Text, TextInput } from 'react-native-paper';
 import { Link } from 'expo-router';
 import VTTextInput from '../VTTextInput/VTTextInput';
 import useInput from '../../hooks/useInput';
@@ -14,6 +14,8 @@ const Signup = () => {
   const emailInputRef = useRef(null);
   const passwordInputRef = useRef(null);
   const confirmPasswordInputRef = useRef(null);
+  const [isPasswordVisible, setIsPasswordVisible] = useState(false);
+  const [isCPasswordVisible, setIsCPasswordVisible] = useState(false);
 
   const nameInput = useInput('', (value) => (value.trim() ? null : 'Name is required'));
   const emailInput = useInput('', (value) =>
@@ -52,26 +54,40 @@ const Signup = () => {
       <VTTextInput
         label="Full Name"
         {...nameInput}
+        left={<TextInput.Icon icon="account" />}
         onSubmitEditing={() => emailInputRef.current.focus()}
       />
       <VTTextInput
         label="Email"
         ref={emailInputRef}
         {...emailInput}
+        left={<TextInput.Icon icon="email" />}
         onSubmitEditing={() => passwordInputRef.current.focus()}
       />
       <VTTextInput
         label="Enter Password"
         ref={passwordInputRef}
-        secureTextEntry
+        secureTextEntry={!isPasswordVisible}
         {...passwordInput}
+        left={
+          <TextInput.Icon
+            icon={isPasswordVisible ? 'eye' : 'eye-off'}
+            onPress={() => setIsPasswordVisible((state) => !state)}
+          />
+        }
         onSubmitEditing={() => confirmPasswordInputRef.current.focus()}
       />
       <VTTextInput
         label="Confirm Password"
         ref={confirmPasswordInputRef}
-        secureTextEntry
+        secureTextEntry={!isCPasswordVisible}
         {...confirmPasswordInput}
+        left={
+          <TextInput.Icon
+            icon={isCPasswordVisible ? 'eye' : 'eye-off'}
+            onPress={() => setIsCPasswordVisible((state) => !state)}
+          />
+        }
       />
       <TouchableOpacity onPress={handleSignup} style={styles.outlineButton}>
         <Text>Sign Up</Text>
