@@ -2,6 +2,7 @@ import React from 'react';
 import { TouchableOpacity, View, Share } from 'react-native';
 import { ActivityIndicator, Avatar, IconButton } from 'react-native-paper';
 import { iconLibraries, ON_SHARE_APP_MESSAGE } from './constant';
+import { API_URL } from '../constants/constants';
 
 export const IconComponent = (lib, iconName, size, color) => {
   const Component = iconLibraries[lib];
@@ -87,3 +88,9 @@ export const SETTING_ACTIONS = (navigation) => [
     onPress: () => onShare(),
   },
 ];
+
+export const fetchUsers = async (page) => {
+  const response = await fetch(`${API_URL}users?skip=${page}&limit=10`);
+  const data = await response.json();
+  return data;
+};

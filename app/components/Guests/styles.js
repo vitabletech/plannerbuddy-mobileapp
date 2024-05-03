@@ -9,7 +9,6 @@ const getStyles = () => {
       fontSize: 15,
     },
     header: {
-      // height: 40,
       marginTop: -40,
     },
     justify: {

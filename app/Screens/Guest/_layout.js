@@ -22,6 +22,7 @@ const TabLayout = () => {
         tabBarIndicatorStyle: { backgroundColor: theme.colors.primary },
       }}
     >
+      <MaterialTopTabs.Screen name="Gifts" options={{ title: 'Gifts' }} />
       <MaterialTopTabs.Screen name="ViewGuests" options={{ title: 'View Guest' }} />
       <MaterialTopTabs.Screen name="index" options={{ title: 'Add Guests' }} />
       <MaterialTopTabs.Screen name="SyncContact" options={{ title: 'Sync Guest' }} />

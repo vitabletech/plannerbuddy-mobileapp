@@ -22,10 +22,7 @@ const GuestLists = ({ selectMode }) => {
   const [filteredContactList, setFilteredContactList] = useState(contactList);
   const [selectedContacts, setSelectedContacts] = useState([]);
 
-  console.log('filteredContactList', filteredContactList);
-
   const handleSearch = (searchQuery) => {
-    console.log('searchQuery', searchQuery);
     filterContacts(searchQuery, contactList, setFilteredContactList);
   };
 

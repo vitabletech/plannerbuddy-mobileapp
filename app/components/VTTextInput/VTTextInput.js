@@ -2,10 +2,12 @@ import React, { forwardRef } from 'react';
 import PropTypes from 'prop-types';
 import { View } from 'react-native';
 import { TextInput, HelperText } from 'react-native-paper';
+import getStyles from './styles';
 
 const VTTextInput = forwardRef(({ label, value, onChangeText, onBlur, error, ...props }, ref) => {
+  const styles = getStyles();
   return (
-    <View>
+    <View style={styles.mrBottom}>
       <TextInput
         mode="outlined"
         label={label}
