@@ -4,9 +4,10 @@ import Profile from '../components/Profile/Profile';
 
 const profile = () => {
   return (
-    <VTFAB>
+    <>
+      <VTFAB />
       <Profile />
-    </VTFAB>
+    </>
   );
 };
 export default profile;
