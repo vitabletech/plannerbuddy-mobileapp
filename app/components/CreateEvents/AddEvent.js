@@ -1,11 +1,11 @@
 import React, { useState, useCallback, useEffect, useRef } from 'react';
 import { View } from 'react-native';
 import { Dialog, Portal, Button, TextInput, HelperText } from 'react-native-paper';
-import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { DatePickerModal } from 'react-native-paper-dates';
 import getStyles from './styles';
 import { useEventContext } from '../../store/EventContext';
 import { fetchEventDetails } from '../../utils/utils';
+import InputDialog from '../InputDialog/InputDialog';
 
 const AddEventModal = () => {
   const styles = getStyles();
@@ -18,8 +18,17 @@ const AddEventModal = () => {
   const dateInputRef = useRef(null);
   const addressInputRef = useRef(null);
 
-  const { events, mode, editIndex, addEvent, showModal, closeDialog, updateEvent } =
-    useEventContext();
+  const {
+    events,
+    mode,
+    editIndex,
+    addEvent,
+    showModal,
+    closeDialog,
+    updateEvent,
+    setEditIndex,
+    setMode,
+  } = useEventContext();
 
   useEffect(() => {
     if (mode === 'edit') {
@@ -76,6 +85,8 @@ const AddEventModal = () => {
   const handleCloseDialog = useCallback(() => {
     EVENT = { id: '', name: '', address: '', date: '' };
     setEvent(EVENT);
+    setEditIndex(null);
+    setMode(null);
     closeDialog();
   }, [closeDialog]);
 
@@ -86,68 +97,70 @@ const AddEventModal = () => {
 
   return (
     <Portal>
-      <Dialog visible={showModal} onDismiss={handleCloseDialog}>
-        <KeyboardAwareScrollView scrollEnabled viewIsInsideTabBar>
-          <Dialog.Title>{mode === 'edit' ? 'Edit Event' : 'Create New Event'}</Dialog.Title>
+      {/* <Dialog visible={showModal} onDismiss={handleCloseDialog} dismissable={false}>
+        <KeyboardAwareScrollView scrollEnabled viewIsInsideTabBar> */}
+      <InputDialog visible={showModal} onDismiss={handleCloseDialog}>
+        <Dialog.Title>{mode === 'edit' ? 'Edit Event' : 'Create New Event'}</Dialog.Title>
 
-          <Dialog.Content style={styles.contentContainer}>
-            <TextInput
-              style={styles.input}
-              mode="outlined"
-              value={event.name}
-              label="Event name"
-              onChangeText={(e) => handleChance('name', e)}
-              onSubmitEditing={() => addressInputRef.current.focus()}
+        <Dialog.Content style={styles.contentContainer}>
+          <TextInput
+            style={styles.input}
+            mode="outlined"
+            value={event.name}
+            label="Event name"
+            onChangeText={(e) => handleChance('name', e)}
+            onSubmitEditing={() => addressInputRef.current.focus()}
+          />
+          <HelperText type="error" visible={!!error.name}>
+            {error.name}
+          </HelperText>
+          <TextInput
+            ref={addressInputRef}
+            style={styles.input}
+            mode="outlined"
+            value={event.address}
+            label="Address"
+            onChangeText={(e) => handleChance('address', e)}
+            onSubmitEditing={() => dateInputRef.current.focus()}
+          />
+          <HelperText type="error" visible={!!error.address}>
+            {error.address}
+          </HelperText>
+          <TextInput
+            ref={dateInputRef}
+            style={styles.input}
+            mode="outlined"
+            label="Date"
+            value={selectedDate ? selectedDate.toDateString() : ''}
+            onFocus={handleSelectDate}
+          />
+          <View>
+            <DatePickerModal
+              locale="en"
+              mode="single"
+              visible={open}
+              onDismiss={onDismissSingle}
+              date={selectedDate}
+              onConfirm={onConfirmSingle}
+              presentationStyle="pageSheet"
             />
-            <HelperText type="error" visible={!!error.name}>
-              {error.name}
+            <HelperText type="error" visible={selectedDate === undefined}>
+              {error.date}
             </HelperText>
-            <TextInput
-              ref={addressInputRef}
-              style={styles.input}
-              mode="outlined"
-              value={event.address}
-              label="Address"
-              onChangeText={(e) => handleChance('address', e)}
-              onSubmitEditing={() => dateInputRef.current.focus()}
-            />
-            <HelperText type="error" visible={!!error.address}>
-              {error.address}
-            </HelperText>
-            <TextInput
-              ref={dateInputRef}
-              style={styles.input}
-              mode="outlined"
-              label="Date"
-              value={selectedDate ? selectedDate.toDateString() : ''}
-              onFocus={handleSelectDate}
-            />
-            <View>
-              <DatePickerModal
-                locale="en"
-                mode="single"
-                visible={open}
-                onDismiss={onDismissSingle}
-                date={selectedDate}
-                onConfirm={onConfirmSingle}
-                presentationStyle="pageSheet"
-              />
-              <HelperText type="error" visible={selectedDate === undefined}>
-                {error.date}
-              </HelperText>
-            </View>
-          </Dialog.Content>
+          </View>
+        </Dialog.Content>
 
-          <Dialog.Actions>
-            <Button onPress={closeDialog}>Cancel</Button>
-            {mode === 'edit' ? (
-              <Button onPress={handleUpdateEvent}>Update</Button>
-            ) : (
-              <Button onPress={handleAddEvent}>Ok</Button>
-            )}
-          </Dialog.Actions>
-        </KeyboardAwareScrollView>
-      </Dialog>
+        <Dialog.Actions>
+          <Button onPress={closeDialog}>Cancel</Button>
+          {mode === 'edit' ? (
+            <Button onPress={handleUpdateEvent}>Update</Button>
+          ) : (
+            <Button onPress={handleAddEvent}>Ok</Button>
+          )}
+        </Dialog.Actions>
+      </InputDialog>
+      {/* </KeyboardAwareScrollView> */}
+      {/* </Dialog> */}
     </Portal>
   );
 };

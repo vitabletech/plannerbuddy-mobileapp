@@ -7,8 +7,9 @@ import getStyles from './styles';
 const VTTextInput = forwardRef(({ label, value, onChangeText, onBlur, error, ...props }, ref) => {
   const styles = getStyles();
   return (
-    <View style={styles.mrBottom}>
+    <View style={{ ...styles.mrBottom, backgroundColor: 'red' }}>
       <TextInput
+        style={styles.input}
         mode="outlined"
         label={label}
         value={value}

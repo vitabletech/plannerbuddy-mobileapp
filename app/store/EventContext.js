@@ -36,7 +36,7 @@ export const EventProvider = ({ children }) => {
   ]);
 
   const handleAddEvent = (event) => {
-    setEvents((state) => [...state, { ...event, id: state.length }]);
+    setEvents((state) => [{ ...event, id: state.length }, ...state]);
   };
 
   const handleDeleteEvent = (id) => {
@@ -55,7 +55,11 @@ export const EventProvider = ({ children }) => {
     setMode(null);
   };
 
-  const handleDialogClose = () => setShowModal((state) => !state);
+  const handleDialogClose = () => {
+    setMode(null);
+    setEditIndex(null);
+    setShowModal((state) => !state);
+  };
   const handleDialogOpen = () => setShowModal((state) => !state);
   const handleSetMode = (m) => setMode(m);
   const handleSetEditIndex = (index) => setEditIndex(index);

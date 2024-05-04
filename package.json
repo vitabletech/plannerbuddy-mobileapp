@@ -90,6 +90,7 @@
     "react-native": "^0.73.6",
     "react-native-dropdown-picker": "^5.4.6",
     "react-native-dropdown-select-list": "^2.0.5",
+    "react-native-element-dropdown": "^2.10.4",
     "react-native-gesture-handler": "~2.14.0",
     "react-native-keyboard-aware-scroll-view": "^0.9.5",
     "react-native-pager-view": "6.2.3",

@@ -6,6 +6,7 @@ import { themes } from './theme/themes';
 import InitialLayout from './utils/InitialLayout';
 import ErrorBoundary from './components/ErrorBoundary/ErrorBoundary';
 import { EventProvider } from './store/EventContext';
+import { GuestProvider } from './store/GuestContext';
 
 const RootLayout = () => {
   const colorScheme = useColorScheme();
@@ -59,11 +60,13 @@ const RootLayout = () => {
   return (
     <ErrorBoundary>
       <EventProvider>
-        <PaperProvider theme={theme}>
-          <AuthProvider>
-            <InitialLayout stackScreens={stackScreens} colorScheme={colorScheme} />
-          </AuthProvider>
-        </PaperProvider>
+        <GuestProvider>
+          <PaperProvider theme={theme}>
+            <AuthProvider>
+              <InitialLayout stackScreens={stackScreens} colorScheme={colorScheme} />
+            </AuthProvider>
+          </PaperProvider>
+        </GuestProvider>
       </EventProvider>
     </ErrorBoundary>
   );

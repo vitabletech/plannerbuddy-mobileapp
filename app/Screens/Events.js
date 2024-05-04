@@ -1,6 +1,6 @@
 import React from 'react';
 import { ScrollView, View } from 'react-native';
-import { Button, Text } from 'react-native-paper';
+import { Button, Text, AnimatedFAB } from 'react-native-paper';
 import AddEventModal from '../components/CreateEvents/AddEvent';
 import getStyles from '../components/CreateEvents/styles';
 import commonStyles from '../styles/common.style';
@@ -10,7 +10,6 @@ import { useEventContext } from '../store/EventContext';
 const Events = () => {
   const styles = { ...getStyles(), ...commonStyles() };
   const { events, showModal, openDialog } = useEventContext();
-  console.log('events', events);
   return (
     <>
       {showModal && <AddEventModal />}
@@ -21,15 +20,18 @@ const Events = () => {
           <Text style={styles.centerTextLargeMarginTop}>No Events</Text>
         )}
       </ScrollView>
+
       <View style={styles.columnFlexOne}>
-        <Button
-          style={styles.absolutePositionBottomRight}
+        <AnimatedFAB
           icon="calendar-plus"
-          mode="elevated"
+          label="Add Event"
+          extended
           onPress={openDialog}
-        >
-          Create Event
-        </Button>
+          visible
+          animateFrom="right"
+          iconMode="dynamic"
+          style={styles.absolutePositionBottomRight}
+        />
       </View>
     </>
   );

@@ -8,6 +8,7 @@ import useInput from '../../hooks/useInput';
 import VTDropDown from '../VTDropDown/VTDropDown';
 import { useEventContext } from '../../store/EventContext';
 import { fetchUsers } from '../../utils/utils';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 
 const AddGifts = () => {
   const theme = useTheme();
@@ -72,48 +73,54 @@ const AddGifts = () => {
     }
   };
   return (
-    <View style={styles.mainContainer}>
-      <Card>
-        <Card.Content>
-          <VTDropDown items={items} />
-          <VTDropDown label="Select Guest" items={guestList} />
-          <VTTextInput
-            label="Guest Full Name"
-            {...nameInput}
-            left={<TextInput.Icon icon="account" />}
-            onSubmitEditing={() => emailInputRef.current.focus()}
-          />
-          <VTTextInput
-            label="Phone Number"
-            ref={phoneNumberInputRef}
-            {...phoneInput}
-            left={<TextInput.Icon icon="phone" />}
-            onSubmitEditing={() => addressInputRef.current.focus()}
-          />
-          <VTTextInput
-            label="Email"
-            ref={emailInputRef}
-            {...emailInput}
-            left={<TextInput.Icon icon="email" />}
-            onSubmitEditing={() => phoneNumberInputRef.current.focus()}
-          />
-          <VTTextInput
-            label="Address"
-            ref={phoneNumberInputRef}
-            {...addressInput}
-            left={<TextInput.Icon icon="home" />}
-          />
-          <View style={styles.justify}>
-            <Button icon="delete" mode="contained" onPress={handleClearForm} style={styles.mr10}>
-              <Text style={{ color: theme.colors.onPrimary }}>Clear</Text>
-            </Button>
-            <Button icon="content-save" mode="contained" onPress={handleAddGifts}>
-              <Text style={{ color: theme.colors.onPrimary }}>Save Guests</Text>
-            </Button>
-          </View>
-        </Card.Content>
-      </Card>
-    </View>
+    <KeyboardAwareScrollView
+      style={styles.profileContainer}
+      resetScrollToCoords={{ x: 0, y: 0 }}
+      scrollEnabled
+    >
+      <View style={styles.mainContainer}>
+        <Card>
+          <Card.Content>
+            <VTDropDown items={items} />
+            <VTDropDown label="Select Guest" items={guestList} />
+            <VTTextInput
+              label="Guest Full Name"
+              {...nameInput}
+              left={<TextInput.Icon icon="account" />}
+              onSubmitEditing={() => emailInputRef.current.focus()}
+            />
+            <VTTextInput
+              label="Phone Number"
+              ref={phoneNumberInputRef}
+              {...phoneInput}
+              left={<TextInput.Icon icon="phone" />}
+              onSubmitEditing={() => addressInputRef.current.focus()}
+            />
+            <VTTextInput
+              label="Email"
+              ref={emailInputRef}
+              {...emailInput}
+              left={<TextInput.Icon icon="email" />}
+              onSubmitEditing={() => phoneNumberInputRef.current.focus()}
+            />
+            <VTTextInput
+              label="Address"
+              ref={phoneNumberInputRef}
+              {...addressInput}
+              left={<TextInput.Icon icon="home" />}
+            />
+            <View style={styles.justify}>
+              <Button icon="delete" mode="contained" onPress={handleClearForm} style={styles.mr10}>
+                <Text style={{ color: theme.colors.onPrimary }}>Clear</Text>
+              </Button>
+              <Button icon="content-save" mode="contained" onPress={handleAddGifts}>
+                <Text style={{ color: theme.colors.onPrimary }}>Save Guests</Text>
+              </Button>
+            </View>
+          </Card.Content>
+        </Card>
+      </View>
+    </KeyboardAwareScrollView>
   );
 };
 

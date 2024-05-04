@@ -11,7 +11,12 @@ const VTFAB = ({ actionsButton }) => {
   const [state, setState] = useState({ open: false });
   const onStateChange = ({ open }) => setState({ open });
   const { open } = state;
-  const actions = actionsButton.length ? actionsButton : SETTING_ACTIONS(navigation);
+  const defaultOptions = [
+    { icon: 'logout', label: 'Logout', onPress: () => onLogout() },
+    ...SETTING_ACTIONS(navigation),
+  ];
+
+  const actions = actionsButton.length ? actionsButton : defaultOptions;
 
   return (
     <Portal>

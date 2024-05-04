@@ -11,6 +11,9 @@ const getStyles = () => {
     addButton: {
       marginEnd: 'auto',
     },
+    allButtons: {
+      flexDirection: 'row',
+    },
     closeButton: {
       alignSelf: 'flex-end',
     },

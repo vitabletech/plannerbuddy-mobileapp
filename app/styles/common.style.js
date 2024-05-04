@@ -9,6 +9,7 @@ const commonStyles = () => {
       bottom: 15,
       position: 'absolute',
       right: 15,
+      width: 'auto',
     },
     alignItems_center: {
       alignItems: 'center',
@@ -39,6 +40,7 @@ const commonStyles = () => {
     columnFlexOne: {
       flex: 1,
       flexDirection: 'column',
+      flexGrow: 1,
     },
     flex1: {
       flex: 1,

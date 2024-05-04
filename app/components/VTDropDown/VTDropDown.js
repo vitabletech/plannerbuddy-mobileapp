@@ -1,24 +1,39 @@
 import React, { useState } from 'react';
 import { View } from 'react-native';
 import PropTypes from 'prop-types';
-import DropDownPicker from 'react-native-dropdown-picker';
+import { Dropdown } from 'react-native-element-dropdown';
 import getStyles from './styles';
 
-const VTDropDown = ({ label, items, ...props }) => {
+const VTDropDown = ({ label, items }) => {
   const styles = getStyles();
-  const [open, setOpen] = useState(false);
-  const [value, setValue] = useState(null);
+  const [value, setValue] = useState('');
+  const [isFocus, setIsFocus] = useState(false);
   return (
-    <View style={styles.mrBottom}>
-      <DropDownPicker
-        open={open}
+    <View>
+      <Dropdown
+        style={styles.dropdown}
+        placeholderStyle={styles.placeholderStyle}
+        selectedTextStyle={styles.selectedTextStyle}
+        inputSearchStyle={styles.inputSearchStyle}
+        iconStyle={styles.iconStyle}
+        data={items}
+        autoScroll
+        search
+        searchField="label"
+        maxHeight={300}
+        minHeight={100}
+        labelField="label"
+        valueField="value"
+        placeholder={!isFocus ? label : '...'}
+        searchPlaceholder="Search..."
         value={value}
-        items={items}
-        setOpen={setOpen}
-        setValue={setValue}
-        searchable
-        placeholder={label}
-        {...props}
+        onFocus={() => setIsFocus(true)}
+        onBlur={() => setIsFocus(false)}
+        onChange={(item) => {
+          console.log('item : ', item);
+          setValue(item.value);
+          setIsFocus(false);
+        }}
       />
     </View>
   );

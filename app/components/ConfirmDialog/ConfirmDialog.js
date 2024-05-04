@@ -5,7 +5,7 @@ import { Button, Dialog, Portal, Text } from 'react-native-paper';
 const ConfirmDialog = ({ visible, onDelete, setVisible }) => {
   return (
     <Portal>
-      <Dialog visible={visible}>
+      <Dialog visible={visible} dismissable={false}>
         <Dialog.Title>Delete</Dialog.Title>
         <Dialog.Content>
           <Text variant="bodyMedium">Are you sure you want to delete this item?</Text>
