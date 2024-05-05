@@ -7,7 +7,7 @@ import getStyles from './styles';
 const VTTextInput = forwardRef(({ label, value, onChangeText, onBlur, error, ...props }, ref) => {
   const styles = getStyles();
   return (
-    <View style={{ ...styles.mrBottom, backgroundColor: 'red' }}>
+    <View style={styles.mrBottom}>
       <TextInput
         style={styles.input}
         mode="outlined"
@@ -33,10 +33,10 @@ VTTextInput.defaultProps = {
 };
 
 VTTextInput.propTypes = {
-  label: PropTypes.string.isRequired,
-  value: PropTypes.string.isRequired,
-  onChangeText: PropTypes.func.isRequired,
-  onBlur: PropTypes.func,
-  error: PropTypes.string,
+  // label: PropTypes.string.isRequired,
+  // value: PropTypes.string.isRequired,
+  // onChangeText: PropTypes.func.isRequired,
+  // onBlur: PropTypes.func,
+  // error: PropTypes.string,
 };
 export default VTTextInput;

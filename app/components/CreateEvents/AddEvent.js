@@ -2,33 +2,34 @@ import React, { useState, useCallback, useEffect, useRef } from 'react';
 import { View } from 'react-native';
 import { Dialog, Portal, Button, TextInput, HelperText } from 'react-native-paper';
 import { DatePickerModal } from 'react-native-paper-dates';
+import { useSelector, useDispatch } from 'react-redux';
 import getStyles from './styles';
-import { useEventContext } from '../../store/EventContext';
+// import { useEventContext } from '../../store/EventContext';
 import { fetchEventDetails } from '../../utils/utils';
 import InputDialog from '../InputDialog/InputDialog';
+import { eventActions } from '../../store/EventContext';
 
 const AddEventModal = () => {
-  const styles = getStyles();
   let EVENT = fetchEventDetails();
+
+  const dispatch = useDispatch();
+  const styles = getStyles();
+
   const [open, setOpen] = useState(false);
   const [selectedDate, setSelectedDate] = useState(undefined);
   const [event, setEvent] = useState(EVENT);
   const [error, setError] = useState(false);
+
   // Create refs for the inputs
   const dateInputRef = useRef(null);
   const addressInputRef = useRef(null);
 
-  const {
-    events,
-    mode,
-    editIndex,
-    addEvent,
-    showModal,
-    closeDialog,
-    updateEvent,
-    setEditIndex,
-    setMode,
-  } = useEventContext();
+  const events = useSelector((state) => state.event.events);
+  const mode = useSelector((state) => state.event.mode);
+  const editIndex = useSelector((state) => state.event.editIndex);
+  const showModal = useSelector((state) => state.event.showModal);
+
+  const closeDialog = () => dispatch(eventActions.closeDialog());
 
   useEffect(() => {
     if (mode === 'edit') {
@@ -77,7 +78,7 @@ const AddEventModal = () => {
   const handleAddEvent = useCallback(() => {
     const isValid = validateInput();
     if (isValid) {
-      addEvent({ ...event });
+      dispatch(eventActions.addEvent({ event: { ...event, id: events.length } }));
       closeDialog();
     }
   }, [event, selectedDate, validateInput]);
@@ -85,20 +86,18 @@ const AddEventModal = () => {
   const handleCloseDialog = useCallback(() => {
     EVENT = { id: '', name: '', address: '', date: '' };
     setEvent(EVENT);
-    setEditIndex(null);
-    setMode(null);
+    dispatch(eventActions.setEditIndex({ idx: null }));
+    dispatch(eventActions.setMode({ mode: null }));
     closeDialog();
   }, [closeDialog]);
 
   const handleUpdateEvent = useCallback(() => {
-    updateEvent(event.id, { event: { ...event } });
+    dispatch(eventActions.updateEvent({ id: event.id, event: { ...event } }));
     closeDialog();
-  }, [event, updateEvent]);
+  }, [event]);
 
   return (
     <Portal>
-      {/* <Dialog visible={showModal} onDismiss={handleCloseDialog} dismissable={false}>
-        <KeyboardAwareScrollView scrollEnabled viewIsInsideTabBar> */}
       <InputDialog visible={showModal} onDismiss={handleCloseDialog}>
         <Dialog.Title>{mode === 'edit' ? 'Edit Event' : 'Create New Event'}</Dialog.Title>
 
@@ -159,8 +158,6 @@ const AddEventModal = () => {
           )}
         </Dialog.Actions>
       </InputDialog>
-      {/* </KeyboardAwareScrollView> */}
-      {/* </Dialog> */}
     </Portal>
   );
 };

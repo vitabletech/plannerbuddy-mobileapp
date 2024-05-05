@@ -1,6 +1,8 @@
 import React from 'react';
 import AddGifts from '../../components/GiftManagement/AddGifts';
 
-const AddGift = () => <AddGifts />;
+const Gifts = () => {
+  return <AddGifts />;
+};
 
-export default AddGift;
+export default Gifts;

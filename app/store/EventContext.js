@@ -1,111 +1,53 @@
-import React, { createContext, useContext, useMemo, useState } from 'react';
-import PropTypes from 'prop-types';
+import { createSlice } from '@reduxjs/toolkit';
 
-export const EventContext = createContext({});
-
-export function useEventContext() {
-  return useContext(EventContext);
-}
-
-export const EventProvider = ({ children }) => {
-  const [showModal, setShowModal] = useState(false);
-  const [mode, setMode] = useState('add');
-  const [editIndex, setEditIndex] = useState(null);
-  const [events, setEvents] = useState([
-    {
-      id: 0,
-      name: 'Birthday',
-      address: 'Apt. 295, 1 Clos Du Midi, 45982 Villefranche-sur-Saône',
-      date: 'Tue Apr 02 2024',
-      guests: [],
+const eventSlice = createSlice({
+  name: 'event',
+  initialState: {
+    events: [],
+    mode: null,
+    editIndex: null,
+    showModal: false,
+  },
+  reducers: {
+    addEvent(state, action) {
+      state.events = [...state.events, action.payload.event];
     },
-    {
-      id: 1,
-      name: 'Marriage',
-      address: '8 Rond-point Paul Eluard, 42752 Grasse',
-      date: 'Mon Apr 08 2024',
-      guests: [],
+    addGuestsToEvent(state, action) {
+      const updatedEvent = [...state.events];
+      const event = updatedEvent.find((e) => e.id === state.editIndex);
+      event.guests = [...action.payload.guests];
+      updatedEvent[state.editIndex] = { ...event };
+      state.mode = null;
+      state.events = updatedEvent;
     },
-    {
-      id: 2,
-      name: 'House Party',
-      address: '9393 Anse De Colombes, 85240 Châlons-en-Champagne',
-      date: 'Tue Apr 02 2024',
-      guests: [],
+    setMode(state, action) {
+      state.mode = action.payload.mode;
     },
-  ]);
+    setEditIndex(state, action) {
+      state.editIndex = action.payload.idx;
+    },
+    openDialog(state) {
+      state.showModal = !state.showModal;
+    },
+    closeDialog(state) {
+      state.showModal = !state.showModal;
+    },
+    updateEvent(state, action) {
+      const updatedEvent = { ...action.payload.event };
+      let allEvents = [...state.events];
+      allEvents = allEvents.map((event) => {
+        if (event.id === action.payload.id) return updatedEvent;
+        return event;
+      });
+      state.events = allEvents;
+      state.mode = null;
+    },
+    deleteEvent(state, action) {
+      const remainingEvent = state.events.filter((e) => e.id !== action.payload.id);
+      state.events = remainingEvent;
+    },
+  },
+});
 
-  const handleAddEvent = (event) => {
-    setEvents((state) => [{ ...event, id: state.length }, ...state]);
-  };
-
-  const handleDeleteEvent = (id) => {
-    const remainingEvent = events.filter((e) => e.id !== id);
-    setEvents(remainingEvent);
-  };
-
-  const handleUpdateEvent = (id, payload) => {
-    const updatedEvent = { ...payload.event };
-    let allEvents = [...events];
-    allEvents = allEvents.map((event) => {
-      if (event.id === id) return updatedEvent;
-      return event;
-    });
-    setEvents(allEvents);
-    setMode(null);
-  };
-
-  const handleDialogClose = () => {
-    setMode(null);
-    setEditIndex(null);
-    setShowModal((state) => !state);
-  };
-  const handleDialogOpen = () => setShowModal((state) => !state);
-  const handleSetMode = (m) => setMode(m);
-  const handleSetEditIndex = (index) => setEditIndex(index);
-
-  const addGuestsToEvent = (guests) => {
-    const updatedEvent = [...events];
-    const event = updatedEvent.find((e) => e.id === editIndex);
-    event.guests = [...guests];
-    updatedEvent[editIndex] = { ...event };
-    setMode('add');
-    setEvents(updatedEvent);
-  };
-  const value = useMemo(
-    () => ({
-      events,
-      editIndex,
-      showModal,
-      mode,
-      addGuestsToEvent: (guests) => addGuestsToEvent(guests),
-      setMode,
-      setEditIndex: (idx) => handleSetEditIndex(idx),
-      openDialog: handleDialogOpen,
-      closeDialog: handleDialogClose,
-      addEvent: (event) => handleAddEvent(event),
-      updateEvent: (id, event) => handleUpdateEvent(id, event),
-      deleteEvent: (id) => handleDeleteEvent(id),
-    }),
-    [
-      events,
-      editIndex,
-      showModal,
-      mode,
-      addGuestsToEvent,
-      handleSetMode,
-      handleSetEditIndex,
-      handleDialogOpen,
-      handleDialogClose,
-      handleAddEvent,
-      handleUpdateEvent,
-      handleDeleteEvent,
-    ],
-  );
-
-  return <EventContext.Provider value={value}>{children}</EventContext.Provider>;
-};
-
-EventProvider.propTypes = {
-  children: PropTypes.node.isRequired, // add PropTypes validation for children
-};
+export const eventActions = eventSlice.actions;
+export default eventSlice;

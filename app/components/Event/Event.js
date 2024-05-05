@@ -5,30 +5,43 @@ import { Avatar, Card, Button, Text, IconButton } from 'react-native-paper';
 import RBSheet from 'react-native-raw-bottom-sheet';
 import { ScrollView } from 'react-native-virtualized-view';
 import { router } from 'expo-router';
-import { useEventContext } from '../../store/EventContext';
+// import { useEventContext } from '../../store/EventContext';
 import GuestLists from '../GuestLists/GuestLists';
 import { AvatarIcon } from '../../utils/utils';
 import ConfirmDialog from '../ConfirmDialog/ConfirmDialog';
+import { useDispatch } from 'react-redux';
+import { eventActions } from '../../store/EventContext';
 
 const EventCard = ({ styles, event }) => {
+  const dispatch = useDispatch();
   const refStandard = useRef();
   const icon = event.name.toLowerCase().includes('birth') ? 'cake' : 'party-popper';
-  const { setMode, openDialog, setEditIndex, deleteEvent } = useEventContext();
+  // const { setMode, openDialog, setEditIndex, deleteEvent } = useEventContext();
+  // const setMode = () => dispatch(eventActions.setMode());
+  const openDialog = () => dispatch(eventActions.openDialog());
+  // const setEditIndex = dispatch(eventActions.setEditIndex());
+  // const deleteEvent = dispatch(eventActions.deleteEvent());
+
   const [visible, setVisible] = useState(false);
   const handleEditEvent = () => {
-    setMode('edit');
-    setEditIndex(event.id);
+    dispatch(eventActions.setMode({ mode: 'edit' }));
+    // setMode('edit');
+    dispatch(eventActions.setEditIndex({ idx: event.id }));
+    // setEditIndex(event.id);
     openDialog();
   };
 
   const handleOpenSelectGuests = () => {
-    setMode('getGuests');
-    setEditIndex(event.id);
+    dispatch(eventActions.setMode({ mode: 'editGuests' }));
+    // setMode('getGuests');
+    dispatch(eventActions.setEditIndex({ idx: event.id }));
+    // setEditIndex(event.id);
     refStandard.current.open();
   };
 
   const handleCloseSelectGuests = () => {
-    setEditIndex(null);
+    dispatch(eventActions.setEditIndex({ idx: event.id }));
+    // setEditIndex(null);
     refStandard.current.close();
   };
 
@@ -41,7 +54,8 @@ const EventCard = ({ styles, event }) => {
   };
 
   const handleRemoveEvent = () => {
-    deleteEvent(event.id);
+    dispatch(eventActions.deleteEvent({ id: event.id }));
+    // deleteEvent(event.id);
     setVisible(false);
   };
 

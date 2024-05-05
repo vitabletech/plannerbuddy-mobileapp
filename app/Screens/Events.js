@@ -5,17 +5,24 @@ import AddEventModal from '../components/CreateEvents/AddEvent';
 import getStyles from '../components/CreateEvents/styles';
 import commonStyles from '../styles/common.style';
 import EventCard from '../components/Event/Event';
-import { useEventContext } from '../store/EventContext';
+import { useSelector, useDispatch } from 'react-redux';
+import { eventActions } from '../store/EventContext';
+// import { useEventContext } from '../store/EventContext';
 
 const Events = () => {
+  const dispatch = useDispatch();
   const styles = { ...getStyles(), ...commonStyles() };
-  const { events, showModal, openDialog } = useEventContext();
+  // const { events, showModal, openDialog } = useEventContext();
+  const allEvents = useSelector((state) => state.event.events);
+  const viewModal = useSelector((state) => state.event.showModal);
+  const openDialog = () => dispatch(eventActions.openDialog());
+
   return (
     <>
-      {showModal && <AddEventModal />}
+      {viewModal && <AddEventModal />}
       <ScrollView>
-        {events && events.length > 0 ? (
-          events.map((event) => <EventCard key={event.id} styles={styles} event={event} />)
+        {allEvents && allEvents.length > 0 ? (
+          allEvents.map((event) => <EventCard key={event.id} styles={styles} event={event} />)
         ) : (
           <Text style={styles.centerTextLargeMarginTop}>No Events</Text>
         )}

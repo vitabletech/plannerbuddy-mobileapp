@@ -3,19 +3,20 @@ import { Avatar, Card, IconButton, Text, List } from 'react-native-paper';
 import { View } from 'react-native';
 import { router, useLocalSearchParams } from 'expo-router';
 import { ScrollView } from 'react-native-virtualized-view';
-import { useEventContext } from './store/EventContext';
+import { useDispatch, useSelector } from 'react-redux';
 import getStyles from './components/CreateEvents/styles';
 import commonStyles from './styles/common.style';
 import ConfirmDialog from './components/ConfirmDialog/ConfirmDialog';
+import { eventActions } from './store/EventContext';
 
 const eventDetails = () => {
+  const dispatch = useDispatch();
   const styles = { ...getStyles(), ...commonStyles() };
   const { eventId } = useLocalSearchParams();
-  const { events } = useEventContext();
+  const events = useSelector((state) => state.event.events);
   const event = events.find((e) => e.id === +eventId);
   const [expanded, setExpanded] = useState(false);
   const handlePress = () => setExpanded((state) => !state);
-  const { deleteEvent } = useEventContext();
   const icon = event.name.toLowerCase().includes('birth') ? 'cake' : 'party-popper';
   const [visible, setVisible] = useState(false);
 
@@ -24,7 +25,7 @@ const eventDetails = () => {
   };
 
   const handleRemoveEvent = () => {
-    deleteEvent(event.id);
+    dispatch(eventActions.deleteEvent({ id: event.id }));
     setVisible(false);
     router.back();
   };

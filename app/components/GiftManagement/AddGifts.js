@@ -6,13 +6,15 @@ import getStyles from '../Guests/styles';
 import VTTextInput from '../VTTextInput/VTTextInput';
 import useInput from '../../hooks/useInput';
 import VTDropDown from '../VTDropDown/VTDropDown';
-import { useEventContext } from '../../store/EventContext';
+// import { useEventContext } from '../../store/EventContext';
 import { fetchUsers } from '../../utils/utils';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
+import { useSelector } from 'react-redux';
 
 const AddGifts = () => {
   const theme = useTheme();
-  const { events } = useEventContext();
+  // const { events } = useEventContext();
+  const events = useSelector((state) => state.event.events);
   const styles = { ...getStyles(), ...commonStyles() };
   const [items, setItems] = useState([]);
   const [guestList, setGuestList] = useState([]);

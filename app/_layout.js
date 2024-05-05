@@ -1,12 +1,13 @@
 import React from 'react';
 import { Platform, useColorScheme } from 'react-native';
 import { Provider as PaperProvider } from 'react-native-paper';
+import { Provider } from 'react-redux';
 import { AuthProvider } from './store/AuthContext';
 import { themes } from './theme/themes';
 import InitialLayout from './utils/InitialLayout';
 import ErrorBoundary from './components/ErrorBoundary/ErrorBoundary';
-import { EventProvider } from './store/EventContext';
-import { GuestProvider } from './store/GuestContext';
+// import { EventProvider } from './store/EventContext';
+import store from './store/store';
 
 const RootLayout = () => {
   const colorScheme = useColorScheme();
@@ -58,17 +59,15 @@ const RootLayout = () => {
   ];
 
   return (
-    <ErrorBoundary>
-      <EventProvider>
-        <GuestProvider>
-          <PaperProvider theme={theme}>
-            <AuthProvider>
-              <InitialLayout stackScreens={stackScreens} colorScheme={colorScheme} />
-            </AuthProvider>
-          </PaperProvider>
-        </GuestProvider>
-      </EventProvider>
-    </ErrorBoundary>
+    <Provider store={store}>
+      <ErrorBoundary>
+        <PaperProvider theme={theme}>
+          <AuthProvider>
+            <InitialLayout stackScreens={stackScreens} colorScheme={colorScheme} />
+          </AuthProvider>
+        </PaperProvider>
+      </ErrorBoundary>
+    </Provider>
   );
 };
 export default RootLayout;
