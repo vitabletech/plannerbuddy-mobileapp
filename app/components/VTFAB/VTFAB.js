@@ -25,14 +25,7 @@ const VTFAB = ({ children, actionsButton }) => {
         open={open}
         visible
         icon={open ? 'close' : 'plus'}
-        actions={[
-          {
-            icon: 'logout',
-            label: 'Logout',
-            onPress: () => onLogout(),
-          },
-          ...actions,
-        ]}
+        actions={actions}
         onStateChange={onStateChange}
       />
     </Portal.Host>
