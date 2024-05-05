@@ -1,10 +1,8 @@
-import React, { useEffect, useRef } from 'react';
-import { View } from 'react-native';
-import { useTheme, Text, TextInput, Button, Card, Dialog } from 'react-native-paper';
-import commonStyles from '../../styles/common.style';
-import getStyles from './styles';
+/* eslint-disable react/forbid-prop-types */
+import React, { useRef } from 'react';
+import PropTypes from 'prop-types';
+import { TextInput } from 'react-native-paper';
 import VTTextInput from '../VTTextInput/VTTextInput';
-import useInput from '../../hooks/useInput';
 
 const AddGuests = ({ nameInput, phoneInput, addressInput, emailInput }) => {
   // Create refs for the inputs
@@ -42,6 +40,13 @@ const AddGuests = ({ nameInput, phoneInput, addressInput, emailInput }) => {
       />
     </>
   );
+};
+
+AddGuests.propTypes = {
+  nameInput: PropTypes.object.isRequired,
+  phoneInput: PropTypes.object.isRequired,
+  addressInput: PropTypes.object.isRequired,
+  emailInput: PropTypes.object.isRequired,
 };
 
 export default AddGuests;

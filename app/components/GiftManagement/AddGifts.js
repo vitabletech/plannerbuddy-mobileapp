@@ -1,6 +1,8 @@
 import React, { useRef, useEffect, useState } from 'react';
 import { View } from 'react-native';
 import { useTheme, Text, TextInput, Button, Card } from 'react-native-paper';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
+import { useSelector } from 'react-redux';
 import commonStyles from '../../styles/common.style';
 import getStyles from '../Guests/styles';
 import VTTextInput from '../VTTextInput/VTTextInput';
@@ -8,8 +10,6 @@ import useInput from '../../hooks/useInput';
 import VTDropDown from '../VTDropDown/VTDropDown';
 // import { useEventContext } from '../../store/EventContext';
 import { fetchUsers } from '../../utils/utils';
-import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
-import { useSelector } from 'react-redux';
 
 const AddGifts = () => {
   const theme = useTheme();

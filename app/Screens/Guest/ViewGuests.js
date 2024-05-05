@@ -1,12 +1,12 @@
 import React from 'react';
 import { View } from 'react-native';
+import { useSelector, useDispatch } from 'react-redux';
 import GuestLists from '../../components/GuestLists/GuestLists';
 import VTFAB from '../../components/VTFAB/VTFAB';
 import commonStyles from '../../styles/common.style';
 import AddGuestModal from '../../components/AddGuest/AddGuest';
 // import { useGuestContext } from '../../store/GuestContext';
 import getStyles from '../../styles/settings.style';
-import { useSelector, useDispatch } from 'react-redux';
 import { guestActions } from '../../store/GuestContext';
 
 const ViewGuests = () => {

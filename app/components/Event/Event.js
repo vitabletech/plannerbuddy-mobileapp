@@ -6,10 +6,10 @@ import RBSheet from 'react-native-raw-bottom-sheet';
 import { ScrollView } from 'react-native-virtualized-view';
 import { router } from 'expo-router';
 // import { useEventContext } from '../../store/EventContext';
+import { useDispatch } from 'react-redux';
 import GuestLists from '../GuestLists/GuestLists';
 import { AvatarIcon } from '../../utils/utils';
 import ConfirmDialog from '../ConfirmDialog/ConfirmDialog';
-import { useDispatch } from 'react-redux';
 import { eventActions } from '../../store/EventContext';
 
 const EventCard = ({ styles, event }) => {

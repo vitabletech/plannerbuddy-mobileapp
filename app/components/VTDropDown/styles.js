@@ -4,16 +4,16 @@ import { useTheme } from 'react-native-paper';
 const getStyles = () => {
   const theme = useTheme();
   return StyleSheet.create({
+    dropdown: {
+      borderColor: theme.colors.primary,
+      borderRadius: 3,
+      borderWidth: 1,
+      height: 50,
+      marginVertical: 5,
+      paddingHorizontal: 8,
+    },
     mrBottom: {
       marginBottom: 10,
-    },
-    dropdown: {
-      height: 50,
-      borderColor: theme.colors.primary,
-      borderWidth: 1,
-      borderRadius: 3,
-      paddingHorizontal: 8,
-      marginVertical: 5,
     },
   });
 };

@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useCallback } from 'react';
 import PropTypes from 'prop-types';
 import { FlatList, View } from 'react-native';
+import { useSelector, useDispatch } from 'react-redux';
 import UserDataList from './UserDataList';
 import { API_URL } from '../../constants/constants';
 import { Loader, ItemSeparatorComponent } from '../../utils/utils';
@@ -9,9 +10,7 @@ import getStyles from './style';
 import Header from '../Guests/Header';
 // import { useEventContext } from '../../store/EventContext';
 import { filterContacts } from '../Guests/utils';
-import { useSelector } from 'react-redux';
 import { eventActions } from '../../store/EventContext';
-import { useDispatch } from 'react-redux';
 
 const GuestLists = ({ selectMode }) => {
   const styles = { ...getStyles(), ...commonStyles() };

@@ -6,7 +6,7 @@ import getStyles from './styles';
 
 const GuestsPage = () => {
   const styles = getStyles();
-  const [openDialog, setOpenDialog] = useState(false);
+  const [openDialog] = useState(false);
   return (
     <View style={styles.columnFlexOne}>
       <GuestLists />

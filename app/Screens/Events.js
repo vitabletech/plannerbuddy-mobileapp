@@ -1,11 +1,11 @@
 import React from 'react';
 import { ScrollView, View } from 'react-native';
-import { Button, Text, AnimatedFAB } from 'react-native-paper';
+import { Text, AnimatedFAB } from 'react-native-paper';
+import { useSelector, useDispatch } from 'react-redux';
 import AddEventModal from '../components/CreateEvents/AddEvent';
 import getStyles from '../components/CreateEvents/styles';
 import commonStyles from '../styles/common.style';
 import EventCard from '../components/Event/Event';
-import { useSelector, useDispatch } from 'react-redux';
 import { eventActions } from '../store/EventContext';
 // import { useEventContext } from '../store/EventContext';
 

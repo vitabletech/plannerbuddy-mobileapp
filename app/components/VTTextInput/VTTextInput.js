@@ -33,10 +33,10 @@ VTTextInput.defaultProps = {
 };
 
 VTTextInput.propTypes = {
-  // label: PropTypes.string.isRequired,
-  // value: PropTypes.string.isRequired,
-  // onChangeText: PropTypes.func.isRequired,
-  // onBlur: PropTypes.func,
-  // error: PropTypes.string,
+  label: PropTypes.string.isRequired,
+  value: PropTypes.string.isRequired,
+  onChangeText: PropTypes.func.isRequired,
+  onBlur: PropTypes.func,
+  error: PropTypes.string,
 };
 export default VTTextInput;
