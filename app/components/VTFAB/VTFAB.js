@@ -5,7 +5,7 @@ import { FAB, Portal } from 'react-native-paper';
 import { SETTING_ACTIONS } from '../../utils/utils';
 import { useAuth } from '../../store/AuthContext';
 
-const VTFAB = ({ actionsButton }) => {
+const VTFAB = ({ children, actionsButton }) => {
   const { onLogout } = useAuth();
   const navigation = useNavigation();
   const [state, setState] = useState({ open: false });
@@ -19,9 +19,9 @@ const VTFAB = ({ actionsButton }) => {
   const actions = actionsButton.length ? actionsButton : defaultOptions;
 
   return (
-    <Portal>
+    <Portal.Host>
+      {children}
       <FAB.Group
-        style={{ marginBottom: 50 }}
         open={open}
         visible
         icon={open ? 'close' : 'plus'}
@@ -35,7 +35,7 @@ const VTFAB = ({ actionsButton }) => {
         ]}
         onStateChange={onStateChange}
       />
-    </Portal>
+    </Portal.Host>
   );
 };
 VTFAB.defaultProps = {
@@ -43,7 +43,7 @@ VTFAB.defaultProps = {
 };
 
 VTFAB.propTypes = {
-  // children: PropTypes.node.isRequired,
+  children: PropTypes.node.isRequired,
   actionsButton: PropTypes.arrayOf(
     PropTypes.shape({
       icon: PropTypes.string.isRequired,

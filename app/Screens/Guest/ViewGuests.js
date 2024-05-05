@@ -1,6 +1,5 @@
 import React from 'react';
 import { View } from 'react-native';
-import { Text } from 'react-native-paper';
 import GuestLists from '../../components/GuestLists/GuestLists';
 import VTFAB from '../../components/VTFAB/VTFAB';
 import commonStyles from '../../styles/common.style';
@@ -22,11 +21,12 @@ const ViewGuests = () => {
   ];
 
   return (
-    <VTFAB actionsButton={addGuestOptions} />
+    <VTFAB actionsButton={addGuestOptions}>
       {showModal && <AddGuestModal styles={styles} />}
       <View style={styles.flex1}>
         <GuestLists selectMode={false} />
       </View>
+    </VTFAB>
   );
 };
 
