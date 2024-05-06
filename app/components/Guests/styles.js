@@ -15,10 +15,6 @@ const getStyles = () => {
       flexDirection: 'row',
       justifyContent: 'center',
     },
-    mainContainer: {
-      // marginBottom: 20,
-      // marginTop: 20,
-    },
     modalBackground: {
       backgroundColor: theme.colors.background,
       height: screenHeight * 0.8,

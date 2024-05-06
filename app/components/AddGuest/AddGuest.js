@@ -5,7 +5,6 @@ import InputDialog from '../InputDialog/InputDialog';
 import AddGuests from '../Guests/AddGuests';
 import { guestActions } from '../../store/GuestContext';
 import useInput from '../../hooks/useInput';
-// import { useGuestContext } from '../../store/GuestContext';
 
 const AddGuestModal = () => {
   const dispatch = useDispatch();

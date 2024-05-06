@@ -7,12 +7,10 @@ import getStyles from '../components/CreateEvents/styles';
 import commonStyles from '../styles/common.style';
 import EventCard from '../components/Event/Event';
 import { eventActions } from '../store/EventContext';
-// import { useEventContext } from '../store/EventContext';
 
 const Events = () => {
   const dispatch = useDispatch();
   const styles = { ...getStyles(), ...commonStyles() };
-  // const { events, showModal, openDialog } = useEventContext();
   const allEvents = useSelector((state) => state.event.events);
   const viewModal = useSelector((state) => state.event.showModal);
   const openDialog = () => dispatch(eventActions.openDialog());

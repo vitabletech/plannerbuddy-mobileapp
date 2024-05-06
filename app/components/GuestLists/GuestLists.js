@@ -8,7 +8,6 @@ import { Loader, ItemSeparatorComponent } from '../../utils/utils';
 import commonStyles from '../../styles/common.style';
 import getStyles from './style';
 import Header from '../Guests/Header';
-// import { useEventContext } from '../../store/EventContext';
 import { filterContacts } from '../Guests/utils';
 import { eventActions } from '../../store/EventContext';
 
@@ -19,10 +18,8 @@ const GuestLists = ({ selectMode }) => {
   const [page, setPage] = useState(0);
   const dispatch = useDispatch();
 
-  // const { events, editIndex, addGuestsToEvent } = useEventContext();
   const events = useSelector((state) => state.event.events);
   const editIndex = useSelector((state) => state.event.editIndex);
-  // const addGuestsToEvent = dispatch(eventActions.addGuestsToEvent());
 
   const [contactList, setContactList] = useState([]);
   const [filteredContactList, setFilteredContactList] = useState(contactList);
@@ -57,7 +54,6 @@ const GuestLists = ({ selectMode }) => {
       );
     });
     dispatch(eventActions.addGuestsToEvent({ guests: selectedContactsObjects }));
-    // addGuestsToEvent(selectedContactsObjects);
     alert('Guests added successfully');
   };
 
@@ -123,7 +119,6 @@ const GuestLists = ({ selectMode }) => {
           renderItem={(item) => renderItem(item)}
           ItemSeparatorComponent={() => ItemSeparatorComponent(styles.itemSeparator)}
           onEndReached={handleLoadMore}
-          // onEndReachedThreshold={0.1}
           ListFooterComponent={() => loading && Loader()}
           initialNumToRender={10}
           maxToRenderPerBatch={10}

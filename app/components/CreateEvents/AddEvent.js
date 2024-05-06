@@ -4,7 +4,6 @@ import { Dialog, Portal, Button, TextInput, HelperText } from 'react-native-pape
 import { DatePickerModal } from 'react-native-paper-dates';
 import { useSelector, useDispatch } from 'react-redux';
 import getStyles from './styles';
-// import { useEventContext } from '../../store/EventContext';
 import { fetchEventDetails } from '../../utils/utils';
 import InputDialog from '../InputDialog/InputDialog';
 import { eventActions } from '../../store/EventContext';
@@ -20,7 +19,6 @@ const AddEventModal = () => {
   const [event, setEvent] = useState(EVENT);
   const [error, setError] = useState(false);
 
-  // Create refs for the inputs
   const dateInputRef = useRef(null);
   const addressInputRef = useRef(null);
 
