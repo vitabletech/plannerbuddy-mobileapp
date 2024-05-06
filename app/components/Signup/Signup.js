@@ -1,23 +1,25 @@
 import React, { useRef, useState } from 'react';
 import { View, TouchableOpacity } from 'react-native';
 import { Text, TextInput } from 'react-native-paper';
-import { Link } from 'expo-router';
+import { Link, useRouter } from 'expo-router';
+import { useDispatch, useSelector } from 'react-redux';
 import VTTextInput from '../VTTextInput/VTTextInput';
 import useInput from '../../hooks/useInput';
 import getStyles from './styles';
 import commonStyles from '../../styles/common.style';
-import { useAuth } from '../../store/AuthContext';
+import { onRegister } from '../../store/reducers/authSlice';
+import { AlertComponent } from '../../utils/utils';
 
 const Signup = () => {
   const styles = { ...getStyles(), ...commonStyles() };
-  const { onRegister } = useAuth();
-
+  const dispatch = useDispatch();
+  const router = useRouter();
   const emailInputRef = useRef(null);
   const passwordInputRef = useRef(null);
   const confirmPasswordInputRef = useRef(null);
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
   const [isCPasswordVisible, setIsCPasswordVisible] = useState(false);
-
+  const error = useSelector((state) => state.auth.error);
   const nameInput = useInput('', (value) => (value.trim() ? null : 'Name is required'));
   const emailInput = useInput('', (value) =>
     value.trim() && /\S+@\S+\.\S+/.test(value) ? null : 'Please enter a valid email',
@@ -37,8 +39,14 @@ const Signup = () => {
     confirmPasswordInput.onBlur();
 
     if (nameInput.value && emailInput.value && passwordInput.value) {
-      const data = await onRegister(nameInput.value, emailInput.value, passwordInput.value);
-      if (data) alert(data.error ? data.msg : 'Account created successfully');
+      await dispatch(
+        onRegister({
+          fullName: nameInput.value,
+          email: emailInput.value,
+          password: passwordInput.value,
+        }),
+      );
+      if (error === null) router.replace('/');
       // Clear input fields after successful signup
       nameInput.onChangeText('');
       emailInput.onChangeText('');
@@ -52,6 +60,7 @@ const Signup = () => {
       <Text style={[styles.textAlignCenter, styles.textContainer]} variant="displaySmall">
         Create New Account
       </Text>
+      {AlertComponent(error)}
       <VTTextInput
         label="Full Name"
         {...nameInput}

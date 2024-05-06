@@ -1,26 +1,26 @@
-import React, { useState, useRef, useMemo } from 'react';
+import React, { useState, useRef } from 'react';
 import { View, TouchableOpacity } from 'react-native';
 import { useTheme, Text, TextInput, ActivityIndicator, Button } from 'react-native-paper';
 import { Link } from 'expo-router';
-import { useAuth } from '../../store/AuthContext';
+import { useDispatch, useSelector } from 'react-redux';
+import { onLogin } from '../../store/reducers/authSlice';
 import getStyles from './styles';
 import VTTextInput from '../VTTextInput/VTTextInput';
 import useInput from '../../hooks/useInput';
-import VTAlert from '../VTAlert/VTAlert';
+import { AlertComponent } from '../../utils/utils';
 
 const Login = () => {
   const theme = useTheme();
   const styles = getStyles();
-  const [visible, setVisible] = useState(false);
-  const [message, setMessage] = useState('');
+  const dispatch = useDispatch();
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
+  const error = useSelector((state) => state.auth.error);
   const emailInput = useInput('atuny0', (value) => (value.trim() ? null : 'Username is required'));
   const passwordInput = useInput('9uQFF1Lh', (value) =>
     value.trim() ? null : 'Password is required',
   );
 
   const [loading, setLoading] = useState(false);
-  const { onLogin } = useAuth();
   const passwordInputRef = useRef(null);
   const login = async () => {
     setLoading(true);
@@ -31,21 +31,10 @@ const Login = () => {
       setLoading(false);
       return false;
     }
-    const result = await onLogin(emailInput.value, passwordInput.value);
-    if (result?.error) {
-      setVisible(true);
-      setMessage(result?.msg);
-      passwordInput.reset('');
-    }
+    await dispatch(onLogin({ email: emailInput.value, password: passwordInput.value }));
     setLoading(false);
     return true;
   };
-
-  // Memoized components
-  const AlertComponent = useMemo(
-    () => <VTAlert isVisible={visible} body={message} />,
-    [visible, message],
-  );
 
   return (
     <>
@@ -57,7 +46,7 @@ const Login = () => {
           Please enter your account here
         </Text>
       </View>
-      {AlertComponent}
+      {AlertComponent(error)}
       <View>
         <VTTextInput
           label="Enter Your Email"

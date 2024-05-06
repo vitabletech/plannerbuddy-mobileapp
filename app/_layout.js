@@ -2,11 +2,9 @@ import React from 'react';
 import { Platform, useColorScheme } from 'react-native';
 import { Provider as PaperProvider } from 'react-native-paper';
 import { Provider } from 'react-redux';
-import { AuthProvider } from './store/AuthContext';
 import { themes } from './theme/themes';
 import InitialLayout from './utils/InitialLayout';
 import ErrorBoundary from './components/ErrorBoundary/ErrorBoundary';
-// import { EventProvider } from './store/EventContext';
 import store from './store/store';
 
 const RootLayout = () => {
@@ -62,9 +60,7 @@ const RootLayout = () => {
     <Provider store={store}>
       <ErrorBoundary>
         <PaperProvider theme={theme}>
-          <AuthProvider>
-            <InitialLayout stackScreens={stackScreens} colorScheme={colorScheme} />
-          </AuthProvider>
+          <InitialLayout stackScreens={stackScreens} colorScheme={colorScheme} />
         </PaperProvider>
       </ErrorBoundary>
     </Provider>

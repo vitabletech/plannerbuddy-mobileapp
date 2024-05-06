@@ -2,17 +2,18 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { useNavigation } from '@react-navigation/native';
 import { FAB, Portal } from 'react-native-paper';
+import { useDispatch } from 'react-redux'; // Import useDispatch
+import { onLogout } from '../../store/reducers/authSlice'; // Import logout action from Redux slice
 import { SETTING_ACTIONS } from '../../utils/utils';
-import { useAuth } from '../../store/AuthContext';
 
 const VTFAB = ({ children, actionsButton }) => {
-  const { onLogout } = useAuth();
+  const dispatch = useDispatch(); // Get dispatch function from Redux
   const navigation = useNavigation();
   const [state, setState] = useState({ open: false });
   const onStateChange = ({ open }) => setState({ open });
   const { open } = state;
   const defaultOptions = [
-    { icon: 'logout', label: 'Logout', onPress: () => onLogout() },
+    { icon: 'logout', label: 'Logout', onPress: () => dispatch(onLogout()) },
     ...SETTING_ACTIONS(navigation),
   ];
 
@@ -31,6 +32,7 @@ const VTFAB = ({ children, actionsButton }) => {
     </Portal.Host>
   );
 };
+
 VTFAB.defaultProps = {
   actionsButton: [],
 };

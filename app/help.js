@@ -1,14 +1,10 @@
 import React from 'react';
-import { StyleSheet } from 'react-native';
 import { WebView } from 'react-native-webview';
+import commonStyles from './styles/common.style';
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-});
-const Help = () => (
-  <WebView style={styles.container} source={{ uri: 'https://topmate.io/vitabletech' }} />
-);
+const Help = () => {
+  const style = commonStyles();
+  return <WebView style={style.flex1} source={{ uri: 'https://topmate.io/vitabletech' }} />;
+};
 
 export default Help;

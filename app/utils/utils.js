@@ -3,6 +3,7 @@ import { TouchableOpacity, View, Share } from 'react-native';
 import { ActivityIndicator, Avatar, IconButton } from 'react-native-paper';
 import { iconLibraries, ON_SHARE_APP_MESSAGE } from './constant';
 import { API_URL } from '../constants/constants';
+import VTAlert from '../components/VTAlert/VTAlert';
 
 export const IconComponent = (lib, iconName, size, color) => {
   const Component = iconLibraries[lib];
@@ -94,3 +95,5 @@ export const fetchUsers = async (page) => {
   const data = await response.json();
   return data;
 };
+
+export const AlertComponent = (error) => <VTAlert isVisible={error !== null} body={error} />;

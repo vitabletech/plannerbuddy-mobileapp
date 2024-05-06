@@ -43,7 +43,6 @@ const TabLayout = () => {
         tabBarActiveTintColor: theme.colors.primary,
         tabBarInactiveTintColor: theme.colors.shadow,
         tabBarLabelStyle: {
-          fontFamily: 'Gilroy-Regular',
           fontSize: 12,
           fontWeight: 'bold',
         },
