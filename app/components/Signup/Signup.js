@@ -3,6 +3,7 @@ import { View, TouchableOpacity } from 'react-native';
 import { Text, TextInput } from 'react-native-paper';
 import { Link, useRouter } from 'expo-router';
 import { useDispatch, useSelector } from 'react-redux';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import VTTextInput from '../VTTextInput/VTTextInput';
 import useInput from '../../hooks/useInput';
 import getStyles from './styles';
@@ -46,7 +47,7 @@ const Signup = () => {
           password: passwordInput.value,
         }),
       );
-      if (error === null) router.replace('/');
+      if (error !== null) router.replace('/');
       // Clear input fields after successful signup
       nameInput.onChangeText('');
       emailInput.onChangeText('');
@@ -56,7 +57,7 @@ const Signup = () => {
   };
 
   return (
-    <View>
+    <KeyboardAwareScrollView>
       <Text style={[styles.textAlignCenter, styles.textContainer]} variant="displaySmall">
         Create New Account
       </Text>
@@ -110,7 +111,7 @@ const Signup = () => {
           </TouchableOpacity>
         </Link>
       </View>
-    </View>
+    </KeyboardAwareScrollView>
   );
 };
 

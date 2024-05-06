@@ -28,8 +28,8 @@ const TabLayout = () => {
     },
     {
       name: 'profile',
-      title: 'Profile',
-      icon: () => IconComponent('AntDesign', 'setting', DEFAULT_BOTTOM_TAB_ICON_SIZE),
+      title: 'More',
+      icon: () => IconComponent('AntDesign', 'profile', DEFAULT_BOTTOM_TAB_ICON_SIZE),
     },
   ];
 

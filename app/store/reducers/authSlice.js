@@ -1,13 +1,16 @@
 /* eslint-disable no-param-reassign */
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
-import * as SecureStore from 'expo-secure-store';
-import { API_URL, JWT_KEY } from '../../constants/constants';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { API_URL } from '../../constants/constants';
 
 export const tokenVerify = createAsyncThunk('auth/tokenVerify', async (_, { rejectWithValue }) => {
   try {
-    const token = await SecureStore.getItemAsync(JWT_KEY);
-    return token !== null ? token : null;
+    const userProfile = await AsyncStorage.getItem('userProfile');
+    if (userProfile === null) return null;
+    const data = JSON.parse(userProfile);
+    const token = data.accessToken;
+    return token !== null ? data : null;
   } catch (error) {
     return rejectWithValue(error.message);
   }
@@ -17,11 +20,11 @@ export const onLogin = createAsyncThunk(
   'auth/login',
   async ({ email, password }, { rejectWithValue }) => {
     try {
-      const result = await axios.post(`${API_URL}auth/login`, { username: email, password });
-      await SecureStore.setItemAsync(JWT_KEY, result.data.token);
-      return result.data.token;
+      const result = await axios.post(`${API_URL}api/auth/signin`, { email, password });
+      await AsyncStorage.setItem('userProfile', JSON.stringify({ ...result.data }));
+      return result.data;
     } catch (error) {
-      return rejectWithValue('Invalid credentials');
+      return rejectWithValue(error);
     }
   },
 );
@@ -30,7 +33,7 @@ export const onRegister = createAsyncThunk(
   'auth/register',
   async ({ fullName, email, password }, { rejectWithValue }) => {
     try {
-      const result = await axios.post(`${API_URL}users/add`, { fullName, email, password });
+      const result = await axios.post(`${API_URL}api/auth/signup`, { fullName, email, password });
       return result.data;
     } catch (error) {
       return rejectWithValue(error.message);
@@ -40,7 +43,7 @@ export const onRegister = createAsyncThunk(
 
 export const onLogout = createAsyncThunk('auth/logout', async (_, { rejectWithValue }) => {
   try {
-    await SecureStore.deleteItemAsync(JWT_KEY);
+    await AsyncStorage.removeItem('token');
     return null;
   } catch (error) {
     return rejectWithValue(error.message);
@@ -49,12 +52,14 @@ export const onLogout = createAsyncThunk('auth/logout', async (_, { rejectWithVa
 
 const authSlice = createSlice({
   name: 'auth',
-  initialState: { token: null, error: null },
+  initialState: { token: null, error: null, userProfile: null },
   reducers: {},
   extraReducers: (builder) => {
     builder
       .addCase(onLogin.fulfilled, (state, action) => {
-        state.token = action.payload;
+        const { accessToken, ...userData } = action.payload;
+        state.token = accessToken;
+        state.userProfile = userData;
         state.error = null;
       })
       .addCase(onLogin.rejected, (state, action) => {
@@ -67,8 +72,12 @@ const authSlice = createSlice({
         state.error = action.payload;
       })
       .addCase(tokenVerify.fulfilled, (state, action) => {
-        state.token = action.payload;
-        state.error = null;
+        if (action.payload) {
+          const { accessToken, ...userData } = action.payload;
+          state.token = accessToken;
+          state.userProfile = userData;
+          state.error = null;
+        }
       })
       .addCase(tokenVerify.rejected, (state, action) => {
         state.token = null;

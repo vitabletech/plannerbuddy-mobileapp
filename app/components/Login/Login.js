@@ -3,6 +3,7 @@ import { View, TouchableOpacity } from 'react-native';
 import { useTheme, Text, TextInput, ActivityIndicator, Button } from 'react-native-paper';
 import { Link } from 'expo-router';
 import { useDispatch, useSelector } from 'react-redux';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { onLogin } from '../../store/reducers/authSlice';
 import getStyles from './styles';
 import VTTextInput from '../VTTextInput/VTTextInput';
@@ -15,8 +16,10 @@ const Login = () => {
   const dispatch = useDispatch();
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
   const error = useSelector((state) => state.auth.error);
-  const emailInput = useInput('atuny0', (value) => (value.trim() ? null : 'Username is required'));
-  const passwordInput = useInput('9uQFF1Lh', (value) =>
+  const emailInput = useInput('test@user.com', (value) =>
+    value.trim() ? null : 'Email is required',
+  );
+  const passwordInput = useInput('password', (value) =>
     value.trim() ? null : 'Password is required',
   );
 
@@ -37,7 +40,7 @@ const Login = () => {
   };
 
   return (
-    <>
+    <KeyboardAwareScrollView>
       <View style={styles.textContainer}>
         <Text style={styles.textAlignCenter} variant="displaySmall">
           Welcome Back!
@@ -90,7 +93,7 @@ const Login = () => {
           </TouchableOpacity>
         </Link>
       </View>
-    </>
+    </KeyboardAwareScrollView>
   );
 };
 

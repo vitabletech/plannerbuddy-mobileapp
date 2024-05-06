@@ -2,28 +2,30 @@ import React, { useState, useRef } from 'react';
 import { View } from 'react-native';
 import { Text, Avatar, Card, IconButton } from 'react-native-paper';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
+import { useSelector } from 'react-redux';
 import commonStyles from '../../styles/common.style';
-import { fetchUserDetails } from '../../utils/utils';
 import VTTextInput from '../VTTextInput/VTTextInput';
 import useInput from '../../hooks/useInput';
 
 const profile = () => {
-  const personDetails = fetchUserDetails();
-  const [person, setPerson] = useState(personDetails);
+  const userProfile = useSelector((state) => state.auth.userProfile);
+  const [person, setPerson] = useState(userProfile);
   const classes = commonStyles();
   const emailInputRef = useRef(null);
   const phoneInputRef = useRef(null);
   const addressInputRef = useRef(null);
   const [enableEdit, setEnableEdit] = useState(true);
 
-  const nameInput = useInput(person.name, (value) => (value.trim() ? null : 'Name is required'));
-  const emailInput = useInput(person.email, (value) =>
+  const nameInput = useInput(person?.fullName, (value) =>
+    value.trim() ? null : 'Name is required',
+  );
+  const emailInput = useInput(person?.email, (value) =>
     value.trim() && /\S+@\S+\.\S+/.test(value) ? null : 'Please enter a valid email',
   );
-  const phoneInput = useInput(person.contact, (value) =>
+  const phoneInput = useInput(person?.phoneNumber, (value) =>
     value && value.length >= 10 ? null : 'Please Enter Valid Mobile Number',
   );
-  const addressInput = useInput(person.address, (value) =>
+  const addressInput = useInput(person?.address, (value) =>
     value && value.length >= 8 ? null : 'Please Enter Valid Address',
   );
 
@@ -31,10 +33,10 @@ const profile = () => {
     setEnableEdit((state) => !state);
   };
   const resetForm = () => {
-    nameInput.reset(person.name);
-    emailInput.reset(person.email);
-    phoneInput.reset(person.contact);
-    addressInput.reset(person.address);
+    nameInput.reset(person?.fullName);
+    emailInput.reset(person?.email);
+    phoneInput.reset(person?.phoneNumber);
+    addressInput.reset(person?.address);
     setEnableEdit((state) => !state);
   };
 
@@ -62,17 +64,17 @@ const profile = () => {
     >
       <Card style={classes.profileCard}>
         <Card.Content>
-          <Text variant="titleLarge">{person.name}</Text>
-          <Text variant="bodyMedium">Contact : {person.contact}</Text>
-          <Text variant="bodyMedium">Email: {person.email}</Text>
+          <Text variant="titleLarge">{person?.fullName}</Text>
+          <Text variant="bodyMedium">Contact : {person?.phoneNumber}</Text>
+          <Text variant="bodyMedium">Email: {person?.email}</Text>
         </Card.Content>
       </Card>
 
       <Card>
         <Card.Title
-          title={person.name}
-          subtitle={person.contact}
-          left={(props) => <Avatar.Text {...props} label={person.name[0]} />}
+          title={person ? person.fullName : 'N/A'}
+          subtitle={person ? person.phoneNumber : 'N/A'}
+          left={(props) => <Avatar.Text {...props} label={person?.fullName[0]} />}
           right={(props) =>
             enableEdit ? (
               <IconButton {...props} icon="pencil" onPress={handleEdit} />
