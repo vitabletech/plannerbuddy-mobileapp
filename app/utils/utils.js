@@ -2,9 +2,7 @@ import React from 'react';
 import { TouchableOpacity, View, Share } from 'react-native';
 import { ActivityIndicator, Avatar, IconButton, Text } from 'react-native-paper';
 import { iconLibraries, ON_SHARE_APP_MESSAGE } from './constant';
-import { API_URL } from '../constants/constants';
 import VTAlert from '../components/VTAlert/VTAlert';
-import customAxios from './customAxios';
 
 export const IconComponent = (lib, iconName, size, color) => {
   const Component = iconLibraries[lib];
@@ -91,44 +89,6 @@ export const SETTING_ACTIONS = (navigation) => [
   },
 ];
 
-export const fetchUsers = async (page) => {
-  const response = await fetch(`${API_URL}users?skip=${page}&limit=10`);
-  const data = await response.json();
-  return data;
-};
-
 export const AlertComponent = (error) => <VTAlert isVisible={error !== null} body={error} />;
-
-export const fetchGuest = (page) => {
-  return customAxios
-    .get('guest', {
-      params: {
-        page,
-        limit: 10,
-      },
-    })
-    .then((response) => {
-      return response;
-    })
-    .catch((error) => {
-      console.error('error :: ', error);
-    });
-};
-
-export const fetchEvents = async (page) => {
-  try {
-    const response = await customAxios.get('event', {
-      params: {
-        page,
-        limit: 10,
-      },
-    });
-    return response;
-  } catch (error) {
-    console.error(error);
-    // You can throw the error again to let the caller handle it
-    throw error;
-  }
-};
 
 export const endReached = (getStyles) => <Text style={{ ...getStyles }}>End Of The List</Text>;

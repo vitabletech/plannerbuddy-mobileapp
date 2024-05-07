@@ -1,7 +1,6 @@
 import { TouchableOpacity, View, Share } from 'react-native';
 import { Avatar, IconButton } from 'react-native-paper';
 import { ON_SHARE_APP_MESSAGE } from '../constant';
-import { API_URL } from '../../constants/constants';
 import VTAlert from '../../components/VTAlert/VTAlert';
 import {
   IconComponent,
@@ -13,7 +12,6 @@ import {
   formatDate,
   fetchUserDetails,
   fetchEventDetails,
-  fetchUsers,
   AlertComponent,
 } from '../utils';
 
@@ -99,17 +97,6 @@ test('fetchEventDetails should return the correct event details', () => {
     date: '',
     guests: [],
   });
-});
-
-// Test for fetchUsers
-test('fetchUsers should fetch the correct data from the API', async () => {
-  const mockResponse = { data: 'mock data' };
-  global.fetch = jest.fn().mockResolvedValue({
-    json: jest.fn().mockResolvedValue(mockResponse),
-  });
-  const users = await fetchUsers(0);
-  expect(fetch).toHaveBeenCalledWith(`${API_URL}users?skip=0&limit=10`);
-  expect(users).toBe(mockResponse);
 });
 
 // Test for AlertComponent

@@ -13,6 +13,9 @@ const eventSlice = createSlice({
     addEvent(state, action) {
       state.events = [...state.events, action.payload.event];
     },
+    addEvents(state, action) {
+      state.events = [...action.payload];
+    },
     addGuestsToEvent(state, action) {
       const updatedEvent = [...state.events];
       const event = updatedEvent.find((e) => e.id === state.editIndex);
@@ -31,6 +34,8 @@ const eventSlice = createSlice({
       state.showModal = !state.showModal;
     },
     closeDialog(state) {
+      state.editIndex = null;
+      state.mode = null;
       state.showModal = !state.showModal;
     },
     updateEvent(state, action) {

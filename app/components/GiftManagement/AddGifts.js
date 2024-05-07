@@ -8,7 +8,7 @@ import getStyles from '../Guests/styles';
 import VTTextInput from '../VTTextInput/VTTextInput';
 import useInput from '../../hooks/useInput';
 import VTDropDown from '../VTDropDown/VTDropDown';
-import { fetchGuest } from '../../utils/utils';
+import { fetchGuest } from '../../utils/apiCalls';
 
 const AddGifts = () => {
   const theme = useTheme();

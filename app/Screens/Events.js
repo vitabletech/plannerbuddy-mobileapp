@@ -7,7 +7,7 @@ import getStyles from '../components/CreateEvents/styles';
 import commonStyles from '../styles/common.style';
 import EventCard from '../components/Event/Event';
 import { eventActions } from '../store/EventContext';
-import customAxios from '../utils/customAxios';
+import { fetchEvents } from '../utils/apiCalls';
 
 const Events = () => {
   const dispatch = useDispatch();
@@ -17,17 +17,20 @@ const Events = () => {
   const openDialog = () => dispatch(eventActions.openDialog());
 
   useEffect(() => {
-    customAxios
-      .get('event')
-      .then((response) => {
-        console.log('response.data :: ', response);
-        // eslint-disable-next-line max-len
-      })
-      .catch((err) => {
-        console.log('err :: ', err);
+    fetchEvents(1).then((response) => {
+      const events = response.events.map((event) => {
+        const { eventId, eventName, eventDate, eventLocation } = event;
+        return {
+          id: eventId,
+          name: eventName,
+          date: eventDate,
+          address: eventLocation,
+          guests: [],
+        };
       });
+      if (events.length > 0) dispatch(eventActions.addEvents(events));
+    });
   }, []);
-
   return (
     <>
       {viewModal && <AddEventModal />}

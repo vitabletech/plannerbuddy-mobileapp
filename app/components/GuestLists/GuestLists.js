@@ -3,7 +3,8 @@ import PropTypes from 'prop-types';
 import { FlatList, View } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
 import UserDataList from './UserDataList';
-import { Loader, ItemSeparatorComponent, fetchGuest, endReached } from '../../utils/utils';
+import { Loader, ItemSeparatorComponent, endReached } from '../../utils/utils';
+import { fetchGuest } from '../../utils/apiCalls';
 import commonStyles from '../../styles/common.style';
 import getStyles from './style';
 import Header from '../Guests/Header';
@@ -14,7 +15,7 @@ const GuestLists = ({ selectMode }) => {
   const styles = { ...getStyles(), ...commonStyles() };
   const [users, setUsers] = useState([]);
   const [loading, setLoading] = useState(false);
-  const [page, setPage] = useState(19);
+  const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState(0);
   const dispatch = useDispatch();
 

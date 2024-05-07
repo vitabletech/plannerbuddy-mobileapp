@@ -11,12 +11,11 @@ import { AvatarIcon } from '../../utils/utils';
 import ConfirmDialog from '../ConfirmDialog/ConfirmDialog';
 import { eventActions } from '../../store/EventContext';
 
-const EventCard = ({ styles, event }) => {
+const EventCard = React.memo(({ styles, event }) => {
   const dispatch = useDispatch();
   const refStandard = useRef();
   const icon = event.name.toLowerCase().includes('birth') ? 'cake' : 'party-popper';
   const openDialog = () => dispatch(eventActions.openDialog());
-
   const [visible, setVisible] = useState(false);
   const handleEditEvent = () => {
     dispatch(eventActions.setMode({ mode: 'edit' }));
@@ -89,7 +88,7 @@ const EventCard = ({ styles, event }) => {
       </Card>
     </>
   );
-};
+});
 
 EventCard.propTypes = {
   // eslint-disable-next-line react/forbid-prop-types
