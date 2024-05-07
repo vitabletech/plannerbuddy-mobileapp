@@ -29,7 +29,7 @@ const VTTextInput = forwardRef(({ label, value, onChangeText, onBlur, error, ...
 
 VTTextInput.defaultProps = {
   onBlur: () => {},
-  error: () => {},
+  error: 'Field is required',
   onChangeText: () => {},
   label: 'Default Label',
   value: '',
@@ -40,6 +40,6 @@ VTTextInput.propTypes = {
   value: PropTypes.string,
   onChangeText: PropTypes.func,
   onBlur: PropTypes.func,
-  error: PropTypes.func,
+  error: PropTypes.string,
 };
 export default VTTextInput;

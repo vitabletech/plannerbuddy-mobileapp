@@ -38,7 +38,6 @@ const Login = () => {
     setLoading(false);
     return true;
   };
-
   return (
     <KeyboardAwareScrollView>
       <View style={styles.textContainer}>

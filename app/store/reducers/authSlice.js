@@ -24,7 +24,7 @@ export const onLogin = createAsyncThunk(
       await AsyncStorage.setItem('userProfile', JSON.stringify({ ...result.data }));
       return result.data;
     } catch (error) {
-      return rejectWithValue(error);
+      return rejectWithValue(error.response.data);
     }
   },
 );
@@ -43,7 +43,7 @@ export const onRegister = createAsyncThunk(
 
 export const onLogout = createAsyncThunk('auth/logout', async (_, { rejectWithValue }) => {
   try {
-    await AsyncStorage.removeItem('token');
+    await AsyncStorage.removeItem('userProfile');
     return null;
   } catch (error) {
     return rejectWithValue(error.message);
@@ -53,7 +53,11 @@ export const onLogout = createAsyncThunk('auth/logout', async (_, { rejectWithVa
 const authSlice = createSlice({
   name: 'auth',
   initialState: { token: null, error: null, userProfile: null },
-  reducers: {},
+  reducers: {
+    updateUserProfile: (state, action) => {
+      state.userProfile = action.payload;
+    },
+  },
   extraReducers: (builder) => {
     builder
       .addCase(onLogin.fulfilled, (state, action) => {
@@ -63,7 +67,7 @@ const authSlice = createSlice({
         state.error = null;
       })
       .addCase(onLogin.rejected, (state, action) => {
-        state.error = action.payload;
+        state.error = action.payload.message;
       })
       .addCase(onRegister.fulfilled, (state) => {
         state.error = null;
@@ -92,4 +96,5 @@ const authSlice = createSlice({
   },
 });
 
+export const authActions = authSlice.actions;
 export default authSlice.reducer;

@@ -2,17 +2,18 @@ import React, { useState, useRef } from 'react';
 import { View } from 'react-native';
 import { Text, Card, IconButton } from 'react-native-paper';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import commonStyles from '../../styles/common.style';
 import VTTextInput from '../VTTextInput/VTTextInput';
 import useInput from '../../hooks/useInput';
 import { AvatarText } from '../../utils/utils';
+import { authActions } from '../../store/reducers/authSlice';
 
 const profile = () => {
+  const dispatch = useDispatch();
   const userProfile = useSelector((state) => state.auth.userProfile);
   const [person, setPerson] = useState(userProfile);
   const classes = commonStyles();
-  const emailInputRef = useRef(null);
   const phoneInputRef = useRef(null);
   const addressInputRef = useRef(null);
   const [enableEdit, setEnableEdit] = useState(true);
@@ -53,6 +54,13 @@ const profile = () => {
         contact: phoneInput.value,
         address: addressInput.value,
       });
+      const userData = {
+        fullName: nameInput.value,
+        email: emailInput.value,
+        phoneNumber: phoneInput.value,
+        address: addressInput.value,
+      };
+      dispatch(authActions.updateUserProfile(userData));
       setEnableEdit((state) => !state);
     }
   };
@@ -92,16 +100,8 @@ const profile = () => {
             label="Name"
             {...nameInput}
             disabled={enableEdit}
-            onSubmitEditing={() => emailInputRef.current.focus()}
-            style={classes.inputField}
-          />
-          <VTTextInput
-            label="Email"
-            {...emailInput}
-            disabled={enableEdit}
             onSubmitEditing={() => phoneInputRef.current.focus()}
             style={classes.inputField}
-            ref={emailInputRef}
           />
           <VTTextInput
             label="Phone Number"
