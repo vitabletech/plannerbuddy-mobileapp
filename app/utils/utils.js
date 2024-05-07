@@ -1,6 +1,6 @@
 import React from 'react';
 import { TouchableOpacity, View, Share } from 'react-native';
-import { ActivityIndicator, Avatar, IconButton } from 'react-native-paper';
+import { ActivityIndicator, Avatar, IconButton, Text } from 'react-native-paper';
 import { iconLibraries, ON_SHARE_APP_MESSAGE } from './constant';
 import { API_URL } from '../constants/constants';
 import VTAlert from '../components/VTAlert/VTAlert';
@@ -32,7 +32,7 @@ export const onShare = async () => {
 };
 
 export const AvatarIcon = (icon, props) => <Avatar.Icon icon={icon} {...props} />;
-export const AvatarText = (props) => <Avatar.Icon {...props} />;
+export const AvatarText = (props) => <Avatar.Text {...props} />;
 
 export const renderIconButton = (buttonProps) => <IconButton {...buttonProps} />;
 
@@ -108,13 +108,10 @@ export const fetchGuest = (page) => {
       },
     })
     .then((response) => {
-      // console.log('response.data : ', response);
       return response;
     })
     .catch((error) => {
       console.error('error :: ', error);
-      // You can throw the error again to let the caller handle it
-      throw error;
     });
 };
 
@@ -133,3 +130,5 @@ export const fetchEvents = async (page) => {
     throw error;
   }
 };
+
+export const endReached = (getStyles) => <Text style={{ ...getStyles }}>End Of The List</Text>;

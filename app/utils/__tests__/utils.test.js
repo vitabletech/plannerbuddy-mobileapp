@@ -56,7 +56,7 @@ test('AvatarIcon should render the correct icon', () => {
 // Test for AvatarText
 test('AvatarText should render the correct component', () => {
   const avatarText = AvatarText({ size: 20, color: 'red' });
-  expect(avatarText.type).toBe(Avatar.Icon);
+  expect(avatarText.type).toBe(Avatar.Text);
   expect(avatarText.props.size).toBe(20);
   expect(avatarText.props.color).toBe('red');
 });

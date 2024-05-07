@@ -1,11 +1,12 @@
 import React, { useState, useRef } from 'react';
 import { View } from 'react-native';
-import { Text, Avatar, Card, IconButton } from 'react-native-paper';
+import { Text, Card, IconButton } from 'react-native-paper';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { useSelector } from 'react-redux';
 import commonStyles from '../../styles/common.style';
 import VTTextInput from '../VTTextInput/VTTextInput';
 import useInput from '../../hooks/useInput';
+import { AvatarText } from '../../utils/utils';
 
 const profile = () => {
   const userProfile = useSelector((state) => state.auth.userProfile);
@@ -74,7 +75,7 @@ const profile = () => {
         <Card.Title
           title={person ? person.fullName : 'N/A'}
           subtitle={person ? person.phoneNumber : 'N/A'}
-          left={(props) => <Avatar.Text {...props} label={person?.fullName[0]} />}
+          left={(props) => AvatarText({ ...props, label: person?.fullName[0] })}
           right={(props) =>
             enableEdit ? (
               <IconButton {...props} icon="pencil" onPress={handleEdit} />

@@ -4,6 +4,9 @@ import { useTheme } from 'react-native-paper';
 const getStyles = () => {
   const theme = useTheme();
   return StyleSheet.create({
+    closeButton: {
+      marginBottom: 10,
+    },
     container: {
       backgroundColor: theme.colors.onPrimaryContainer,
       flex: 1,
