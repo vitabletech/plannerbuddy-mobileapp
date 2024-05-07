@@ -7,6 +7,9 @@ import commonStyles from '../../styles/common.style';
 import AddGuestModal from '../../components/AddGuest/AddGuest';
 import getStyles from '../../styles/settings.style';
 import { guestActions } from '../../store/GuestContext';
+import WithErrorBoundary from '../../components/ErrorBoundary/WithErrorBoundary';
+
+const GuestListsWithErrorBoundary = WithErrorBoundary(GuestLists);
 
 const ViewGuests = () => {
   const styles = { ...getStyles(), ...commonStyles() };
@@ -26,7 +29,7 @@ const ViewGuests = () => {
     <VTFAB actionsButton={addGuestOptions}>
       {showModal && <AddGuestModal styles={styles} />}
       <View style={styles.flex1}>
-        <GuestLists selectMode={false} />
+        <GuestListsWithErrorBoundary selectMode={false} />
       </View>
     </VTFAB>
   );

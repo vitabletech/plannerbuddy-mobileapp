@@ -1,6 +1,5 @@
-/* eslint-disable react/forbid-prop-types */
+/* eslint-disable react/prop-types */
 import React, { useRef } from 'react';
-import PropTypes from 'prop-types';
 import { TextInput } from 'react-native-paper';
 import VTTextInput from '../VTTextInput/VTTextInput';
 
@@ -40,13 +39,6 @@ const AddGuests = ({ nameInput, phoneInput, addressInput, emailInput }) => {
       />
     </>
   );
-};
-
-AddGuests.propTypes = {
-  nameInput: PropTypes.object.isRequired,
-  phoneInput: PropTypes.object.isRequired,
-  addressInput: PropTypes.object.isRequired,
-  emailInput: PropTypes.object.isRequired,
 };
 
 export default AddGuests;

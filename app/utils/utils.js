@@ -4,6 +4,7 @@ import { ActivityIndicator, Avatar, IconButton } from 'react-native-paper';
 import { iconLibraries, ON_SHARE_APP_MESSAGE } from './constant';
 import { API_URL } from '../constants/constants';
 import VTAlert from '../components/VTAlert/VTAlert';
+import customAxios from './customAxios';
 
 export const IconComponent = (lib, iconName, size, color) => {
   const Component = iconLibraries[lib];
@@ -97,3 +98,38 @@ export const fetchUsers = async (page) => {
 };
 
 export const AlertComponent = (error) => <VTAlert isVisible={error !== null} body={error} />;
+
+export const fetchGuest = (page) => {
+  return customAxios
+    .get('guest', {
+      params: {
+        page,
+        limit: 10,
+      },
+    })
+    .then((response) => {
+      // console.log('response.data : ', response);
+      return response;
+    })
+    .catch((error) => {
+      console.error('error :: ', error);
+      // You can throw the error again to let the caller handle it
+      throw error;
+    });
+};
+
+export const fetchEvents = async (page) => {
+  try {
+    const response = await customAxios.get('event', {
+      params: {
+        page,
+        limit: 10,
+      },
+    });
+    return response;
+  } catch (error) {
+    console.error(error);
+    // You can throw the error again to let the caller handle it
+    throw error;
+  }
+};

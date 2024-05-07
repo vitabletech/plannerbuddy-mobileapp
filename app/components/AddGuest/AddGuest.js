@@ -41,7 +41,6 @@ const AddGuestModal = () => {
   return (
     <InputDialog visible onDismiss={() => {}}>
       <Dialog.Title>Add Guest</Dialog.Title>
-
       <Dialog.Content>
         <AddGuests
           nameInput={nameInput}

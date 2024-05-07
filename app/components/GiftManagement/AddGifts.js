@@ -8,7 +8,7 @@ import getStyles from '../Guests/styles';
 import VTTextInput from '../VTTextInput/VTTextInput';
 import useInput from '../../hooks/useInput';
 import VTDropDown from '../VTDropDown/VTDropDown';
-import { fetchUsers } from '../../utils/utils';
+import { fetchGuest } from '../../utils/utils';
 
 const AddGifts = () => {
   const theme = useTheme();
@@ -26,15 +26,17 @@ const AddGifts = () => {
   }, [events]);
 
   useEffect(() => {
-    const fetchAndSetUsers = async () => {
-      const userData = await fetchUsers(1);
-      const transformedGuests = userData.users.map((guest) => ({
-        label: guest.firstName,
-        value: guest.id,
-      }));
-      setGuestList([...transformedGuests, { label: 'Add New Guest', value: 'addNew' }]);
-    };
-    fetchAndSetUsers();
+    fetchGuest(1)
+      .then((userData) => {
+        const transformedGuests = userData.guests.map((guest) => ({
+          label: guest?.name,
+          value: guest?.id,
+        }));
+        setGuestList([...transformedGuests, { label: 'Add New Guest', value: 'addNew' }]);
+      })
+      .catch((error) => {
+        console.error('Error fetching guests: ', error);
+      });
   }, []);
 
   const nameInput = useInput('', (value) => (value.trim() ? null : 'Name is required'));

@@ -18,14 +18,14 @@ const selector = (selectedContacts, contactId) =>
 const UserDataList = React.memo(
   ({ userData, selectedContacts, setSelectedContacts, selectMode }) => (
     <List.Item
-      title={`${userData?.firstName} ${userData?.lastName}`}
+      title={`${userData?.name}`}
       description={`Contact : ${userData?.phone} `}
       onPress={() => toggleContactSelection(setSelectedContacts, userData.id)}
       left={(props) =>
         AvatarText({
           ...props,
           size: 45,
-          label: (userData?.firstName || '')[0],
+          label: (userData?.name || '')[0],
           labelStyle: { color: 'white' },
         })
       }
@@ -36,11 +36,9 @@ const UserDataList = React.memo(
 UserDataList.propTypes = {
   userData: PropTypes.shape({
     id: PropTypes.number,
+    name: PropTypes.string,
+    email: PropTypes.string,
     phone: PropTypes.string,
-    firstName: PropTypes.string,
-    lastName: PropTypes.string,
-    username: PropTypes.string,
-    password: PropTypes.string,
     image: PropTypes.string,
   }).isRequired,
   selectedContacts: PropTypes.arrayOf(PropTypes.number).isRequired,

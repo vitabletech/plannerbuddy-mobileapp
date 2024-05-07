@@ -3,8 +3,7 @@ import PropTypes from 'prop-types';
 import { FlatList, View } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
 import UserDataList from './UserDataList';
-import { API_URL } from '../../constants/constants';
-import { Loader, ItemSeparatorComponent } from '../../utils/utils';
+import { Loader, ItemSeparatorComponent, fetchGuest } from '../../utils/utils';
 import commonStyles from '../../styles/common.style';
 import getStyles from './style';
 import Header from '../Guests/Header';
@@ -15,7 +14,7 @@ const GuestLists = ({ selectMode }) => {
   const styles = { ...getStyles(), ...commonStyles() };
   const [users, setUsers] = useState([]);
   const [loading, setLoading] = useState(false);
-  const [page, setPage] = useState(0);
+  const [page, setPage] = useState(1);
   const dispatch = useDispatch();
 
   const events = useSelector((state) => state.event.events);
@@ -61,30 +60,19 @@ const GuestLists = ({ selectMode }) => {
     setFilteredContactList(contactList);
   }, [contactList]);
 
-  const fetchData = useCallback(() => {
-    setLoading(true);
-    fetch(`${API_URL}users?skip=${page}&limit=10`)
-      .then((response) => response.json())
-      .then((data) => {
-        setUsers((prevUsers) => [...prevUsers, ...data.users]);
-        const usersData = data.users.map((user) => ({
-          id: user.id,
-          firstName: user.firstName,
-          lastName: user.lastName,
-          phone: user.phone,
-        }));
-        setContactList((prevContactList) => [...prevContactList, ...usersData]);
-        setLoading(false);
-      })
-      .catch((error) => {
-        // eslint-disable-next-line no-console
-        console.error(error);
-        setLoading(false);
-      });
-  }, [page]);
-
   useEffect(() => {
-    fetchData();
+    setLoading(true);
+    fetchGuest(page).then((response) => {
+      setUsers((prevUsers) => [...prevUsers, ...response.guests]);
+      const usersData = response.guests.map((guest) => ({
+        id: guest.guestId,
+        name: guest.name,
+        email: guest.email,
+        phone: guest.phoneNumber,
+      }));
+      setContactList((prevContactList) => [...prevContactList, ...usersData]);
+      setLoading(false);
+    });
   }, [page]);
 
   const handleLoadMore = useCallback(() => {

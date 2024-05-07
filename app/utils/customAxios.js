@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { useSelector } from 'react-redux';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import { API_URL } from '../constants/constants';
 
 const customAxios = axios.create({
@@ -7,10 +7,12 @@ const customAxios = axios.create({
 });
 
 const requestHandler = async (config) => {
-  const token = useSelector((state) => state.auth.token);
-  if (token) {
+  const userProfileString = await AsyncStorage.getItem('userProfile');
+  const userProfile = JSON.parse(userProfileString);
+  const { accessToken } = userProfile;
+  if (accessToken) {
     // eslint-disable-next-line no-param-reassign
-    config.headers['x-access-token'] = token;
+    config.headers['x-access-token'] = accessToken;
   }
   return config;
 };
@@ -20,6 +22,7 @@ const responseHandler = (response) => {
 };
 const errorHandler = (error) => {
   return new Promise((_resolve, reject) => {
+    console.log('error response:: ', error.response);
     if (error.response && error.response.data) {
       reject(error.response.data);
     } else {
