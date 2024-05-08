@@ -5,7 +5,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import AddEventModal from '../components/CreateEvents/AddEvent';
 import getStyles from '../components/CreateEvents/styles';
 import commonStyles from '../styles/common.style';
-import EventCard from '../components/Event/Event';
+import EventCard from '../components/Event/EventCard';
 import { eventActions } from '../store/EventContext';
 import { fetchEvents } from '../utils/apiCalls';
 
