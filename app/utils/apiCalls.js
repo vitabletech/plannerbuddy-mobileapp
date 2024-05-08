@@ -56,3 +56,16 @@ export const updateProfile = async (userData) => {
     return error;
   }
 };
+
+/**
+ * Fetches event details from the server.
+ * @returns {Object} - The event details.
+ */
+export const updateEvent = async (eventData) => {
+  try {
+    const response = await customAxios.post('event', eventData);
+    return response;
+  } catch (error) {
+    return error;
+  }
+};

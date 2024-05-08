@@ -36,6 +36,7 @@ const TabLayout = () => {
   return (
     <Tabs
       screenOptions={{
+        headerTitleAlign: 'center',
         headerStyle: {
           backgroundColor: theme.colors.primary,
         },
