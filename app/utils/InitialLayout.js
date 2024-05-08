@@ -9,7 +9,8 @@ import { tokenVerify } from '../store/reducers/authSlice';
 const InitialLayout = ({ stackScreens, colorScheme }) => {
   const dispatch = useDispatch();
   const theme = useTheme();
-  const token = useSelector((state) => state.auth.token);
+  const userProfile = useSelector((state) => state.auth.userProfile);
+  const token = userProfile?.accessToken;
   const router = useRouter();
 
   useEffect(() => {

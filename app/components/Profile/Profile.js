@@ -6,8 +6,9 @@ import { useSelector, useDispatch } from 'react-redux';
 import commonStyles from '../../styles/common.style';
 import VTTextInput from '../VTTextInput/VTTextInput';
 import useInput from '../../hooks/useInput';
-import { AvatarText } from '../../utils/utils';
-import { authActions } from '../../store/reducers/authSlice';
+import { AvatarText, AlertComponent, Loader } from '../../utils/utils';
+import { updateUserProfile } from '../../store/reducers/authSlice';
+import { updateProfile } from '../../utils/apiCalls';
 
 const profile = () => {
   const dispatch = useDispatch();
@@ -17,18 +18,18 @@ const profile = () => {
   const phoneInputRef = useRef(null);
   const addressInputRef = useRef(null);
   const [enableEdit, setEnableEdit] = useState(true);
+  const [error, setError] = useState(null);
+  const [loader, setLoader] = useState(false);
+  
 
   const nameInput = useInput(person?.fullName, (value) =>
     value.trim() ? null : 'Name is required',
-  );
-  const emailInput = useInput(person?.email, (value) =>
-    value.trim() && /\S+@\S+\.\S+/.test(value) ? null : 'Please enter a valid email',
   );
   const phoneInput = useInput(person?.phoneNumber, (value) =>
     value && value.length >= 10 ? null : 'Please Enter Valid Mobile Number',
   );
   const addressInput = useInput(person?.address, (value) =>
-    value && value.length >= 8 ? null : 'Please Enter Valid Address',
+    value.trim() ? null : 'Please Enter Valid Address',
   );
 
   const handleEdit = () => {
@@ -36,31 +37,38 @@ const profile = () => {
   };
   const resetForm = () => {
     nameInput.reset(person?.fullName);
-    emailInput.reset(person?.email);
     phoneInput.reset(person?.phoneNumber);
     addressInput.reset(person?.address);
     setEnableEdit((state) => !state);
   };
 
   const saveEdit = () => {
+    setLoader(true);
     nameInput.onBlur();
-    emailInput.onBlur();
     phoneInput.onBlur();
     addressInput.onBlur();
-    if (nameInput.value && emailInput.value && phoneInput.value && addressInput.value) {
-      setPerson({
-        name: nameInput.value,
-        email: emailInput.value,
-        contact: phoneInput.value,
-        address: addressInput.value,
-      });
+    if (nameInput.value && phoneInput.value && addressInput.value) {
       const userData = {
         fullName: nameInput.value,
-        email: emailInput.value,
         phoneNumber: phoneInput.value,
         address: addressInput.value,
       };
-      dispatch(authActions.updateUserProfile(userData));
+      updateProfile(userData).then((response) => {
+        if (response.error) {
+          setError(response.message);
+          return;
+        }
+        setPerson({ ...userData, email: person?.email, accessToken: person?.accessToken });
+        dispatch(
+          updateUserProfile({
+            ...userData,
+            email: person?.email,
+            accessToken: person?.accessToken,
+          }),
+        );
+        setLoader(false);
+        setError('Profile Updated Successfully');
+      });
       setEnableEdit((state) => !state);
     }
   };
@@ -71,6 +79,7 @@ const profile = () => {
       resetScrollToCoords={{ x: 0, y: 0 }}
       scrollEnabled
     >
+      {AlertComponent(error)}
       <Card style={classes.profileCard}>
         <Card.Content>
           <Text variant="titleLarge">{person?.fullName}</Text>
@@ -96,6 +105,7 @@ const profile = () => {
           }
         />
         <Card.Content>
+          {loader && Loader()}
           <VTTextInput
             label="Name"
             {...nameInput}

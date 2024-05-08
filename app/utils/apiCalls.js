@@ -47,13 +47,11 @@ export const fetchEvents = async (page) => {
  * @param {Object} userData - The data to update the user profile.
  * @returns {Promise<Object>} - A promise that resolves to the response from the API call.
  */
-export const updateUserProfile = async (userData) => {
+export const updateProfile = async (userData) => {
   try {
-    console.log('userData :: ', userData);
     const response = await customAxios.put('api/user', userData);
     return response;
   } catch (error) {
-    console.error(error);
     return error;
   }
 };

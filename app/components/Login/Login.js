@@ -19,7 +19,7 @@ const Login = () => {
   const emailInput = useInput('test@user.com', (value) =>
     value.trim() ? null : 'Email is required',
   );
-  const passwordInput = useInput('password', (value) =>
+  const passwordInput = useInput('12345678', (value) =>
     value.trim() ? null : 'Password is required',
   );
 

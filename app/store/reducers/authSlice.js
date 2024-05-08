@@ -21,10 +21,14 @@ export const onLogin = createAsyncThunk(
   async ({ email, password }, { rejectWithValue }) => {
     try {
       const result = await axios.post(`${API_URL}api/auth/signin`, { email, password });
+      console.log('result :: ', result);
       await AsyncStorage.setItem('userProfile', JSON.stringify({ ...result.data }));
       return result.data;
     } catch (error) {
-      return rejectWithValue(error.response.data);
+      if (error?.response?.data) {
+        return rejectWithValue(error.response.data);
+      }
+      return rejectWithValue({ message: 'Something went wrong! Please try again.' });
     }
   },
 );
@@ -50,20 +54,20 @@ export const onLogout = createAsyncThunk('auth/logout', async (_, { rejectWithVa
   }
 });
 
+export const updateUserProfile = createAsyncThunk('auth/updateUserProfile', async (userData) => {
+  const userProfile = JSON.stringify(userData);
+  await AsyncStorage.setItem('userProfile', userProfile);
+});
+
 const authSlice = createSlice({
   name: 'auth',
-  initialState: { token: null, error: null, userProfile: null },
-  reducers: {
-    updateUserProfile: (state, action) => {
-      state.userProfile = action.payload;
-    },
-  },
+  initialState: { error: null, userProfile: null },
+  reducers: {},
   extraReducers: (builder) => {
     builder
       .addCase(onLogin.fulfilled, (state, action) => {
-        const { accessToken, ...userData } = action.payload;
-        state.token = accessToken;
-        state.userProfile = userData;
+        console.log('action.payload :: ', action.payload);
+        state.userProfile = action.payload;
         state.error = null;
       })
       .addCase(onLogin.rejected, (state, action) => {
@@ -77,9 +81,7 @@ const authSlice = createSlice({
       })
       .addCase(tokenVerify.fulfilled, (state, action) => {
         if (action.payload) {
-          const { accessToken, ...userData } = action.payload;
-          state.token = accessToken;
-          state.userProfile = userData;
+          state.userProfile = action.payload;
           state.error = null;
         }
       })
@@ -87,8 +89,14 @@ const authSlice = createSlice({
         state.token = null;
         state.error = action.payload;
       })
+      .addCase(updateUserProfile.fulfilled, (state, action) => {
+        console.log('updateUserProfile', action.payload);
+      })
+      .addCase(updateUserProfile.rejected, (state, action) => {
+        console.log('updateUserProfile', action.payload);
+      })
       .addCase(onLogout.fulfilled, (state) => {
-        state.token = null;
+        state.userProfile = null;
       })
       .addCase(onLogout.rejected, (state, action) => {
         state.error = action.payload;
@@ -96,5 +104,4 @@ const authSlice = createSlice({
   },
 });
 
-export const authActions = authSlice.actions;
 export default authSlice.reducer;
