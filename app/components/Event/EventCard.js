@@ -79,7 +79,7 @@ const EventCard = React.memo(({ styles, event }) => {
 
       <Card style={styles.eventCard} onPress={handleEventDetails}>
         <Card.Title
-          title={event.name}
+          title={`${event.name} - ${event.id}`}
           titleNumberOfLines={2}
           titleStyle={styles.eventTitle}
           subtitle={event.date}

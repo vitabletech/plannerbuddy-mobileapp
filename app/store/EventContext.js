@@ -14,7 +14,7 @@ const eventSlice = createSlice({
       state.events = [...state.events, action.payload.event];
     },
     addEvents(state, action) {
-      state.events = [...action.payload];
+      state.events = [...state.events, ...action.payload];
     },
     addGuestsToEvent(state, action) {
       const updatedEvent = [...state.events];
