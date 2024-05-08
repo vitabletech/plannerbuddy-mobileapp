@@ -13,6 +13,7 @@ export const fetchGuest = async (page) => {
         limit: 10,
       },
     });
+    console.log('response :: ', response);
     return response;
   } catch (error) {
     console.error('error :: ', error);

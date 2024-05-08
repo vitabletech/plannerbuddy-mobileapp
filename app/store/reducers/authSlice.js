@@ -21,7 +21,6 @@ export const onLogin = createAsyncThunk(
   async ({ email, password }, { rejectWithValue }) => {
     try {
       const result = await axios.post(`${API_URL}api/auth/signin`, { email, password });
-      console.log('result :: ', result);
       await AsyncStorage.setItem('userProfile', JSON.stringify({ ...result.data }));
       return result.data;
     } catch (error) {

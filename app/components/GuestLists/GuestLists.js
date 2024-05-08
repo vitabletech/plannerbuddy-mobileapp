@@ -1,22 +1,25 @@
+/* eslint-disable no-nested-ternary */
 import React, { useEffect, useState, useCallback } from 'react';
 import PropTypes from 'prop-types';
 import { FlatList, View } from 'react-native';
+import { Text } from 'react-native-paper';
 import { useSelector, useDispatch } from 'react-redux';
 import UserDataList from './UserDataList';
 import { Loader, ItemSeparatorComponent, endReached } from '../../utils/utils';
-import { fetchGuest } from '../../utils/apiCalls';
 import commonStyles from '../../styles/common.style';
 import getStyles from './style';
 import Header from '../Guests/Header';
 import { filterContacts } from '../Guests/utils';
 import { eventActions } from '../../store/EventContext';
+import { fetchGuest } from '../../store/GuestContext';
 
 const GuestLists = ({ selectMode }) => {
   const styles = { ...getStyles(), ...commonStyles() };
-  const [users, setUsers] = useState([]);
-  const [loading, setLoading] = useState(false);
-  const [page, setPage] = useState(1);
-  const [totalPages, setTotalPages] = useState(0);
+  const users = useSelector((state) => state.guest.guests);
+  const status = useSelector((state) => state.guest.status);
+  const totalPages = useSelector((state) => state.guest.totalPages);
+  console.log('totalPages :: ', totalPages);
+  const [page, setPage] = useState(18);
   const dispatch = useDispatch();
 
   const events = useSelector((state) => state.event.events);
@@ -25,7 +28,9 @@ const GuestLists = ({ selectMode }) => {
   const [contactList, setContactList] = useState([]);
   const [filteredContactList, setFilteredContactList] = useState(contactList);
   const [selectedContacts, setSelectedContacts] = useState([]);
-
+  useEffect(() => {
+    setContactList(users);
+  }, [users]);
   const handleSearch = (searchQuery) => {
     filterContacts(searchQuery, contactList, setFilteredContactList);
   };
@@ -63,26 +68,16 @@ const GuestLists = ({ selectMode }) => {
   }, [contactList]);
 
   useEffect(() => {
-    setLoading(true);
-    fetchGuest(page).then((response) => {
-      setUsers((prevUsers) => [...prevUsers, ...response.guests]);
-      setTotalPages(response.totalPages);
-      const usersData = response.guests.map((guest) => ({
-        id: guest.guestId,
-        name: guest.name,
-        email: guest.email,
-        phone: guest.phoneNumber,
-      }));
-      setContactList((prevContactList) => [...prevContactList, ...usersData]);
-      setLoading(false);
-    });
+    dispatch(fetchGuest(page));
   }, [page]);
 
   const handleLoadMore = useCallback(() => {
-    if (!loading && page < totalPages) {
+    console.log('page :: ', page);
+    console.log('totalPages :: ', totalPages);
+    if (page < totalPages) {
       setPage((prevPage) => prevPage + 1);
     }
-  }, [loading]);
+  }, []);
 
   const renderItem = ({ item }) => (
     <UserDataList
@@ -103,7 +98,6 @@ const GuestLists = ({ selectMode }) => {
           saveList={handleSaveSelectedContacts}
         />
       )}
-
       {users.length !== 0 ? (
         <FlatList
           data={filteredContactList}
@@ -112,15 +106,18 @@ const GuestLists = ({ selectMode }) => {
           ItemSeparatorComponent={() => ItemSeparatorComponent(styles.itemSeparator)}
           onEndReached={handleLoadMore}
           ListFooterComponent={() =>
-            page === totalPages ? endReached(styles.title) : loading && Loader()
+            page === totalPages ? endReached(styles.title) : status === 'loading' && Loader()
           }
           initialNumToRender={10}
           maxToRenderPerBatch={10}
           windowSize={5}
-          removeClippedSubviews
         />
-      ) : (
+      ) : status === 'loading' ? (
         <View style={[styles.flex1, styles.centerContent]}>{Loader()}</View>
+      ) : (
+        <View style={[styles.flex1, styles.centerContent]}>
+          <Text style={styles.centerTextLargeMarginTop}>No Guests</Text>
+        </View>
       )}
     </View>
   );
