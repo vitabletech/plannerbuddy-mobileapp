@@ -7,7 +7,7 @@ import getStyles from './styles';
 import { fetchEventDetails } from '../../utils/utils';
 import InputDialog from '../InputDialog/InputDialog';
 import { eventActions } from '../../store/EventContext';
-import { updateEvent } from '../../utils/apiCalls';
+import { addEvent, updateEvent } from '../../utils/apiCalls';
 
 const AddEventModal = () => {
   let EVENT = fetchEventDetails();
@@ -77,14 +77,12 @@ const AddEventModal = () => {
   const handleAddEvent = useCallback(() => {
     const isValid = validateInput();
     if (isValid) {
-      updateEvent({
+      addEvent({
         eventName: event.name,
         eventDate: new Date(event.date).toISOString(),
         eventLocation: event.address,
       }).then((response) => {
-        console.log(response.error);
         if (!response.error) {
-          console.log('dispatching event');
           dispatch(eventActions.addEvent({ event: { ...event, id: response.eventId } }));
           closeDialog();
         }
@@ -101,8 +99,17 @@ const AddEventModal = () => {
   }, [closeDialog]);
 
   const handleUpdateEvent = useCallback(() => {
-    dispatch(eventActions.updateEvent({ id: event.id, event: { ...event } }));
-    closeDialog();
+    updateEvent({
+      eventName: event.name,
+      eventDate: new Date(event.date).toISOString(),
+      eventLocation: event.address,
+      eventId: event.id,
+    }).then((response) => {
+      if (!response.error) {
+        dispatch(eventActions.updateEvent({ id: event.id, event: { ...event } }));
+        closeDialog();
+      }
+    });
   }, [event]);
 
   return (
