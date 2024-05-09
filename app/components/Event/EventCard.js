@@ -10,6 +10,7 @@ import GuestLists from '../GuestLists/GuestLists';
 import { AvatarIcon } from '../../utils/utils';
 import ConfirmDialog from '../ConfirmDialog/ConfirmDialog';
 import { eventActions } from '../../store/EventContext';
+import { deleteEvent } from '../../utils/apiCalls';
 
 const EventCard = React.memo(({ styles, event }) => {
   const dispatch = useDispatch();
@@ -43,8 +44,12 @@ const EventCard = React.memo(({ styles, event }) => {
   };
 
   const handleRemoveEvent = () => {
-    dispatch(eventActions.deleteEvent({ id: event.id }));
-    setVisible(false);
+    deleteEvent(event.id).then((response) => {
+      if (!response.error) {
+        dispatch(eventActions.deleteEvent({ id: event.id }));
+        setVisible(false);
+      }
+    });
   };
 
   const buttonComponent = () => {
@@ -74,7 +79,7 @@ const EventCard = React.memo(({ styles, event }) => {
 
       <Card style={styles.eventCard} onPress={handleEventDetails}>
         <Card.Title
-          title={event.name}
+          title={`${event.name} - ${event.id}`}
           titleNumberOfLines={2}
           titleStyle={styles.eventTitle}
           subtitle={event.date}

@@ -8,6 +8,7 @@ import getStyles from './components/CreateEvents/styles';
 import commonStyles from './styles/common.style';
 import ConfirmDialog from './components/ConfirmDialog/ConfirmDialog';
 import { eventActions } from './store/EventContext';
+import { deleteEvent } from './utils/apiCalls';
 
 const eventDetails = () => {
   const dispatch = useDispatch();
@@ -17,7 +18,7 @@ const eventDetails = () => {
   const event = events.find((e) => e.id === +eventId);
   const [expanded, setExpanded] = useState(false);
   const handlePress = () => setExpanded((state) => !state);
-  const icon = event.name.toLowerCase().includes('birth') ? 'cake' : 'party-popper';
+  const icon = event?.name.toLowerCase().includes('birth') ? 'cake' : 'party-popper';
   const [visible, setVisible] = useState(false);
 
   const confirmDelete = () => {
@@ -25,9 +26,13 @@ const eventDetails = () => {
   };
 
   const handleRemoveEvent = () => {
-    dispatch(eventActions.deleteEvent({ id: event.id }));
-    setVisible(false);
-    router.back();
+    deleteEvent(event.id).then((response) => {
+      if (!response.error) {
+        dispatch(eventActions.deleteEvent({ id: event.id }));
+        setVisible(false);
+        router.back();
+      }
+    });
   };
   return (
     <>
@@ -45,7 +50,7 @@ const eventDetails = () => {
       ) : (
         <Card>
           <Card.Title
-            title={event.name}
+            title={event?.name}
             titleNumberOfLines={2}
             titleStyle={styles.eventTitle}
             subtitle={event.date}
