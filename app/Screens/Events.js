@@ -8,7 +8,7 @@ import commonStyles from '../styles/common.style';
 import EventCard from '../components/Event/EventCard';
 import { eventActions } from '../store/EventContext';
 import { fetchEvents } from '../utils/apiCalls';
-import { Loader, endReached } from '../utils/utils';
+import { Loader } from '../utils/utils';
 
 const Events = () => {
   const dispatch = useDispatch();
@@ -16,9 +16,10 @@ const Events = () => {
   const allEvents = useSelector((state) => state.event.events);
   const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
-  const status = 'loading'; // 'loading', 'idle', 'error
+  const [status, setStatus] = useState(false);
   const viewModal = useSelector((state) => state.event.showModal);
   const openDialog = () => dispatch(eventActions.openDialog());
+
   const handleLoadMore = useCallback(() => {
     if (page < totalPages) {
       setPage((prevPage) => prevPage + 1);
@@ -26,6 +27,7 @@ const Events = () => {
   }, [page, totalPages]);
 
   useEffect(() => {
+    setStatus(true);
     fetchEvents(page).then((response) => {
       setTotalPages(response.totalPages);
       const events = response.events.map((event) => {
@@ -39,8 +41,10 @@ const Events = () => {
         };
       });
       if (events.length > 0) dispatch(eventActions.addEvents(events));
+      setStatus(false);
     });
   }, [page]);
+
   return (
     <>
       {viewModal && <AddEventModal />}
@@ -48,11 +52,11 @@ const Events = () => {
         data={allEvents}
         keyExtractor={(item) => item.id.toString()}
         renderItem={({ item }) => <EventCard styles={styles} event={item} />}
-        ListEmptyComponent={<Text style={styles.centerTextLargeMarginTop}>No Events</Text>}
-        onEndReached={handleLoadMore}
-        ListFooterComponent={() =>
-          page === totalPages ? endReached(styles.title) : status === 'loading' && Loader()
+        ListEmptyComponent={
+          !status && <Text style={styles.centerTextLargeMarginTop}>No Events Found</Text>
         }
+        onEndReached={handleLoadMore}
+        ListFooterComponent={() => status && Loader()}
         initialNumToRender={10}
         maxToRenderPerBatch={10}
         windowSize={5}
