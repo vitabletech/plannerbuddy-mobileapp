@@ -19,7 +19,7 @@ const GuestLists = ({ selectMode }) => {
   const status = useSelector((state) => state.guest.status);
   const totalPages = useSelector((state) => state.guest.totalPages);
   console.log('totalPages :: ', totalPages);
-  const [page, setPage] = useState(18);
+  const [page, setPage] = useState(1);
   const dispatch = useDispatch();
 
   const events = useSelector((state) => state.event.events);
@@ -28,9 +28,11 @@ const GuestLists = ({ selectMode }) => {
   const [contactList, setContactList] = useState([]);
   const [filteredContactList, setFilteredContactList] = useState(contactList);
   const [selectedContacts, setSelectedContacts] = useState([]);
+
   useEffect(() => {
     setContactList(users);
   }, [users]);
+
   const handleSearch = (searchQuery) => {
     filterContacts(searchQuery, contactList, setFilteredContactList);
   };
@@ -71,13 +73,15 @@ const GuestLists = ({ selectMode }) => {
     dispatch(fetchGuest(page));
   }, [page]);
 
+  console.log('page :: ', page, ' totalPages : ', totalPages);
+
   const handleLoadMore = useCallback(() => {
     console.log('page :: ', page);
     console.log('totalPages :: ', totalPages);
     if (page < totalPages) {
       setPage((prevPage) => prevPage + 1);
     }
-  }, []);
+  }, [page, totalPages]);
 
   const renderItem = ({ item }) => (
     <UserDataList
