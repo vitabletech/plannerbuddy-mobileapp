@@ -30,7 +30,6 @@ const VTDropDown = ({ label, items }) => {
         onFocus={() => setIsFocus(true)}
         onBlur={() => setIsFocus(false)}
         onChange={(item) => {
-          console.log('item : ', item);
           setValue(item.value);
           setIsFocus(false);
         }}

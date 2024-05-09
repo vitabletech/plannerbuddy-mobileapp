@@ -22,7 +22,6 @@ const responseHandler = (response) => {
 };
 const errorHandler = (error) => {
   return new Promise((_resolve, reject) => {
-    console.log('error response:: ', error.response);
     if (error.response && error.response.data) {
       reject(error.response.data);
     } else {

@@ -6,7 +6,6 @@ import customAxios from '../utils/customAxios';
 export const fetchGuest = createAsyncThunk(
   'guest/fetchGuest',
   async (page, { rejectWithValue }) => {
-    console.log('page :: ', page);
     try {
       const response = await customAxios.get('guest', {
         params: {
@@ -28,6 +27,7 @@ const guestSlice = createSlice({
     guests: [],
     status: 'idle',
     showModal: false,
+    page: 1,
     totalPages: 0,
     error: null,
   },
@@ -47,7 +47,7 @@ const guestSlice = createSlice({
       .addCase(fetchGuest.pending, (state) => {
         state.status = 'loading';
       })
-      .addCase(fetchGuest.fulfilled, (state, action) => { 
+      .addCase(fetchGuest.fulfilled, (state, action) => {
         state.status = 'succeeded';
         // Add any fetched guests to the array
         const usersData = action.payload.guests.map((guest) => ({
@@ -59,7 +59,7 @@ const guestSlice = createSlice({
         }));
         state.guests = state.guests.concat(usersData);
         state.totalPages = action.payload.totalPages;
-        console.log('state.totalPages update :: ', state.totalPages);
+        state.page = action.payload.currentPage;
       })
       .addCase(fetchGuest.rejected, (state, action) => {
         state.status = 'failed';

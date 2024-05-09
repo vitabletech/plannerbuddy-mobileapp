@@ -18,10 +18,9 @@ const GuestLists = ({ selectMode }) => {
   const users = useSelector((state) => state.guest.guests);
   const status = useSelector((state) => state.guest.status);
   const totalPages = useSelector((state) => state.guest.totalPages);
-  console.log('totalPages :: ', totalPages);
-  const [page, setPage] = useState(1);
+  const pages = useSelector((state) => state.guest.page);
+  const [page, setPage] = useState(pages);
   const dispatch = useDispatch();
-
   const events = useSelector((state) => state.event.events);
   const editIndex = useSelector((state) => state.event.editIndex);
 
@@ -73,11 +72,7 @@ const GuestLists = ({ selectMode }) => {
     dispatch(fetchGuest(page));
   }, [page]);
 
-  console.log('page :: ', page, ' totalPages : ', totalPages);
-
   const handleLoadMore = useCallback(() => {
-    console.log('page :: ', page);
-    console.log('totalPages :: ', totalPages);
     if (page < totalPages) {
       setPage((prevPage) => prevPage + 1);
     }

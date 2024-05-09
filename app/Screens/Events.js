@@ -8,7 +8,7 @@ import commonStyles from '../styles/common.style';
 import EventCard from '../components/Event/EventCard';
 import { eventActions } from '../store/EventContext';
 import { fetchEvents } from '../utils/apiCalls';
-import { Loader } from '../utils/utils';
+import { Loader, endReached } from '../utils/utils';
 
 const Events = () => {
   const dispatch = useDispatch();
@@ -56,7 +56,7 @@ const Events = () => {
           !status && <Text style={styles.centerTextLargeMarginTop}>No Events Found</Text>
         }
         onEndReached={handleLoadMore}
-        ListFooterComponent={() => status && Loader()}
+        ListFooterComponent={() => (page < totalPages ? status && Loader() : endReached())}
         initialNumToRender={10}
         maxToRenderPerBatch={10}
         windowSize={5}

@@ -18,7 +18,7 @@ const selector = (selectedContacts, contactId) =>
 const UserDataList = React.memo(
   ({ userData, selectedContacts, setSelectedContacts, selectMode }) => (
     <List.Item
-      title={`${userData?.name}`}
+      title={`${userData?.name} - ${userData?.id}`}
       description={`Contact : ${userData?.phone} `}
       onPress={() => toggleContactSelection(setSelectedContacts, userData.id)}
       left={(props) =>
