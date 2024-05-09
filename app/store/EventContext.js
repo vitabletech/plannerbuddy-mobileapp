@@ -11,10 +11,10 @@ const eventSlice = createSlice({
   },
   reducers: {
     addEvent(state, action) {
-      state.events = [...state.events, action.payload.event];
+      state.events = [...new Set([...state.events, action.payload.event])];
     },
     addEvents(state, action) {
-      state.events = [...state.events, ...action.payload];
+      state.events = [...new Set([...state.events, ...action.payload])];
     },
     addGuestsToEvent(state, action) {
       const updatedEvent = [...state.events];

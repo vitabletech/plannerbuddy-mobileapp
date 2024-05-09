@@ -1,6 +1,6 @@
 import React, { useEffect, useCallback, useState } from 'react';
 import { FlatList, View } from 'react-native';
-import { Text, AnimatedFAB } from 'react-native-paper';
+import { Text, AnimatedFAB, Searchbar } from 'react-native-paper';
 import { useSelector, useDispatch } from 'react-redux';
 import AddEventModal from '../components/CreateEvents/AddEvent';
 import getStyles from '../components/CreateEvents/styles';
@@ -44,9 +44,9 @@ const Events = () => {
       setStatus(false);
     });
   }, [page]);
-
   return (
     <>
+      <Searchbar placeholder="Search" style={styles.searchBar} />
       {viewModal && <AddEventModal />}
       <FlatList
         data={allEvents}
