@@ -4,28 +4,30 @@ import { View } from 'react-native';
 import { TextInput, HelperText } from 'react-native-paper';
 import getStyles from './styles';
 
-const VTTextInput = forwardRef(({ label, value, onChangeText, onBlur, error, ...props }, ref) => {
-  const styles = getStyles();
-  return (
-    <View style={styles.mrBottom}>
-      <TextInput
-        style={styles.input}
-        mode="outlined"
-        label={label}
-        value={value}
-        onChangeText={onChangeText}
-        onBlur={onBlur}
-        ref={ref}
-        {...props}
-      />
-      {error && (
-        <HelperText type="error" visible={error}>
-          {error}
-        </HelperText>
-      )}
-    </View>
-  );
-});
+const VTTextInput = forwardRef(
+  ({ label, value, onChangeText, onBlur, error, style, ...props }, ref) => {
+    const styles = getStyles();
+    return (
+      <View>
+        <TextInput
+          style={style === undefined ? styles.input : styles.textInput}
+          mode="outlined"
+          label={label}
+          value={value}
+          onChangeText={onChangeText}
+          onBlur={onBlur}
+          ref={ref}
+          {...props}
+        />
+        {error && (
+          <HelperText type="error" visible={error}>
+            {error}
+          </HelperText>
+        )}
+      </View>
+    );
+  },
+);
 
 VTTextInput.defaultProps = {
   onBlur: () => {},
@@ -35,11 +37,15 @@ VTTextInput.defaultProps = {
   value: '',
 };
 
+VTTextInput.defaultProps = {
+  style: undefined,
+};
 VTTextInput.propTypes = {
   label: PropTypes.string,
   value: PropTypes.string,
   onChangeText: PropTypes.func,
   onBlur: PropTypes.func,
   error: PropTypes.string,
+  style: PropTypes.string,
 };
 export default VTTextInput;

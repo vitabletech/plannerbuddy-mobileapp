@@ -31,7 +31,6 @@ const getStyles = () => {
       fontWeight: 'bold',
     },
     input: {
-      marginVertical: 2,
       multiline: true,
       textAlignVertical: 'top',
     },

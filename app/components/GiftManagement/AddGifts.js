@@ -17,6 +17,23 @@ const AddGifts = () => {
   const [items, setItems] = useState([]);
   const [guestList, setGuestList] = useState([]);
 
+  const [selectedGuest, setSelectedGuest] = useState('');
+  const [selectedEvent, setSelectedEvent] = useState('');
+  const [selectedGiftmode, setSelectedGiftmode] = useState('');
+
+  const [amountInput, setAmountInput] = useState(0);
+
+  const [giftMode, setGiftMode] = useState([
+    {
+      label: 'Amount',
+      value: 'amount',
+    },
+    {
+      label: 'Item',
+      value: 'item',
+    },
+  ]);
+
   useEffect(() => {
     const transformedEvents = events.map((event) => ({
       label: event.name,
@@ -53,10 +70,14 @@ const AddGifts = () => {
   const phoneInput = useInput('', (value) =>
     value.trim() !== '' && value.length === 10 ? null : 'Enter Valid Phone Number',
   );
+  const notesInput = useInput('', (value) =>
+    value.trim() !== '' ? null : 'Enter something to remember',
+  );
   // Create refs for the inputs
   const emailInputRef = useRef(null);
   const phoneNumberInputRef = useRef(null);
   const addressInputRef = useRef(null);
+  const notesRef = useRef(null);
 
   const handleClearForm = () => {
     nameInput.reset('');
@@ -83,9 +104,40 @@ const AddGifts = () => {
       <View style={styles.mainContainer}>
         <Card>
           <Card.Content>
-            <VTDropDown items={items} />
-            <VTDropDown label="Select Guest" items={guestList} />
-            <VTTextInput
+            <VTDropDown items={items} value={selectedEvent} onChange={setSelectedEvent} />
+            <VTDropDown
+              label="Select Guest"
+              items={guestList}
+              value={selectedGuest}
+              onChange={setSelectedGuest}
+            />
+            <VTDropDown
+              label="Gift Mode"
+              items={giftMode}
+              value={selectedGiftmode}
+              onChange={setSelectedGiftmode}
+            />
+            {selectedGiftmode === 'amount' && (
+              <>
+                <VTTextInput
+                  label="Enter Amount"
+                  {...amountInput}
+                  left={<TextInput.Icon icon="cash-multiple" />}
+                  onSubmitEditing={() => notesRef.current.focus()}
+                  onChange={setAmountInput}
+                />
+                <VTTextInput
+                  label="Notes"
+                  ref={notesRef}
+                  {...notesInput}
+                  left={<TextInput.Icon icon="text" />}
+                  style="textInput"
+                  // onSubmitEditing={() => addressInputRef.current.focus()}
+                />
+              </>
+            )}
+            {selectedGiftmode === 'item' && <Text variant="bodyLarge">ITEM</Text>}
+            {/* <VTTextInput
               label="Guest Full Name"
               {...nameInput}
               left={<TextInput.Icon icon="account" />}
@@ -110,15 +162,15 @@ const AddGifts = () => {
               ref={phoneNumberInputRef}
               {...addressInput}
               left={<TextInput.Icon icon="home" />}
-            />
-            <View style={styles.justify}>
+            /> */}
+            {/* <View style={styles.justify}>
               <Button icon="delete" mode="contained" onPress={handleClearForm} style={styles.mr10}>
                 <Text style={{ color: theme.colors.onPrimary }}>Clear</Text>
               </Button>
               <Button icon="content-save" mode="contained" onPress={handleAddGifts}>
                 <Text style={{ color: theme.colors.onPrimary }}>Save Guests</Text>
               </Button>
-            </View>
+            </View> */}
           </Card.Content>
         </Card>
       </View>

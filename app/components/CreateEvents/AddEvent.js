@@ -1,6 +1,13 @@
 import React, { useState, useCallback, useEffect, useRef } from 'react';
 import { View } from 'react-native';
-import { Dialog, Portal, Button, TextInput, HelperText } from 'react-native-paper';
+import {
+  Dialog,
+  Portal,
+  Button,
+  TextInput,
+  HelperText,
+  SegmentedButtons,
+} from 'react-native-paper';
 import { DatePickerModal } from 'react-native-paper-dates';
 import { useSelector, useDispatch } from 'react-redux';
 import getStyles from './styles';
@@ -8,9 +15,23 @@ import { fetchEventDetails } from '../../utils/utils';
 import InputDialog from '../InputDialog/InputDialog';
 import { eventActions } from '../../store/EventContext';
 import { addEvent, updateEvent } from '../../utils/apiCalls';
+import VTDropDown from '../VTDropDown/VTDropDown';
 
 const AddEventModal = () => {
   let EVENT = fetchEventDetails();
+  const [eventState, setEventState] = useState('ownEvent');
+  const [selectedGuest, setSelectedGuest] = useState('');
+  const totalGuests = useSelector((state) => state.guest.guests);
+
+  const [guestList, setGuestList] = useState(totalGuests);
+
+  useEffect(() => {
+    const transformedGuests = totalGuests.map((guest) => ({
+      label: guest?.name,
+      value: guest?.id,
+    }));
+    setGuestList([...transformedGuests, { label: 'Add New Guest', value: 'addNew' }]);
+  }, [totalGuests]);
 
   const dispatch = useDispatch();
   const styles = getStyles();
@@ -116,6 +137,21 @@ const AddEventModal = () => {
     <Portal>
       <InputDialog visible={showModal} onDismiss={handleCloseDialog}>
         <Dialog.Title>{mode === 'edit' ? 'Edit Event' : 'Create New Event'}</Dialog.Title>
+        <SegmentedButtons
+          value={eventState}
+          onValueChange={setEventState}
+          buttons={[
+            {
+              value: 'ownEvent',
+              label: 'Own Event',
+            },
+            {
+              value: 'otherEvent',
+              label: 'Other Event',
+            },
+          ]}
+          style={{ paddingHorizontal: 30, marginBottom: 30 }}
+        />
         <Dialog.Content style={styles.contentContainer}>
           <TextInput
             style={styles.input}
@@ -128,6 +164,7 @@ const AddEventModal = () => {
           <HelperText type="error" visible={!!error.name}>
             {error.name}
           </HelperText>
+
           <TextInput
             ref={addressInputRef}
             style={styles.input}
@@ -162,6 +199,14 @@ const AddEventModal = () => {
               {error.date}
             </HelperText>
           </View>
+          {eventState === 'otherEvent' && (
+            <VTDropDown
+              label="Select Guest"
+              items={guestList}
+              value={selectedGuest}
+              onChange={setSelectedGuest}
+            />
+          )}
         </Dialog.Content>
 
         <Dialog.Actions>

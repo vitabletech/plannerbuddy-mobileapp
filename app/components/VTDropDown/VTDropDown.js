@@ -4,9 +4,9 @@ import PropTypes from 'prop-types';
 import { Dropdown } from 'react-native-element-dropdown';
 import getStyles from './styles';
 
-const VTDropDown = ({ label, items }) => {
+const VTDropDown = ({ label, items, value, onChange }) => {
   const styles = getStyles();
-  const [value, setValue] = useState('');
+  // const [value, setValue] = useState('');
   const [isFocus, setIsFocus] = useState(false);
   return (
     <View>
@@ -30,8 +30,8 @@ const VTDropDown = ({ label, items }) => {
         onFocus={() => setIsFocus(true)}
         onBlur={() => setIsFocus(false)}
         onChange={(item) => {
-          setValue(item.value);
           setIsFocus(false);
+          onChange(item.value);
         }}
       />
     </View>
@@ -50,5 +50,7 @@ VTDropDown.propTypes = {
       value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
     }),
   ).isRequired,
+  value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
+  onChange: PropTypes.func.isRequired,
 };
 export default VTDropDown;

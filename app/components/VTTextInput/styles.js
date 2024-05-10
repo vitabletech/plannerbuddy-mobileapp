@@ -11,6 +11,12 @@ const getStyles = () => {
     mrBottom: {
       marginBottom: 10,
     },
+    textInput: {
+      marginVertical: 2,
+      multiline: true,
+      textAlignVertical: 'top',
+      width: 'auto',
+    },
   });
 };
 export default getStyles;

@@ -1,6 +1,6 @@
 import React, { useState, useRef } from 'react';
 import { View } from 'react-native';
-import { Text, Card, IconButton } from 'react-native-paper';
+import { Text, Card, IconButton, Button, Dialog } from 'react-native-paper';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { useSelector, useDispatch } from 'react-redux';
 import commonStyles from '../../styles/common.style';
@@ -9,6 +9,7 @@ import useInput from '../../hooks/useInput';
 import { AvatarText, AlertComponent, Loader } from '../../utils/utils';
 import { updateUserProfile } from '../../store/reducers/authSlice';
 import { updateProfile } from '../../utils/apiCalls';
+import InputDialog from '../InputDialog/InputDialog';
 
 const profile = () => {
   const dispatch = useDispatch();
@@ -17,10 +18,9 @@ const profile = () => {
   const classes = commonStyles();
   const phoneInputRef = useRef(null);
   const addressInputRef = useRef(null);
-  const [enableEdit, setEnableEdit] = useState(true);
+  const [enableEdit, setEnableEdit] = useState(false);
   const [error, setError] = useState(null);
   const [loader, setLoader] = useState(false);
-  
 
   const nameInput = useInput(person?.fullName, (value) =>
     value.trim() ? null : 'Name is required',
@@ -81,55 +81,50 @@ const profile = () => {
     >
       {AlertComponent(error)}
       <Card style={classes.profileCard}>
+        <Card.Title
+          title={person?.fullName}
+          subtitle={`Contact : ${person?.phoneNumber}`}
+          right={(props) => <IconButton {...props} size={25} icon="pencil" onPress={handleEdit} />}
+        />
         <Card.Content>
-          <Text variant="titleLarge">{person?.fullName}</Text>
-          <Text variant="bodyMedium">Contact : {person?.phoneNumber}</Text>
           <Text variant="bodyMedium">Email: {person?.email}</Text>
         </Card.Content>
       </Card>
 
-      <Card>
-        <Card.Title
-          title={person ? person.fullName : 'N/A'}
-          subtitle={person ? person.phoneNumber : 'N/A'}
-          left={(props) => AvatarText({ ...props, label: person?.fullName[0] })}
-          right={(props) =>
-            enableEdit ? (
-              <IconButton {...props} icon="pencil" onPress={handleEdit} />
-            ) : (
-              <View style={[classes.flex1, classes.flexRow]}>
-                <IconButton {...props} icon="content-save-outline" onPress={saveEdit} />
-                <IconButton {...props} icon="close" onPress={resetForm} />
-              </View>
-            )
-          }
-        />
-        <Card.Content>
-          {loader && Loader()}
-          <VTTextInput
-            label="Name"
-            {...nameInput}
-            disabled={enableEdit}
-            onSubmitEditing={() => phoneInputRef.current.focus()}
-            style={classes.inputField}
-          />
-          <VTTextInput
-            label="Phone Number"
-            {...phoneInput}
-            disabled={enableEdit}
-            onSubmitEditing={() => addressInputRef.current.focus()}
-            style={classes.inputField}
-            ref={phoneInputRef}
-          />
-          <VTTextInput
-            label="Address"
-            {...addressInput}
-            disabled={enableEdit}
-            style={classes.inputField}
-            ref={addressInputRef}
-          />
-        </Card.Content>
-      </Card>
+      {enableEdit && (
+        <InputDialog visible={enableEdit} onDismiss={() => setEnableEdit((state) => !state)}>
+          <Dialog.Title>Edit Profile</Dialog.Title>
+          <Dialog.Content>
+            {loader && Loader()}
+            <VTTextInput
+              label="Name"
+              {...nameInput}
+              disabled={!enableEdit}
+              onSubmitEditing={() => phoneInputRef.current.focus()}
+              style={classes.inputField}
+            />
+            <VTTextInput
+              label="Phone Number"
+              {...phoneInput}
+              disabled={!enableEdit}
+              onSubmitEditing={() => addressInputRef.current.focus()}
+              style={classes.inputField}
+              ref={phoneInputRef}
+            />
+            <VTTextInput
+              label="Address"
+              {...addressInput}
+              disabled={!enableEdit}
+              style={classes.inputField}
+              ref={addressInputRef}
+            />
+          </Dialog.Content>
+          <Dialog.Actions>
+            <Button onPress={resetForm}>Cancel</Button>
+            <Button onPress={saveEdit}>Save</Button>
+          </Dialog.Actions>
+        </InputDialog>
+      )}
     </KeyboardAwareScrollView>
   );
 };

@@ -40,7 +40,9 @@
       "favicon": "./app/assets/favicon.png"
     },
     "plugins": [
-      "expo-contacts"
+      "expo-contacts",
+      "expo-font",
+      "expo-router"
     ],
     "extra": {
       "eas": {

@@ -1,6 +1,6 @@
 import React from 'react';
 import { Button, Dialog } from 'react-native-paper';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import InputDialog from '../InputDialog/InputDialog';
 import AddGuests from '../Guests/AddGuests';
 import { guestActions } from '../../store/GuestContext';
@@ -8,7 +8,7 @@ import useInput from '../../hooks/useInput';
 
 const AddGuestModal = () => {
   const dispatch = useDispatch();
-
+  const totalGuests = useSelector((state) => state.guest.guests.length);
   const nameInput = useInput('', (value) => (value.trim() ? null : 'Name is required'));
   const emailInput = useInput('', (value) =>
     value.trim() === '' || (value.trim() && /\S+@\S+\.\S+/.test(value))
@@ -29,6 +29,7 @@ const AddGuestModal = () => {
     dispatch(
       guestActions.addGuest({
         guest: {
+          id: totalGuests,
           name: nameInput.value,
           phone: phoneInput.value,
           address: addressInput.value,
@@ -36,6 +37,7 @@ const AddGuestModal = () => {
         },
       }),
     );
+    dispatch(guestActions.closeDialog());
   };
 
   return (
