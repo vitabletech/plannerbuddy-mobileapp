@@ -109,6 +109,7 @@ const profile = () => {
               onSubmitEditing={() => addressInputRef.current.focus()}
               style={classes.inputField}
               ref={phoneInputRef}
+              keyboardType="numeric"
             />
             <VTTextInput
               label="Address"

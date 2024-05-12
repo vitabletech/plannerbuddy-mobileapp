@@ -23,6 +23,7 @@ const AddGuests = ({ nameInput, phoneInput, addressInput, emailInput }) => {
         {...phoneInput}
         left={<TextInput.Icon icon="phone" />}
         onSubmitEditing={() => addressInputRef.current.focus()}
+        keyboardType="numeric"
       />
       <VTTextInput
         label="Email"
