@@ -14,7 +14,6 @@ const Events = () => {
   const dispatch = useDispatch();
   const styles = { ...getStyles(), ...commonStyles() };
   const allEvents = useSelector((state) => state.event.events);
-  console.log('all events :: ', allEvents[0]);
   const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
   const [status, setStatus] = useState(false);
@@ -57,7 +56,9 @@ const Events = () => {
           !status && <Text style={styles.centerTextLargeMarginTop}>No Events Found</Text>
         }
         onEndReached={handleLoadMore}
-        ListFooterComponent={() => (page < totalPages ? status && Loader() : endReached())}
+        ListFooterComponent={() =>
+          page < totalPages ? status && Loader() : endReached(styles.title)
+        }
         initialNumToRender={10}
         maxToRenderPerBatch={10}
         windowSize={5}

@@ -9,6 +9,7 @@ import commonStyles from './styles/common.style';
 import ConfirmDialog from './components/ConfirmDialog/ConfirmDialog';
 import { eventActions } from './store/EventContext';
 import { deleteEvent } from './utils/apiCalls';
+import { IconComponent } from './utils/utils';
 
 const eventDetails = () => {
   const dispatch = useDispatch();
@@ -80,16 +81,17 @@ const eventDetails = () => {
                   event.guests.map((guest) => (
                     <List.Item
                       key={guest.id}
-                      title={`${guest.firstName} ${guest.lastName}`}
+                      title={`${guest.name}`}
                       description={guest.phone}
                       left={(props) => (
                         <Avatar.Text
                           size={45}
                           labelStyle={styles.textWhite}
                           {...props}
-                          label={guest.firstName[0]}
+                          label={guest?.name?.[0]}
                         />
                       )}
+                      right={() => IconComponent('FontAwesome', 'eye', 45)}
                     />
                   ))
                 )}

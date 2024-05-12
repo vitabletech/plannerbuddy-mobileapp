@@ -21,9 +21,21 @@ const responseHandler = (response) => {
   return response?.data;
 };
 const errorHandler = (error) => {
-  return new Promise((_resolve, reject) => {
+  return new Promise((resolve, reject) => {
     if (error.response && error.response.data) {
-      reject(error.response.data);
+      if (error?.response?.data?.message === 'Unauthorized!') {
+        AsyncStorage.removeItem('userProfile')
+          .then(() => {
+            alert('Please restart your app to login again.');
+            reject(error.response.data);
+          })
+          .catch((err) => {
+            console.error(err);
+            reject(error.response.data);
+          });
+      } else {
+        reject(error.response.data);
+      }
     } else {
       reject(error);
     }

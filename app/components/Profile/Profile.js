@@ -1,12 +1,11 @@
 import React, { useState, useRef } from 'react';
-import { View } from 'react-native';
 import { Text, Card, IconButton, Button, Dialog } from 'react-native-paper';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { useSelector, useDispatch } from 'react-redux';
 import commonStyles from '../../styles/common.style';
 import VTTextInput from '../VTTextInput/VTTextInput';
 import useInput from '../../hooks/useInput';
-import { AvatarText, AlertComponent, Loader } from '../../utils/utils';
+import { AlertComponent, Loader } from '../../utils/utils';
 import { updateUserProfile } from '../../store/reducers/authSlice';
 import { updateProfile } from '../../utils/apiCalls';
 import InputDialog from '../InputDialog/InputDialog';

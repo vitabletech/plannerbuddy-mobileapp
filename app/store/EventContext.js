@@ -11,20 +11,21 @@ const eventSlice = createSlice({
   },
   reducers: {
     addEvent(state, action) {
-      state.events = [...new Set([...state.events, action.payload.event])];
+      state.events = [...new Set([action.payload.event, ...state.events])];
     },
     addEvents(state, action) {
       state.events = [...new Set([...state.events, ...action.payload])];
     },
     addGuestsToEvent(state, action) {
       const updatedEvent = [...state.events];
-      console.log('edit index :: ', state.editIndex);
-      const event = updatedEvent.find((e) => e.id === state.editIndex);
-      event.guests = [...action.payload.guests];
-      updatedEvent.filter((e) => e.id !== state.editIndex);
-      updatedEvent.push(event);
-      state.mode = null;
-      state.events = updatedEvent;
+      const eventIndex = updatedEvent.findIndex((e) => e.id === state.editIndex);
+      if (eventIndex !== -1) {
+        const event = updatedEvent[eventIndex];
+        event.guests = [...action.payload.guests];
+        updatedEvent[eventIndex] = { ...event };
+        state.mode = null;
+        state.events = updatedEvent;
+      }
     },
     setMode(state, action) {
       state.mode = action.payload.mode;

@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Card, Text } from 'react-native-paper';
 import getStyles from './style';
 
@@ -19,6 +20,14 @@ const ProfileCard = ({ person }) => {
       </Card.Content>
     </Card>
   );
+};
+
+ProfileCard.propTypes = {
+  person: PropTypes.shape({
+    fullName: PropTypes.string,
+    phoneNumber: PropTypes.string,
+    email: PropTypes.string,
+  }).isRequired,
 };
 
 export default ProfileCard;

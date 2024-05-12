@@ -30,6 +30,11 @@ const VTAlert = ({ title = '', body = 'Default Message', icon = 'alert-circle', 
     </Portal>
   );
 };
+VTAlert.defaultProps = {
+  title: '',
+  body: 'Default Message',
+  icon: 'alert-circle',
+};
 
 VTAlert.propTypes = {
   title: PropTypes.string,
