@@ -1,8 +1,6 @@
 import { StyleSheet } from 'react-native';
-import { useTheme } from 'react-native-paper';
 
 const getStyles = () => {
-  const theme = useTheme();
   return StyleSheet.create({
     absolutePositionBottomRight: {
       alignSelf: 'flex-end',

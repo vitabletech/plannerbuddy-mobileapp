@@ -1,3 +1,4 @@
+/* eslint-disable react/require-default-props */
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { Dialog, Portal, Text, Button } from 'react-native-paper';
@@ -29,11 +30,6 @@ const VTAlert = ({ title = '', body = 'Default Message', icon = 'alert-circle', 
       </Dialog>
     </Portal>
   );
-};
-VTAlert.defaultProps = {
-  title: '',
-  body: 'Default Message',
-  icon: 'alert-circle',
 };
 
 VTAlert.propTypes = {

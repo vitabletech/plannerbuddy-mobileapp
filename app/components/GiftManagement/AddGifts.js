@@ -1,6 +1,6 @@
-import React, { useRef, useEffect, useState, useCallback } from 'react';
-import { Image, ImageBackground, View } from 'react-native';
-import { useTheme, Text, TextInput, Button, Card, Dialog } from 'react-native-paper';
+import React, { useRef, useEffect, useState } from 'react';
+import { View } from 'react-native';
+import { TextInput, Button, Dialog } from 'react-native-paper';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { useSelector, useDispatch } from 'react-redux';
 import commonStyles from '../../styles/common.style';

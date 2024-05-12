@@ -1,27 +1,21 @@
 import React from 'react';
-import { ImageBackground, View } from 'react-native';
+import PropTypes from 'prop-types';
+import { View } from 'react-native';
 import { Card, Divider, IconButton, Text } from 'react-native-paper';
-import giftIcon from '../../assets/images/gift1.png';
-import { AvatarIcon } from '../../utils/utils';
 import { useDispatch, useSelector } from 'react-redux';
+import { AvatarIcon } from '../../utils/utils';
 import getStyles from './styles';
 import { giftsActions } from '../../store/GiftContext';
 
 const GiftCard = ({ giftId, eventId, guestId, amount, desc }) => {
   const styles = getStyles();
   const dispatch = useDispatch();
-  console.log('guestId :: ', guestId);
   const guests = useSelector((state) => state.guest.guests);
-  console.log('guests :: ', guests);
   const events = useSelector((state) => state.event.events);
   const currentGuest = guests.find((g) => g.id === guestId);
   const currentEvent = events.find((e) => e.id === eventId);
 
-  console.log('currentEvent :: ', currentEvent);
-  console.log('currentGuest :: ', currentGuest);
-
   const handleDeleteGift = () => {
-    console.log('giftId :: ', giftId);
     dispatch(giftsActions.removeGift({ id: giftId }));
   };
   const rightButton = () => (
@@ -68,6 +62,14 @@ const GiftCard = ({ giftId, eventId, guestId, amount, desc }) => {
       {/* </ImageBackground> */}
     </Card>
   );
+};
+
+GiftCard.propTypes = {
+  giftId: PropTypes.string.isRequired,
+  eventId: PropTypes.string.isRequired,
+  guestId: PropTypes.string.isRequired,
+  amount: PropTypes.number.isRequired,
+  desc: PropTypes.string.isRequired,
 };
 
 export default GiftCard;

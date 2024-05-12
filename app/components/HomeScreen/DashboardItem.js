@@ -13,7 +13,7 @@ const DashboardItem = () => {
       <Surface elevation={4} style={styles.surfaceContainer}>
         <View style={styles.flexRow}>
           {dashboardDataCount.map((data) => (
-            <Button onPress={() => router.push('./../GiftScreen/Gifts')}>
+            <Button key={`${data.title} ${data.icon}`} onPress={() => router.push(data?.href)}>
               <View key={data.title} style={[styles.flexBasis25, styles.positionCenter]}>
                 <Avatar.Icon size={30} icon={data.icon} />
                 <Text style={styles.name}>{data.title}</Text>
