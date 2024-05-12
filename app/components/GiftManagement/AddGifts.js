@@ -1,180 +1,111 @@
-import React, { useRef, useEffect, useState } from 'react';
-import { View } from 'react-native';
-import { useTheme, Text, TextInput, Button, Card } from 'react-native-paper';
+import React, { useRef, useEffect, useState, useCallback } from 'react';
+import { Image, ImageBackground, View } from 'react-native';
+import { useTheme, Text, TextInput, Button, Card, Dialog } from 'react-native-paper';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import commonStyles from '../../styles/common.style';
 import getStyles from '../Guests/styles';
 import VTTextInput from '../VTTextInput/VTTextInput';
 import useInput from '../../hooks/useInput';
 import VTDropDown from '../VTDropDown/VTDropDown';
-import { fetchGuest } from '../../utils/apiCalls';
+import { fetchGuest } from '../../store/GuestContext';
+import { giftsActions } from '../../store/GiftContext';
 
 const AddGifts = () => {
-  const theme = useTheme();
+  const dispatch = useDispatch();
   const events = useSelector((state) => state.event.events);
+  const gifts = useSelector((state) => state.gift.gifts);
   const styles = { ...getStyles(), ...commonStyles() };
-  const [items, setItems] = useState([]);
+  const page = useSelector((state) => state.guest.page);
+  const guests = useSelector((state) => state.guest.guests);
   const [guestList, setGuestList] = useState([]);
+  const [eventsList, setEventsList] = useState([]);
 
   const [selectedGuest, setSelectedGuest] = useState('');
   const [selectedEvent, setSelectedEvent] = useState('');
-  const [selectedGiftmode, setSelectedGiftmode] = useState('');
 
-  const [amountInput, setAmountInput] = useState(0);
-
-  const [giftMode, setGiftMode] = useState([
-    {
-      label: 'Amount',
-      value: 'amount',
-    },
-    {
-      label: 'Item',
-      value: 'item',
-    },
-  ]);
+  useEffect(() => {
+    const transformedGuest = guests.map((guest) => ({ label: guest.name, value: guest.id }));
+    setGuestList(transformedGuest);
+  }, [guests]);
 
   useEffect(() => {
     const transformedEvents = events.map((event) => ({
       label: event.name,
       value: event.id,
     }));
-    setItems(transformedEvents);
+    setEventsList(transformedEvents);
   }, [events]);
 
   useEffect(() => {
-    fetchGuest(1)
-      .then((userData) => {
-        const transformedGuests = userData.guests.map((guest) => ({
-          label: guest?.name,
-          value: guest?.id,
-        }));
-        setGuestList([...transformedGuests, { label: 'Add New Guest', value: 'addNew' }]);
-      })
-      .catch((error) => {
-        console.error('Error fetching guests: ', error);
-      });
-  }, []);
+    dispatch(fetchGuest(page));
+  }, [page]);
 
-  const nameInput = useInput('', (value) => (value.trim() ? null : 'Name is required'));
-  const emailInput = useInput('', (value) =>
-    value.trim() === '' || (value.trim() && /\S+@\S+\.\S+/.test(value))
-      ? null
-      : 'Please enter a valid email',
-  );
-  const addressInput = useInput('', (value) =>
-    value.trim() === '' || (value.trim() !== '' && value.length >= 8)
-      ? null
-      : 'Please Enter Valid Address',
-  );
-  const phoneInput = useInput('', (value) =>
-    value.trim() !== '' && value.length === 10 ? null : 'Enter Valid Phone Number',
-  );
+  const amountInput = useInput(0, (value) => (value.trim() === '' ? 'Enter valid amount' : null));
   const notesInput = useInput('', (value) =>
     value.trim() !== '' ? null : 'Enter something to remember',
   );
   // Create refs for the inputs
-  const emailInputRef = useRef(null);
-  const phoneNumberInputRef = useRef(null);
-  const addressInputRef = useRef(null);
   const notesRef = useRef(null);
 
-  const handleClearForm = () => {
-    nameInput.reset('');
-    emailInput.reset();
-    phoneInput.reset();
-    addressInput.reset();
+  const closeDialog = () => dispatch(giftsActions.closeDialog());
+
+  const handleAddGift = () => {
+    const giftDetails = {
+      giftId: gifts.length,
+      eventId: selectedEvent,
+      guestId: selectedGuest,
+      amount: amountInput.value,
+      notes: notesInput.value,
+    };
+    console.log('Gift Details:', giftDetails);
+    dispatch(giftsActions.addGift({ gift: { ...giftDetails } }));
+    closeDialog();
   };
 
-  const handleAddGifts = () => {
-    nameInput.onBlur();
-    emailInput.onBlur();
-    addressInput.onBlur();
-    phoneInput.onBlur();
-    if (nameInput.value && emailInput.value && addressInput.value && phoneInput.value) {
-      console.log('Add Gifts');
-    }
-  };
   return (
-    <KeyboardAwareScrollView
-      style={styles.profileContainer}
-      resetScrollToCoords={{ x: 0, y: 0 }}
-      scrollEnabled
-    >
-      <View style={styles.mainContainer}>
-        <Card>
-          <Card.Content>
-            <VTDropDown items={items} value={selectedEvent} onChange={setSelectedEvent} />
+    <View style={{ flex: 1 }}>
+      <View>
+        <KeyboardAwareScrollView
+          style={styles.profileContainer}
+          resetScrollToCoords={{ x: 0, y: 0 }}
+          scrollEnabled
+        >
+          <Dialog.Title>Add Gift</Dialog.Title>
+          <Dialog.Content>
+            <VTDropDown items={eventsList} value={selectedEvent} onChange={setSelectedEvent} />
             <VTDropDown
               label="Select Guest"
               items={guestList}
               value={selectedGuest}
               onChange={setSelectedGuest}
             />
-            <VTDropDown
-              label="Gift Mode"
-              items={giftMode}
-              value={selectedGiftmode}
-              onChange={setSelectedGiftmode}
-            />
-            {selectedGiftmode === 'amount' && (
-              <>
-                <VTTextInput
-                  label="Enter Amount"
-                  {...amountInput}
-                  left={<TextInput.Icon icon="cash-multiple" />}
-                  onSubmitEditing={() => notesRef.current.focus()}
-                  onChange={setAmountInput}
-                />
-                <VTTextInput
-                  label="Notes"
-                  ref={notesRef}
-                  {...notesInput}
-                  left={<TextInput.Icon icon="text" />}
-                  style="textInput"
-                  // onSubmitEditing={() => addressInputRef.current.focus()}
-                />
-              </>
-            )}
-            {selectedGiftmode === 'item' && <Text variant="bodyLarge">ITEM</Text>}
-            {/* <VTTextInput
-              label="Guest Full Name"
-              {...nameInput}
-              left={<TextInput.Icon icon="account" />}
-              onSubmitEditing={() => emailInputRef.current.focus()}
-            />
+
             <VTTextInput
-              label="Phone Number"
-              ref={phoneNumberInputRef}
-              {...phoneInput}
-              left={<TextInput.Icon icon="phone" />}
-              onSubmitEditing={() => addressInputRef.current.focus()}
+              label="Enter Amount"
+              {...amountInput}
+              keyboardType="numeric"
+              left={<TextInput.Icon icon="cash-multiple" />}
+              onSubmitEditing={() => notesRef.current.focus()}
             />
-            <VTTextInput
-              label="Email"
-              ref={emailInputRef}
-              {...emailInput}
-              left={<TextInput.Icon icon="email" />}
-              onSubmitEditing={() => phoneNumberInputRef.current.focus()}
+
+            <TextInput
+              label="Notes"
+              mode="outlined"
+              value={notesInput}
+              ref={notesRef}
+              {...notesInput}
+              multiline
+              left={<TextInput.Icon icon="text" />}
             />
-            <VTTextInput
-              label="Address"
-              ref={phoneNumberInputRef}
-              {...addressInput}
-              left={<TextInput.Icon icon="home" />}
-            /> */}
-            {/* <View style={styles.justify}>
-              <Button icon="delete" mode="contained" onPress={handleClearForm} style={styles.mr10}>
-                <Text style={{ color: theme.colors.onPrimary }}>Clear</Text>
-              </Button>
-              <Button icon="content-save" mode="contained" onPress={handleAddGifts}>
-                <Text style={{ color: theme.colors.onPrimary }}>Save Guests</Text>
-              </Button>
-            </View> */}
-          </Card.Content>
-        </Card>
+          </Dialog.Content>
+          <Dialog.Actions>
+            <Button onPress={closeDialog}>Cancel</Button>
+            <Button onPress={handleAddGift}>Save</Button>
+          </Dialog.Actions>
+        </KeyboardAwareScrollView>
       </View>
-    </KeyboardAwareScrollView>
+    </View>
   );
 };
 

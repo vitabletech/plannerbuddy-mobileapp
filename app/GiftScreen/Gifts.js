@@ -1,8 +1,8 @@
 import React from 'react';
-import AddGifts from '../components/GiftManagement/AddGifts';
+import GiftsHome from '../components/GiftManagement/GiftsHome';
 
 const Gifts = () => {
-  return <AddGifts />;
+  return <GiftsHome />;
 };
 
 export default Gifts;
