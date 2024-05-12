@@ -46,6 +46,6 @@ VTTextInput.propTypes = {
   onChangeText: PropTypes.func,
   onBlur: PropTypes.func,
   error: PropTypes.string,
-  style: PropTypes.string,
+  style: PropTypes.oneOfType([PropTypes.object, PropTypes.array]),
 };
 export default VTTextInput;

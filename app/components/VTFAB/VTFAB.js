@@ -6,7 +6,7 @@ import { useDispatch } from 'react-redux';
 import { onLogout } from '../../store/reducers/authSlice';
 import { SETTING_ACTIONS } from '../../utils/utils';
 
-const VTFAB = ({ children, actionsButton }) => {
+const VTFAB = ({ children, actionsButton = [] }) => {
   const dispatch = useDispatch();
   const navigation = useNavigation();
   const [state, setState] = useState({ open: false });
@@ -33,12 +33,9 @@ const VTFAB = ({ children, actionsButton }) => {
   );
 };
 
-VTFAB.defaultProps = {
-  actionsButton: [],
-};
-
 VTFAB.propTypes = {
   children: PropTypes.node.isRequired,
+  // eslint-disable-next-line react/require-default-props
   actionsButton: PropTypes.arrayOf(
     PropTypes.shape({
       icon: PropTypes.string.isRequired,
