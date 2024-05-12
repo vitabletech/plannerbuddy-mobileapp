@@ -1,53 +1,52 @@
 import React from 'react';
-import { ImageBackground, View } from 'react-native';
+import { View, FlatList } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
-import { AnimatedFAB } from 'react-native-paper';
-import { ScrollView } from 'react-native-virtualized-view';
-import decoration from '../../assets/images/decoration.png';
+import { AnimatedFAB, Text } from 'react-native-paper';
 import GiftCard from './GiftCard';
+import commonStyles from '../../styles/common.style';
 
-import { giftsActions } from '../../store/GiftContext';
+import { giftsActions } from '../../store/reducers/giftSlice';
 import getStyles from './styles';
 import AddGiftModal from './AddGiftModal';
 
 const GiftsHome = () => {
   const styles = getStyles();
+  const classes = commonStyles();
   const dispatch = useDispatch();
   const giftsList = useSelector((state) => state.gift.gifts);
-
   const viewModal = useSelector((state) => state.gift.showModal);
 
   const openDialog = () => dispatch(giftsActions.openDialog());
   return (
-    <View style={{ flex: 1 }}>
+    <View style={classes.flex1}>
       {viewModal && <AddGiftModal />}
-      <ImageBackground source={decoration} resizeMode="cover">
-        <ScrollView style={{ height: '100%' }}>
-          {giftsList &&
-            giftsList.map((gift) => (
-              <GiftCard
-                key={gift.giftId}
-                giftId={gift.giftId}
-                guestId={gift.guestId}
-                eventId={gift.eventId}
-                amount={gift.amount}
-                desc={gift.notes}
-              />
-            ))}
-        </ScrollView>
-        <View style={styles.columnFlexOne}>
-          <AnimatedFAB
-            icon="gift"
-            label="Add Gift"
-            extended
-            onPress={openDialog}
-            visible
-            animateFrom="right"
-            iconMode="dynamic"
-            style={styles.absolutePositionBottomRight}
+      <FlatList
+        data={giftsList}
+        ListEmptyComponent={<Text style={classes?.centerTextLargeMarginTop}>No Events Found</Text>}
+        renderItem={({ item: gift }) => (
+          <GiftCard
+            key={gift.giftId}
+            giftId={gift.giftId}
+            guestId={gift.guestId}
+            eventId={gift.eventId}
+            amount={gift.amount}
+            desc={gift.notes}
           />
-        </View>
-      </ImageBackground>
+        )}
+        keyExtractor={(gift) => gift.giftId.toString()}
+      />
+      <View style={styles.columnFlexOne}>
+        <AnimatedFAB
+          icon="gift"
+          label="Add Gift"
+          extended
+          onPress={openDialog}
+          visible
+          animateFrom="right"
+          iconMode="dynamic"
+          style={styles.absolutePositionBottomRight}
+        />
+      </View>
     </View>
   );
 };

@@ -46,6 +46,7 @@ const getStyles = () => {
       position: 'relative',
       width: '80%',
     },
+    paddedContainer: { marginBottom: 30, paddingHorizontal: 30 },
   });
 };
 export default getStyles;

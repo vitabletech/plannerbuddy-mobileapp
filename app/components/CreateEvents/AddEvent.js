@@ -150,7 +150,7 @@ const AddEventModal = () => {
               label: 'Other Event',
             },
           ]}
-          style={{ paddingHorizontal: 30, marginBottom: 30 }}
+          style={styles.paddedContainer}
         />
         <Dialog.Content style={styles.contentContainer}>
           <TextInput

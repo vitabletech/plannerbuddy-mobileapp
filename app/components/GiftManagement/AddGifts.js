@@ -9,7 +9,8 @@ import VTTextInput from '../VTTextInput/VTTextInput';
 import useInput from '../../hooks/useInput';
 import VTDropDown from '../VTDropDown/VTDropDown';
 import { fetchGuest } from '../../store/GuestContext';
-import { giftsActions } from '../../store/GiftContext';
+import { giftsActions } from '../../store/reducers/giftSlice';
+import { fetchEvents } from '../../store/EventContext';
 
 const AddGifts = () => {
   const dispatch = useDispatch();
@@ -41,7 +42,11 @@ const AddGifts = () => {
     dispatch(fetchGuest(page));
   }, [page]);
 
-  const amountInput = useInput(0, (value) => (value?.trim() === '' ? 'Enter valid amount' : null));
+  useEffect(() => {
+    dispatch(fetchEvents(page));
+  }, [page]);
+
+  const amountInput = useInput('', (value) => (value?.trim() === '' ? 'Enter valid amount' : null));
   const notesInput = useInput('', (value) =>
     value.trim() !== '' ? null : 'Enter something to remember',
   );

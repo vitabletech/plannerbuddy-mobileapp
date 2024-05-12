@@ -5,7 +5,7 @@ import { Card, Divider, IconButton, Text } from 'react-native-paper';
 import { useDispatch, useSelector } from 'react-redux';
 import { AvatarIcon } from '../../utils/utils';
 import getStyles from './styles';
-import { giftsActions } from '../../store/GiftContext';
+import { giftsActions } from '../../store/reducers/giftSlice';
 
 const GiftCard = ({ giftId, eventId, guestId, amount, desc }) => {
   const styles = getStyles();
@@ -22,9 +22,6 @@ const GiftCard = ({ giftId, eventId, guestId, amount, desc }) => {
     <IconButton size={30} icon="delete-outline" onPress={handleDeleteGift} />
   );
 
-  if (!currentEvent || !currentGuest) {
-    return <></>;
-  }
   return (
     <Card style={styles.header}>
       {/* <ImageBackground source={giftIcon}> */}
