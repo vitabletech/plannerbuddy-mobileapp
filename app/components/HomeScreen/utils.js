@@ -3,10 +3,10 @@ import RenderAvatar from '../RenderAvatar/RenderAvatar';
 import image from '../../assets/images/Rectangle204.png';
 
 export const dashboardDataCount = [
-  { title: 'Event', icon: 'calendar', href: './Events' },
-  { title: 'Invitation', icon: 'email', href: './../GiftScreen/Gifts' },
-  { title: 'Gifts', icon: 'gift', href: './../GiftScreen/Gifts' },
-  { title: 'Creative', icon: 'party-popper', href: './../CreativeScreen/Creative' },
+  { title: 'Event', icon: 'calendar', href: './../Screens/Events', replace: true },
+  { title: 'Invitation', icon: 'email', href: './../GiftScreen/Gifts', replace: false },
+  { title: 'Gifts', icon: 'gift', href: './../GiftScreen/Gifts', replace: false },
+  { title: 'Creative', icon: 'party-popper', href: './../GiftScreen/Gifts', replace: false },
 ];
 
 export const avatar = () => <RenderAvatar />;

@@ -13,7 +13,10 @@ const DashboardItem = () => {
       <Surface elevation={4} style={styles.surfaceContainer}>
         <View style={styles.flexRow}>
           {dashboardDataCount.map((data) => (
-            <Button key={`${data.title} ${data.icon}`} onPress={() => router.push(data?.href)}>
+            <Button
+              key={`${data.title} ${data.icon}`}
+              onPress={() => (data.replace ? router.replace(data?.href) : router.push(data?.href))}
+            >
               <View key={data.title} style={[styles.flexBasis25, styles.positionCenter]}>
                 <Avatar.Icon size={30} icon={data.icon} />
                 <Text style={styles.name}>{data.title}</Text>

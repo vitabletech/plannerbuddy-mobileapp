@@ -4,9 +4,8 @@ import PropTypes from 'prop-types';
 import { Dropdown } from 'react-native-element-dropdown';
 import getStyles from './styles';
 
-const VTDropDown = ({ label, items, value, onChange }) => {
+const VTDropDown = ({ label = 'Select Event', items, value, onChange }) => {
   const styles = getStyles();
-  // const [value, setValue] = useState('');
   const [isFocus, setIsFocus] = useState(false);
   return (
     <View>
@@ -38,11 +37,8 @@ const VTDropDown = ({ label, items, value, onChange }) => {
   );
 };
 
-VTDropDown.defaultProps = {
-  label: 'Select Event',
-};
-
 VTDropDown.propTypes = {
+  // eslint-disable-next-line react/require-default-props
   label: PropTypes.string,
   items: PropTypes.arrayOf(
     PropTypes.shape({

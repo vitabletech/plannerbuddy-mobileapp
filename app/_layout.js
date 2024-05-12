@@ -54,6 +54,24 @@ const RootLayout = () => {
         headerShown: Platform.OS !== 'ios',
       },
     },
+    {
+      name: 'eventDetails',
+      options: {
+        title: 'Event Details',
+        headerStyle: { backgroundColor: theme.colors.onPrimaryContainer },
+        headerTintColor: theme.colors.background,
+        headerBackTitle: 'Back',
+      },
+    },
+    {
+      name: 'GiftScreen/Gifts',
+      options: {
+        title: 'Gifts',
+        headerStyle: { backgroundColor: theme.colors.onPrimaryContainer },
+        headerTintColor: theme.colors.background,
+        headerBackTitle: 'Back',
+      },
+    },
   ];
 
   return (

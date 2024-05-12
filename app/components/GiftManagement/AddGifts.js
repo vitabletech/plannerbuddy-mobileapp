@@ -41,7 +41,7 @@ const AddGifts = () => {
     dispatch(fetchGuest(page));
   }, [page]);
 
-  const amountInput = useInput(0, (value) => (value.trim() === '' ? 'Enter valid amount' : null));
+  const amountInput = useInput(0, (value) => (value?.trim() === '' ? 'Enter valid amount' : null));
   const notesInput = useInput('', (value) =>
     value.trim() !== '' ? null : 'Enter something to remember',
   );
@@ -64,7 +64,7 @@ const AddGifts = () => {
   };
 
   return (
-    <View style={{ flex: 1 }}>
+    <View style={styles.flex1}>
       <View>
         <KeyboardAwareScrollView
           style={styles.profileContainer}
