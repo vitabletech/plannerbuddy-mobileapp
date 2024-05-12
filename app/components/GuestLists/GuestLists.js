@@ -60,6 +60,7 @@ const GuestLists = ({ selectMode }) => {
         }),
       );
     });
+    console.log('selectedContactsObjects', selectedContactsObjects);
     dispatch(eventActions.addGuestsToEvent({ guests: selectedContactsObjects }));
     alert('Guests added successfully');
   };

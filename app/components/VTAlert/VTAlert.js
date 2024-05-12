@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { Dialog, Portal, Text, Button } from 'react-native-paper';
 import commonStyles from '../../styles/common.style';
 
-const VTAlert = ({ title, body, icon, isVisible }) => {
+const VTAlert = ({ title = '', body = 'Default Message', icon = 'alert-circle', isVisible }) => {
   const [visible, setVisible] = useState(isVisible);
   const styles = commonStyles();
   const hideDialog = () => setVisible(false);
@@ -29,12 +29,6 @@ const VTAlert = ({ title, body, icon, isVisible }) => {
       </Dialog>
     </Portal>
   );
-};
-
-VTAlert.defaultProps = {
-  title: '',
-  body: 'Default Message',
-  icon: 'alert-circle',
 };
 
 VTAlert.propTypes = {

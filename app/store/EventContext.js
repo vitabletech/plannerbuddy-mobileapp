@@ -18,9 +18,11 @@ const eventSlice = createSlice({
     },
     addGuestsToEvent(state, action) {
       const updatedEvent = [...state.events];
+      console.log('edit index :: ', state.editIndex);
       const event = updatedEvent.find((e) => e.id === state.editIndex);
       event.guests = [...action.payload.guests];
-      updatedEvent[state.editIndex] = { ...event };
+      updatedEvent.filter((e) => e.id !== state.editIndex);
+      updatedEvent.push(event);
       state.mode = null;
       state.events = updatedEvent;
     },

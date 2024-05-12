@@ -22,6 +22,7 @@ const AddEventModal = () => {
   const [eventState, setEventState] = useState('ownEvent');
   const [selectedGuest, setSelectedGuest] = useState('');
   const totalGuests = useSelector((state) => state.guest.guests);
+  const allEvents = useSelector((state) => state.event.events);
 
   const [guestList, setGuestList] = useState(totalGuests);
 
@@ -99,6 +100,7 @@ const AddEventModal = () => {
     const isValid = validateInput();
     if (isValid) {
       addEvent({
+        // eventType: eventState === 'ownEvent' ? 'own' : 'other',
         eventName: event.name,
         eventDate: new Date(event.date).toISOString(),
         eventLocation: event.address,

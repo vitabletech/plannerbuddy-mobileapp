@@ -14,6 +14,7 @@ const Events = () => {
   const dispatch = useDispatch();
   const styles = { ...getStyles(), ...commonStyles() };
   const allEvents = useSelector((state) => state.event.events);
+  console.log('all events :: ', allEvents[0]);
   const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
   const [status, setStatus] = useState(false);

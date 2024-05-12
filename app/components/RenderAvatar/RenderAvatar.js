@@ -3,13 +3,9 @@ import PropTypes from 'prop-types';
 import { Avatar } from 'react-native-paper';
 import { PLACEHOLDER_IMAGE } from '../../constants/constants';
 
-const RenderAvatar = ({ imageUri, ...props }) => (
+const RenderAvatar = ({ imageUri = PLACEHOLDER_IMAGE, ...props }) => (
   <Avatar.Image size={50} {...props} source={{ uri: imageUri }} />
 );
-
-RenderAvatar.defaultProps = {
-  imageUri: PLACEHOLDER_IMAGE,
-};
 
 RenderAvatar.propTypes = {
   imageUri: PropTypes.string,
