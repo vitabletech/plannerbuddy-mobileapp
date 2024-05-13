@@ -29,6 +29,7 @@ const guestSlice = createSlice({
     showModal: false,
     page: 1,
     totalPages: 0,
+    totalData: 0,
     error: null,
   },
   reducers: {
@@ -59,6 +60,7 @@ const guestSlice = createSlice({
         }));
         state.guests = state.guests.concat(usersData);
         state.totalPages = action.payload.totalPages;
+        state.totalData = action.payload.totalData;
         state.page = action.payload.currentPage;
       })
       .addCase(fetchGuest.rejected, (state, action) => {

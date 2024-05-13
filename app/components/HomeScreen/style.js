@@ -10,6 +10,9 @@ const getStyles = () => {
       marginRight: 20,
       width: 300,
     },
+    cardDefaultHeight: {
+      marginVertical: 10,
+    },
     container: {
       flex: 1,
       position: 'relative',
@@ -35,6 +38,7 @@ const getStyles = () => {
       flexWrap: 'wrap',
       justifyContent: 'space-evenly',
     },
+    guestAddMore: { top: 10, zIndex: 1 },
     guestContainer: {
       marginTop: '-20%',
       padding: 20,

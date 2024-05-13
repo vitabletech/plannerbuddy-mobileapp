@@ -22,8 +22,6 @@ const eventDetails = () => {
   const icon = event?.name.toLowerCase().includes('birth') ? 'cake' : 'party-popper';
   const [visible, setVisible] = useState(false);
 
-  console.log(event);
-
   const confirmDelete = () => {
     setVisible(true);
   };
