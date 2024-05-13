@@ -67,9 +67,12 @@ const RootLayout = () => {
       name: 'GiftScreen/Gifts',
       options: {
         title: 'Gifts',
-        headerStyle: { backgroundColor: theme.colors.onPrimaryContainer },
         headerTintColor: theme.colors.background,
         headerBackTitle: 'Back',
+        headerTitleAlign: 'center',
+        headerStyle: {
+          backgroundColor: theme.colors.primary,
+        },
       },
     },
   ];

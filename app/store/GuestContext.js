@@ -40,7 +40,7 @@ const guestSlice = createSlice({
       state.showModal = !state.showModal;
     },
     addGuest(state, action) {
-      state.guests = [...state.guests, { ...action.payload.guest }];
+      state.guests = [{ ...action.payload.guest }, ...state.guests];
     },
   },
   extraReducers: (builder) => {

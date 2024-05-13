@@ -33,21 +33,27 @@ const Events = () => {
     <>
       <Searchbar placeholder="Search" style={styles.searchBar} />
       {viewModal && <AddEventModal />}
-      <FlatList
-        data={allEvents}
-        keyExtractor={(item) => item.id.toString()}
-        renderItem={({ item }) => <EventCard styles={styles} event={item} />}
-        ListEmptyComponent={
-          !status && <Text style={styles.centerTextLargeMarginTop}>No Events Found</Text>
-        }
-        onEndReached={handleLoadMore}
-        ListFooterComponent={() =>
-          page === totalPages ? endReached(styles.title) : status === 'loading' && Loader()
-        }
-        initialNumToRender={10}
-        maxToRenderPerBatch={10}
-        windowSize={5}
-      />
+      {/* eslint-disable-next-line no-nested-ternary */}
+      {allEvents.length !== 0 ? (
+        <FlatList
+          data={allEvents}
+          keyExtractor={(item) => item.id.toString()}
+          renderItem={({ item }) => <EventCard styles={styles} event={item} />}
+          onEndReached={handleLoadMore}
+          ListFooterComponent={() =>
+            page === totalPages ? endReached(styles.title) : status === 'loading' && Loader()
+          }
+          initialNumToRender={10}
+          maxToRenderPerBatch={10}
+          windowSize={5}
+        />
+      ) : status === 'loading' ? (
+        <View style={[styles.flex1, styles.centerContent]}>{Loader()}</View>
+      ) : (
+        <View style={[styles.flex1, styles.centerContent]}>
+          <Text style={styles.centerTextLargeMarginTop}>No Event Founds</Text>
+        </View>
+      )}
 
       <View style={styles.columnFlexOne}>
         <AnimatedFAB
