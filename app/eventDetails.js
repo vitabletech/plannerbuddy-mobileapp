@@ -3,30 +3,39 @@ import { Avatar, Card, IconButton, Text, List } from 'react-native-paper';
 import { View } from 'react-native';
 import { router, useLocalSearchParams } from 'expo-router';
 import { ScrollView } from 'react-native-virtualized-view';
-import { useEventContext } from './store/EventContext';
+import { useDispatch, useSelector } from 'react-redux';
 import getStyles from './components/CreateEvents/styles';
 import commonStyles from './styles/common.style';
-import ConfirmDialog from './components/dialog';
+import ConfirmDialog from './components/ConfirmDialog/ConfirmDialog';
+import { eventActions } from './store/EventContext';
+import { deleteEvent } from './utils/apiCalls';
+import { IconComponent } from './utils/utils';
 
 const eventDetails = () => {
+  const dispatch = useDispatch();
   const styles = { ...getStyles(), ...commonStyles() };
   const { eventId } = useLocalSearchParams();
-  const { events } = useEventContext();
+  const events = useSelector((state) => state.event.events);
   const event = events.find((e) => e.id === +eventId);
   const [expanded, setExpanded] = useState(false);
   const handlePress = () => setExpanded((state) => !state);
-  const { deleteEvent } = useEventContext();
-  const icon = event.name.toLowerCase().includes('birth') ? 'cake' : 'party-popper';
+  const icon = event?.name.toLowerCase().includes('birth') ? 'cake' : 'party-popper';
   const [visible, setVisible] = useState(false);
+
+  console.log(event);
 
   const confirmDelete = () => {
     setVisible(true);
   };
 
   const handleRemoveEvent = () => {
-    deleteEvent(event.id);
-    setVisible(false);
-    router.back();
+    deleteEvent(event.id).then((response) => {
+      if (!response.error) {
+        dispatch(eventActions.deleteEvent({ id: event.id }));
+        setVisible(false);
+        router.back();
+      }
+    });
   };
   return (
     <>
@@ -44,7 +53,7 @@ const eventDetails = () => {
       ) : (
         <Card>
           <Card.Title
-            title={event.name}
+            title={event?.name}
             titleNumberOfLines={2}
             titleStyle={styles.eventTitle}
             subtitle={event.date}
@@ -72,16 +81,17 @@ const eventDetails = () => {
                   event.guests.map((guest) => (
                     <List.Item
                       key={guest.id}
-                      title={`${guest.firstName} ${guest.lastName}`}
+                      title={`${guest.name}`}
                       description={guest.phone}
                       left={(props) => (
                         <Avatar.Text
                           size={45}
                           labelStyle={styles.textWhite}
                           {...props}
-                          label={guest.firstName[0]}
+                          label={guest?.name?.[0]}
                         />
                       )}
+                      right={() => IconComponent('FontAwesome', 'eye', 45)}
                     />
                   ))
                 )}

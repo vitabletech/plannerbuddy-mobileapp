@@ -1,37 +1,45 @@
+/* eslint-disable no-nested-ternary */
 import React, { useEffect, useState, useCallback } from 'react';
 import PropTypes from 'prop-types';
 import { FlatList, View } from 'react-native';
+import { Text } from 'react-native-paper';
+import { useSelector, useDispatch } from 'react-redux';
 import UserDataList from './UserDataList';
-import { API_URL } from '../../constants/constants';
-import { Loader, ItemSeparatorComponent } from '../../utils/utils';
+import { Loader, ItemSeparatorComponent, endReached } from '../../utils/utils';
 import commonStyles from '../../styles/common.style';
 import getStyles from './style';
 import Header from '../Guests/Header';
-import { useEventContext } from '../../store/EventContext';
 import { filterContacts } from '../Guests/utils';
+import { eventActions } from '../../store/EventContext';
+import { fetchGuest } from '../../store/GuestContext';
 
 const GuestLists = ({ selectMode }) => {
   const styles = { ...getStyles(), ...commonStyles() };
-  const [users, setUsers] = useState([]);
-  const [loading, setLoading] = useState(false);
-  const [page, setPage] = useState(0);
-
-  const { events, editIndex, addGuestsToEvent } = useEventContext();
+  const users = useSelector((state) => state.guest.guests);
+  const status = useSelector((state) => state.guest.status);
+  const totalPages = useSelector((state) => state.guest.totalPages);
+  const pages = useSelector((state) => state.guest.page);
+  const [page, setPage] = useState(pages);
+  const dispatch = useDispatch();
+  const events = useSelector((state) => state.event.events);
+  const editIndex = useSelector((state) => state.event.editIndex);
 
   const [contactList, setContactList] = useState([]);
   const [filteredContactList, setFilteredContactList] = useState(contactList);
   const [selectedContacts, setSelectedContacts] = useState([]);
 
-  console.log('filteredContactList', filteredContactList);
+  useEffect(() => {
+    setContactList(users);
+  }, [users]);
 
   const handleSearch = (searchQuery) => {
-    console.log('searchQuery', searchQuery);
     filterContacts(searchQuery, contactList, setFilteredContactList);
   };
 
   useEffect(() => {
     if (selectMode) {
-      setSelectedContacts(events[editIndex]?.guests.map((guest) => guest.id));
+      const currentEvent = events.find((event) => event.id === editIndex);
+      setSelectedContacts(currentEvent?.guests.map((guest) => guest.id));
     }
   }, [selectMode]);
 
@@ -52,7 +60,8 @@ const GuestLists = ({ selectMode }) => {
         }),
       );
     });
-    addGuestsToEvent(selectedContactsObjects);
+    console.log('selectedContactsObjects', selectedContactsObjects);
+    dispatch(eventActions.addGuestsToEvent({ guests: selectedContactsObjects }));
     alert('Guests added successfully');
   };
 
@@ -60,37 +69,15 @@ const GuestLists = ({ selectMode }) => {
     setFilteredContactList(contactList);
   }, [contactList]);
 
-  const fetchData = useCallback(() => {
-    setLoading(true);
-    fetch(`${API_URL}users?skip=${page}&limit=10`)
-      .then((response) => response.json())
-      .then((data) => {
-        setUsers((prevUsers) => [...prevUsers, ...data.users]);
-        const usersData = data.users.map((user) => ({
-          id: user.id,
-          firstName: user.firstName,
-          lastName: user.lastName,
-          phone: user.phone,
-        }));
-        setContactList((prevContactList) => [...prevContactList, ...usersData]);
-        setLoading(false);
-      })
-      .catch((error) => {
-        // eslint-disable-next-line no-console
-        console.error(error);
-        setLoading(false);
-      });
-  }, [page]);
-
   useEffect(() => {
-    fetchData();
+    dispatch(fetchGuest(page));
   }, [page]);
 
   const handleLoadMore = useCallback(() => {
-    if (!loading) {
-      setPage(users?.length);
+    if (page < totalPages) {
+      setPage((prevPage) => prevPage + 1);
     }
-  }, [loading]);
+  }, [page, totalPages]);
 
   const renderItem = ({ item }) => (
     <UserDataList
@@ -111,20 +98,26 @@ const GuestLists = ({ selectMode }) => {
           saveList={handleSaveSelectedContacts}
         />
       )}
-      {users.length !== 0 && (
+      {users.length !== 0 ? (
         <FlatList
           data={filteredContactList}
           keyExtractor={(usersData) => `${usersData?.item?.id?.toString()}-${Math.random()}`}
           renderItem={(item) => renderItem(item)}
           ItemSeparatorComponent={() => ItemSeparatorComponent(styles.itemSeparator)}
           onEndReached={handleLoadMore}
-          // onEndReachedThreshold={0.1}
-          ListFooterComponent={() => loading && Loader()}
+          ListFooterComponent={() =>
+            page === totalPages ? endReached(styles.title) : status === 'loading' && Loader()
+          }
           initialNumToRender={10}
           maxToRenderPerBatch={10}
           windowSize={5}
-          removeClippedSubviews
         />
+      ) : status === 'loading' ? (
+        <View style={[styles.flex1, styles.centerContent]}>{Loader()}</View>
+      ) : (
+        <View style={[styles.flex1, styles.centerContent]}>
+          <Text style={styles.centerTextLargeMarginTop}>No Guests</Text>
+        </View>
       )}
     </View>
   );

@@ -1,107 +1,110 @@
-import React, { createContext, useContext, useMemo, useState } from 'react';
-import PropTypes from 'prop-types';
+/* eslint-disable no-param-reassign */
+import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import customAxios from '../utils/customAxios';
 
-export const EventContext = createContext({});
+// Define the async thunk
+export const fetchEvents = createAsyncThunk(
+  'event/fetchEvents',
+  async (page, { rejectWithValue }) => {
+    try {
+      const response = await customAxios.get('event', {
+        params: {
+          page,
+          limit: 10,
+        },
+      });
+      return response;
+    } catch (error) {
+      console.error('error :: ', error);
+      return rejectWithValue(error.response.data);
+    }
+  },
+);
 
-export function useEventContext() {
-  return useContext(EventContext);
-}
-
-export const EventProvider = ({ children }) => {
-  const [showModal, setShowModal] = useState(false);
-  const [mode, setMode] = useState('add');
-  const [editIndex, setEditIndex] = useState(null);
-  const [events, setEvents] = useState([
-    {
-      id: 0,
-      name: 'Birthday',
-      address: 'Apt. 295, 1 Clos Du Midi, 45982 Villefranche-sur-Saône',
-      date: 'Tue Apr 02 2024',
-      guests: [],
+const eventSlice = createSlice({
+  name: 'event',
+  initialState: {
+    events: [],
+    status: 'idle',
+    mode: null,
+    editIndex: null,
+    showModal: false,
+    page: 1,
+    totalPages: 0,
+    error: null,
+  },
+  reducers: {
+    addEvent(state, action) {
+      state.events = [...new Set([action.payload.event, ...state.events])];
     },
-    {
-      id: 1,
-      name: 'Marriage',
-      address: '8 Rond-point Paul Eluard, 42752 Grasse',
-      date: 'Mon Apr 08 2024',
-      guests: [],
+    addEvents(state, action) {
+      state.events = [...new Set([...state.events, ...action.payload])];
     },
-    {
-      id: 2,
-      name: 'House Party',
-      address: '9393 Anse De Colombes, 85240 Châlons-en-Champagne',
-      date: 'Tue Apr 02 2024',
-      guests: [],
+    addGuestsToEvent(state, action) {
+      const updatedEvent = [...state.events];
+      const eventIndex = updatedEvent.findIndex((e) => e.id === state.editIndex);
+      if (eventIndex !== -1) {
+        const event = updatedEvent[eventIndex];
+        event.guests = [...action.payload.guests];
+        updatedEvent[eventIndex] = { ...event };
+        state.mode = null;
+        state.events = updatedEvent;
+      }
     },
-  ]);
+    setMode(state, action) {
+      state.mode = action.payload.mode;
+    },
+    setEditIndex(state, action) {
+      state.editIndex = action.payload.idx;
+    },
+    openDialog(state) {
+      state.showModal = !state.showModal;
+    },
+    closeDialog(state) {
+      state.editIndex = null;
+      state.mode = null;
+      state.showModal = !state.showModal;
+    },
+    updateEvent(state, action) {
+      const updatedEvent = { ...action.payload.event };
+      let allEvents = [...state.events];
+      allEvents = allEvents.map((event) => {
+        if (event.id === action.payload.id) return updatedEvent;
+        return event;
+      });
+      state.events = allEvents;
+      state.mode = null;
+    },
+    deleteEvent(state, action) {
+      const remainingEvent = state.events.filter((e) => e.id !== action.payload.id);
+      state.events = remainingEvent;
+    },
+  },
+  extraReducers: (builder) => {
+    builder
+      .addCase(fetchEvents.pending, (state) => {
+        state.status = 'loading';
+      })
+      .addCase(fetchEvents.fulfilled, (state, action) => {
+        state.status = 'succeeded';
+        // Add any fetched guests to the array
+        const eventData = action.payload.events.map((event) => ({
+          id: event.eventId,
+          name: event.eventName,
+          date: event.eventDate,
+          address: event.address,
+          guests: [],
+        }));
+        state.events = state.events.concat(eventData);
+        state.totalPages = action.payload.totalPages;
+        state.page = action.payload.currentPage;
+      })
+      .addCase(fetchEvents.rejected, (state, action) => {
+        state.status = 'failed';
+        state.error = action.error.message;
+      });
+  },
+});
 
-  const handleAddEvent = (event) => {
-    setEvents((state) => [...state, { ...event, id: state.length }]);
-  };
-
-  const handleDeleteEvent = (id) => {
-    const remainingEvent = events.filter((e) => e.id !== id);
-    setEvents(remainingEvent);
-  };
-
-  const handleUpdateEvent = (id, payload) => {
-    const updatedEvent = { ...payload.event };
-    let allEvents = [...events];
-    allEvents = allEvents.map((event) => {
-      if (event.id === id) return updatedEvent;
-      return event;
-    });
-    setEvents(allEvents);
-    setMode(null);
-  };
-
-  const handleDialogClose = () => setShowModal((state) => !state);
-  const handleDialogOpen = () => setShowModal((state) => !state);
-  const handleSetMode = (m) => setMode(m);
-  const handleSetEditIndex = (index) => setEditIndex(index);
-
-  const addGuestsToEvent = (guests) => {
-    const updatedEvent = [...events];
-    const event = updatedEvent.find((e) => e.id === editIndex);
-    event.guests = [...guests];
-    updatedEvent[editIndex] = { ...event };
-    setMode('add');
-    setEvents(updatedEvent);
-  };
-  const value = useMemo(
-    () => ({
-      events,
-      editIndex,
-      showModal,
-      mode,
-      addGuestsToEvent: (guests) => addGuestsToEvent(guests),
-      setMode,
-      setEditIndex: (idx) => handleSetEditIndex(idx),
-      openDialog: handleDialogOpen,
-      closeDialog: handleDialogClose,
-      addEvent: (event) => handleAddEvent(event),
-      updateEvent: (id, event) => handleUpdateEvent(id, event),
-      deleteEvent: (id) => handleDeleteEvent(id),
-    }),
-    [
-      events,
-      editIndex,
-      showModal,
-      mode,
-      addGuestsToEvent,
-      handleSetMode,
-      handleSetEditIndex,
-      handleDialogOpen,
-      handleDialogClose,
-      handleAddEvent,
-      handleUpdateEvent,
-      handleDeleteEvent,
-    ],
-  );
-
-  return <EventContext.Provider value={value}>{children}</EventContext.Provider>;
-};
-
-EventProvider.propTypes = {
-  children: PropTypes.node.isRequired, // add PropTypes validation for children
-};
+export const eventActions = eventSlice.actions;
+export default eventSlice;

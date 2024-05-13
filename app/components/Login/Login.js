@@ -1,45 +1,45 @@
-import { View, TouchableOpacity } from 'react-native';
-import {
-  useTheme,
-  Text,
-  TextInput,
-  ActivityIndicator,
-  Checkbox,
-  HelperText,
-} from 'react-native-paper';
 import React, { useState, useRef } from 'react';
-
+import { View, TouchableOpacity } from 'react-native';
+import { useTheme, Text, TextInput, ActivityIndicator, Button } from 'react-native-paper';
 import { Link } from 'expo-router';
-import { useAuth } from '../../store/AuthContext';
+import { useDispatch, useSelector } from 'react-redux';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
+import { onLogin } from '../../store/reducers/authSlice';
 import getStyles from './styles';
+import VTTextInput from '../VTTextInput/VTTextInput';
+import useInput from '../../hooks/useInput';
+import { AlertComponent } from '../../utils/utils';
 
 const Login = () => {
   const theme = useTheme();
   const styles = getStyles();
+  const dispatch = useDispatch();
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
-  const [username, setUsername] = useState('atuny0'); // atuny0
-  const [password, setPassword] = useState('9uQFF1Lh'); // 9uQFF1Lh
+  const error = useSelector((state) => state.auth.error);
+  const emailInput = useInput('test@user.com', (value) =>
+    value.trim() ? null : 'Email is required',
+  );
+  const passwordInput = useInput('12345678', (value) =>
+    value.trim() ? null : 'Password is required',
+  );
+
   const [loading, setLoading] = useState(false);
-  const [hasError, sethasError] = useState(false);
-  const { onLogin } = useAuth();
   const passwordInputRef = useRef(null);
   const login = async () => {
     setLoading(true);
-    if (!username || !password) {
-      sethasError(true);
+    // Trigger validation for all input fields
+    emailInput.onBlur();
+    passwordInput.onBlur();
+    if (!emailInput.value || !passwordInput.value) {
       setLoading(false);
       return false;
     }
-    const result = await onLogin(username, password);
-    if (result?.error) {
-      alert(result?.msg);
-    }
+    await dispatch(onLogin({ email: emailInput.value, password: passwordInput.value }));
     setLoading(false);
     return true;
   };
-
   return (
-    <>
+    <KeyboardAwareScrollView>
       <View style={styles.textContainer}>
         <Text style={styles.textAlignCenter} variant="displaySmall">
           Welcome Back!
@@ -48,51 +48,26 @@ const Login = () => {
           Please enter your account here
         </Text>
       </View>
+      {AlertComponent(error)}
       <View>
-        <View>
-          <TextInput
-            mode="outlined"
-            autoCapitalize="none"
-            label="Enter Your Email"
-            value={username}
-            onChangeText={setUsername}
-            onSubmitEditing={() => passwordInputRef.current.focus()}
-            left={<TextInput.Icon icon="account" />}
-          />
-          <HelperText type="error" visible={hasError && !username}>
-            <Text>Username is invalid!</Text>
-          </HelperText>
-        </View>
-        <View>
-          <TextInput
-            mode="outlined"
-            label="Enter Password"
-            ref={passwordInputRef}
-            value={password}
-            onChangeText={setPassword}
-            secureTextEntry={!isPasswordVisible}
-            left={
-              <TextInput.Icon
-                icon={isPasswordVisible ? 'eye' : 'eye-off'}
-                onPress={() => setIsPasswordVisible(!isPasswordVisible)}
-              />
-            }
-          />
-          <HelperText type="error" visible={hasError && !password}>
-            <Text>Password is invalid!</Text>
-          </HelperText>
-        </View>
-        <View style={styles.rowSpaceBetween}>
-          <Checkbox.Item
-            labelVariant="labelLarge"
-            label="Remember me"
-            status="checked"
-            style={styles.rowReverse}
-          />
-          <TouchableOpacity style={styles.forgotPasswordContainer}>
-            <Text>Forgot password?</Text>
-          </TouchableOpacity>
-        </View>
+        <VTTextInput
+          label="Enter Your Email"
+          {...emailInput}
+          left={<TextInput.Icon icon="account" />}
+          onSubmitEditing={() => passwordInputRef.current.focus()}
+        />
+        <VTTextInput
+          label="Enter Password"
+          ref={passwordInputRef}
+          secureTextEntry={!isPasswordVisible}
+          left={
+            <TextInput.Icon
+              icon={isPasswordVisible ? 'eye' : 'eye-off'}
+              onPress={() => setIsPasswordVisible((state) => !state)}
+            />
+          }
+          {...passwordInput}
+        />
         {loading ? (
           <ActivityIndicator style={styles.outlineButton} color={theme.colors.onPrimary} />
         ) : (
@@ -108,13 +83,16 @@ const Login = () => {
             </TouchableOpacity>
           </Link>
         </View>
-        <Link replace href="/privacy" asChild>
+        <Link href="/forget" asChild>
+          <Button>Forgot password?</Button>
+        </Link>
+        <Link href="/privacy" asChild>
           <TouchableOpacity style={styles.positionCenter}>
             <Text>Privacy Policy</Text>
           </TouchableOpacity>
         </Link>
       </View>
-    </>
+    </KeyboardAwareScrollView>
   );
 };
 

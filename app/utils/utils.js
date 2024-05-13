@@ -1,7 +1,8 @@
 import React from 'react';
 import { TouchableOpacity, View, Share } from 'react-native';
-import { ActivityIndicator, Avatar, IconButton } from 'react-native-paper';
+import { ActivityIndicator, Avatar, IconButton, Text } from 'react-native-paper';
 import { iconLibraries, ON_SHARE_APP_MESSAGE } from './constant';
+import VTAlert from '../components/VTAlert/VTAlert';
 
 export const IconComponent = (lib, iconName, size, color) => {
   const Component = iconLibraries[lib];
@@ -29,7 +30,7 @@ export const onShare = async () => {
 };
 
 export const AvatarIcon = (icon, props) => <Avatar.Icon icon={icon} {...props} />;
-export const AvatarText = (props) => <Avatar.Icon {...props} />;
+export const AvatarText = (props) => <Avatar.Text {...props} />;
 
 export const renderIconButton = (buttonProps) => <IconButton {...buttonProps} />;
 
@@ -54,3 +55,40 @@ export const formatDate = (date) => {
 
   return `${day} ${month} ${year}`;
 };
+
+export const fetchUserDetails = () => {
+  const person = {
+    name: 'Pankaj Saini',
+    email: 'abc@xyz.com',
+    address: 'abcabcabcabc',
+    contact: '1231231234',
+  };
+  return person;
+};
+export const fetchEventDetails = () => {
+  const events = {
+    id: '',
+    name: '',
+    address: '',
+    date: '',
+    guests: [],
+  };
+  return events;
+};
+
+export const SETTING_ACTIONS = (navigation) => [
+  {
+    icon: 'chat',
+    label: 'Chat Support',
+    onPress: () => navigation.navigate('help'),
+  },
+  {
+    icon: 'share',
+    label: 'Share App',
+    onPress: () => onShare(),
+  },
+];
+
+export const AlertComponent = (error) => <VTAlert isVisible={error !== null} body={error} />;
+
+export const endReached = (getStyles) => <Text style={{ ...getStyles }}>End Of The List</Text>;

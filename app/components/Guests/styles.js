@@ -9,16 +9,11 @@ const getStyles = () => {
       fontSize: 15,
     },
     header: {
-      // height: 40,
       marginTop: -40,
     },
     justify: {
       flexDirection: 'row',
       justifyContent: 'center',
-    },
-    mainContainer: {
-      marginBottom: 20,
-      marginTop: 20,
     },
     modalBackground: {
       backgroundColor: theme.colors.background,

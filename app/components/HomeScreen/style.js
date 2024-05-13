@@ -33,6 +33,7 @@ const getStyles = () => {
     flexRow: {
       flexDirection: 'row',
       flexWrap: 'wrap',
+      justifyContent: 'space-evenly',
     },
     guestContainer: {
       marginTop: '-20%',

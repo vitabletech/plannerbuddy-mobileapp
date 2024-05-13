@@ -1,14 +1,10 @@
 import React from 'react';
-import { StyleSheet } from 'react-native';
 import { WebView } from 'react-native-webview';
+import commonStyles from './styles/common.style';
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-});
-const Privacy = () => (
-  <WebView style={styles.container} source={{ uri: 'https://vitabletech.in/privacy_policy' }} />
-);
+const Privacy = () => {
+  const styles = commonStyles();
+  return <WebView style={styles.flex1} source={{ uri: 'https://vitabletech.in/privacy_policy' }} />;
+};
 
 export default Privacy;

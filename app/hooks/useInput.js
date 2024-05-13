@@ -13,12 +13,16 @@ const useInput = (initialValue, validationFunction) => {
     const validationError = validationFunction(value);
     setError(validationError);
   };
-
+  const reset = () => {
+    setValue(initialValue);
+    setError(null);
+  };
   return {
     value,
     error,
     onChangeText: handleChange,
     onBlur: handleBlur,
+    reset,
   };
 };
 

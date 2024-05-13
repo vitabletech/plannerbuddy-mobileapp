@@ -6,7 +6,7 @@
     "scheme": "com.vitabletech.plannerbuddy",
     "version": "1.0.0",
     "orientation": "portrait",
-    "owner": "Vitabletech",
+    "owner": "vitabletech",
     "icon": "./app/assets/icon.png",
     "userInterfaceStyle": "automatic",
     "splash": {
@@ -19,7 +19,10 @@
     ],
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.vitabletech.plannerbuddy"
+      "bundleIdentifier": "com.vitabletech.plannerbuddy",
+      "infoPlist": {
+        "NSContactsUsageDescription": "Allow $(PRODUCT_NAME) to access your contacts"
+      }
     },
     "android": {
       "userInterfaceStyle": "automatic",
@@ -28,14 +31,23 @@
         "backgroundColor": "#ffffff"
       },
       "package": "com.vitabletech.plannerbuddy",
-      "versionCode": 1
+      "versionCode": 2,
+      "permissions": [
+        "android.permission.READ_CONTACTS"
+      ]
     },
     "web": {
       "favicon": "./app/assets/favicon.png"
     },
     "plugins": [
-      "expo-secure-store",
-      "expo-contacts"
-    ]
+      "expo-contacts",
+      "expo-font",
+      "expo-router"
+    ],
+    "extra": {
+      "eas": {
+        "projectId": "be360aab-a9ca-447b-9100-1d13c07bc170"
+      }
+    }
   }
 }
