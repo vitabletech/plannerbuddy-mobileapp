@@ -7,7 +7,7 @@ import getStyles from './style';
 
 const WelcomeContainer = () => {
   const styles = getStyles();
-  const name = useSelector((state) => state.auth.userProfile).fullName;
+  const name = useSelector((state) => state.auth.userProfile)?.fullName.split(' ')[0];
   return (
     <View style={styles.welcomeContainer}>
       <Card.Title
