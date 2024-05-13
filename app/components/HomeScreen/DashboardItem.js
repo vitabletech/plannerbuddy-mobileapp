@@ -1,6 +1,6 @@
 import React from 'react';
-import { View } from 'react-native';
-import { Text, Avatar, Surface, Button } from 'react-native-paper';
+import { View, TouchableOpacity } from 'react-native';
+import { Text, Avatar, Surface } from 'react-native-paper';
 import { useRouter } from 'expo-router';
 import { dashboardDataCount } from './utils';
 import getStyles from './style';
@@ -13,7 +13,7 @@ const DashboardItem = () => {
       <Surface elevation={4} style={styles.surfaceContainer}>
         <View style={styles.flexRow}>
           {dashboardDataCount.map((data) => (
-            <Button
+            <TouchableOpacity
               key={`${data.title} ${data.icon}`}
               onPress={() => (data.replace ? router.replace(data?.href) : router.push(data?.href))}
             >
@@ -21,7 +21,7 @@ const DashboardItem = () => {
                 <Avatar.Icon size={30} icon={data.icon} />
                 <Text style={styles.name}>{data.title}</Text>
               </View>
-            </Button>
+            </TouchableOpacity>
           ))}
         </View>
       </Surface>
