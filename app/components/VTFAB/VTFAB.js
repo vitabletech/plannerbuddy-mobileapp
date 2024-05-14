@@ -2,12 +2,9 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { useNavigation } from '@react-navigation/native';
 import { FAB, Portal } from 'react-native-paper';
-import { useDispatch } from 'react-redux';
-import { onLogout } from '../../store/reducers/authSlice';
 import { SETTING_ACTIONS } from '../../utils/utils';
 
 const VTFAB = ({ children, actionsButton = [] }) => {
-  const dispatch = useDispatch();
   const navigation = useNavigation();
   const [state, setState] = useState({ open: false });
   const onStateChange = ({ open }) => setState({ open });

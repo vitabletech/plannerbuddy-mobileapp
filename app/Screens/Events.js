@@ -2,7 +2,6 @@ import React, { useEffect, useCallback, useState } from 'react';
 import { FlatList, View } from 'react-native';
 import { Text, AnimatedFAB, Searchbar } from 'react-native-paper';
 import { useSelector, useDispatch } from 'react-redux';
-import { ScrollView } from 'react-native-virtualized-view';
 import AddEventModal from '../components/CreateEvents/AddEvent';
 import getStyles from '../components/CreateEvents/styles';
 import commonStyles from '../styles/common.style';
@@ -43,7 +42,7 @@ const Events = () => {
   }, [searchQuery]);
 
   return (
-    <ScrollView style={styles.container}>
+    <View style={styles.container}>
       <Searchbar
         placeholder="Search"
         style={styles.searchBar}
@@ -85,7 +84,7 @@ const Events = () => {
           style={styles.absolutePositionBottomRight}
         />
       </View>
-    </ScrollView>
+    </View>
   );
 };
 

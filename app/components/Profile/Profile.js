@@ -2,7 +2,7 @@ import React, { useState, useRef } from 'react';
 import { Text, Card, IconButton, Button, Dialog, useTheme } from 'react-native-paper';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { useSelector, useDispatch } from 'react-redux';
-import { Stack, Tabs } from 'expo-router';
+import { Stack } from 'expo-router';
 import commonStyles from '../../styles/common.style';
 import VTTextInput from '../VTTextInput/VTTextInput';
 import useInput from '../../hooks/useInput';
@@ -75,14 +75,8 @@ const profile = () => {
     }
   };
 
-  const logoutIcon = () => {
-    return IconComponent(
-      'MaterialIcons',
-      'logout',
-      DEFAULT_HEADER_ICON_SIZE,
-      (color = theme.colors.onSurface),
-    );
-  };
+  const logoutIcon = () =>
+    IconComponent('MaterialIcons', 'logout', DEFAULT_HEADER_ICON_SIZE, theme.colors.onSurface);
 
   return (
     <>
