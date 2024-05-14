@@ -27,7 +27,7 @@ const GuestComponent = () => {
 
   return (
     <View style={styles.guestContainer}>
-      <Surface style={[styles.totalGuest, { backgroundColor: theme.colors.onSurfaceVariant }]}>
+      <Surface style={[styles.totalGuest, { backgroundColor: theme.colors.onPrimary }]}>
         <View style={styles.flexRow}>
           <View style={styles.flex1}>
             <View style={styles.flexRow}>
@@ -47,18 +47,14 @@ const GuestComponent = () => {
                 Guest
               </Text>
             </View>
-            <Text style={styles.textWhite} variant="titleSmall">
+            <Text style={styles.guestLabel} variant="titleSmall">
               Total Guest List
             </Text>
           </View>
           <View style={[styles.flex1, styles.flexEnd, styles.jstCenter]}>
             <Link href="./../Screens/ViewGuests" replace>
               <Text
-                style={[
-                  styles.position_absolute,
-                  styles.textDecorationLine,
-                  { color: theme.colors.background },
-                ]}
+                style={[styles.guestLabel, styles.position_absolute, styles.textDecorationLine]}
                 variant="titleMedium"
               >
                 Add More

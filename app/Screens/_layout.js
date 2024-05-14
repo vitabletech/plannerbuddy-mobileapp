@@ -29,7 +29,8 @@ const TabLayout = () => {
     {
       name: 'profile',
       title: 'More',
-      icon: () => IconComponent('AntDesign', 'profile', DEFAULT_BOTTOM_TAB_ICON_SIZE),
+      icon: ({ color }) =>
+        IconComponent('AntDesign', 'profile', DEFAULT_BOTTOM_TAB_ICON_SIZE, color),
     },
   ];
 
@@ -40,12 +41,16 @@ const TabLayout = () => {
         headerStyle: {
           backgroundColor: theme.colors.primary,
         },
-        headerTintColor: theme.colors.background,
-        tabBarActiveTintColor: theme.colors.primary,
+        headerTintColor: theme.colors.onPrimary,
+        tabBarActiveTintColor: 'white',
         tabBarInactiveTintColor: theme.colors.shadow,
         tabBarLabelStyle: {
           fontSize: 12,
           fontWeight: 'bold',
+        },
+
+        tabBarStyle: {
+          backgroundColor: theme.colors.primary,
         },
       }}
     >
@@ -58,6 +63,7 @@ const TabLayout = () => {
             tabBarIcon: screen.icon,
             tabBarBadge: screen.badge,
             headerShown: screen.headerShown,
+            headerTintColor: theme.colors.onSurface,
           }}
           listeners={
             screen.onPress
@@ -69,6 +75,9 @@ const TabLayout = () => {
                 })
               : undefined
           }
+          tabBarLabelStyle={{
+            color: theme.colors.primary,
+          }}
         />
       ))}
     </Tabs>

@@ -91,12 +91,16 @@ const commonStyles = () => {
       position: 'sticky',
     },
     profileCard: {
+      backgroundColor: theme.colors.onPrimary,
       marginVertical: 10,
     },
     profileContainer: {
       flex: 1,
       gap: 10,
       margin: 10,
+    },
+    searchBar: {
+      marginTop: 10,
     },
     searchContainer: {
       alignItems: 'center',

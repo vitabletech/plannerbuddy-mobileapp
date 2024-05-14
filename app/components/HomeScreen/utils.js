@@ -4,7 +4,7 @@ import image from '../../assets/images/Rectangle204.png';
 
 export const dashboardDataCount = [
   { title: 'Event', icon: 'calendar', href: './../Screens/Events', replace: true },
-  { title: 'Invitation', icon: 'email', href: './../GiftScreen/Gifts', replace: false },
+  { title: 'Invitation', icon: 'email', href: './../InviteScreen/InviteHome', replace: false },
   { title: 'Gifts', icon: 'gift', href: './../GiftScreen/Gifts', replace: false },
   { title: 'Creative', icon: 'party-popper', href: './../GiftScreen/Gifts', replace: false },
 ];
