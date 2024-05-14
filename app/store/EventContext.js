@@ -44,6 +44,9 @@ const eventSlice = createSlice({
     addEvents(state, action) {
       state.events = [...new Set([...state.events, ...action.payload])];
     },
+    resetEvents(state) {
+      state.events = [];
+    },
     setSearchEvents(state, action) {
       state.searchEvents = action.payload.searchEvents;
     },

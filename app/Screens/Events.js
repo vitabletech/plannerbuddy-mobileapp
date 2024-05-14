@@ -26,10 +26,20 @@ const Events = () => {
       setPage((prevPage) => prevPage + 1);
     }
   }, [page, totalPages]);
+
   useEffect(() => {
-    dispatch(fetchEvents({ page, searchQuery }));
+    dispatch(fetchEvents({ page }));
+  }, [page]);
+
+  useEffect(() => {
+    if (searchQuery === '') {
+      dispatch(eventActions.resetEvents());
+      dispatch(fetchEvents({ page: 1 }));
+      return;
+    }
+    dispatch(fetchEvents({ page: 1, searchQuery }));
     dispatch(eventActions.setSearchEvents({ searchEvents: !!searchQuery }));
-  }, [page, searchQuery]);
+  }, [searchQuery]);
 
   return (
     <>
