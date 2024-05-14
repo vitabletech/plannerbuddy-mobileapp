@@ -11,7 +11,7 @@ const DashboardCarousel = () => {
   const height = Dimensions.get('window').width * 0.5;
   const renderItem = ({ item }) => {
     return (
-      <Card>
+      <Card style={styles.carouselCard}>
         <Card.Content>
           <View style={styles.flexRow}>
             <View style={styles.flex1}>

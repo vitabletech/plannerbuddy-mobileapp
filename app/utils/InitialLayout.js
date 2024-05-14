@@ -27,7 +27,7 @@ const InitialLayout = ({ stackScreens, colorScheme }) => {
       <Stack
         screenOptions={{
           headerStyle: {
-            backgroundColor: theme.colors.onPrimaryContainer,
+            backgroundColor: 'red',
           },
           headerTintColor: theme.colors.background,
         }}

@@ -30,7 +30,7 @@ const RootLayout = () => {
         presentation: 'modal',
         title: 'Chat Support',
         headerStyle: { backgroundColor: theme.colors.onPrimaryContainer },
-        headerTintColor: theme.colors.background,
+        headerTintColor: theme.colors.onSurface,
         headerShown: Platform.OS !== 'ios',
       },
     },
@@ -40,7 +40,7 @@ const RootLayout = () => {
         presentation: 'modal',
         title: 'Privacy',
         headerStyle: { backgroundColor: theme.colors.onPrimaryContainer },
-        headerTintColor: theme.colors.background,
+        headerTintColor: theme.colors.onSurface,
         headerShown: Platform.OS !== 'ios',
       },
     },
@@ -50,7 +50,7 @@ const RootLayout = () => {
         presentation: 'modal',
         title: 'Forget Password',
         headerStyle: { backgroundColor: theme.colors.onPrimaryContainer },
-        headerTintColor: theme.colors.background,
+        headerTintColor: theme.colors.onSurface,
         headerShown: Platform.OS !== 'ios',
       },
     },
@@ -59,7 +59,7 @@ const RootLayout = () => {
       options: {
         title: 'Event Details',
         headerStyle: { backgroundColor: theme.colors.onPrimaryContainer },
-        headerTintColor: theme.colors.background,
+        headerTintColor: theme.colors.onSurface,
         headerBackTitle: 'Back',
       },
     },
@@ -67,7 +67,19 @@ const RootLayout = () => {
       name: 'GiftScreen/Gifts',
       options: {
         title: 'Gifts',
-        headerTintColor: theme.colors.background,
+        headerTintColor: theme.colors.onSurface,
+        headerBackTitle: 'Back',
+        headerTitleAlign: 'center',
+        headerStyle: {
+          backgroundColor: theme.colors.primary,
+        },
+      },
+    },
+    {
+      name: 'InviteScreen/InviteHome',
+      options: {
+        title: 'Invites',
+        headerTintColor: theme.colors.onSurface,
         headerBackTitle: 'Back',
         headerTitleAlign: 'center',
         headerStyle: {

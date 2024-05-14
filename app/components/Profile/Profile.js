@@ -1,16 +1,19 @@
 import React, { useState, useRef } from 'react';
-import { Text, Card, IconButton, Button, Dialog } from 'react-native-paper';
+import { Text, Card, IconButton, Button, Dialog, useTheme } from 'react-native-paper';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { useSelector, useDispatch } from 'react-redux';
+import { Stack, Tabs } from 'expo-router';
 import commonStyles from '../../styles/common.style';
 import VTTextInput from '../VTTextInput/VTTextInput';
 import useInput from '../../hooks/useInput';
-import { AlertComponent, Loader } from '../../utils/utils';
-import { updateUserProfile } from '../../store/reducers/authSlice';
+import { AlertComponent, IconComponent, Loader } from '../../utils/utils';
+import { onLogout, updateUserProfile } from '../../store/reducers/authSlice';
 import { updateProfile } from '../../utils/apiCalls';
 import InputDialog from '../InputDialog/InputDialog';
+import { DEFAULT_HEADER_ICON_SIZE } from '../../constants/constants';
 
 const profile = () => {
+  const theme = useTheme();
   const dispatch = useDispatch();
   const userProfile = useSelector((state) => state.auth.userProfile);
   const [person, setPerson] = useState(userProfile);
@@ -72,60 +75,92 @@ const profile = () => {
     }
   };
 
-  return (
-    <KeyboardAwareScrollView
-      style={classes.profileContainer}
-      resetScrollToCoords={{ x: 0, y: 0 }}
-      scrollEnabled
-    >
-      {AlertComponent(error)}
-      <Card style={classes.profileCard}>
-        <Card.Title
-          title={person?.fullName}
-          subtitle={`Contact : ${person?.phoneNumber}`}
-          right={(props) => <IconButton {...props} size={25} icon="pencil" onPress={handleEdit} />}
-        />
-        <Card.Content>
-          <Text variant="bodyMedium">Email: {person?.email}</Text>
-        </Card.Content>
-      </Card>
+  const logoutIcon = () => {
+    return IconComponent(
+      'MaterialIcons',
+      'logout',
+      DEFAULT_HEADER_ICON_SIZE,
+      (color = theme.colors.onSurface),
+    );
+  };
 
-      {enableEdit && (
-        <InputDialog visible={enableEdit} onDismiss={() => setEnableEdit((state) => !state)}>
-          <Dialog.Title>Edit Profile</Dialog.Title>
-          <Dialog.Content>
-            {loader && Loader()}
-            <VTTextInput
-              label="Name"
-              {...nameInput}
-              disabled={!enableEdit}
-              onSubmitEditing={() => phoneInputRef.current.focus()}
-              style={classes.inputField}
-            />
-            <VTTextInput
-              label="Phone Number"
-              {...phoneInput}
-              disabled={!enableEdit}
-              onSubmitEditing={() => addressInputRef.current.focus()}
-              style={classes.inputField}
-              ref={phoneInputRef}
-              keyboardType="numeric"
-            />
-            <VTTextInput
-              label="Address"
-              {...addressInput}
-              disabled={!enableEdit}
-              style={classes.inputField}
-              ref={addressInputRef}
-            />
-          </Dialog.Content>
-          <Dialog.Actions>
-            <Button onPress={resetForm}>Cancel</Button>
-            <Button onPress={saveEdit}>Save</Button>
-          </Dialog.Actions>
-        </InputDialog>
-      )}
-    </KeyboardAwareScrollView>
+  return (
+    <>
+      <Stack.Screen
+        options={{
+          headerTitleAlign: 'center',
+          headerStyle: {
+            backgroundColor: theme.colors.primary,
+          },
+          headerTintColor: theme.colors.onSurface,
+          tabBarActiveTintColor: 'white',
+          tabBarInactiveTintColor: theme.colors.shadow,
+          tabBarLabelStyle: {
+            fontSize: 12,
+            fontWeight: 'bold',
+          },
+
+          headerRight: () => {
+            return <Button icon={logoutIcon} label="Logout" onPress={() => dispatch(onLogout())} />;
+          },
+        }}
+      />
+      <KeyboardAwareScrollView
+        style={classes.profileContainer}
+        resetScrollToCoords={{ x: 0, y: 0 }}
+        scrollEnabled
+      >
+        {AlertComponent(error)}
+        <Card style={classes.profileCard}>
+          <Card.Title
+            title={person?.fullName}
+            subtitle={`Contact : ${person?.phoneNumber}`}
+            right={(props) => (
+              <IconButton {...props} size={25} icon="pencil" onPress={handleEdit} />
+            )}
+          />
+          <Card.Content>
+            <Text variant="bodyMedium">Email: {person?.email}</Text>
+          </Card.Content>
+        </Card>
+
+        {enableEdit && (
+          <InputDialog visible={enableEdit} onDismiss={() => setEnableEdit((state) => !state)}>
+            <Dialog.Title>Edit Profile</Dialog.Title>
+            <Dialog.Content>
+              {loader && Loader()}
+              <VTTextInput
+                label="Name"
+                {...nameInput}
+                disabled={!enableEdit}
+                onSubmitEditing={() => phoneInputRef.current.focus()}
+                style={classes.inputField}
+              />
+              <VTTextInput
+                label="Phone Number"
+                {...phoneInput}
+                disabled={!enableEdit}
+                onSubmitEditing={() => addressInputRef.current.focus()}
+                style={classes.inputField}
+                ref={phoneInputRef}
+                keyboardType="numeric"
+              />
+              <VTTextInput
+                label="Address"
+                {...addressInput}
+                disabled={!enableEdit}
+                style={classes.inputField}
+                ref={addressInputRef}
+              />
+            </Dialog.Content>
+            <Dialog.Actions>
+              <Button onPress={resetForm}>Cancel</Button>
+              <Button onPress={saveEdit}>Save</Button>
+            </Dialog.Actions>
+          </InputDialog>
+        )}
+      </KeyboardAwareScrollView>
+    </>
   );
 };
 
