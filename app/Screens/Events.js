@@ -17,6 +17,7 @@ const Events = () => {
   const totalPages = useSelector((state) => state.event.totalPages);
   const pages = useSelector((state) => state.event.page);
   const [page, setPage] = useState(pages);
+  const [searchQuery, setSearchQuery] = useState('');
   const viewModal = useSelector((state) => state.event.showModal);
   const openDialog = () => dispatch(eventActions.openDialog());
 
@@ -26,12 +27,18 @@ const Events = () => {
     }
   }, [page, totalPages]);
   useEffect(() => {
-    dispatch(fetchEvents(page));
-  }, [page]);
+    dispatch(fetchEvents({ page, searchQuery }));
+    dispatch(eventActions.setSearchEvents({ searchEvents: !!searchQuery }));
+  }, [page, searchQuery]);
 
   return (
     <>
-      <Searchbar placeholder="Search" style={styles.searchBar} />
+      <Searchbar
+        placeholder="Search"
+        style={styles.searchBar}
+        onChangeText={(query) => setSearchQuery(query)}
+        value={searchQuery}
+      />
       {viewModal && <AddEventModal />}
       {/* eslint-disable-next-line no-nested-ternary */}
       {allEvents.length !== 0 ? (

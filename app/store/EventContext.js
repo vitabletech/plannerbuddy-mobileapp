@@ -5,17 +5,20 @@ import customAxios from '../utils/customAxios';
 // Define the async thunk
 export const fetchEvents = createAsyncThunk(
   'event/fetchEvents',
-  async (page, { rejectWithValue }) => {
+  async (queryData, { rejectWithValue }) => {
+    const { page, searchQuery } = queryData;
+    const params = {
+      page,
+      limit: 50,
+      order: 'ASC',
+    };
+    if (searchQuery) {
+      params.filter = JSON.stringify({ eventName: searchQuery });
+    }
     try {
-      const response = await customAxios.get('event', {
-        params: {
-          page,
-          limit: 10,
-        },
-      });
+      const response = await customAxios.get('event', { params });
       return response;
     } catch (error) {
-      console.error('error :: ', error);
       return rejectWithValue(error.response.data);
     }
   },
@@ -32,6 +35,7 @@ const eventSlice = createSlice({
     page: 1,
     totalPages: 0,
     error: null,
+    searchEvents: false,
   },
   reducers: {
     addEvent(state, action) {
@@ -39,6 +43,9 @@ const eventSlice = createSlice({
     },
     addEvents(state, action) {
       state.events = [...new Set([...state.events, ...action.payload])];
+    },
+    setSearchEvents(state, action) {
+      state.searchEvents = action.payload.searchEvents;
     },
     addGuestsToEvent(state, action) {
       const updatedEvent = [...state.events];
@@ -95,7 +102,8 @@ const eventSlice = createSlice({
           address: event.address,
           guests: [],
         }));
-        state.events = state.events.concat(eventData);
+        // If searchQuery is not blank, replace the events array
+        state.events = state.searchEvents ? eventData : state.events.concat(eventData);
         state.totalPages = action.payload.totalPages;
         state.page = action.payload.currentPage;
       })

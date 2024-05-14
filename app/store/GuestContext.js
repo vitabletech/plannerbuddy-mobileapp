@@ -10,12 +10,11 @@ export const fetchGuest = createAsyncThunk(
       const response = await customAxios.get('guest', {
         params: {
           page,
-          limit: 10,
+          limit: 50,
         },
       });
       return response;
     } catch (error) {
-      console.error('error :: ', error);
       return rejectWithValue(error.response.data);
     }
   },
