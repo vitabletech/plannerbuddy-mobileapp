@@ -21,6 +21,7 @@ export const useContacts = () => {
         setContactList(data);
       }
     } catch (error) {
+      // eslint-disable-next-line no-console
       console.error('Error fetching contacts:', error);
     } finally {
       setIsLoading(false);

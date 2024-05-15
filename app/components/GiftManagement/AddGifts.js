@@ -63,7 +63,6 @@ const AddGifts = () => {
       amount: amountInput.value,
       notes: notesInput.value,
     };
-    console.log('Gift Details:', giftDetails);
     dispatch(giftsActions.addGift({ gift: { ...giftDetails } }));
     closeDialog();
   };

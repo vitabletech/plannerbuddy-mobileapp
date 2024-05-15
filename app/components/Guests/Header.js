@@ -3,9 +3,14 @@ import PropTypes from 'prop-types';
 import { Appbar, Searchbar } from 'react-native-paper';
 import getStyles from './styles';
 
-const Header = ({ onSearch, isSelected, setSelectedContacts, saveList }) => {
+const Header = ({
+  onSearch,
+  isSelected,
+  setSelectedContacts,
+  saveList,
+  showOnlySearchBar = true,
+}) => {
   const styles = getStyles();
-  const [isSearchVisible, setIsSearchVisible] = useState(false);
   const [isEditVisible, setIsEditVisible] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
 
@@ -23,23 +28,19 @@ const Header = ({ onSearch, isSelected, setSelectedContacts, saveList }) => {
 
   return (
     <>
-      <Appbar.Header style={styles.header}>
-        <Appbar.Content title={`${isSelected} Selected`} titleStyle={styles.font15} />
-        <Appbar.Action
-          icon={isSearchVisible ? 'magnify-close' : 'magnify'}
-          onPress={() => setIsSearchVisible(!isSearchVisible)}
-        />
-        {isSelected && <Appbar.Action icon="content-save" onPress={() => onSave()} />}
-        {isSelected && <Appbar.Action icon="close" onPress={handleEditPress} />}
-      </Appbar.Header>
-      {isSearchVisible && (
-        <Searchbar
-          placeholder="Search"
-          onChangeText={handleSearchChange}
-          value={searchQuery}
-          style={styles.searchBar}
-        />
+      {showOnlySearchBar && (
+        <Appbar.Header style={styles.header}>
+          <Appbar.Content title={`${isSelected} Selected`} titleStyle={styles.font15} />
+          {isSelected && <Appbar.Action icon="content-save" onPress={() => onSave()} />}
+          {isSelected && <Appbar.Action icon="close" onPress={handleEditPress} />}
+        </Appbar.Header>
       )}
+      <Searchbar
+        placeholder="Search"
+        onChangeText={handleSearchChange}
+        value={searchQuery}
+        style={styles.searchBar}
+      />
     </>
   );
 };
@@ -48,6 +49,7 @@ Header.propTypes = {
   isSelected: PropTypes.number.isRequired,
   setSelectedContacts: PropTypes.func.isRequired,
   saveList: PropTypes.func.isRequired,
+  showOnlySearchBar: PropTypes.bool.isRequired,
 };
 
 export default Header;

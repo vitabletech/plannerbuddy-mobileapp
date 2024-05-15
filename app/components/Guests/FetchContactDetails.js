@@ -45,6 +45,7 @@ const FetchContactDetails = () => {
         isSelected={selectedContacts.length}
         setSelectedContacts={setSelectedContacts}
         saveList={() => {}}
+        showOnlySearchBar
       />
       <Card>
         <Card.Content>

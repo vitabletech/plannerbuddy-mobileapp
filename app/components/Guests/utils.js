@@ -33,8 +33,10 @@ export const filterContacts = (searchQuery, contactList, setFilteredContactList)
   if (searchQuery) {
     const filteredContacts = contactList.filter((contact) => {
       let name;
-      if (contact.firstName && contact.lastName) {
-        name = `${contact.firstName} ${contact.lastName}`;
+      if (contact.firstName || contact.lastName) {
+        name = `${contact?.firstName} ${contact?.lastName}`;
+      } else if (contact.name) {
+        name = contact.name;
       }
       return (
         (name && name.toLowerCase().includes(searchQuery.toLowerCase())) ||

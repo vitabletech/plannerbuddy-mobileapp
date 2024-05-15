@@ -88,9 +88,11 @@ const authSlice = createSlice({
         state.error = action.payload;
       })
       .addCase(updateUserProfile.fulfilled, (state, action) => {
+        // eslint-disable-next-line no-console
         console.log('updateUserProfile', action.payload);
       })
       .addCase(updateUserProfile.rejected, (state, action) => {
+        // eslint-disable-next-line no-console
         console.log('updateUserProfile', action.payload);
       })
       .addCase(onLogout.fulfilled, (state) => {

@@ -31,6 +31,7 @@ const errorHandler = (error) => {
             reject(error.response.data);
           })
           .catch((err) => {
+            // eslint-disable-next-line no-console
             console.error(err);
             reject(error.response.data);
           });

@@ -10,7 +10,6 @@ export const fetchEvents = createAsyncThunk(
     const params = {
       page,
       limit: 50,
-      order: 'ASC',
     };
     if (searchQuery) {
       params.filter = JSON.stringify({ eventName: searchQuery });
