@@ -45,6 +45,7 @@ const guestSlice = createSlice({
     },
     addGuest(state, action) {
       state.guests = [{ ...action.payload.guest }, ...state.guests];
+      state.totalData += 1;
     },
     resetSearch(state) {
       state.guests = [];
