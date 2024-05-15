@@ -39,11 +39,11 @@ const AddGifts = () => {
   }, [events]);
 
   useEffect(() => {
-    dispatch(fetchGuest(page));
+    dispatch(fetchGuest({ page }));
   }, [page]);
 
   useEffect(() => {
-    dispatch(fetchEvents(page));
+    dispatch(fetchEvents({ page }));
   }, [page]);
 
   const amountInput = useInput('', (value) => (value?.trim() === '' ? 'Enter valid amount' : null));

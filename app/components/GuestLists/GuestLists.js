@@ -2,19 +2,21 @@
 import React, { useEffect, useState, useCallback } from 'react';
 import PropTypes from 'prop-types';
 import { FlatList, View } from 'react-native';
-import { Text } from 'react-native-paper';
+import { Text, Searchbar } from 'react-native-paper';
 import { useSelector, useDispatch } from 'react-redux';
 import UserDataList from './UserDataList';
-import { Loader, ItemSeparatorComponent, endReached } from '../../utils/utils';
+import { Loader, ItemSeparatorComponent, endReached, AlertComponent } from '../../utils/utils';
 import commonStyles from '../../styles/common.style';
 import getStyles from './style';
 import Header from '../Guests/Header';
 import { filterContacts } from '../Guests/utils';
 import { eventActions } from '../../store/EventContext';
-import { fetchGuest } from '../../store/GuestContext';
+import { fetchGuest, guestActions } from '../../store/GuestContext';
 
 const GuestLists = ({ selectMode }) => {
   const styles = { ...getStyles(), ...commonStyles() };
+  const [searchGuest, setSearchGuest] = useState('');
+  const error = useSelector((state) => state.guest.error);
   const users = useSelector((state) => state.guest.guests);
   const status = useSelector((state) => state.guest.status);
   const totalPages = useSelector((state) => state.guest.totalPages);
@@ -70,8 +72,26 @@ const GuestLists = ({ selectMode }) => {
   }, [contactList]);
 
   useEffect(() => {
-    dispatch(fetchGuest(page));
+    console.log('searchGuest :: ', searchGuest);
+    dispatch(fetchGuest({ page, searchGuest }));
   }, [page]);
+
+  useEffect(() => {
+    if (searchGuest === '') {
+      dispatch(guestActions.resetSearch());
+      dispatch(fetchGuest({ page: 1 }));
+      return;
+    }
+    if (searchGuest.length < 3) {
+      return;
+    }
+    const timeoutId = setTimeout(() => {
+      dispatch(fetchGuest({ page: 1, searchGuest }));
+      dispatch(guestActions.setSearchGuest({ searchGuests: !!searchGuest }));
+    }, 3000); // Delay of 5 seconds
+    // Cleanup function to clear the timeout if the component unmounts
+    clearTimeout(timeoutId);
+  }, [searchGuest, dispatch]);
 
   const handleLoadMore = useCallback(() => {
     if (page < totalPages) {
@@ -90,6 +110,7 @@ const GuestLists = ({ selectMode }) => {
 
   return (
     <View style={styles.flex1}>
+      {AlertComponent(error)}
       {selectMode && selectedContacts && (
         <Header
           onSearch={handleSearch}
@@ -98,6 +119,12 @@ const GuestLists = ({ selectMode }) => {
           saveList={handleSaveSelectedContacts}
         />
       )}
+      <Searchbar
+        placeholder="Search Type atleast 3 characters"
+        style={styles.searchBar}
+        onChangeText={(query) => setSearchGuest(query)}
+        value={searchGuest}
+      />
       {users.length !== 0 ? (
         <FlatList
           data={filteredContactList}

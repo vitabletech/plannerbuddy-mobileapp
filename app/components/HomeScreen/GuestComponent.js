@@ -14,7 +14,7 @@ const GuestComponent = () => {
   const dispatch = useDispatch();
   const status = useSelector((state) => state.guest.status);
   const totalPages = useSelector((state) => state.guest.totalPages);
-  const pages = useSelector((state) => state.guest.page);
+  const page = useSelector((state) => state.guest.page);
   const totalData = useSelector((state) => state.guest.totalData);
   const [totalGuest, setTotalGuest] = useState(totalData);
 
@@ -22,8 +22,8 @@ const GuestComponent = () => {
     setTotalGuest(totalData);
   }, [totalData]);
   useEffect(() => {
-    dispatch(fetchGuest(pages));
-  }, [pages, totalPages]);
+    dispatch(fetchGuest({ page }));
+  }, [page, totalPages]);
 
   return (
     <View style={styles.guestContainer}>
