@@ -52,3 +52,17 @@ export const deleteEvent = async (eventId) => {
     return error;
   }
 };
+
+/**
+ * Adds a guest using the provided guest data.
+ * @param {Object} guestData - The data of the guest to be added.
+ * @returns {Promise<Object>} - A promise that resolves to the response object if successful, or rejects with an error object if there's an error.
+ */
+export const addGuest = async (guestData) => {
+  try {
+    const response = await customAxios.post('guest', guestData);
+    return response;
+  } catch (error) {
+    return error;
+  }
+};

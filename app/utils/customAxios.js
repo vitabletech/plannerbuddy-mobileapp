@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { Alert } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { API_URL } from '../constants/constants';
 
@@ -26,7 +27,7 @@ const errorHandler = (error) => {
       if (error?.response?.data?.message === 'Unauthorized!') {
         AsyncStorage.removeItem('userProfile')
           .then(() => {
-            alert('Please restart your app to login again.');
+            Alert.alert('Error', 'Please restart your app.');
             reject(error.response.data);
           })
           .catch((err) => {

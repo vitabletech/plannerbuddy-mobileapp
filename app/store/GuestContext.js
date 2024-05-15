@@ -10,12 +10,10 @@ export const fetchGuest = createAsyncThunk(
     const params = {
       page,
       limit: 50,
-      order: 'ASC',
     };
     if (searchGuest) {
       params.filter = JSON.stringify({ name: searchGuest });
     }
-    console.log('params :: ', params);
     try {
       const response = await customAxios.get('guest', { params });
       return response;

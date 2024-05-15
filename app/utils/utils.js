@@ -1,5 +1,5 @@
 import React from 'react';
-import { TouchableOpacity, View, Share } from 'react-native';
+import { TouchableOpacity, View, Share, Alert } from 'react-native';
 import { ActivityIndicator, Avatar, IconButton, Text } from 'react-native-paper';
 import { iconLibraries, ON_SHARE_APP_MESSAGE } from './constant';
 import VTAlert from '../components/VTAlert/VTAlert';
@@ -25,7 +25,7 @@ export const onShare = async () => {
   try {
     await Share.share({ message: ON_SHARE_APP_MESSAGE });
   } catch (error) {
-    alert(error.message);
+    Alert.alert('Error', error.message);
   }
 };
 

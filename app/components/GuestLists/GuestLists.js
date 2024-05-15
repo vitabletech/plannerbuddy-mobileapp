@@ -1,7 +1,7 @@
 /* eslint-disable no-nested-ternary */
 import React, { useEffect, useState, useCallback } from 'react';
 import PropTypes from 'prop-types';
-import { FlatList, View } from 'react-native';
+import { FlatList, View, Alert } from 'react-native';
 import { Text, Searchbar } from 'react-native-paper';
 import { useSelector, useDispatch } from 'react-redux';
 import UserDataList from './UserDataList';
@@ -64,7 +64,7 @@ const GuestLists = ({ selectMode }) => {
     });
     console.log('selectedContactsObjects', selectedContactsObjects);
     dispatch(eventActions.addGuestsToEvent({ guests: selectedContactsObjects }));
-    alert('Guests added successfully');
+    Alert.alert('Success', 'Guests added successfully');
   };
 
   useEffect(() => {
