@@ -1,5 +1,5 @@
 import React, { useRef, useEffect, useState } from 'react';
-import { View } from 'react-native';
+import { View, Alert } from 'react-native'; // Import Alert from react-native
 import { TextInput, Button, Dialog } from 'react-native-paper';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { useSelector, useDispatch } from 'react-redux';
@@ -24,6 +24,8 @@ const AddGifts = () => {
 
   const [selectedGuest, setSelectedGuest] = useState('');
   const [selectedEvent, setSelectedEvent] = useState('');
+  const [isGuestValid, setIsGuestValid] = useState(false); // State for guest validation
+  const [isEventValid, setIsEventValid] = useState(false); // State for event validation
 
   useEffect(() => {
     const transformedGuest = guests.map((guest) => ({ label: guest.name, value: guest.id }));
@@ -46,7 +48,15 @@ const AddGifts = () => {
     dispatch(fetchEvents({ page }));
   }, [page]);
 
-  const amountInput = useInput('', (value) => (value?.trim() === '' ? 'Enter valid amount' : null));
+  const amountInput = useInput('', (value) => {
+    if (value.trim() === '') {
+      return 'Enter valid amount';
+    }
+    if (Number.isNaN(value)) {
+      return 'Only numbers are allowed';
+    }
+    return null;
+  });
   const notesInput = useInput('', (value) =>
     value.trim() !== '' ? null : 'Enter something to remember',
   );
@@ -56,6 +66,11 @@ const AddGifts = () => {
   const closeDialog = () => dispatch(giftsActions.closeDialog());
 
   const handleAddGift = () => {
+    if (!isGuestValid || !isEventValid) {
+      // Check if guest and event are selected
+      Alert.alert('Validation Error', 'Please select guest and event');
+      return;
+    }
     const giftDetails = {
       giftId: gifts.length,
       eventId: selectedEvent,
@@ -77,12 +92,22 @@ const AddGifts = () => {
         >
           <Dialog.Title>Add Gift</Dialog.Title>
           <Dialog.Content>
-            <VTDropDown items={eventsList} value={selectedEvent} onChange={setSelectedEvent} />
+            <VTDropDown
+              items={eventsList}
+              value={selectedEvent}
+              onChange={(value) => {
+                setSelectedEvent(value);
+                setIsEventValid(!!value);
+              }}
+            />
             <VTDropDown
               label="Select Guest"
               items={guestList}
               value={selectedGuest}
-              onChange={setSelectedGuest}
+              onChange={(value) => {
+                setSelectedGuest(value);
+                setIsGuestValid(!!value);
+              }}
             />
 
             <VTTextInput
