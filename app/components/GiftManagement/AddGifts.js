@@ -76,7 +76,7 @@ const AddGifts = () => {
       eventId: selectedEvent,
       guestId: selectedGuest,
       amount: amountInput.value,
-      notes: notesInput.value,
+      note: notesInput.value,
     };
     dispatch(giftsActions.addGift({ gift: { ...giftDetails } }));
     closeDialog();

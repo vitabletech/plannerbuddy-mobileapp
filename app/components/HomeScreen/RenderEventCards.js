@@ -11,7 +11,7 @@ const RenderEventCards = ({ item }) => {
     return (
       <Card style={styles.cardDefaultHeight}>
         <Card.Content>
-          <Text style={styles.title}>No Recent Events</Text>
+          <Text style={styles.title}>No Events Founds</Text>
         </Card.Content>
       </Card>
     );

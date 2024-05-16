@@ -1,30 +1,32 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { View } from 'react-native';
+import { View, Alert } from 'react-native';
 import { Card, Divider, IconButton, Text } from 'react-native-paper';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { AvatarIcon } from '../../utils/utils';
 import getStyles from './styles';
 import { giftsActions } from '../../store/reducers/giftSlice';
+import { deleteGift } from '../../utils/apiCalls';
 
-const GiftCard = ({ giftId, eventId, guestId, amount, desc }) => {
+const GiftCard = ({ data }) => {
   const styles = getStyles();
   const dispatch = useDispatch();
-  const guests = useSelector((state) => state.guest.guests);
-  const events = useSelector((state) => state.event.events);
-  const currentGuest = guests.find((g) => g.id === guestId);
-  const currentEvent = events.find((e) => e.id === eventId);
-
+  const { giftId, amount, eventName, guestName, note, isYourGift } = data;
   const handleDeleteGift = () => {
-    dispatch(giftsActions.removeGift({ id: giftId }));
+    deleteGift(giftId).then((response) => {
+      if (!response.error) {
+        dispatch(giftsActions.removeGift({ giftId }));
+      }
+      Alert.alert(!response.error ? 'Success' : 'Fail', response.message);
+    });
   };
+
   const rightButton = () => (
     <IconButton size={30} icon="delete-outline" onPress={handleDeleteGift} />
   );
 
   return (
     <Card style={styles.header}>
-      {/* <ImageBackground source={giftIcon}> */}
       <Card.Title
         title={`Amount : ${amount || 0} Rs.`}
         titleNumberOfLines={2}
@@ -38,13 +40,13 @@ const GiftCard = ({ giftId, eventId, guestId, amount, desc }) => {
           <View style={styles.info}>
             <IconButton icon="account" />
             <Text variant="titleMedium" style={styles.text}>
-              {currentGuest.name}
+              {guestName}
             </Text>
           </View>
           <View style={styles.info}>
             <IconButton icon="calendar-blank-outline" />
             <Text variant="titleMedium" style={styles.text}>
-              {currentEvent.name}
+              {eventName}
             </Text>
           </View>
         </View>
@@ -52,7 +54,12 @@ const GiftCard = ({ giftId, eventId, guestId, amount, desc }) => {
         <View style={styles.notes}>
           <IconButton icon="text" />
           <Text variant="titleMedium" style={styles.text}>
-            {desc || 'No Description'}
+            {note || 'No Description'}
+          </Text>
+        </View>
+        <View style={styles.notes}>
+          <Text variant="titleMedium" style={styles.text}>
+            isYourGift : {isYourGift}
           </Text>
         </View>
       </Card.Content>
@@ -61,11 +68,14 @@ const GiftCard = ({ giftId, eventId, guestId, amount, desc }) => {
 };
 
 GiftCard.propTypes = {
-  giftId: PropTypes.string.isRequired,
-  eventId: PropTypes.string.isRequired,
-  guestId: PropTypes.string.isRequired,
-  amount: PropTypes.number.isRequired,
-  desc: PropTypes.string.isRequired,
+  data: PropTypes.shape({
+    giftId: PropTypes.number.isRequired,
+    amount: PropTypes.number.isRequired,
+    eventName: PropTypes.string.isRequired,
+    guestName: PropTypes.string.isRequired,
+    note: PropTypes.string,
+    isYourGift: PropTypes.string.isRequired,
+  }).isRequired,
 };
 
 export default GiftCard;

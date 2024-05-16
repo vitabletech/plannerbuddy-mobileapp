@@ -66,3 +66,33 @@ export const addGuest = async (guestData) => {
     return error;
   }
 };
+
+/**
+ * Adds a gift to the server.
+ * @param {Object} giftData - The data of the gift to be added.
+ * @returns {Promise<Object>} - A promise that resolves to the server response or rejects with an error.
+ */
+export const addGift = async (giftData) => {
+  try {
+    const response = await customAxios.post('gift', giftData);
+    return response;
+  } catch (error) {
+    return error;
+  }
+};
+
+/**
+ * Deletes a gift.
+ *
+ * @param {Object} giftData - The gift data to be deleted.
+ * @returns {Promise<Object>} - A promise that resolves to the response object if the gift is deleted successfully,
+ * or rejects with an error object if an error occurs.
+ */
+export const deleteGift = async (giftId) => {
+  try {
+    const response = await customAxios.delete(`gift/${giftId}`);
+    return response;
+  } catch (error) {
+    return error;
+  }
+};

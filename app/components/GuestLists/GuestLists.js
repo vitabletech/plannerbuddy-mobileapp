@@ -41,7 +41,7 @@ const GuestLists = ({ selectMode }) => {
       dispatch(guestActions.resetSearch());
       dispatch(guestActions.setSearchGuest({ searchGuests: false }));
       setPage(1);
-    } else if (searchGuest.length >= 1) {
+    } else if (searchGuest.length >= 3) {
       dispatch(fetchGuest({ page: 1, searchGuest }));
       dispatch(guestActions.setSearchGuest({ searchGuests: !!searchGuest }));
     }
