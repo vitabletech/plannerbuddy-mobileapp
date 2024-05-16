@@ -16,19 +16,14 @@ const GuestLists = ({ selectMode }) => {
   const dispatch = useDispatch();
   const [searchGuest, setSearchGuest] = useState('');
   const error = useSelector((state) => state.guest.error);
-  const users = useSelector((state) => state.guest.guests);
+  const contactList = useSelector((state) => state.guest.guests);
   const status = useSelector((state) => state.guest.status);
   const totalPages = useSelector((state) => state.guest.totalPages);
   const pages = useSelector((state) => state.guest.page);
   const events = useSelector((state) => state.event.events);
   const editIndex = useSelector((state) => state.event.editIndex);
   const [page, setPage] = useState(pages);
-  const [contactList, setContactList] = useState([]);
   const [selectedContacts, setSelectedContacts] = useState([]);
-
-  useEffect(() => {
-    setContactList(users);
-  }, [users]);
 
   useEffect(() => {
     if (selectMode) {

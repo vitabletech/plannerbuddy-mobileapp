@@ -87,6 +87,18 @@ const RootLayout = () => {
         },
       },
     },
+    {
+      name: 'CreativeScreen/CreativeScreen',
+      options: {
+        title: 'Creative Zone',
+        headerTintColor: theme.colors.onSurface,
+        headerBackTitle: 'Back',
+        headerTitleAlign: 'center',
+        headerStyle: {
+          backgroundColor: theme.colors.primary,
+        },
+      },
+    },
   ];
 
   return (

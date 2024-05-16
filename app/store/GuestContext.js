@@ -78,6 +78,7 @@ const guestSlice = createSlice({
       })
       .addCase(fetchGuest.rejected, (state, action) => {
         state.status = 'failed';
+        if (state.searchGuests) state.guests = [];
         if (action?.payload?.message) {
           state.error = action?.payload?.message;
         } else if (action?.error?.message) {

@@ -111,6 +111,7 @@ const eventSlice = createSlice({
       })
       .addCase(fetchEvents.rejected, (state, action) => {
         state.status = 'failed';
+        if (state.searchEvents) state.events = [];
         state.error = action.error.message;
       });
   },

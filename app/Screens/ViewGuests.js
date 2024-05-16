@@ -36,7 +36,7 @@ const ViewGuests = () => {
   ];
 
   return (
-    <VTFAB actionsButton={addGuestOptions}>
+    <VTFAB actionsButton={addGuestOptions} iconOpen="account-plus">
       {showModal && <AddGuestModal styles={styles} />}
       <View style={styles.flex1}>
         <GuestListsWithErrorBoundary selectMode={false} />

@@ -26,7 +26,7 @@ const GiftCard = ({ giftId, eventId, guestId, amount, desc }) => {
     <Card style={styles.header}>
       {/* <ImageBackground source={giftIcon}> */}
       <Card.Title
-        title={`Amount : ${amount}`}
+        title={`Amount : ${amount || 0} Rs.`}
         titleNumberOfLines={2}
         titleStyle={styles.title}
         left={(props) => AvatarIcon('gift', props)}
@@ -52,11 +52,10 @@ const GiftCard = ({ giftId, eventId, guestId, amount, desc }) => {
         <View style={styles.notes}>
           <IconButton icon="text" />
           <Text variant="titleMedium" style={styles.text}>
-            {desc}
+            {desc || 'No Description'}
           </Text>
         </View>
       </Card.Content>
-      {/* </ImageBackground> */}
     </Card>
   );
 };
