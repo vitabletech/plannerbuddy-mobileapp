@@ -10,6 +10,7 @@ export const fetchEvents = createAsyncThunk(
     const params = {
       page,
       limit: 50,
+      sort: 'eventId',
     };
     if (searchQuery) {
       params.filter = JSON.stringify({ eventName: searchQuery });
@@ -101,8 +102,9 @@ const eventSlice = createSlice({
           id: event.eventId,
           name: event.eventName,
           date: event.eventDate,
-          address: event.address,
-          guests: [],
+          address: event.eventLocation,
+          isYourEvent: event.isYourEvent,
+          guests: event.event_guests.map((guestItem) => ({ ...guestItem.guest })),
         }));
         // If searchQuery is not blank, replace the events array
         state.events = state.searchEvents ? eventData : state.events.concat(eventData);

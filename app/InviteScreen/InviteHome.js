@@ -19,8 +19,8 @@ const InviteHome = () => {
   const [InviteEvents, setInviteEvents] = useState([]);
 
   useEffect(() => {
-    setInviteEvents(events.filter((event) => event?.id === 2));
-  }, [events]);
+    setInviteEvents(events.filter((event) => event?.isYourEvent === 'no'));
+  }, []);
 
   useEffect(() => {
     dispatch(fetchEvents({ page }));

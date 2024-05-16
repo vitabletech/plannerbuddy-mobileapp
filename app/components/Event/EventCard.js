@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import React, { useState, useRef } from 'react';
 import PropTypes from 'prop-types';
 import { View, Alert } from 'react-native';
@@ -24,7 +25,6 @@ const EventCard = React.memo(({ styles, event }) => {
     dispatch(eventActions.setEditIndex({ idx: event.id }));
     openDialog();
   };
-
   const handleOpenSelectGuests = () => {
     dispatch(eventActions.setMode({ mode: 'editGuests' }));
     dispatch(eventActions.setEditIndex({ idx: event.id }));
@@ -54,10 +54,12 @@ const EventCard = React.memo(({ styles, event }) => {
     });
   };
 
-  const buttonComponent = () => {
+  const buttonComponent = ({ isYourEvent }) => {
     return (
       <View style={styles.allButtons}>
-        <IconButton icon="account-multiple-plus-outline" onPress={handleOpenSelectGuests} />
+        {isYourEvent === 'yes' && (
+          <IconButton icon="account-multiple-plus-outline" onPress={handleOpenSelectGuests} />
+        )}
         <IconButton icon="pencil-outline" onPress={handleEditEvent} />
         <IconButton icon="delete-outline" onPress={confirmDelete} />
       </View>
@@ -94,7 +96,7 @@ const EventCard = React.memo(({ styles, event }) => {
           titleStyle={styles.eventTitle}
           subtitle={event.date}
           left={(props) => AvatarIcon(icon, props)}
-          right={buttonComponent}
+          right={(props) => buttonComponent({ isYourEvent: event.isYourEvent, ...props })}
         />
         <View style={styles.locationContainer}>
           <Avatar.Icon style={styles.locationImage} size={18} icon="map-marker" />

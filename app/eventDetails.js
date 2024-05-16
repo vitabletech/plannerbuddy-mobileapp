@@ -26,7 +26,6 @@ const eventDetails = () => {
   const confirmDelete = () => {
     setVisible(true);
   };
-
   const handleRemoveEvent = () => {
     deleteEvent(event.id).then((response) => {
       if (!response.error) {

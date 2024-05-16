@@ -1,5 +1,5 @@
 import React, { useState, useCallback, useEffect, useRef } from 'react';
-import { View } from 'react-native';
+import { View, Alert } from 'react-native';
 import {
   Dialog,
   Portal,
@@ -54,6 +54,8 @@ const AddEventModal = () => {
     if (mode === 'edit') {
       const selectedEvent = events.find((eve) => eve.id === editIndex);
       setEvent(selectedEvent);
+      setEventState(event.isYourEvent === 'yes' ? 'ownEvent' : 'otherEvent');
+      if (event.isYourEvent === 'no') setSelectedGuest(selectedEvent.guests[0].guestId);
       setSelectedDate(new Date(selectedEvent.date));
     }
   }, [mode]);
@@ -97,16 +99,21 @@ const AddEventModal = () => {
   const handleAddEvent = useCallback(() => {
     const isValid = validateInput();
     if (isValid) {
+      const isYourEvent = eventState === 'ownEvent' ? 'yes' : 'no';
       addEvent({
-        // eventType: eventState === 'ownEvent' ? 'own' : 'other',
+        isYourEvent,
+        guestId: +selectedGuest ?? null,
         eventName: event.name,
         eventDate: new Date(event.date).toISOString(),
         eventLocation: event.address,
       }).then((response) => {
         if (!response.error) {
-          dispatch(eventActions.addEvent({ event: { ...event, id: response.eventId } }));
+          dispatch(
+            eventActions.addEvent({ event: { ...event, id: response.eventId, isYourEvent } }),
+          );
           closeDialog();
         }
+        Alert.alert(response.error ? 'Fail' : 'Success', response.message);
       });
     }
   }, [event, selectedDate, validateInput]);
@@ -132,7 +139,6 @@ const AddEventModal = () => {
       }
     });
   }, [event]);
-
   return (
     <Portal>
       <InputDialog visible={showModal} onDismiss={handleCloseDialog}>
