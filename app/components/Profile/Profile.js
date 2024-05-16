@@ -3,6 +3,7 @@ import { Text, Card, IconButton, Button, Dialog, useTheme } from 'react-native-p
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { useSelector, useDispatch } from 'react-redux';
 import { Stack } from 'expo-router';
+import { View } from 'react-native';
 import commonStyles from '../../styles/common.style';
 import VTTextInput from '../VTTextInput/VTTextInput';
 import useInput from '../../hooks/useInput';
@@ -79,7 +80,7 @@ const profile = () => {
     IconComponent('MaterialIcons', 'logout', DEFAULT_HEADER_ICON_SIZE, theme.colors.onSurface);
 
   return (
-    <>
+    <View style={classes.mainContainer}>
       <Stack.Screen
         options={{
           headerTitleAlign: 'center',
@@ -154,7 +155,7 @@ const profile = () => {
           </InputDialog>
         )}
       </KeyboardAwareScrollView>
-    </>
+    </View>
   );
 };
 

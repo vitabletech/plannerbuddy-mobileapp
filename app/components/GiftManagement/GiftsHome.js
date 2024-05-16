@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, FlatList } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
-import { AnimatedFAB, Text } from 'react-native-paper';
+import { AnimatedFAB, Text, useTheme } from 'react-native-paper';
 import GiftCard from './GiftCard';
 import commonStyles from '../../styles/common.style';
 
@@ -10,6 +10,7 @@ import getStyles from './styles';
 import AddGiftModal from './AddGiftModal';
 
 const GiftsHome = () => {
+  const theme = useTheme();
   const styles = getStyles();
   const classes = commonStyles();
   const dispatch = useDispatch();
@@ -18,7 +19,7 @@ const GiftsHome = () => {
 
   const openDialog = () => dispatch(giftsActions.openDialog());
   return (
-    <View style={classes.flex1}>
+    <View style={classes.mainContainer}>
       {viewModal && <AddGiftModal />}
       <FlatList
         data={giftsList}
@@ -45,6 +46,7 @@ const GiftsHome = () => {
           animateFrom="right"
           iconMode="dynamic"
           style={styles.absolutePositionBottomRight}
+          color={theme.colors.onSurface}
         />
       </View>
     </View>

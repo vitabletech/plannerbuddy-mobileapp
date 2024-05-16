@@ -17,13 +17,14 @@ const GuestComponent = () => {
   const page = useSelector((state) => state.guest.page);
   const totalData = useSelector((state) => state.guest.totalData);
   const [totalGuest, setTotalGuest] = useState(totalData);
+  const searchGuests = useSelector((state) => state.guest.searchGuests);
 
   useEffect(() => {
-    setTotalGuest(totalData);
-  }, [totalData]);
+    if (!searchGuests) setTotalGuest(totalData);
+  }, [totalData, searchGuests]);
   useEffect(() => {
-    dispatch(fetchGuest({ page }));
-  }, [page, totalPages]);
+    if (!searchGuests) dispatch(fetchGuest({ page }));
+  }, [page, totalPages, searchGuests]);
 
   return (
     <View style={styles.guestContainer}>

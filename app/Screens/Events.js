@@ -1,6 +1,6 @@
 import React, { useEffect, useCallback, useState } from 'react';
 import { FlatList, View } from 'react-native';
-import { Text, AnimatedFAB, Searchbar } from 'react-native-paper';
+import { Text, AnimatedFAB, Searchbar, useTheme } from 'react-native-paper';
 import { useSelector, useDispatch } from 'react-redux';
 import AddEventModal from '../components/CreateEvents/AddEvent';
 import getStyles from '../components/CreateEvents/styles';
@@ -10,6 +10,7 @@ import { eventActions, fetchEvents } from '../store/EventContext';
 import { Loader, endReached } from '../utils/utils';
 
 const Events = () => {
+  const theme = useTheme();
   const dispatch = useDispatch();
   const styles = { ...getStyles(), ...commonStyles() };
   const status = useSelector((state) => state.event.status);
@@ -82,6 +83,7 @@ const Events = () => {
           animateFrom="right"
           iconMode="dynamic"
           style={styles.absolutePositionBottomRight}
+          color={theme.colors.onSurface}
         />
       </View>
     </View>

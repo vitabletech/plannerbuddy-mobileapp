@@ -1,6 +1,6 @@
 import React, { lazy, useRef, Suspense } from 'react';
 import { View } from 'react-native';
-import { Button, ActivityIndicator } from 'react-native-paper';
+import { Button, ActivityIndicator, useTheme } from 'react-native-paper';
 import { useSelector, useDispatch } from 'react-redux';
 import RBSheet from 'react-native-raw-bottom-sheet';
 import GuestLists from '../components/GuestLists/GuestLists';
@@ -17,6 +17,7 @@ const GuestListsWithErrorBoundary = WithErrorBoundary(GuestLists);
 const FetchContactDetailsWithErrorBoundary = WithErrorBoundary(FetchContactDetails);
 
 const ViewGuests = () => {
+  const theme = useTheme();
   const refStandard = useRef();
   const styles = { ...getStyles(), ...commonStyles() };
   const dispatch = useDispatch();
@@ -38,10 +39,18 @@ const ViewGuests = () => {
   return (
     <VTFAB actionsButton={addGuestOptions} iconOpen="account-plus">
       {showModal && <AddGuestModal styles={styles} />}
-      <View style={styles.flex1}>
+      <View style={styles.mainContainer}>
         <GuestListsWithErrorBoundary selectMode={false} />
       </View>
-      <RBSheet ref={refStandard} height={700}>
+      <RBSheet
+        ref={refStandard}
+        height={700}
+        customStyles={{
+          container: {
+            backgroundColor: theme.colors.primaryContainer,
+          },
+        }}
+      >
         <View style={styles.closeButton}>
           <Button onPress={() => refStandard.current.close()}>Close</Button>
         </View>

@@ -33,7 +33,7 @@ const InviteHome = () => {
   }, [page, totalPages]);
 
   return (
-    <View>
+    <View style={styles.mainContainer}>
       {/* eslint-disable-next-line no-nested-ternary */}
       {InviteEvents.length > 0 ? (
         <FlatList

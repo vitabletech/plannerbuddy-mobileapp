@@ -33,19 +33,19 @@ const GuestLists = ({ selectMode }) => {
   }, [selectMode]);
 
   useEffect(() => {
-    console.log('page :: ', page);
     dispatch(fetchGuest({ page }));
-  }, [dispatch, page]);
+  }, [page]);
 
   useEffect(() => {
     if (searchGuest === '') {
       dispatch(guestActions.resetSearch());
+      dispatch(guestActions.setSearchGuest({ searchGuests: false }));
       setPage(1);
-    } else if (searchGuest.length >= 3) {
+    } else if (searchGuest.length >= 1) {
       dispatch(fetchGuest({ page: 1, searchGuest }));
       dispatch(guestActions.setSearchGuest({ searchGuests: !!searchGuest }));
     }
-  }, [searchGuest, dispatch]);
+  }, [searchGuest]);
 
   const handleLoadMore = useCallback(() => {
     if (page < totalPages) {
