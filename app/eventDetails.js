@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import { Avatar, Card, IconButton, Text, List } from 'react-native-paper';
+import { Avatar, Card, IconButton, Text, List, useTheme } from 'react-native-paper';
 import { View } from 'react-native';
-import { router, useLocalSearchParams } from 'expo-router';
+import { router, Stack, useLocalSearchParams } from 'expo-router';
 import { ScrollView } from 'react-native-virtualized-view';
 import { useDispatch, useSelector } from 'react-redux';
 import getStyles from './components/CreateEvents/styles';
@@ -13,6 +13,7 @@ import { IconComponent } from './utils/utils';
 
 const eventDetails = () => {
   const dispatch = useDispatch();
+  const theme = useTheme();
   const styles = { ...getStyles(), ...commonStyles() };
   const { eventId } = useLocalSearchParams();
   const events = useSelector((state) => state.event.events);
@@ -36,7 +37,22 @@ const eventDetails = () => {
     });
   };
   return (
-    <>
+    <View style={styles.mainContainer}>
+      <Stack.Screen
+        options={{
+          headerTitleAlign: 'center',
+          headerStyle: {
+            backgroundColor: theme.colors.primary,
+          },
+          headerTintColor: theme.colors.onSurface,
+          tabBarActiveTintColor: 'white',
+          tabBarInactiveTintColor: theme.colors.shadow,
+          tabBarLabelStyle: {
+            fontSize: 12,
+            fontWeight: 'bold',
+          },
+        }}
+      />
       {visible && (
         <ConfirmDialog visible={visible} onDelete={handleRemoveEvent} setVisible={setVisible} />
       )}
@@ -98,7 +114,7 @@ const eventDetails = () => {
           </List.Section>
         </Card>
       )}
-    </>
+    </View>
   );
 };
 

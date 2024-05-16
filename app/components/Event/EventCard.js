@@ -1,7 +1,7 @@
 import React, { useState, useRef } from 'react';
 import PropTypes from 'prop-types';
 import { View } from 'react-native';
-import { Avatar, Card, Button, Text, IconButton } from 'react-native-paper';
+import { Avatar, Card, Button, Text, IconButton, useTheme } from 'react-native-paper';
 import RBSheet from 'react-native-raw-bottom-sheet';
 import { ScrollView } from 'react-native-virtualized-view';
 import { router } from 'expo-router';
@@ -13,6 +13,7 @@ import { eventActions } from '../../store/EventContext';
 import { deleteEvent } from '../../utils/apiCalls';
 
 const EventCard = React.memo(({ styles, event }) => {
+  const theme = useTheme();
   const dispatch = useDispatch();
   const refStandard = useRef();
   const icon = event.name.toLowerCase().includes('birth') ? 'cake' : 'party-popper';
@@ -67,7 +68,15 @@ const EventCard = React.memo(({ styles, event }) => {
       {visible && (
         <ConfirmDialog visible={visible} onDelete={handleRemoveEvent} setVisible={setVisible} />
       )}
-      <RBSheet ref={refStandard} height={700}>
+      <RBSheet
+        ref={refStandard}
+        height={700}
+        customStyles={{
+          container: {
+            backgroundColor: theme.colors.primaryContainer,
+          },
+        }}
+      >
         <View style={styles.closeButton}>
           <Button onPress={handleCloseSelectGuests}>Close</Button>
         </View>

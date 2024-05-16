@@ -4,8 +4,12 @@ import { useTheme } from 'react-native-paper';
 const commonStyles = () => {
   const theme = useTheme();
   return StyleSheet.create({
+    FAB: {
+      backgroundColor: theme.colors.onPrimary,
+    },
     absolutePositionBottomRight: {
       alignSelf: 'flex-end',
+      backgroundColor: theme.colors.onPrimary,
       bottom: 15,
       position: 'absolute',
       right: 15,
@@ -62,6 +66,10 @@ const commonStyles = () => {
       marginVertical: 60,
       resizeMode: 'contain',
     },
+    mainContainer: {
+      backgroundColor: theme.colors.primaryContainer,
+      flex: 1,
+    },
     mb10: {
       marginBottom: 10,
     },
@@ -100,7 +108,7 @@ const commonStyles = () => {
       margin: 10,
     },
     searchBar: {
-      marginTop: 10,
+      marginVertical: 5,
     },
     searchContainer: {
       alignItems: 'center',

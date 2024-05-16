@@ -8,7 +8,7 @@ import getStyles from './styles';
 const CreativeDashBoard = () => {
   const styles = { ...getStyles(), ...commonStyles() };
   return (
-    <View style={[styles.flex1, styles.centerContent]}>
+    <View style={[styles.mainContainer, styles.centerContent]}>
       <Text variant="displaySmall"> Coming Soon</Text>
     </View>
   );

@@ -38,6 +38,9 @@ const getStyles = () => {
       flex: 1,
       justifyContent: 'center',
     },
+    searchBar: {
+      marginVertical: 5,
+    },
     textAlignCenter: {
       textAlign: 'center',
       width: '100%',
