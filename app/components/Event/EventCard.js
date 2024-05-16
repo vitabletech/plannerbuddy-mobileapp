@@ -1,6 +1,6 @@
 import React, { useState, useRef } from 'react';
 import PropTypes from 'prop-types';
-import { View } from 'react-native';
+import { View, Alert } from 'react-native';
 import { Avatar, Card, Button, Text, IconButton, useTheme } from 'react-native-paper';
 import RBSheet from 'react-native-raw-bottom-sheet';
 import { ScrollView } from 'react-native-virtualized-view';
@@ -50,6 +50,7 @@ const EventCard = React.memo(({ styles, event }) => {
         dispatch(eventActions.deleteEvent({ id: event.id }));
         setVisible(false);
       }
+      Alert.alert(response.error ? 'Fail' : 'Success', response.message);
     });
   };
 
