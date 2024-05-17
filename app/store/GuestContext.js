@@ -62,14 +62,17 @@ const guestSlice = createSlice({
       .addCase(fetchGuest.fulfilled, (state, action) => {
         state.status = 'succeeded';
         if (!action?.payload?.guests) return;
-        // Add any fetched guests to the array
-        const usersData = action.payload.guests.map((guest) => ({
-          id: guest.guestId,
-          name: guest.name,
-          email: guest.email,
-          phone: guest.phoneNumber,
-          address: guest.address,
-        }));
+        // Add any fetched guests to the array without duplicates
+        const existingGuestIds = new Set(state.guests.map((guest) => guest.id));
+        const usersData = action.payload.guests
+          .filter((guest) => !existingGuestIds.has(guest.guestId))
+          .map((guest) => ({
+            id: guest.guestId,
+            name: guest.name,
+            email: guest.email,
+            phone: guest.phoneNumber,
+            address: guest.address,
+          }));
         state.error = null;
         state.guests = state.searchGuests ? usersData : state.guests.concat(usersData);
         state.totalPages = action.payload.totalPages;

@@ -1,98 +1,78 @@
 import customAxios from './customAxios';
 
 /**
+ * Handles API requests and returns the response or error.
+ * @param {Function} request - The axios request function to be called.
+ * @returns {Promise<Object>} - A promise that resolves to the response from the API call or rejects with an error.
+ */
+const handleRequest = async (request) => {
+  try {
+    const response = await request();
+    return response;
+  } catch (error) {
+    return error;
+  }
+};
+
+/**
  * Updates the user profile with the provided data.
  * @param {Object} userData - The data to update the user profile.
  * @returns {Promise<Object>} - A promise that resolves to the response from the API call.
  */
-export const updateProfile = async (userData) => {
-  try {
-    const response = await customAxios.put('api/user', userData);
-    return response;
-  } catch (error) {
-    return error;
-  }
+export const updateProfile = (userData) => {
+  return handleRequest(() => customAxios.put('api/user', userData));
 };
 
 /**
- * Fetches event details from the server.
- * @returns {Object} - The event details.
+ * Adds an event using the provided event data.
+ * @param {Object} eventData - The data of the event to be added.
+ * @returns {Promise<Object>} - A promise that resolves to the response from the API call.
  */
-export const addEvent = async (eventData) => {
-  try {
-    const response = await customAxios.post('event', eventData);
-    return response;
-  } catch (error) {
-    return error;
-  }
+export const addEvent = (eventData) => {
+  return handleRequest(() => customAxios.post('event', eventData));
 };
 
 /**
- * Fetches event details from the server.
- * @returns {Object} - The event details.
+ * Updates an event with the provided event data.
+ * @param {Object} eventData - The data of the event to be updated.
+ * @returns {Promise<Object>} - A promise that resolves to the response from the API call.
  */
-export const updateEvent = async (eventData) => {
-  try {
-    const response = await customAxios.put('event', eventData);
-    return response;
-  } catch (error) {
-    return error;
-  }
+export const updateEvent = (eventData) => {
+  return handleRequest(() => customAxios.put('event', eventData));
 };
 
 /**
- * Fetches event details from the server.
- * @returns {Object} - The event details.
+ * Deletes an event by ID.
+ * @param {string} eventId - The ID of the event to be deleted.
+ * @returns {Promise<Object>} - A promise that resolves to the response from the API call.
  */
-export const deleteEvent = async (eventId) => {
-  try {
-    const response = await customAxios.delete(`event/${eventId}`);
-    return response;
-  } catch (error) {
-    return error;
-  }
+export const deleteEvent = (eventId) => {
+  return handleRequest(() => customAxios.delete(`event/${eventId}`));
 };
 
 /**
  * Adds a guest using the provided guest data.
  * @param {Object} guestData - The data of the guest to be added.
- * @returns {Promise<Object>} - A promise that resolves to the response object if successful, or rejects with an error object if there's an error.
+ * @returns {Promise<Object>} - A promise that resolves to the response from the API call.
  */
-export const addGuest = async (guestData) => {
-  try {
-    const response = await customAxios.post('guest', guestData);
-    return response;
-  } catch (error) {
-    return error;
-  }
+export const addGuest = (guestData) => {
+  return handleRequest(() => customAxios.post('guest', guestData));
 };
 
 /**
- * Adds a gift to the server.
+ * Adds a gift using the provided gift data.
  * @param {Object} giftData - The data of the gift to be added.
- * @returns {Promise<Object>} - A promise that resolves to the server response or rejects with an error.
+ * @returns {Promise<Object>} - A promise that resolves to the response from the API call.
  */
-export const addGift = async (giftData) => {
-  try {
-    const response = await customAxios.post('gift', giftData);
-    return response;
-  } catch (error) {
-    return error;
-  }
+export const addGift = (giftData) => {
+  return handleRequest(() => customAxios.post('gift', giftData));
 };
 
 /**
- * Deletes a gift.
- *
- * @param {Object} giftData - The gift data to be deleted.
- * @returns {Promise<Object>} - A promise that resolves to the response object if the gift is deleted successfully,
- * or rejects with an error object if an error occurs.
+ * Deletes a gift by ID.
+ * @param {string} giftId - The ID of the gift to be deleted.
+ * @returns {Promise<Object>} - A promise that resolves to the response from the API call.
  */
-export const deleteGift = async (giftId) => {
-  try {
-    const response = await customAxios.delete(`gift/${giftId}`);
-    return response;
-  } catch (error) {
-    return error;
-  }
+export const deleteGift = (giftId) => {
+  return handleRequest(() => customAxios.delete(`gift/${giftId}`));
 };

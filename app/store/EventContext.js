@@ -97,15 +97,17 @@ const eventSlice = createSlice({
       })
       .addCase(fetchEvents.fulfilled, (state, action) => {
         state.status = 'succeeded';
-        // Add any fetched guests to the array
-        const eventData = action.payload.events.map((event) => ({
-          id: event.eventId,
-          name: event.eventName,
-          date: event.eventDate,
-          address: event.eventLocation,
-          isYourEvent: event.isYourEvent,
-          guests: event.event_guests.map((guestItem) => ({ ...guestItem.guest })),
-        }));
+        const existingEventIds = new Set(state.events.map((event) => event.id));
+        const eventData = action.payload.events
+          .filter((event) => !existingEventIds.has(event.eventId))
+          .map((event) => ({
+            id: event.eventId,
+            name: event.eventName,
+            date: event.eventDate,
+            address: event.eventLocation,
+            isYourEvent: event.isYourEvent,
+            guests: event.event_guests.map((guestItem) => ({ ...guestItem.guest })),
+          }));
         // If searchQuery is not blank, replace the events array
         state.events = state.searchEvents ? eventData : state.events.concat(eventData);
         state.totalPages = action.payload.totalPages;
