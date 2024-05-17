@@ -20,7 +20,7 @@ const InviteHome = () => {
 
   useEffect(() => {
     setInviteEvents(events.filter((event) => event?.isYourEvent === 'no'));
-  }, []);
+  }, [events]);
 
   useEffect(() => {
     dispatch(fetchEvents({ page }));
