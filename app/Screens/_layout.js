@@ -42,7 +42,7 @@ const TabLayout = () => {
           backgroundColor: theme.colors.primary,
         },
         headerTintColor: theme.colors.onPrimary,
-        tabBarActiveTintColor: 'white',
+        tabBarActiveTintColor: theme.colors.white,
         tabBarInactiveTintColor: theme.colors.shadow,
         tabBarLabelStyle: {
           fontSize: 12,
@@ -63,7 +63,7 @@ const TabLayout = () => {
             tabBarIcon: screen.icon,
             tabBarBadge: screen.badge,
             headerShown: screen.headerShown,
-            headerTintColor: theme.colors.onSurface,
+            headerTintColor: theme.colors.white,
           }}
           listeners={
             screen.onPress

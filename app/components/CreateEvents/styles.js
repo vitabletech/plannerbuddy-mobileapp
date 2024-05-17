@@ -15,7 +15,7 @@ const getStyles = () => {
       flexDirection: 'row',
     },
     closeButton: {
-      alignSelf: 'flex-end',
+      alignSelf: 'center',
     },
     container: {
       backgroundColor: theme.colors.primaryContainer,

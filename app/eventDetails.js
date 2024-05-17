@@ -43,8 +43,8 @@ const eventDetails = () => {
           headerStyle: {
             backgroundColor: theme.colors.primary,
           },
-          headerTintColor: theme.colors.onSurface,
-          tabBarActiveTintColor: 'white',
+          headerTintColor: theme.colors.white,
+          tabBarActiveTintColor: theme.colors.white,
           tabBarInactiveTintColor: theme.colors.shadow,
           tabBarLabelStyle: {
             fontSize: 12,

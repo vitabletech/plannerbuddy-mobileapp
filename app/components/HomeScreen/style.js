@@ -82,7 +82,7 @@ const getStyles = () => {
       marginTop: '-20%',
     },
     titleStyle: {
-      color: theme.colors.onSurface,
+      color: theme.colors.white,
       fontSize: 20,
       fontWeight: 'bold',
       top: 70,

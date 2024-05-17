@@ -11,6 +11,7 @@ import Header from '../Guests/Header';
 import { eventActions } from '../../store/EventContext';
 import { fetchGuest, guestActions } from '../../store/GuestContext';
 import { addEventGuests } from '../../utils/apiCalls';
+import AddGuestModal from '../AddGuest/AddGuest';
 
 const GuestLists = ({ selectMode }) => {
   const styles = { ...getStyles(), ...commonStyles() };
@@ -23,6 +24,7 @@ const GuestLists = ({ selectMode }) => {
   const pages = useSelector((state) => state.guest.page);
   const events = useSelector((state) => state.event.events);
   const editIndex = useSelector((state) => state.event.editIndex);
+  const guestEditIndex = useSelector((state) => state.guest.editIndex);
   const [page, setPage] = useState(pages);
   const [selectedContacts, setSelectedContacts] = useState([]);
 
@@ -93,6 +95,7 @@ const GuestLists = ({ selectMode }) => {
   return (
     <View style={styles.flex1}>
       {AlertComponent(error)}
+      {guestEditIndex !== null && <AddGuestModal />}
       <Header
         onSearch={handleSearch}
         isSelected={selectedContacts.length}
