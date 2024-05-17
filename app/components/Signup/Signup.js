@@ -47,7 +47,7 @@ const Signup = () => {
           password: passwordInput.value,
         }),
       );
-      if (error !== null) router.replace('/');
+      if (error === null) router.replace('/');
       // Clear input fields after successful signup
       nameInput.onChangeText('');
       emailInput.onChangeText('');

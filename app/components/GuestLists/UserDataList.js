@@ -1,9 +1,9 @@
 import React from 'react';
-import { List, Avatar, Card, Text, IconButton } from 'react-native-paper';
+import { Avatar, Card, Text, IconButton } from 'react-native-paper';
 import PropTypes from 'prop-types';
-import { AvatarText } from '../../utils/utils';
 import { View } from 'react-native';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
+import { AvatarText } from '../../utils/utils';
 import { guestActions } from '../../store/GuestContext';
 
 const toggleContactSelection = (setSelectedContacts, contactId) => {
@@ -74,6 +74,7 @@ UserDataList.propTypes = {
     email: PropTypes.string,
     phone: PropTypes.string,
     image: PropTypes.string,
+    address: PropTypes.string,
   }).isRequired,
   selectedContacts: PropTypes.arrayOf(PropTypes.number).isRequired,
   setSelectedContacts: PropTypes.func.isRequired,

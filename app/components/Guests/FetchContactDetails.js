@@ -37,14 +37,23 @@ const FetchContactDetails = () => {
   if (permissionDenied) {
     return PermissionDenied(fetchContacts, setPermissionDenied, styles.centerContent, styles.title);
   }
-
+  const handleSaveSelectedContacts = () => {
+    const selectedContactsObjects = contactList.reduce((acc, contact) => {
+      if (selectedContacts.includes(contact.id)) {
+        acc.push({ ...contact, guestId: contact.id });
+      }
+      return acc;
+    }, []);
+    console.log('contactList :: ', contactList);
+    console.log('selectedContactsObjects :: ', selectedContactsObjects);
+  };
   return (
     <View style={styles.flex1}>
       <Header
         onSearch={handleSearch}
         isSelected={selectedContacts.length}
         setSelectedContacts={setSelectedContacts}
-        saveList={() => {}}
+        saveList={handleSaveSelectedContacts}
         showOnlySearchBar
       />
       <Card>

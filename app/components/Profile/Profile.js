@@ -7,7 +7,7 @@ import { View } from 'react-native';
 import commonStyles from '../../styles/common.style';
 import VTTextInput from '../VTTextInput/VTTextInput';
 import useInput from '../../hooks/useInput';
-import { AlertComponent, IconComponent, Loader } from '../../utils/utils';
+import { AlertComponent, IconComponent } from '../../utils/utils';
 import { onLogout, updateUserProfile } from '../../store/reducers/authSlice';
 import { updateProfile } from '../../utils/apiCalls';
 import InputDialog from '../InputDialog/InputDialog';
@@ -23,16 +23,15 @@ const profile = () => {
   const addressInputRef = useRef(null);
   const [enableEdit, setEnableEdit] = useState(false);
   const [error, setError] = useState(null);
-  const [loader, setLoader] = useState(false);
 
   const nameInput = useInput(person?.fullName, (value) =>
-    value.trim() ? null : 'Name is required',
+    value?.trim() ? null : 'Name is required',
   );
   const phoneInput = useInput(person?.phoneNumber, (value) =>
     value && value.length >= 10 ? null : 'Please Enter Valid Mobile Number',
   );
   const addressInput = useInput(person?.address, (value) =>
-    value.trim() ? null : 'Please Enter Valid Address',
+    value?.trim() ? null : 'Please Enter Valid Address',
   );
 
   const handleEdit = () => {
@@ -46,7 +45,6 @@ const profile = () => {
   };
 
   const saveEdit = () => {
-    setLoader(true);
     nameInput.onBlur();
     phoneInput.onBlur();
     addressInput.onBlur();
@@ -69,7 +67,6 @@ const profile = () => {
             accessToken: person?.accessToken,
           }),
         );
-        setLoader(false);
         setError('Profile Updated Successfully');
       });
       setEnableEdit((state) => !state);
@@ -109,7 +106,7 @@ const profile = () => {
         <Card style={classes.profileCard}>
           <Card.Title
             title={person?.fullName}
-            subtitle={`Contact : ${person?.phoneNumber}`}
+            subtitle={`Contact : ${person?.phoneNumber || '---'}`}
             right={(props) => (
               <IconButton {...props} size={25} icon="pencil" onPress={handleEdit} />
             )}
@@ -123,7 +120,6 @@ const profile = () => {
           <InputDialog visible={enableEdit} onDismiss={() => setEnableEdit((state) => !state)}>
             <Dialog.Title>Edit Profile</Dialog.Title>
             <Dialog.Content>
-              {loader && Loader()}
               <VTTextInput
                 label="Name"
                 {...nameInput}

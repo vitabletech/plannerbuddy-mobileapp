@@ -69,6 +69,27 @@ export const addGuest = (guestData) => {
 };
 
 /**
+ * Updates a guest with the given data.
+ *
+ * @param {Object} guestData - The data to update the guest with.
+ * @param {string} guestId - The ID of the guest to update.
+ * @returns {Promise} A promise that resolves to the updated guest data.
+ */
+export const updateGuest = (guestData, guestId) => {
+  return handleRequest(() => customAxios.put(`guest/${guestId}`, guestData));
+};
+
+/**
+ * Deletes a guest with the specified ID.
+ *
+ * @param {string} guestId - The ID of the guest to delete.
+ * @returns {Promise} A promise that resolves when the guest is deleted.
+ */
+export const deleteGuest = (guestId) => {
+  return handleRequest(() => customAxios.delete(`guest/${guestId}`));
+};
+
+/**
  * Adds a gift using the provided gift data.
  * @param {Object} giftData - The data of the gift to be added.
  * @returns {Promise<Object>} - A promise that resolves to the response from the API call.

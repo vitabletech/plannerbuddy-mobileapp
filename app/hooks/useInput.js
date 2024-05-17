@@ -23,6 +23,7 @@ const useInput = (initialValue, validationFunction) => {
     onChangeText: handleChange,
     onBlur: handleBlur,
     reset,
+    setValue,
   };
 };
 

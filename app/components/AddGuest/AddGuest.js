@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { Alert } from 'react-native';
 import { Button, Dialog } from 'react-native-paper';
 import { useDispatch, useSelector } from 'react-redux';
@@ -11,31 +11,25 @@ import { addGuest } from '../../utils/apiCalls';
 const AddGuestModal = () => {
   const dispatch = useDispatch();
   const guestEditIndex = useSelector((state) => state.guest.editIndex);
-  let nameInput = useInput('', (value) => (value.trim() ? null : 'Name is required'));
-  let emailInput = useInput('', (value) =>
+  const nameInput = useInput('', (value) => (value.trim() ? null : 'Name is required'));
+  const emailInput = useInput('', (value) =>
     value?.trim() === '' || (value.trim() && /\S+@\S+\.\S+/.test(value))
       ? null
       : 'Please enter a valid email',
   );
-  let addressInput = useInput('', (value) =>
+  const addressInput = useInput('', (value) =>
     value?.trim() === '' ? null : 'Please Enter Valid Address',
   );
-  let phoneInput = useInput('', (value) =>
+  const phoneInput = useInput('', (value) =>
     value?.trim() !== '' && value.length === 10 ? null : 'Enter Valid Phone Number',
   );
   const guests = useSelector((state) => state.guest.guests);
-  // const [guest, setGuest] = useState({
-  //   name: '',
-  //   phone: '',
-  //   address: '',
-  //   email: '',
-  // });
-
   useEffect(() => {
-    console.log('guests : ', guests);
-    console.log('guestEditIndex : ', guestEditIndex);
     const selectedGuest = guests.find((g) => g.id === guestEditIndex);
-    console.log(selectedGuest);
+    nameInput.setValue(selectedGuest?.name || '');
+    emailInput.setValue(selectedGuest?.email || '');
+    addressInput.setValue(selectedGuest?.address || '');
+    phoneInput.setValue(selectedGuest?.phone || '');
   }, [guestEditIndex]);
 
   const closeDialog = () => dispatch(guestActions.closeDialog());
