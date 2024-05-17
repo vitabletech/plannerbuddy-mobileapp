@@ -35,6 +35,7 @@ const guestSlice = createSlice({
     totalData: 0,
     error: null,
     searchGuests: false,
+    editIndex: null,
   },
   reducers: {
     openDialog(state) {
@@ -52,6 +53,14 @@ const guestSlice = createSlice({
     },
     setSearchGuest(state, action) {
       state.searchGuests = action.payload.searchGuests;
+    },
+    removeGuest(state, action) {
+      state.guests = state.guests.filter((guest) => guest.id !== action.payload.guestId);
+      state.totalData -= 1;
+    },
+    setEditIndex(state, action) {
+      console.log('in context id : ', action.payload.editIndex);
+      state.editIndex = action.payload.editIndex;
     },
   },
   extraReducers: (builder) => {

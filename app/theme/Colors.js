@@ -1,5 +1,6 @@
 export const LIGHT_THEME_COLORS = {
   colors: {
+    white: 'white',
     primary: 'rgb(138, 68, 134)',
     primaryContainer: 'rgb(255, 255, 255)',
     onPrimary: 'rgb(255, 215, 246)',
@@ -44,6 +45,7 @@ export const LIGHT_THEME_COLORS = {
 };
 export const DARK_THEME_COLORS = {
   colors: {
+    white: 'white',
     primary: 'rgb(125,46,122)',
     onPrimary: 'rgb(72, 43, 68)',
     primaryContainer: 'rgb(0, 0, 0)',
