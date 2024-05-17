@@ -51,6 +51,15 @@ export const deleteEvent = (eventId) => {
 };
 
 /**
+ * Adds an event using the provided event data.
+ * @param {Object} addEventGuests - The data of the event to be added.
+ * @returns {Promise<Object>} - A promise that resolves to the response from the API call.
+ */
+export const addEventGuests = (eventGuestData) => {
+  return handleRequest(() => customAxios.post('event/guests', eventGuestData));
+};
+
+/**
  * Adds a guest using the provided guest data.
  * @param {Object} guestData - The data of the guest to be added.
  * @returns {Promise<Object>} - A promise that resolves to the response from the API call.

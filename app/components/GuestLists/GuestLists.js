@@ -10,6 +10,7 @@ import getStyles from './style';
 import Header from '../Guests/Header';
 import { eventActions } from '../../store/EventContext';
 import { fetchGuest, guestActions } from '../../store/GuestContext';
+import { addEventGuests } from '../../utils/apiCalls';
 
 const GuestLists = ({ selectMode }) => {
   const styles = { ...getStyles(), ...commonStyles() };
@@ -28,7 +29,7 @@ const GuestLists = ({ selectMode }) => {
   useEffect(() => {
     if (selectMode) {
       const currentEvent = events.find((event) => event.id === editIndex);
-      setSelectedContacts(currentEvent?.guests.map((guest) => guest.id) || []);
+      setSelectedContacts(currentEvent?.guests.map((guest) => guest.guestId) || []);
     }
   }, [selectMode]);
 
@@ -58,11 +59,23 @@ const GuestLists = ({ selectMode }) => {
   };
 
   const handleSaveSelectedContacts = () => {
-    const selectedContactsObjects = contactList.filter((contact) =>
-      selectedContacts.includes(contact.id),
-    );
-    dispatch(eventActions.addGuestsToEvent({ guests: selectedContactsObjects }));
-    Alert.alert('Success', 'Guests added successfully');
+    const eventGuestData = { eventId: editIndex };
+    const selectedGuestIds = [];
+
+    const selectedContactsObjects = contactList.reduce((acc, contact) => {
+      if (selectedContacts.includes(contact.id)) {
+        acc.push({ ...contact, guestId: contact.id });
+        selectedGuestIds.push(contact.id);
+      }
+      return acc;
+    }, []);
+    eventGuestData.guestId = selectedGuestIds;
+    addEventGuests(eventGuestData).then((response) => {
+      if (!response.error) {
+        dispatch(eventActions.addGuestsToEvent({ guests: selectedContactsObjects }));
+      }
+      Alert.alert(response.error ? 'Fail' : 'Success', response?.message);
+    });
   };
 
   const renderItem = useCallback(

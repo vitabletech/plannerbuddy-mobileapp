@@ -16,7 +16,7 @@ const InviteHome = () => {
   const pages = useSelector((state) => state.event.page);
   const status = useSelector((state) => state.event.status);
   const [page, setPage] = useState(pages);
-  const [InviteEvents, setInviteEvents] = useState([]);
+  const [inviteEvents, setInviteEvents] = useState([]);
 
   useEffect(() => {
     setInviteEvents(events.filter((event) => event?.isYourEvent === 'no'));
@@ -35,9 +35,9 @@ const InviteHome = () => {
   return (
     <View style={styles.mainContainer}>
       {/* eslint-disable-next-line no-nested-ternary */}
-      {InviteEvents.length > 0 ? (
+      {inviteEvents.length > 0 ? (
         <FlatList
-          data={InviteEvents}
+          data={inviteEvents}
           keyExtractor={(item) => item.id.toString()}
           renderItem={({ item }) => <EventCard styles={styles} event={item} />}
           onEndReached={handleLoadMore}
