@@ -54,8 +54,8 @@ const AddEventModal = () => {
     if (mode === 'edit') {
       const selectedEvent = events.find((eve) => eve.id === editIndex);
       setEvent(selectedEvent);
-      setEventState(event.isYourEvent === 'yes' ? 'ownEvent' : 'otherEvent');
-      if (event.isYourEvent === 'no') setSelectedGuest(selectedEvent.guests[0].guestId);
+      setEventState(selectedEvent.isYourEvent === 'yes' ? 'ownEvent' : 'otherEvent');
+      if (selectedEvent.isYourEvent === 'no') setSelectedGuest(selectedEvent.guests[0].guestId);
       setSelectedDate(new Date(selectedEvent.date));
     }
   }, [mode]);
@@ -143,21 +143,23 @@ const AddEventModal = () => {
     <Portal>
       <InputDialog visible={showModal} onDismiss={handleCloseDialog}>
         <Dialog.Title>{mode === 'edit' ? 'Edit Event' : 'Create New Event'}</Dialog.Title>
-        <SegmentedButtons
-          value={eventState}
-          onValueChange={setEventState}
-          buttons={[
-            {
-              value: 'ownEvent',
-              label: 'Own Event',
-            },
-            {
-              value: 'otherEvent',
-              label: 'Other Event',
-            },
-          ]}
-          style={styles.paddedContainer}
-        />
+        {mode !== 'edit' && (
+          <SegmentedButtons
+            value={eventState}
+            onValueChange={setEventState}
+            buttons={[
+              {
+                value: 'ownEvent',
+                label: 'Own Event',
+              },
+              {
+                value: 'otherEvent',
+                label: 'Other Event',
+              },
+            ]}
+            style={styles.paddedContainer}
+          />
+        )}
         <Dialog.Content style={styles.contentContainer}>
           <TextInput
             style={styles.input}

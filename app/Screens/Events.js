@@ -30,17 +30,24 @@ const Events = () => {
 
   useEffect(() => {
     dispatch(fetchEvents({ page }));
-  }, [page]);
+  }, [dispatch, page]);
 
   useEffect(() => {
     if (searchQuery === '') {
       dispatch(eventActions.resetEvents());
       dispatch(fetchEvents({ page: 1 }));
-      return;
+    } else {
+      dispatch(fetchEvents({ page: 1, searchQuery }));
+      dispatch(eventActions.setSearchEvents({ searchEvents: !!searchQuery }));
     }
-    dispatch(fetchEvents({ page: 1, searchQuery }));
-    dispatch(eventActions.setSearchEvents({ searchEvents: !!searchQuery }));
-  }, [searchQuery]);
+  }, [dispatch, searchQuery]);
+
+  const renderItem = useCallback(
+    ({ item }) => <EventCard styles={styles} event={item} />,
+    [styles],
+  );
+
+  const keyExtractor = useCallback((item) => item.id.toString(), []);
 
   return (
     <View style={styles.container}>
@@ -55,8 +62,8 @@ const Events = () => {
       {allEvents.length !== 0 ? (
         <FlatList
           data={allEvents}
-          keyExtractor={(item) => item.id.toString()}
-          renderItem={({ item }) => <EventCard styles={styles} event={item} />}
+          keyExtractor={keyExtractor}
+          renderItem={renderItem}
           onEndReached={handleLoadMore}
           ListFooterComponent={() =>
             page === totalPages ? endReached(styles.title) : status === 'loading' && Loader()

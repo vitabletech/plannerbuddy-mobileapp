@@ -8,7 +8,7 @@ import { ScrollView } from 'react-native-virtualized-view';
 import { router } from 'expo-router';
 import { useDispatch } from 'react-redux';
 import GuestLists from '../GuestLists/GuestLists';
-import { AvatarIcon } from '../../utils/utils';
+import { AvatarIcon, formatDate } from '../../utils/utils';
 import ConfirmDialog from '../ConfirmDialog/ConfirmDialog';
 import { eventActions } from '../../store/EventContext';
 import { deleteEvent } from '../../utils/apiCalls';
@@ -58,9 +58,11 @@ const EventCard = React.memo(({ styles, event }) => {
     return (
       <View style={styles.allButtons}>
         {isYourEvent === 'yes' && (
-          <IconButton icon="account-multiple-plus-outline" onPress={handleOpenSelectGuests} />
+          <>
+            <IconButton icon="account-multiple-plus-outline" onPress={handleOpenSelectGuests} />
+            <IconButton icon="pencil-outline" onPress={handleEditEvent} />
+          </>
         )}
-        <IconButton icon="pencil-outline" onPress={handleEditEvent} />
         <IconButton icon="delete-outline" onPress={confirmDelete} />
       </View>
     );
@@ -94,7 +96,7 @@ const EventCard = React.memo(({ styles, event }) => {
           title={`${event.name} - ${event.id}`}
           titleNumberOfLines={2}
           titleStyle={styles.eventTitle}
-          subtitle={event.date}
+          subtitle={formatDate(event.date)}
           left={(props) => AvatarIcon(icon, props)}
           right={(props) => buttonComponent({ isYourEvent: event.isYourEvent, ...props })}
         />
