@@ -4,6 +4,7 @@ import { useTheme } from 'react-native-paper';
 const getStyles = () => {
   const theme = useTheme();
   return StyleSheet.create({
+    AvatorIcon: { alignSelf: 'center', marginTop: '10%' },
     card: {
       backgroundColor: theme.colors.secondaryContainer,
       borderRadius: 10,
@@ -21,6 +22,9 @@ const getStyles = () => {
     cardContent: {
       padding: 16,
     },
+    cardDetails: { flexDirection: 'column', justifyContent: 'space-between' },
+    cardRow: { flexDirection: 'row', justifyContent: 'flex-start' },
+    cardRowText: { marginVertical: 'auto' },
     contact: {
       color: theme.colors.background,
       fontSize: 18,
@@ -35,6 +39,11 @@ const getStyles = () => {
       fontSize: 24,
       fontWeight: 'bold',
       marginBottom: 8,
+    },
+    optionButton: { backgroundColor: theme.colors.onPrimary, width: '100%' },
+    title: {
+      alignSelf: 'center',
+      color: theme.colors.onTertiaryContainer,
     },
   });
 };

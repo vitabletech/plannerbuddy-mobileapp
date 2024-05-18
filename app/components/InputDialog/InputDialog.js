@@ -6,8 +6,8 @@ import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view
 const InputDialog = ({ visible, onDismiss, children }) => {
   return (
     <Portal>
-      <Dialog visible={visible} scrollEnabled={false} onDismiss={onDismiss} dismissable={false}>
-        <KeyboardAwareScrollView scrollEnabled viewIsInsideTabBar>
+      <Dialog visible={visible} onDismiss={onDismiss} dismissable={false}>
+        <KeyboardAwareScrollView enableAutomaticScroll scrollEnabled viewIsInsideTabBar>
           {children}
         </KeyboardAwareScrollView>
       </Dialog>
