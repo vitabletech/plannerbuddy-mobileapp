@@ -1,5 +1,14 @@
 import React, { useState, useRef } from 'react';
-import { Text, Card, IconButton, Button, Dialog, useTheme } from 'react-native-paper';
+import {
+  Text,
+  Card,
+  IconButton,
+  Button,
+  Dialog,
+  useTheme,
+  Avatar,
+  Divider,
+} from 'react-native-paper';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { useSelector, useDispatch } from 'react-redux';
 import { Stack } from 'expo-router';
@@ -12,9 +21,11 @@ import { onLogout, updateUserProfile } from '../../store/reducers/authSlice';
 import { updateProfile } from '../../utils/apiCalls';
 import InputDialog from '../InputDialog/InputDialog';
 import { DEFAULT_HEADER_ICON_SIZE } from '../../constants/constants';
+import getStyles from './style';
 
 const profile = () => {
   const theme = useTheme();
+  const styles = getStyles();
   const dispatch = useDispatch();
   const userProfile = useSelector((state) => state.auth.userProfile);
   const [person, setPerson] = useState(userProfile);
@@ -23,6 +34,13 @@ const profile = () => {
   const addressInputRef = useRef(null);
   const [enableEdit, setEnableEdit] = useState(false);
   const [error, setError] = useState(null);
+  const [updatedPassword, setUpdatedPassword] = useState(false);
+
+  const currentPassword = useInput('', (value) =>
+    value?.trim() ? null : 'Current Password is required',
+  );
+
+  const newPassword = useInput('', (value) => (value?.trim() ? null : 'New Password is required'));
 
   const nameInput = useInput(person?.fullName, (value) =>
     value?.trim() ? null : 'Name is required',
@@ -76,6 +94,18 @@ const profile = () => {
   const logoutIcon = () =>
     IconComponent('MaterialIcons', 'logout', DEFAULT_HEADER_ICON_SIZE, theme.colors.onSurface);
 
+  const handleUpdateDialog = () => {
+    setUpdatedPassword(true);
+  };
+
+  const handleCancel = () => {
+    setUpdatedPassword(false);
+  };
+
+  const handleUpdatePassword = () => {
+    setUpdatedPassword(false);
+  };
+
   return (
     <View style={classes.mainContainer}>
       <Stack.Screen
@@ -97,6 +127,29 @@ const profile = () => {
           },
         }}
       />
+      {updatedPassword && (
+        <InputDialog visible={updatedPassword} onDismiss={handleCancel}>
+          <Dialog.Title>Change Password</Dialog.Title>
+
+          <Dialog.Content>
+            <VTTextInput label="Current Password" {...currentPassword} />
+            <VTTextInput label="New Password" {...newPassword} />
+          </Dialog.Content>
+
+          <Dialog.Actions>
+            <Button onPress={handleCancel}>
+              <Text variant="labelLarge" style={classes.dialogButtons}>
+                Cancel
+              </Text>
+            </Button>
+            <Button onPress={handleUpdatePassword}>
+              <Text variant="labelLarge" style={classes.dialogButtons}>
+                Update
+              </Text>
+            </Button>
+          </Dialog.Actions>
+        </InputDialog>
+      )}
       <KeyboardAwareScrollView
         style={classes.profileContainer}
         resetScrollToCoords={{ x: 0, y: 0 }}
@@ -104,17 +157,46 @@ const profile = () => {
       >
         {AlertComponent(error)}
         <Card style={classes.profileCard}>
+          <Avatar.Text
+            label={person?.fullName[0]}
+            labelStyle={theme.colors.white}
+            style={styles.AvatorIcon}
+          />
           <Card.Title
-            title={person?.fullName}
-            subtitle={`Contact : ${person?.phoneNumber || '---'}`}
-            right={(props) => (
-              <IconButton {...props} size={25} icon="pencil" onPress={handleEdit} />
-            )}
+            title={<Text variant="titleLarge">{person?.fullName}</Text>}
+            titleStyle={styles.title}
           />
           <Card.Content>
-            <Text variant="bodyMedium">Email: {person?.email}</Text>
+            <Divider />
+            <View style={styles.cardDetails}>
+              <View style={styles.cardRow}>
+                <IconButton icon="phone" size={20} />
+                <Text style={styles.cardRowText} variant="bodyMedium">
+                  {person?.phoneNumber || '---'}
+                </Text>
+              </View>
+              <Divider />
+              <View style={styles.cardRow}>
+                <IconButton icon="email-outline" size={20} />
+                <Text style={styles.cardRowText} variant="bodyMedium">
+                  {person?.email}
+                </Text>
+              </View>
+            </View>
+            <Divider />
           </Card.Content>
         </Card>
+        <Card.Actions>
+          <Button style={styles.optionButton} onPress={handleEdit}>
+            <Text variant="labelLarge">Edit Profile</Text>
+          </Button>
+        </Card.Actions>
+
+        <Card.Actions>
+          <Button style={styles.optionButton} onPress={handleUpdateDialog}>
+            <Text variant="labelLarge">Update Password</Text>
+          </Button>
+        </Card.Actions>
 
         {enableEdit && (
           <InputDialog visible={enableEdit} onDismiss={() => setEnableEdit((state) => !state)}>

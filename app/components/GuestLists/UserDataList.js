@@ -5,6 +5,7 @@ import { View } from 'react-native';
 import { useDispatch } from 'react-redux';
 import { AvatarText } from '../../utils/utils';
 import { guestActions } from '../../store/GuestContext';
+import commonStyles from '../../styles/common.style';
 
 const toggleContactSelection = (setSelectedContacts, contactId) => {
   setSelectedContacts((prevSelectedContacts) => {
@@ -20,22 +21,22 @@ const selector = (selectedContacts, contactId) =>
 
 const UserDataList = ({ userData, selectedContacts, setSelectedContacts, selectMode }) => {
   const dispatch = useDispatch();
+  const styles = commonStyles();
 
   const handleRemoveEvent = () => {
-    console.log('id : ', userData.id);
     if (userData?.id) {
       dispatch(guestActions.removeGuest({ guestId: userData?.id }));
     }
   };
 
   const handleEditGuest = () => {
-    console.log('id : ', userData.id);
     dispatch(guestActions.setEditIndex({ editIndex: userData?.id }));
+    dispatch(guestActions.openDialog());
   };
 
   const cardOptions = () => {
     return (
-      <View style={{ flexDirection: 'row' }}>
+      <View style={styles.flexRow}>
         <IconButton icon="pencil-outline" onPress={handleEditGuest} />
         <IconButton icon="delete-outline" onPress={handleRemoveEvent} />
       </View>
@@ -44,7 +45,7 @@ const UserDataList = ({ userData, selectedContacts, setSelectedContacts, selectM
 
   return (
     <Card
-      style={{ marginVertical: 4 }}
+      style={styles.guestCardMargin}
       onPress={() => toggleContactSelection(setSelectedContacts, userData.id)}
     >
       <Card.Title
@@ -59,7 +60,7 @@ const UserDataList = ({ userData, selectedContacts, setSelectedContacts, selectM
           })
         }
         right={() => (!selectMode ? cardOptions() : selector(selectedContacts, userData.id))}
-        rightStyle={{ marginRight: 10 }}
+        rightStyle={styles.guestCardRightButtonMargin}
       />
       <Card.Content>
         <Text variant="bodyMedium">{`Address : ${userData?.address} `}</Text>

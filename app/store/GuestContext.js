@@ -42,11 +42,17 @@ const guestSlice = createSlice({
       state.showModal = !state.showModal;
     },
     closeDialog(state) {
+      state.editIndex = null;
       state.showModal = !state.showModal;
     },
     addGuest(state, action) {
       state.guests = [{ ...action.payload.guest }, ...state.guests];
       state.totalData += 1;
+    },
+    updateGuest(state, action) {
+      state.guests = state.guests.map((guest) =>
+        guest.id === action.payload.guest.id ? action.payload.guest : guest,
+      );
     },
     resetSearch(state) {
       state.guests = [];
@@ -59,7 +65,6 @@ const guestSlice = createSlice({
       state.totalData -= 1;
     },
     setEditIndex(state, action) {
-      console.log('in context id : ', action.payload.editIndex);
       state.editIndex = action.payload.editIndex;
     },
   },

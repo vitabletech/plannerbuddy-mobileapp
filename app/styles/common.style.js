@@ -46,6 +46,9 @@ const commonStyles = () => {
       flexDirection: 'column',
       flexGrow: 1,
     },
+    dialogButtons: {
+      color: theme.colors.onTertiaryContainer,
+    },
     flex1: {
       flex: 1,
     },
@@ -55,6 +58,10 @@ const commonStyles = () => {
     flexRow: {
       flexDirection: 'row',
     },
+    guestCardMargin: {
+      marginVertical: 4,
+    },
+    guestCardRightButtonMargin: { marginRight: 10 },
     inputField: {
       marginVertical: 10,
     },

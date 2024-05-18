@@ -36,7 +36,7 @@ const AddEventModal = () => {
   const styles = getStyles();
 
   const [open, setOpen] = useState(false);
-  const [selectedDate, setSelectedDate] = useState(undefined);
+  const [selectedDate, setSelectedDate] = useState(new Date());
   const [event, setEvent] = useState(EVENT);
   const [error, setError] = useState(false);
 
