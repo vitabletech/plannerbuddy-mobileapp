@@ -12,13 +12,13 @@ import {
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { useSelector, useDispatch } from 'react-redux';
 import { Stack } from 'expo-router';
-import { View } from 'react-native';
+import { Alert, View } from 'react-native';
 import commonStyles from '../../styles/common.style';
 import VTTextInput from '../VTTextInput/VTTextInput';
 import useInput from '../../hooks/useInput';
 import { AlertComponent, IconComponent } from '../../utils/utils';
 import { onLogout, updateUserProfile } from '../../store/reducers/authSlice';
-import { updateProfile } from '../../utils/apiCalls';
+import { updateProfile, changePassword } from '../../utils/apiCalls';
 import InputDialog from '../InputDialog/InputDialog';
 import { DEFAULT_HEADER_ICON_SIZE } from '../../constants/constants';
 import getStyles from './style';
@@ -103,7 +103,19 @@ const profile = () => {
   };
 
   const handleUpdatePassword = () => {
-    setUpdatedPassword(false);
+    currentPassword.onBlur();
+    newPassword.onBlur();
+    if (currentPassword.value && newPassword.value) {
+      changePassword({
+        oldPassword: currentPassword.value,
+        password: newPassword.value,
+      }).then((response) => {
+        currentPassword.reset();
+        newPassword.reset();
+        Alert.alert(response.error ? 'Fail' : 'Success', response.message);
+        setUpdatedPassword(false);
+      });
+    }
   };
 
   return (

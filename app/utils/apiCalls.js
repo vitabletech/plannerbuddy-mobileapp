@@ -24,6 +24,16 @@ export const updateProfile = (userData) => {
 };
 
 /**
+ * Change the user's password.
+ *
+ * @param {Object} userData - The user data containing the new password.
+ * @returns {Promise} A promise that resolves with the result of the API call.
+ */
+export const changePassword = (userData) => {
+  return handleRequest(() => customAxios.put('api/user/changePassword', userData));
+};
+
+/**
  * Adds an event using the provided event data.
  * @param {Object} eventData - The data of the event to be added.
  * @returns {Promise<Object>} - A promise that resolves to the response from the API call.
