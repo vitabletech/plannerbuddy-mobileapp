@@ -90,6 +90,9 @@ const commonStyles = () => {
       fontWeight: 'bold',
       marginBottom: -10,
     },
+    paddingBottom: {
+      paddingBottom: 150,
+    },
     position_absolute: {
       position: 'absolute',
     },

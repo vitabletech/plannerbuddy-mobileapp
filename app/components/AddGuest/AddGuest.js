@@ -19,7 +19,7 @@ const AddGuestModal = () => {
       : 'Please enter a valid email',
   );
   const addressInput = useInput('', (value) =>
-    value?.trim() === '' ? null : 'Please Enter Valid Address',
+    value?.trim() !== '' ? null : 'Please Enter Valid Address',
   );
   const phoneInput = useInput('', (value) =>
     value?.trim() !== '' && value.length === 10 ? null : 'Enter Valid Phone Number',
@@ -58,10 +58,8 @@ const AddGuestModal = () => {
             }),
           );
           dispatch(guestActions.closeDialog());
-          Alert.alert('Success', 'New guest has been added successfully');
-        } else {
-          Alert.alert('Error', 'There was an error adding the guest');
         }
+        Alert.alert(response.error ? 'Fail' : 'Success', response.message);
       });
     }
   };

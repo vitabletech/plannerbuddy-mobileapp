@@ -49,3 +49,5 @@ export const filterContacts = (searchQuery, contactList, setFilteredContactList)
     setFilteredContactList(contactList);
   }
 };
+
+export const normalizePhoneNumber = (phoneNumber) => phoneNumber.replace(/\D/g, '');

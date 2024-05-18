@@ -78,7 +78,7 @@ const RootLayout = () => {
     {
       name: 'InviteScreen/InviteHome',
       options: {
-        title: 'Invites',
+        title: 'Invitations',
         headerTintColor: theme.colors.white,
         headerBackTitle: 'Back',
         headerTitleAlign: 'center',

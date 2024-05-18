@@ -14,21 +14,24 @@ const toggleContactSelection = (setSelectedContacts, contactId) => {
 const selector = (selectedContacts, contactId) =>
   selectedContacts.includes(contactId) ? <Avatar.Icon size={25} icon="check" /> : '';
 
-const Contact = React.memo(({ userData, selectedContacts, setSelectedContacts }) => {
-  const { name, phoneNumbers } = userData;
-  if (!name || !phoneNumbers) return null;
-  const phoneNumber = phoneNumbers[0].number;
-  const renderAvatar = () => <Avatar.Text size={34} label={name ? name[0] : 'X'} />;
-  return (
-    <List.Item
-      title={name}
-      description={phoneNumber}
-      onPress={() => toggleContactSelection(setSelectedContacts, userData.id)}
-      left={() => renderAvatar()}
-      right={() => selector(selectedContacts, userData.id)}
-    />
-  );
-});
+const Contact = React.memo(
+  ({ userData, selectedContacts, setSelectedContacts, alreadySelectedContacts }) => {
+    const { name, phoneNumbers } = userData;
+    if (!name || !phoneNumbers) return null;
+    const phoneNumber = phoneNumbers[0].number;
+    const renderAvatar = () => <Avatar.Text size={34} label={name ? name[0] : 'X'} />;
+    return (
+      <List.Item
+        title={name}
+        description={alreadySelectedContacts.includes(userData.id) ? 'Already Synced' : phoneNumber}
+        onPress={() => toggleContactSelection(setSelectedContacts, userData.id)}
+        left={() => renderAvatar()}
+        right={() => selector(selectedContacts, userData.id)}
+        disabled={alreadySelectedContacts.includes(userData.id)}
+      />
+    );
+  },
+);
 
 Contact.propTypes = {
   userData: PropTypes.shape({
@@ -46,6 +49,7 @@ Contact.propTypes = {
   }).isRequired,
   selectedContacts: PropTypes.arrayOf(PropTypes.string),
   setSelectedContacts: PropTypes.func.isRequired,
+  alreadySelectedContacts: PropTypes.arrayOf(PropTypes.string).isRequired,
 };
 
 Contact.defaultProps = {

@@ -1,11 +1,12 @@
 import React from 'react';
 import { Avatar, Card, Text, IconButton } from 'react-native-paper';
 import PropTypes from 'prop-types';
-import { View } from 'react-native';
+import { View, Alert } from 'react-native';
 import { useDispatch } from 'react-redux';
 import { AvatarText } from '../../utils/utils';
 import { guestActions } from '../../store/GuestContext';
 import commonStyles from '../../styles/common.style';
+import { deleteGuest } from '../../utils/apiCalls';
 
 const toggleContactSelection = (setSelectedContacts, contactId) => {
   setSelectedContacts((prevSelectedContacts) => {
@@ -25,7 +26,12 @@ const UserDataList = ({ userData, selectedContacts, setSelectedContacts, selectM
 
   const handleRemoveEvent = () => {
     if (userData?.id) {
-      dispatch(guestActions.removeGuest({ guestId: userData?.id }));
+      deleteGuest(userData?.id).then((response) => {
+        if (!response.error) {
+          dispatch(guestActions.removeGuest({ guestId: userData?.id }));
+        }
+        Alert.alert(!response.error ? 'Success' : 'Fail', response.message);
+      });
     }
   };
 
@@ -63,7 +69,7 @@ const UserDataList = ({ userData, selectedContacts, setSelectedContacts, selectM
         rightStyle={styles.guestCardRightButtonMargin}
       />
       <Card.Content>
-        <Text variant="bodyMedium">{`Address : ${userData?.address} `}</Text>
+        <Text variant="bodyMedium">{`Address : ${userData?.address || '---'} `}</Text>
       </Card.Content>
     </Card>
   );

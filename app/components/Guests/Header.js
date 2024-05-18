@@ -9,6 +9,7 @@ const Header = ({
   setSelectedContacts,
   saveList,
   showOnlySearchBar = true,
+  totalContacts = 0,
 }) => {
   const styles = getStyles();
   const [isEditVisible, setIsEditVisible] = useState(false);
@@ -30,7 +31,7 @@ const Header = ({
     <>
       {showOnlySearchBar && (
         <Appbar.Header style={styles.header}>
-          <Appbar.Content title={`${isSelected} Selected`} titleStyle={styles.font15} />
+          <Appbar.Content title={`${isSelected} / ${totalContacts}`} titleStyle={styles.font15} />
           {isSelected && <Appbar.Action icon="content-save" onPress={() => onSave()} />}
           {isSelected && <Appbar.Action icon="close" onPress={handleEditPress} />}
         </Appbar.Header>
@@ -50,6 +51,8 @@ Header.propTypes = {
   setSelectedContacts: PropTypes.func.isRequired,
   saveList: PropTypes.func.isRequired,
   showOnlySearchBar: PropTypes.bool.isRequired,
+  // eslint-disable-next-line react/require-default-props
+  totalContacts: PropTypes.number,
 };
 
 export default Header;

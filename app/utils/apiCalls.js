@@ -69,6 +69,16 @@ export const addGuest = (guestData) => {
 };
 
 /**
+ * Synchronizes guest data with the server.
+ *
+ * @param {Array of Object} guestData - The guest data to be synchronized.
+ * @returns {Promise} A promise that resolves to the response from the server.
+ */
+export const syncGuest = (guestData) => {
+  return handleRequest(() => customAxios.post('guest/sync', guestData));
+};
+
+/**
  * Updates a guest with the given data.
  *
  * @param {Object} guestData - The data to update the guest with.

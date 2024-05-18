@@ -9,7 +9,7 @@ export const fetchGuest = createAsyncThunk(
     const { page, searchGuest } = queryData;
     const params = {
       page,
-      limit: 50,
+      limit: 100,
     };
     if (searchGuest) {
       params.filter = JSON.stringify({ name: searchGuest });
@@ -48,6 +48,10 @@ const guestSlice = createSlice({
     addGuest(state, action) {
       state.guests = [{ ...action.payload.guest }, ...state.guests];
       state.totalData += 1;
+    },
+    addBulkGuests(state, action) {
+      state.guests = [...action.payload.guests, ...state.guests];
+      state.totalData += action.payload.guests.length;
     },
     updateGuest(state, action) {
       state.guests = state.guests.map((guest) =>
