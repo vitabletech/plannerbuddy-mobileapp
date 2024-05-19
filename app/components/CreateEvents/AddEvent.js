@@ -29,7 +29,7 @@ const AddEventModal = () => {
       label: guest?.name,
       value: guest?.id,
     }));
-    setGuestList([...transformedGuests, { label: 'Add New Guest', value: 'addNew' }]);
+    setGuestList([...transformedGuests]);
   }, [totalGuests]);
 
   const dispatch = useDispatch();
@@ -100,23 +100,35 @@ const AddEventModal = () => {
     const isValid = validateInput();
     if (isValid) {
       const isYourEvent = eventState === 'ownEvent' ? 'yes' : 'no';
+      if (isYourEvent === 'no' && !selectedGuest) {
+        // event.guests[{ guestId: selectedGuest, name: 'Guest', phone: '1234567890'}];
+        Alert.alert('Error', 'Please select a guest');
+        return;
+      }
       addEvent({
         isYourEvent,
         guestId: +selectedGuest ?? null,
         eventName: event.name,
-        eventDate: new Date(event.date).toISOString(),
+        eventDate: new Date(selectedDate).toISOString(),
         eventLocation: event.address,
       }).then((response) => {
         if (!response.error) {
           dispatch(
-            eventActions.addEvent({ event: { ...event, id: response.eventId, isYourEvent } }),
+            eventActions.addEvent({
+              event: {
+                ...event,
+                id: response.eventId,
+                isYourEvent,
+                date: new Date(selectedDate).toISOString(),
+              },
+            }),
           );
           closeDialog();
         }
         Alert.alert(response.error ? 'Fail' : 'Success', response.message);
       });
     }
-  }, [event, selectedDate, validateInput]);
+  }, [event, selectedDate, validateInput, selectedGuest]);
 
   const handleCloseDialog = useCallback(() => {
     EVENT = { id: '', name: '', address: '', date: '' };
@@ -209,7 +221,7 @@ const AddEventModal = () => {
           </View>
           {eventState === 'otherEvent' && (
             <VTDropDown
-              label="Select Guest"
+              label={guestList.length ? 'Select Guest' : 'No Guest Available'}
               items={guestList}
               value={selectedGuest}
               onChange={setSelectedGuest}

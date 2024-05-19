@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { View, TouchableOpacity } from 'react-native';
 import { Text, TextInput } from 'react-native-paper';
 import { Link, useRouter } from 'expo-router';
@@ -21,6 +21,7 @@ const Signup = () => {
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
   const [isCPasswordVisible, setIsCPasswordVisible] = useState(false);
   const error = useSelector((state) => state.auth.error);
+  const [errors, setErrors] = useState(error);
   const nameInput = useInput('', (value) => (value.trim() ? null : 'Name is required'));
   const emailInput = useInput('', (value) =>
     value.trim() && /\S+@\S+\.\S+/.test(value) ? null : 'Please enter a valid email',
@@ -31,6 +32,9 @@ const Signup = () => {
   const confirmPasswordInput = useInput('', (value) =>
     value === passwordInput.value ? null : 'Passwords do not match',
   );
+  useEffect(() => {
+    setErrors(error);
+  }, [error]);
 
   const handleSignup = async () => {
     // Trigger validation for all input fields
@@ -40,14 +44,14 @@ const Signup = () => {
     confirmPasswordInput.onBlur();
 
     if (nameInput.value && emailInput.value && passwordInput.value) {
-      await dispatch(
+      dispatch(
         onRegister({
           fullName: nameInput.value,
           email: emailInput.value,
           password: passwordInput.value,
         }),
       );
-      if (error === null) router.replace('/');
+      if (errors === 'Registered successfully! Please login to continue.') router.replace('/');
       // Clear input fields after successful signup
       nameInput.onChangeText('');
       emailInput.onChangeText('');
@@ -61,7 +65,7 @@ const Signup = () => {
       <Text style={[styles.textAlignCenter, styles.textContainer]} variant="displaySmall">
         Create New Account
       </Text>
-      {AlertComponent(error)}
+      {AlertComponent(errors)}
       <VTTextInput
         label="Full Name"
         {...nameInput}

@@ -50,4 +50,6 @@ export const filterContacts = (searchQuery, contactList, setFilteredContactList)
   }
 };
 
-export const normalizePhoneNumber = (phoneNumber) => phoneNumber.replace(/\D/g, '');
+export const normalizePhoneNumber = (phoneNumber) => {
+  return phoneNumber.replace(/^\+91/, '').replace(/^0/, '').trim().replace(/\D/g, '');
+};

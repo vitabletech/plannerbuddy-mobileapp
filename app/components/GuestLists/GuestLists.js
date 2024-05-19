@@ -4,7 +4,7 @@ import { FlatList, View, Alert } from 'react-native';
 import { Text } from 'react-native-paper';
 import { useSelector, useDispatch } from 'react-redux';
 import UserDataList from './UserDataList';
-import { Loader, ItemSeparatorComponent, endReached, AlertComponent } from '../../utils/utils';
+import { Loader, ItemSeparatorComponent, endReached } from '../../utils/utils';
 import commonStyles from '../../styles/common.style';
 import getStyles from './style';
 import Header from '../Guests/Header';
@@ -17,7 +17,6 @@ const GuestLists = ({ selectMode }) => {
   const styles = { ...getStyles(), ...commonStyles() };
   const dispatch = useDispatch();
   const [searchGuest, setSearchGuest] = useState('');
-  const error = useSelector((state) => state.guest.error);
   const contactList = useSelector((state) => state.guest.guests);
   const status = useSelector((state) => state.guest.status);
   const totalPages = useSelector((state) => state.guest.totalPages);
@@ -94,15 +93,16 @@ const GuestLists = ({ selectMode }) => {
 
   return (
     <View style={styles.flex1}>
-      {AlertComponent(error)}
       {guestEditIndex !== null && <AddGuestModal />}
-      <Header
-        onSearch={handleSearch}
-        isSelected={selectedContacts.length}
-        setSelectedContacts={setSelectedContacts}
-        saveList={handleSaveSelectedContacts}
-        showOnlySearchBar={selectMode}
-      />
+      {contactList.length > 10 && (
+        <Header
+          onSearch={handleSearch}
+          isSelected={selectedContacts.length}
+          setSelectedContacts={setSelectedContacts}
+          saveList={handleSaveSelectedContacts}
+          showOnlySearchBar={selectMode}
+        />
+      )}
       {contactList.length > 0 ? (
         <FlatList
           data={contactList}

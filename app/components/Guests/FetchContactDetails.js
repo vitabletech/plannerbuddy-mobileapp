@@ -46,8 +46,7 @@ const FetchContactDetails = () => {
     const selected = contactList
       .filter(
         (contact) =>
-          contact.phoneNumbers &&
-          contact.phoneNumbers[0] &&
+          contact?.phoneNumbers?.[0] &&
           guestList.some(
             (guest) => guest.phone === normalizePhoneNumber(contact.phoneNumbers[0].number),
           ),

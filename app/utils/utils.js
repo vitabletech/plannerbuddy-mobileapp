@@ -83,25 +83,32 @@ export const fetchEventDetails = () => {
   return events;
 };
 
-export const askForRating = () => {
+export const askForRating = async () => {
   Alert.alert('Rate Us', 'Please rate us on Play Store', [
     {
       text: 'Rate Us',
-      onPress: () => {
+      onPress: async () => {
         Linking.openURL(ASK_RATING).catch(() => Alert.alert('Error', 'Could not open Play Store.'));
+        // Don't ask again if user clicked on Rate Us
+        await AsyncStorage.setItem('ASK_RATING_AGAIN', 'false');
       },
     },
     {
       text: 'Later',
-      onPress: () => console.log('Later'),
+      onPress: async () => {
+        // Ask again later if user clicked on Later
+        await AsyncStorage.setItem('ASK_RATING_AGAIN', 'true');
+      },
     },
     {
       text: 'No',
-      onPress: () => console.log('No'),
+      onPress: async () => {
+        // Don't ask again if user clicked on No
+        await AsyncStorage.setItem('ASK_RATING_AGAIN', 'false');
+      },
     },
   ]);
 };
-
 /**
  * Increments the interaction count and checks if it has reached the rating threshold.
  * If the threshold is reached, it prompts the user for a rating and resets the count.
@@ -113,8 +120,9 @@ export const incrementInteractionCount = async () => {
     const count = interactions ? parseInt(interactions, 10) : 0;
     const newCount = count + 1;
     await AsyncStorage.setItem(APP_INTERACTIONS_KEY, newCount.toString());
-    if (newCount >= RATING_THRESHOLD) {
-      askForRating();
+    const askRatingAgain = await AsyncStorage.getItem('ASK_RATING_AGAIN');
+    if (newCount >= RATING_THRESHOLD && askRatingAgain !== 'false') {
+      await askForRating();
       await AsyncStorage.setItem(APP_INTERACTIONS_KEY, '0'); // Reset the count after showing the prompt
     }
   } catch (error) {

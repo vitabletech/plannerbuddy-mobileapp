@@ -49,12 +49,14 @@ const GiftsHome = () => {
   return (
     <View style={styles.mainContainer}>
       {viewModal && <AddGiftModal />}
-      <Searchbar
-        placeholder="Search"
-        onChangeText={handleSearch}
-        value={searchGift}
-        style={styles.searchBar}
-      />
+      {giftsList.length > 10 && (
+        <Searchbar
+          placeholder="Search"
+          onChangeText={handleSearch}
+          value={searchGift}
+          style={styles.searchBar}
+        />
+      )}
       <FlatList
         data={giftsList}
         ListEmptyComponent={<Text style={styles?.centerTextLargeMarginTop}>No Gifts Found</Text>}

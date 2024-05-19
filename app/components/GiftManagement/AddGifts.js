@@ -99,9 +99,10 @@ const AddGifts = () => {
                 setSelectedEvent(value);
                 setIsEventValid(!!value);
               }}
+              label={eventsList.length ? 'Select Event' : 'Please Add Event First'}
             />
             <VTDropDown
-              label="Select Guest"
+              label={guestList.length ? 'Select Guest' : 'Please Add Guest First'}
               items={guestList}
               value={selectedGuest}
               onChange={(value) => {

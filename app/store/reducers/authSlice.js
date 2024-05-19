@@ -39,7 +39,7 @@ export const onRegister = createAsyncThunk(
       const result = await axios.post(`${API_URL}api/auth/signup`, { fullName, email, password });
       return result.data;
     } catch (error) {
-      return rejectWithValue(error.message);
+      return rejectWithValue(error?.response?.data?.message || error.message);
     }
   },
 );
@@ -72,7 +72,7 @@ const authSlice = createSlice({
         state.error = action.payload.message;
       })
       .addCase(onRegister.fulfilled, (state) => {
-        state.error = null;
+        state.error = 'Registered successfully! Please login to continue.';
       })
       .addCase(onRegister.rejected, (state, action) => {
         state.error = action.payload;

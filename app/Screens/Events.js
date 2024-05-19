@@ -51,34 +51,28 @@ const Events = () => {
 
   return (
     <View style={styles.container}>
-      <Searchbar
-        placeholder="Search"
-        style={styles.searchBar}
-        onChangeText={(query) => setSearchQuery(query)}
-        value={searchQuery}
-      />
-      {viewModal && <AddEventModal />}
-      {/* eslint-disable-next-line no-nested-ternary */}
-      {allEvents.length !== 0 ? (
-        <FlatList
-          data={allEvents}
-          keyExtractor={keyExtractor}
-          renderItem={renderItem}
-          onEndReached={handleLoadMore}
-          ListFooterComponent={() =>
-            page === totalPages ? endReached(styles.title) : status === 'loading' && Loader()
-          }
-          initialNumToRender={10}
-          maxToRenderPerBatch={10}
-          windowSize={5}
+      {allEvents.length > 10 && (
+        <Searchbar
+          placeholder="Search"
+          style={styles.searchBar}
+          onChangeText={(query) => setSearchQuery(query)}
+          value={searchQuery}
         />
-      ) : status === 'loading' ? (
-        <View style={[styles.flex1, styles.centerContent]}>{Loader()}</View>
-      ) : (
-        <View style={[styles.flex1, styles.centerContent]}>
-          <Text style={styles.centerTextLargeMarginTop}>No Event Founds</Text>
-        </View>
       )}
+      {viewModal && <AddEventModal />}
+      <FlatList
+        data={allEvents}
+        keyExtractor={keyExtractor}
+        renderItem={renderItem}
+        onEndReached={handleLoadMore}
+        ListEmptyComponent={<Text style={styles?.centerTextLargeMarginTop}>No Event Founds</Text>}
+        ListFooterComponent={() =>
+          page === totalPages ? endReached(styles.title) : status === 'loading' && Loader()
+        }
+        initialNumToRender={10}
+        maxToRenderPerBatch={10}
+        windowSize={5}
+      />
 
       <View style={styles.columnFlexOne}>
         <AnimatedFAB

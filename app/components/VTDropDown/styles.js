@@ -12,6 +12,11 @@ const getStyles = () => {
       marginVertical: 5,
       paddingHorizontal: 8,
     },
+    error: {
+      color: theme.colors.error,
+      fontSize: 12,
+      marginLeft: 5,
+    },
     mrBottom: {
       marginBottom: 10,
     },
