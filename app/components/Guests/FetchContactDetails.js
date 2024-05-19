@@ -40,16 +40,22 @@ const FetchContactDetails = () => {
   }, [contactList, isAccess]);
 
   useEffect(() => {
+    if (contactList.length === 0 || guestList.length === 0) {
+      return;
+    }
     const selected = contactList
-      .filter((contact) =>
-        guestList.some(
-          (guest) => guest.phone === normalizePhoneNumber(contact.phoneNumbers[0].number),
-        ),
+      .filter(
+        (contact) =>
+          contact.phoneNumbers &&
+          contact.phoneNumbers[0] &&
+          guestList.some(
+            (guest) => guest.phone === normalizePhoneNumber(contact.phoneNumbers[0].number),
+          ),
       )
       .map((contact) => contact.id);
     setSelectedContacts(selected);
     setAlreadySelectedContacts(selected);
-  }, [guestList, contactList]);
+  }, [contactList, guestList]);
 
   const handleSearch = useCallback(
     (searchQuery) => {

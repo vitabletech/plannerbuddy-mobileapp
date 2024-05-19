@@ -28,7 +28,7 @@ const TabLayout = () => {
     },
     {
       name: 'profile',
-      title: 'More',
+      title: 'Profile',
       icon: ({ color }) =>
         IconComponent('AntDesign', 'profile', DEFAULT_BOTTOM_TAB_ICON_SIZE, color),
     },
@@ -48,9 +48,9 @@ const TabLayout = () => {
           fontSize: 12,
           fontWeight: 'bold',
         },
-
         tabBarStyle: {
           backgroundColor: theme.colors.primary,
+          paddingBottom: 5,
         },
       }}
     >

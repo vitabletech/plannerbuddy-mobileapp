@@ -16,12 +16,8 @@ const Login = () => {
   const dispatch = useDispatch();
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
   const error = useSelector((state) => state.auth.error);
-  const emailInput = useInput('test@user.com', (value) =>
-    value.trim() ? null : 'Email is required',
-  );
-  const passwordInput = useInput('12345678', (value) =>
-    value.trim() ? null : 'Password is required',
-  );
+  const emailInput = useInput('', (value) => (value.trim() ? null : 'Email is required'));
+  const passwordInput = useInput('', (value) => (value.trim() ? null : 'Password is required'));
 
   const [loading, setLoading] = useState(false);
   const passwordInputRef = useRef(null);
