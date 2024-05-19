@@ -41,7 +41,6 @@ const profile = () => {
   );
 
   const newPassword = useInput('', (value) => (value?.trim() ? null : 'New Password is required'));
-
   const nameInput = useInput(person?.fullName, (value) =>
     value?.trim() ? null : 'Name is required',
   );
@@ -192,6 +191,13 @@ const profile = () => {
                 <IconButton icon="email-outline" size={20} />
                 <Text style={styles.cardRowText} variant="bodyMedium">
                   {person?.email}
+                </Text>
+              </View>
+              <Divider />
+              <View style={styles.cardRow}>
+                <IconButton icon="map-marker" size={20} />
+                <Text style={styles.cardRowText} variant="bodyMedium">
+                  {person?.address || '---'}
                 </Text>
               </View>
             </View>

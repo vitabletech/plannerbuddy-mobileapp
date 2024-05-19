@@ -6,7 +6,7 @@ import { FAB, Portal, useTheme } from 'react-native-paper';
 import { SETTING_ACTIONS } from '../../utils/utils';
 import commonStyles from '../../styles/common.style';
 
-const VTFAB = ({ children, actionsButton = [], iconOpen = 'plus', iconClose = 'close' }) => {
+const VTFAB = ({ children, actionsButton = [], iconOpen = 'menu', iconClose = 'close' }) => {
   const theme = useTheme();
   const styles = { ...commonStyles() };
   const navigation = useNavigation();

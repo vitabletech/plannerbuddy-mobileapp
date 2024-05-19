@@ -1,7 +1,14 @@
 import React from 'react';
-import { TouchableOpacity, View, Share, Alert } from 'react-native';
+import { TouchableOpacity, View, Share, Alert, Linking } from 'react-native';
 import { ActivityIndicator, Avatar, IconButton, Text } from 'react-native-paper';
-import { iconLibraries, ON_SHARE_APP_MESSAGE } from './constant';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import {
+  iconLibraries,
+  ON_SHARE_APP_MESSAGE,
+  ASK_RATING,
+  APP_INTERACTIONS_KEY,
+  RATING_THRESHOLD,
+} from './constant';
 import VTAlert from '../components/VTAlert/VTAlert';
 
 export const IconComponent = (lib, iconName, size, color) => {
@@ -76,6 +83,45 @@ export const fetchEventDetails = () => {
   return events;
 };
 
+export const askForRating = () => {
+  Alert.alert('Rate Us', 'Please rate us on Play Store', [
+    {
+      text: 'Rate Us',
+      onPress: () => {
+        Linking.openURL(ASK_RATING).catch(() => Alert.alert('Error', 'Could not open Play Store.'));
+      },
+    },
+    {
+      text: 'Later',
+      onPress: () => console.log('Later'),
+    },
+    {
+      text: 'No',
+      onPress: () => console.log('No'),
+    },
+  ]);
+};
+
+/**
+ * Increments the interaction count and checks if it has reached the rating threshold.
+ * If the threshold is reached, it prompts the user for a rating and resets the count.
+ * @returns {Promise<void>} A promise that resolves when the interaction count is updated.
+ */
+export const incrementInteractionCount = async () => {
+  try {
+    const interactions = await AsyncStorage.getItem(APP_INTERACTIONS_KEY);
+    const count = interactions ? parseInt(interactions, 10) : 0;
+    const newCount = count + 1;
+    await AsyncStorage.setItem(APP_INTERACTIONS_KEY, newCount.toString());
+    if (newCount >= RATING_THRESHOLD) {
+      askForRating();
+      await AsyncStorage.setItem(APP_INTERACTIONS_KEY, '0'); // Reset the count after showing the prompt
+    }
+  } catch (error) {
+    Alert.alert('Error', 'Failed to update interaction count');
+  }
+};
+
 export const SETTING_ACTIONS = (navigation) => [
   {
     icon: 'chat',
@@ -86,6 +132,12 @@ export const SETTING_ACTIONS = (navigation) => [
     icon: 'share',
     label: 'Share App',
     onPress: () => onShare(),
+  },
+  {
+    icon: 'star',
+    label: 'Rate Us',
+    onPress: () =>
+      Linking.openURL(ASK_RATING).catch(() => Alert.alert('Error', 'Could not open Play Store.')),
   },
 ];
 
