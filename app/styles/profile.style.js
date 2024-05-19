@@ -11,7 +11,6 @@ const getStyles = () => {
     },
     container: {
       flex: 1,
-      position: 'relative',
     },
     containers: {
       flex: 1,

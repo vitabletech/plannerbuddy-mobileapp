@@ -4,11 +4,16 @@ import { useTheme } from 'react-native-paper';
 const commonStyles = () => {
   const theme = useTheme();
   return StyleSheet.create({
+    FAB: {
+      backgroundColor: theme.colors.onPrimary,
+    },
     absolutePositionBottomRight: {
       alignSelf: 'flex-end',
+      backgroundColor: theme.colors.onPrimary,
       bottom: 15,
       position: 'absolute',
       right: 15,
+      width: 'auto',
     },
     alignItems_center: {
       alignItems: 'center',
@@ -39,6 +44,10 @@ const commonStyles = () => {
     columnFlexOne: {
       flex: 1,
       flexDirection: 'column',
+      flexGrow: 1,
+    },
+    dialogButtons: {
+      color: theme.colors.onTertiaryContainer,
     },
     flex1: {
       flex: 1,
@@ -49,6 +58,10 @@ const commonStyles = () => {
     flexRow: {
       flexDirection: 'row',
     },
+    guestCardMargin: {
+      marginVertical: 4,
+    },
+    guestCardRightButtonMargin: { marginRight: 10 },
     inputField: {
       marginVertical: 10,
     },
@@ -59,6 +72,10 @@ const commonStyles = () => {
       marginLeft: 70,
       marginVertical: 60,
       resizeMode: 'contain',
+    },
+    mainContainer: {
+      backgroundColor: theme.colors.primaryContainer,
+      flex: 1,
     },
     mb10: {
       marginBottom: 10,
@@ -72,6 +89,9 @@ const commonStyles = () => {
     negativeMarginBold: {
       fontWeight: 'bold',
       marginBottom: -10,
+    },
+    paddingBottom: {
+      paddingBottom: 150,
     },
     position_absolute: {
       position: 'absolute',
@@ -89,12 +109,16 @@ const commonStyles = () => {
       position: 'sticky',
     },
     profileCard: {
+      backgroundColor: theme.colors.onPrimary,
       marginVertical: 10,
     },
     profileContainer: {
       flex: 1,
       gap: 10,
       margin: 10,
+    },
+    searchBar: {
+      marginVertical: 5,
     },
     searchContainer: {
       alignItems: 'center',

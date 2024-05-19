@@ -1,47 +1,37 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Carousel from 'react-native-reanimated-carousel';
-import { View, Dimensions } from 'react-native';
-import { Card, Text, Avatar, Button } from 'react-native-paper';
-import { RecentEventsCards } from './utils';
+import { useSelector, useDispatch } from 'react-redux';
+import { View, Dimensions, TouchableOpacity } from 'react-native';
+import { Text, useTheme } from 'react-native-paper';
+import { useRouter } from 'expo-router';
 import getStyles from './style';
 import commonStyles from '../../styles/common.style';
+import RenderEventCards from './RenderEventCards';
+import { fetchRecentEvents } from '../../store/EventContext';
 
 const RecentEvents = () => {
-  const styles = commonStyles();
-  const classes = getStyles();
+  const dispatch = useDispatch();
+  const router = useRouter();
+  const theme = useTheme();
+  const styles = { ...getStyles(), ...commonStyles() };
   const sliderWidth = Dimensions.get('window').width;
   const height = Dimensions.get('window').width * 0.5;
-  const renderItem = ({ item }) => {
-    return (
-      <Card>
-        <Card.Title title={item.title} titleStyle={classes.event_title} />
-        <Card.Content>
-          <View style={styles.flexRow}>
-            <View style={styles.flex1}>
-              <View style={[styles.flexRow, styles.alignItems_center, styles.mb10]}>
-                <Avatar.Icon size={24} icon="calendar" style={styles.mr10} />
-                <Text variant="bodyMedium">{item.date}</Text>
-              </View>
-              <View style={[styles.flexRow, styles.alignItems_center, styles.mb10]}>
-                <Avatar.Icon size={24} icon="contacts" style={styles.mr10} />
-                <Text variant="bodyMedium">{item.invited_guest} Guests</Text>
-              </View>
-              <View style={[styles.flexRow, styles.alignItems_center]}>
-                <Avatar.Icon size={24} icon="map-marker" style={styles.mr10} />
-                <Text variant="bodyMedium">{item.address}</Text>
-              </View>
-            </View>
-          </View>
-        </Card.Content>
-      </Card>
-    );
-  };
+  const renderItem = ({ item = {} } = {}) => <RenderEventCards item={item} />;
+  const RecentEventsCards = useSelector((state) => state.event.recentEvents);
+  const events = useSelector((state) => state.event.events);
+  useEffect(() => {
+    dispatch(fetchRecentEvents());
+  }, [events]);
+
   return (
     <>
-      <View style={classes.recentEventsContainer}>
-        <Text style={classes.recentEventsHeadingText}>Recent Events</Text>
-        {/* eslint-disable-next-line react-native/no-raw-text */}
-        <Button onPress={() => {}}>{RecentEventsCards.length ? 'View All' : 'Add Events'}</Button>
+      <View style={styles.recentEventsContainer}>
+        <Text style={styles.recentEventsHeadingText}>Recent Events</Text>
+        <TouchableOpacity onPress={() => router.replace('./../Screens/Events')}>
+          <Text style={{ color: theme.colors.primary }} variant="titleSmall">
+            {RecentEventsCards.length ? 'View All' : 'Add Events'}
+          </Text>
+        </TouchableOpacity>
       </View>
       {RecentEventsCards.length ? (
         <Carousel
@@ -53,7 +43,7 @@ const RecentEvents = () => {
           mode="parallax"
         />
       ) : (
-        <Text style={styles.title}>No Recent Events Found</Text>
+        renderItem()
       )}
     </>
   );

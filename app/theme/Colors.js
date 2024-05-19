@@ -1,8 +1,9 @@
 export const LIGHT_THEME_COLORS = {
   colors: {
+    white: 'white',
     primary: 'rgb(138, 68, 134)',
-    onPrimary: 'rgb(255, 255, 255)',
-    primaryContainer: 'rgb(255, 215, 246)',
+    primaryContainer: 'rgb(255, 255, 255)',
+    onPrimary: 'rgb(255, 215, 246)',
     onPrimaryContainer: 'rgb(56, 0, 57)',
     secondary: 'rgb(109, 88, 105)',
     onSecondary: 'rgb(255, 255, 255)',
@@ -17,7 +18,7 @@ export const LIGHT_THEME_COLORS = {
     errorContainer: 'rgb(255, 218, 214)',
     onErrorContainer: 'rgb(65, 0, 2)',
     background: 'rgb(255, 251, 255)',
-    onBackground: 'rgb(30, 26, 29)',
+    onBackground: 'rgb(53, 27, 46)',
     surface: 'rgb(255, 251, 255)',
     onSurface: 'rgb(30, 26, 29)',
     surfaceVariant: 'rgb(238, 222, 231)',
@@ -44,10 +45,11 @@ export const LIGHT_THEME_COLORS = {
 };
 export const DARK_THEME_COLORS = {
   colors: {
+    white: 'white',
     primary: 'rgb(125,46,122)',
-    onPrimary: 'rgb(255, 170, 245)',
-    primaryContainer: 'rgb(111, 44, 109)',
-    onPrimaryContainer: 'rgb(255, 215, 246)',
+    onPrimary: 'rgb(72, 43, 68)',
+    primaryContainer: 'rgb(0, 0, 0)',
+    onPrimaryContainer: 'rgb(71, 20, 59)',
     secondary: 'rgb(79, 216, 235)',
     onSecondary: 'rgb(0, 54, 61)',
     secondaryContainer: 'rgb(0, 79, 88)',

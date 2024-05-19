@@ -1,11 +1,11 @@
 import React from 'react';
 import { Platform, useColorScheme } from 'react-native';
 import { Provider as PaperProvider } from 'react-native-paper';
-import { AuthProvider } from './store/AuthContext';
+import { Provider } from 'react-redux';
 import { themes } from './theme/themes';
 import InitialLayout from './utils/InitialLayout';
 import ErrorBoundary from './components/ErrorBoundary/ErrorBoundary';
-import { EventProvider } from './store/EventContext';
+import store from './store/store';
 
 const RootLayout = () => {
   const colorScheme = useColorScheme();
@@ -17,7 +17,7 @@ const RootLayout = () => {
       options: { headerShown: false },
     },
     {
-      name: 'drawer',
+      name: 'Screens',
       options: { headerShown: false },
     },
     {
@@ -25,28 +25,90 @@ const RootLayout = () => {
       options: { headerShown: false },
     },
     {
+      name: 'help',
+      options: {
+        presentation: 'modal',
+        title: 'Chat Support',
+        headerStyle: { backgroundColor: theme.colors.onPrimaryContainer },
+        headerTintColor: theme.colors.onSurface,
+        headerShown: Platform.OS !== 'ios',
+      },
+    },
+    {
       name: 'privacy',
       options: {
         presentation: 'modal',
         title: 'Privacy',
         headerStyle: { backgroundColor: theme.colors.onPrimaryContainer },
-        headerTintColor: theme.colors.background,
+        headerTintColor: theme.colors.onSurface,
         headerShown: Platform.OS !== 'ios',
-        headerLeft: null,
+      },
+    },
+    {
+      name: 'forget',
+      options: {
+        presentation: 'modal',
+        title: 'Forget Password',
+        headerStyle: { backgroundColor: theme.colors.onPrimaryContainer },
+        headerTintColor: theme.colors.onSurface,
+        headerShown: Platform.OS !== 'ios',
+      },
+    },
+    {
+      name: 'eventDetails',
+      options: {
+        title: 'Event Details',
+        headerStyle: { backgroundColor: theme.colors.onPrimaryContainer },
+        headerTintColor: theme.colors.white,
+        headerBackTitle: 'Back',
+      },
+    },
+    {
+      name: 'GiftScreen/Gifts',
+      options: {
+        title: 'Gifts',
+        headerTintColor: theme.colors.white,
+        headerBackTitle: 'Back',
+        headerTitleAlign: 'center',
+        headerStyle: {
+          backgroundColor: theme.colors.primary,
+        },
+      },
+    },
+    {
+      name: 'InviteScreen/InviteHome',
+      options: {
+        title: 'Invitations',
+        headerTintColor: theme.colors.white,
+        headerBackTitle: 'Back',
+        headerTitleAlign: 'center',
+        headerStyle: {
+          backgroundColor: theme.colors.primary,
+        },
+      },
+    },
+    {
+      name: 'CreativeScreen/CreativeScreen',
+      options: {
+        title: 'Creative Zone',
+        headerTintColor: theme.colors.white,
+        headerBackTitle: 'Back',
+        headerTitleAlign: 'center',
+        headerStyle: {
+          backgroundColor: theme.colors.primary,
+        },
       },
     },
   ];
 
   return (
-    <ErrorBoundary>
-      <EventProvider>
+    <Provider store={store}>
+      <ErrorBoundary>
         <PaperProvider theme={theme}>
-          <AuthProvider>
-            <InitialLayout stackScreens={stackScreens} colorScheme={colorScheme} />
-          </AuthProvider>
+          <InitialLayout stackScreens={stackScreens} colorScheme={colorScheme} />
         </PaperProvider>
-      </EventProvider>
-    </ErrorBoundary>
+      </ErrorBoundary>
+    </Provider>
   );
 };
 export default RootLayout;

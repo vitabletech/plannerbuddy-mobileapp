@@ -11,8 +11,11 @@ const getStyles = () => {
     addButton: {
       marginEnd: 'auto',
     },
+    allButtons: {
+      flexDirection: 'row',
+    },
     closeButton: {
-      alignSelf: 'flex-end',
+      alignSelf: 'center',
     },
     container: {
       backgroundColor: theme.colors.primaryContainer,
@@ -28,7 +31,6 @@ const getStyles = () => {
       fontWeight: 'bold',
     },
     input: {
-      marginVertical: 2,
       multiline: true,
       textAlignVertical: 'top',
     },
@@ -44,6 +46,7 @@ const getStyles = () => {
       position: 'relative',
       width: '80%',
     },
+    paddedContainer: { marginBottom: 30, paddingHorizontal: 30 },
   });
 };
 export default getStyles;

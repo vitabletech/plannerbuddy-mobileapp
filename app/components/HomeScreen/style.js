@@ -10,7 +10,14 @@ const getStyles = () => {
       marginRight: 20,
       width: 300,
     },
+    cardDefaultHeight: {
+      marginVertical: 10,
+    },
+    carouselCard: {
+      backgroundColor: theme.colors.secondaryContainer,
+    },
     container: {
+      backgroundColor: theme.colors.primaryContainer,
       flex: 1,
       position: 'relative',
     },
@@ -33,14 +40,16 @@ const getStyles = () => {
     flexRow: {
       flexDirection: 'row',
       flexWrap: 'wrap',
+      justifyContent: 'space-evenly',
     },
+    guestAddMore: { top: 10, zIndex: 1 },
     guestContainer: {
       marginTop: '-20%',
       padding: 20,
     },
-    guestLabel: { color: theme.colors.background, marginLeft: 10 },
+    guestLabel: { color: theme.colors.onSurface, marginLeft: 10 },
     name: {
-      color: theme.colors.onPrimaryContainer,
+      color: theme.colors.onSurface,
     },
     positionCenter: {
       alignItems: 'center',
@@ -55,6 +64,7 @@ const getStyles = () => {
       paddingRight: 20,
     },
     recentEventsHeadingText: {
+      color: theme.colors.primary,
       fontSize: 24,
       fontWeight: 'bold',
     },
@@ -72,7 +82,7 @@ const getStyles = () => {
       marginTop: '-20%',
     },
     titleStyle: {
-      color: theme.colors.onPrimary,
+      color: theme.colors.white,
       fontSize: 20,
       fontWeight: 'bold',
       top: 70,

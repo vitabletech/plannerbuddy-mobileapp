@@ -1,4 +1,4 @@
-import React, { lazy, Suspense } from 'react';
+import React, { lazy, Suspense, useEffect } from 'react';
 import { ScrollView, View } from 'react-native';
 import { ActivityIndicator } from 'react-native-paper';
 import WelcomeContainer from './WelcomeContainer';
@@ -8,6 +8,7 @@ import GuestComponent from './GuestComponent';
 import getStyles from './style';
 import commonStyles from '../../styles/common.style';
 import withErrorBoundary from '../ErrorBoundary/WithErrorBoundary';
+import { incrementInteractionCount } from '../../utils/utils';
 
 const RecentEvents = lazy(() => import('./RecentEvents'));
 const UpcomingEvents = lazy(() => import('./UpcomingEvents'));
@@ -22,6 +23,14 @@ const UpcomingEventsWithErrorBoundary = withErrorBoundary(UpcomingEvents);
 
 const HomeScreen = () => {
   const styles = { ...getStyles(), ...commonStyles() };
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      incrementInteractionCount();
+    }, 30000); // Show the rating prompt after 30 seconds
+
+    return () => clearTimeout(timer); // Clear timeout if component unmounts
+  }, []);
+
   return (
     <ScrollView style={styles.container}>
       <WelcomeContainerWithErrorBoundary />

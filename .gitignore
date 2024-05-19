@@ -45,3 +45,4 @@ ios
 /coverage/*
 !/coverage/lcov.info
 dummy_data/
+*.aab
