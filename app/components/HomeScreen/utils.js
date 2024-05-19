@@ -35,4 +35,23 @@ export const dashboardCards = [
 ];
 
 export const RecentEventsCards = [];
-export const UpcomingEventsCards = [];
+export const UpcomingEventsCards = [
+  {
+    title: 'Mayank Birthday',
+    date: '8th May 2024',
+    invited_guest: '100',
+    address: 'Coming Soon...',
+  },
+  {
+    title: 'Sister Marriage',
+    date: '8th May 2024',
+    invited_guest: '100',
+    address: 'Coming Soon...',
+  },
+  {
+    title: 'Anniversary',
+    date: '8th May 2024',
+    invited_guest: '100',
+    address: 'Coming Soon...',
+  },
+];

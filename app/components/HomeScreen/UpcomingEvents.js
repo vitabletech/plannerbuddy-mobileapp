@@ -1,26 +1,33 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import Carousel from 'react-native-reanimated-carousel';
 import { View, Dimensions, TouchableOpacity } from 'react-native';
 import { Text, useTheme } from 'react-native-paper';
 import { useRouter } from 'expo-router';
-import { UpcomingEventsCards } from './utils';
 import getStyles from './style';
 import RenderEventCards from './RenderEventCards';
+import { fetchInvitation } from '../../store/EventContext';
 
 const UpcomingEvents = () => {
   const classes = getStyles();
   const theme = useTheme();
   const router = useRouter();
+  const dispatch = useDispatch();
   const sliderWidth = Dimensions.get('window').width;
   const height = Dimensions.get('window').width * 0.5;
   const renderItem = ({ item = {} } = {}) => <RenderEventCards item={item} />;
+  const UpcomingEventsCards = useSelector((state) => state.event.invitationEvents);
+  const events = useSelector((state) => state.event.events);
+  useEffect(() => {
+    dispatch(fetchInvitation());
+  }, [events]);
   return (
     <>
       <View style={classes.recentEventsContainer}>
-        <Text style={classes.recentEventsHeadingText}>Upcoming Events</Text>
-        <TouchableOpacity onPress={() => router.replace('./../Screens/Events')}>
+        <Text style={classes.recentEventsHeadingText}>Invitation Events</Text>
+        <TouchableOpacity onPress={() => router.push('./../InviteScreen/InviteHome')}>
           <Text style={{ color: theme.colors.primary }} variant="titleSmall">
-            {UpcomingEventsCards.length ? 'View All' : 'Add Events'}
+            View All
           </Text>
         </TouchableOpacity>
       </View>

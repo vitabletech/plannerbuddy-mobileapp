@@ -51,14 +51,12 @@ const Events = () => {
 
   return (
     <View style={styles.container}>
-      {allEvents.length > 10 && (
-        <Searchbar
-          placeholder="Search"
-          style={styles.searchBar}
-          onChangeText={(query) => setSearchQuery(query)}
-          value={searchQuery}
-        />
-      )}
+      <Searchbar
+        placeholder="Search"
+        style={styles.searchBar}
+        onChangeText={(query) => setSearchQuery(query)}
+        value={searchQuery}
+      />
       {viewModal && <AddEventModal />}
       <FlatList
         data={allEvents}

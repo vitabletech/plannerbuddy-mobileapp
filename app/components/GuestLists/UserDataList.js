@@ -3,7 +3,7 @@ import { Avatar, Card, Text, IconButton } from 'react-native-paper';
 import PropTypes from 'prop-types';
 import { View, Alert } from 'react-native';
 import { useDispatch } from 'react-redux';
-import { AvatarText } from '../../utils/utils';
+import { AvatarText, askForConfirmation } from '../../utils/utils';
 import { guestActions } from '../../store/GuestContext';
 import commonStyles from '../../styles/common.style';
 import { deleteGuest } from '../../utils/apiCalls';
@@ -25,14 +25,20 @@ const UserDataList = ({ userData, selectedContacts, setSelectedContacts, selectM
   const styles = commonStyles();
 
   const handleRemoveEvent = () => {
-    if (userData?.id) {
-      deleteGuest(userData?.id).then((response) => {
-        if (!response.error) {
-          dispatch(guestActions.removeGuest({ guestId: userData?.id }));
+    askForConfirmation(
+      'Delete',
+      'Do you really want to remove this guest? \nThis action will also remove them from the Event and Gift lists.',
+      () => {
+        if (userData?.id) {
+          deleteGuest(userData?.id).then((response) => {
+            if (!response.error) {
+              dispatch(guestActions.removeGuest({ guestId: userData?.id }));
+            }
+            Alert.alert(!response.error ? 'Success' : 'Fail', response.message);
+          });
         }
-        Alert.alert(!response.error ? 'Success' : 'Fail', response.message);
-      });
-    }
+      },
+    );
   };
 
   const handleEditGuest = () => {

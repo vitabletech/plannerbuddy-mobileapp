@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import { Card, Text, Avatar } from 'react-native-paper';
 import getStyles from './style';
 import commonStyles from '../../styles/common.style';
+import { formatDate } from '../../utils/utils';
 
 const RenderEventCards = ({ item }) => {
   const styles = { ...getStyles(), ...commonStyles() };
@@ -24,7 +25,7 @@ const RenderEventCards = ({ item }) => {
           <View style={styles.flex1}>
             <View style={[styles.flexRow, styles.alignItems_center, styles.mb10]}>
               <Avatar.Icon size={24} icon="calendar" style={styles.mr10} />
-              <Text variant="bodyMedium">{item.date}</Text>
+              <Text variant="bodyMedium">{formatDate(item.date)}</Text>
             </View>
             <View style={[styles.flexRow, styles.alignItems_center, styles.mb10]}>
               <Avatar.Icon size={24} icon="contacts" style={styles.mr10} />
@@ -46,7 +47,7 @@ RenderEventCards.propTypes = {
     title: PropTypes.string,
     date: PropTypes.string,
     address: PropTypes.string,
-    invited_guest: PropTypes.string,
+    invited_guest: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
   }).isRequired,
 };
 

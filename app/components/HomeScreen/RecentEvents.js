@@ -1,20 +1,27 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Carousel from 'react-native-reanimated-carousel';
+import { useSelector, useDispatch } from 'react-redux';
 import { View, Dimensions, TouchableOpacity } from 'react-native';
 import { Text, useTheme } from 'react-native-paper';
 import { useRouter } from 'expo-router';
-import { RecentEventsCards } from './utils';
 import getStyles from './style';
 import commonStyles from '../../styles/common.style';
 import RenderEventCards from './RenderEventCards';
+import { fetchRecentEvents } from '../../store/EventContext';
 
 const RecentEvents = () => {
+  const dispatch = useDispatch();
   const router = useRouter();
   const theme = useTheme();
   const styles = { ...getStyles(), ...commonStyles() };
   const sliderWidth = Dimensions.get('window').width;
   const height = Dimensions.get('window').width * 0.5;
   const renderItem = ({ item = {} } = {}) => <RenderEventCards item={item} />;
+  const RecentEventsCards = useSelector((state) => state.event.recentEvents);
+  const events = useSelector((state) => state.event.events);
+  useEffect(() => {
+    dispatch(fetchRecentEvents());
+  }, [events]);
 
   return (
     <>

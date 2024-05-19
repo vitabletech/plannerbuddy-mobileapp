@@ -24,6 +24,43 @@ export const fetchEvents = createAsyncThunk(
   },
 );
 
+// Define the async thunk
+export const fetchRecentEvents = createAsyncThunk(
+  'event/fetchRecentEvents',
+  async (page, { rejectWithValue }) => {
+    const params = {
+      page: page || 1,
+      limit: 5,
+      sort: 'eventDate',
+    };
+    params.filter = JSON.stringify({ isYourEvent: 'yes' });
+    try {
+      const response = await customAxios.get('event', { params });
+      return response;
+    } catch (error) {
+      return rejectWithValue(error.response.data);
+    }
+  },
+);
+
+export const fetchInvitation = createAsyncThunk(
+  'event/fetchInvitation',
+  async (page, { rejectWithValue }) => {
+    const params = {
+      page: page || 1,
+      limit: 5,
+      sort: 'eventDate',
+    };
+    params.filter = JSON.stringify({ isYourEvent: 'no' });
+    try {
+      const response = await customAxios.get('event', { params });
+      return response;
+    } catch (error) {
+      return rejectWithValue(error.response.data);
+    }
+  },
+);
+
 const eventSlice = createSlice({
   name: 'event',
   initialState: {
@@ -36,6 +73,8 @@ const eventSlice = createSlice({
     totalPages: 0,
     error: null,
     searchEvents: false,
+    recentEvents: [],
+    invitationEvents: [],
   },
   reducers: {
     addEvent(state, action) {
@@ -117,6 +156,30 @@ const eventSlice = createSlice({
         state.status = 'failed';
         if (state.searchEvents) state.events = [];
         state.error = action.error.message;
+      })
+      .addCase(fetchInvitation.pending, (state) => {
+        state.status = 'loading';
+      })
+      .addCase(fetchInvitation.fulfilled, (state, action) => {
+        state.status = 'succeeded';
+        state.invitationEvents = action.payload.events.map((event) => ({
+          title: event.eventName,
+          date: event.eventDate,
+          invited_guest: event?.event_guests?.[0]?.guest?.name || '---',
+          address: event.eventLocation || 'No address Found',
+        }));
+      })
+      .addCase(fetchRecentEvents.pending, (state) => {
+        state.status = 'loading';
+      })
+      .addCase(fetchRecentEvents.fulfilled, (state, action) => {
+        state.status = 'succeeded';
+        state.recentEvents = action.payload.events.map((event) => ({
+          title: event.eventName,
+          date: event.eventDate,
+          invited_guest: event?.event_guests?.length || 0,
+          address: event.eventLocation || 'No address Found',
+        }));
       });
   },
 });

@@ -20,6 +20,7 @@ const GuestLists = ({ selectMode }) => {
   const contactList = useSelector((state) => state.guest.guests);
   const status = useSelector((state) => state.guest.status);
   const totalPages = useSelector((state) => state.guest.totalPages);
+  const totalContacts = useSelector((state) => state.guest.totalData);
   const pages = useSelector((state) => state.guest.page);
   const events = useSelector((state) => state.event.events);
   const editIndex = useSelector((state) => state.event.editIndex);
@@ -94,15 +95,14 @@ const GuestLists = ({ selectMode }) => {
   return (
     <View style={styles.flex1}>
       {guestEditIndex !== null && <AddGuestModal />}
-      {contactList.length > 10 && (
-        <Header
-          onSearch={handleSearch}
-          isSelected={selectedContacts.length}
-          setSelectedContacts={setSelectedContacts}
-          saveList={handleSaveSelectedContacts}
-          showOnlySearchBar={selectMode}
-        />
-      )}
+      <Header
+        onSearch={handleSearch}
+        isSelected={selectedContacts.length}
+        setSelectedContacts={setSelectedContacts}
+        saveList={handleSaveSelectedContacts}
+        showOnlySearchBar={selectMode}
+        totalContacts={totalContacts}
+      />
       {contactList.length > 0 ? (
         <FlatList
           data={contactList}

@@ -32,8 +32,8 @@ const Header = ({
       {showOnlySearchBar && (
         <Appbar.Header style={styles.header}>
           <Appbar.Content title={`${isSelected} / ${totalContacts}`} titleStyle={styles.font15} />
-          <Appbar.Action icon="content-save" onPress={() => onSave()} />
-          <Appbar.Action icon="close" onPress={handleEditPress} />
+          {isSelected && <Appbar.Action icon="content-save" onPress={() => onSave()} />}
+          {isSelected && <Appbar.Action icon="close" onPress={handleEditPress} />}
         </Appbar.Header>
       )}
       <Searchbar

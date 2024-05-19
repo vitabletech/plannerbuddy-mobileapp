@@ -152,3 +152,16 @@ export const SETTING_ACTIONS = (navigation) => [
 export const AlertComponent = (error) => <VTAlert isVisible={error !== null} body={error} />;
 
 export const endReached = (getStyles) => <Text style={{ ...getStyles }}>End Of The List</Text>;
+
+export const askForConfirmation = (title, message, onConfirm) => {
+  Alert.alert(title, message, [
+    {
+      text: 'No',
+      onPress: () => {},
+    },
+    {
+      text: 'Yes',
+      onPress: onConfirm,
+    },
+  ]);
+};
