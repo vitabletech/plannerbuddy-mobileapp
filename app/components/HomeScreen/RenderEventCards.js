@@ -29,7 +29,7 @@ const RenderEventCards = ({ item }) => {
             </View>
             <View style={[styles.flexRow, styles.alignItems_center, styles.mb10]}>
               <Avatar.Icon size={24} icon="contacts" style={styles.mr10} />
-              <Text variant="bodyMedium">{item.invited_guest} Guests</Text>
+              <Text variant="bodyMedium">{item.invited_guest}</Text>
             </View>
             <View style={[styles.flexRow, styles.alignItems_center]}>
               <Avatar.Icon size={24} icon="map-marker" style={styles.mr10} />

@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 import React, { useState, useRef } from 'react';
 import PropTypes from 'prop-types';
-import { View, Alert } from 'react-native';
+import { View, Alert, Dimensions } from 'react-native';
 import { Avatar, Card, Button, Text, IconButton, useTheme } from 'react-native-paper';
 import RBSheet from 'react-native-raw-bottom-sheet';
 import { ScrollView } from 'react-native-virtualized-view';
@@ -15,6 +15,8 @@ import { deleteEvent } from '../../utils/apiCalls';
 
 const EventCard = React.memo(({ styles, event }) => {
   const theme = useTheme();
+  const screenHeight = Dimensions.get('window').height;
+  const sheetHeight = screenHeight * 0.7; // 70% of screen height
   const dispatch = useDispatch();
   const refStandard = useRef();
   const icon = event.name.toLowerCase().includes('birth') ? 'cake' : 'party-popper';
@@ -75,16 +77,16 @@ const EventCard = React.memo(({ styles, event }) => {
       )}
       <RBSheet
         ref={refStandard}
-        height={700}
+        height={sheetHeight}
         customStyles={{
           container: {
             backgroundColor: theme.colors.primaryContainer,
           },
         }}
       >
-        <View style={styles.closeButton}>
-          <Button onPress={handleCloseSelectGuests}>Close</Button>
-        </View>
+        <Button style={{ width: '100%' }} onPress={handleCloseSelectGuests}>
+          Close
+        </Button>
 
         <ScrollView>
           <GuestLists selectMode />
