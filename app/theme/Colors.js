@@ -12,7 +12,7 @@ export const LIGHT_THEME_COLORS = {
     tertiary: 'rgb(130, 82, 70)',
     onTertiary: 'rgb(255, 255, 255)',
     tertiaryContainer: 'rgb(255, 219, 209)',
-    onTertiaryContainer: 'rgb(50, 18, 8)',
+    onTertiaryContainer: 'rgb(124, 12, 113)',
     error: 'rgb(186, 26, 26)',
     onError: 'rgb(255, 255, 255)',
     errorContainer: 'rgb(255, 218, 214)',

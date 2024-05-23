@@ -12,7 +12,11 @@ const VTBottomSheet = ({ content }) => {
     <GestureHandlerRootView style={styles.content}>
       <View style={styles.container}>
         <Image source={image} style={styles.image} resizeMode="contain" />
-        <BottomSheet snapPoints={['70%']} handleComponent={null}>
+        <BottomSheet
+          snapPoints={['70%']}
+          handleComponent={null}
+          backgroundStyle={styles.bottomSheet}
+        >
           <BottomSheetScrollView style={styles.contentContainer}>{content}</BottomSheetScrollView>
         </BottomSheet>
       </View>

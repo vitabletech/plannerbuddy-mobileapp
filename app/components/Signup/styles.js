@@ -4,6 +4,7 @@ import { useTheme } from 'react-native-paper';
 const getStyles = () => {
   const theme = useTheme();
   return StyleSheet.create({
+    loginText: { color: theme.colors.onTertiaryContainer, fontWeight: 'bold' },
     outlineButton: {
       alignItems: 'center',
       backgroundColor: theme.colors.primary,
@@ -25,6 +26,9 @@ const getStyles = () => {
     },
     textContainer: {
       marginBottom: 20,
+    },
+    white: {
+      color: theme.colors.white,
     },
   });
 };
