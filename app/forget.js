@@ -1,12 +1,7 @@
 import React, { useRef } from 'react';
-import { StyleSheet, View } from 'react-native';
+import { View } from 'react-native';
 import RBSheet from 'react-native-raw-bottom-sheet';
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-});
 const Forget = () => {
   const refStandard = useRef();
   return (
@@ -19,7 +14,7 @@ const Forget = () => {
         },
       }}
     >
-      <View></View>
+      <View />
     </RBSheet>
   );
 };

@@ -43,7 +43,12 @@ const Signup = () => {
     passwordInput.onBlur();
     confirmPasswordInput.onBlur();
 
-    if (nameInput.value && emailInput.value && passwordInput.value) {
+    if (
+      nameInput.value &&
+      emailInput.value &&
+      passwordInput.value &&
+      passwordInput.value === confirmPasswordInput.value
+    ) {
       dispatch(
         onRegister({
           fullName: nameInput.value,
@@ -62,7 +67,7 @@ const Signup = () => {
 
   return (
     <KeyboardAwareScrollView>
-      <Text style={[styles.textAlignCenter, styles.textContainer]} variant="displaySmall">
+      <Text style={[styles.textAlignCenter, styles.textContainer]} variant="titleLarge">
         Create New Account
       </Text>
       {AlertComponent(errors)}

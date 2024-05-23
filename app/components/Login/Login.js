@@ -3,7 +3,6 @@ import { View, TouchableOpacity } from 'react-native';
 import { useTheme, Text, TextInput, ActivityIndicator, Button } from 'react-native-paper';
 import { Link } from 'expo-router';
 import { useDispatch, useSelector } from 'react-redux';
-import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import RBSheet from 'react-native-raw-bottom-sheet';
 import { onLogin } from '../../store/reducers/authSlice';
 import getStyles from './styles';
@@ -99,62 +98,58 @@ const Login = () => {
           </View>
         </View>
       </RBSheet>
-      <KeyboardAwareScrollView>
-        <View style={styles.textContainer}>
-          <Text style={styles.textAlignCenter} variant="displaySmall">
-            Welcome Back!
-          </Text>
-          <Text style={styles.textAlignCenter} variant="bodySmall">
-            Please enter your account here
-          </Text>
-        </View>
-        {AlertComponent(error)}
-        <View>
-          <VTTextInput
-            label="Enter Your Email"
-            {...emailInput}
-            left={<TextInput.Icon icon="account" />}
-            onSubmitEditing={() => passwordInputRef.current.focus()}
-          />
-          <VTTextInput
-            label="Enter Password"
-            ref={passwordInputRef}
-            secureTextEntry={!isPasswordVisible}
-            left={
-              <TextInput.Icon
-                icon={isPasswordVisible ? 'eye' : 'eye-off'}
-                onPress={() => setIsPasswordVisible((state) => !state)}
-              />
-            }
-            {...passwordInput}
-          />
-          {loading ? (
-            <ActivityIndicator style={styles.outlineButton} color={theme.colors.onPrimary} />
-          ) : (
-            <TouchableOpacity onPress={login} style={styles.outlineButton}>
-              <Text style={{ color: theme.colors.white }}>Log in</Text>
-            </TouchableOpacity>
-          )}
-          <View style={styles.positionCenter}>
-            <Text>Don’t have any account? </Text>
-            <Link href="/register" asChild>
-              <TouchableOpacity>
-                <Text style={styles.signUpForget}>Signup</Text>
-              </TouchableOpacity>
-            </Link>
-          </View>
-          {/* <Link href="/forget" asChild> */}
-          <Button onPress={() => refRBSheet.current.open()}>
-            <Text style={styles.signUpForget}>Forgot password ?</Text>
-          </Button>
-          {/* </Link> */}
-          <Link href="/privacy" asChild>
-            <TouchableOpacity style={styles.positionCenter}>
-              <Text style={styles.privacyPolicy}>Privacy Policy</Text>
+      <View style={styles.textContainer}>
+        <Text style={styles.textAlignCenter} variant="displaySmall">
+          Welcome Back!
+        </Text>
+        <Text style={styles.textAlignCenter} variant="bodySmall">
+          Please enter your account here
+        </Text>
+      </View>
+      {AlertComponent(error)}
+      <View>
+        <VTTextInput
+          label="Enter Your Email"
+          {...emailInput}
+          left={<TextInput.Icon icon="account" />}
+          onSubmitEditing={() => passwordInputRef.current.focus()}
+        />
+        <VTTextInput
+          label="Enter Password"
+          ref={passwordInputRef}
+          secureTextEntry={!isPasswordVisible}
+          left={
+            <TextInput.Icon
+              icon={isPasswordVisible ? 'eye' : 'eye-off'}
+              onPress={() => setIsPasswordVisible((state) => !state)}
+            />
+          }
+          {...passwordInput}
+        />
+        {loading ? (
+          <ActivityIndicator style={styles.outlineButton} color={theme.colors.onPrimary} />
+        ) : (
+          <TouchableOpacity onPress={login} style={styles.outlineButton}>
+            <Text style={{ color: theme.colors.white }}>Log in</Text>
+          </TouchableOpacity>
+        )}
+        <View style={styles.positionCenter}>
+          <Text>Don’t have any account? </Text>
+          <Link href="/register" asChild>
+            <TouchableOpacity>
+              <Text style={styles.signUpForget}>Signup</Text>
             </TouchableOpacity>
           </Link>
         </View>
-      </KeyboardAwareScrollView>
+        <Button onPress={() => refRBSheet.current.open()}>
+          <Text style={styles.signUpForget}>Forgot password ?</Text>
+        </Button>
+        <Link href="/privacy" asChild>
+          <TouchableOpacity style={styles.positionCenter}>
+            <Text style={styles.privacyPolicy}>Privacy Policy</Text>
+          </TouchableOpacity>
+        </Link>
+      </View>
     </>
   );
 };

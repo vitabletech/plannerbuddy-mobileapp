@@ -8,6 +8,8 @@ const getStyles = () => {
   return StyleSheet.create({
     bottomSheet: {
       backgroundColor: theme.colors.primaryContainer,
+      borderTopLeftRadius: 20,
+      borderTopRightRadius: 20,
     },
     container: {
       backgroundColor: theme.colors.primary,
