@@ -9,10 +9,11 @@ import getStyles from './styles';
 import VTTextInput from '../VTTextInput/VTTextInput';
 import useInput from '../../hooks/useInput';
 import { AlertComponent } from '../../utils/utils';
+import commonStyles from '../../styles/common.style';
 
 const Login = () => {
   const theme = useTheme();
-  const styles = getStyles();
+  const styles = { ...getStyles(), ...commonStyles() };
   const dispatch = useDispatch();
   const refRBSheet = useRef();
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
@@ -37,13 +38,7 @@ const Login = () => {
     return true;
   };
 
-  const handleOpenForgetPassword = () => {
-    refRBSheet.current.open();
-  };
-
-  const handleCloseForgetPassword = () => {
-    refRBSheet.current.close();
-  };
+  const handleCloseForgetPassword = () => refRBSheet.current.close();
 
   return (
     <>
@@ -60,14 +55,14 @@ const Login = () => {
         closeOnPressBack
         draggable
       >
-        <View style={{ flex: 1, margin: 20 }}>
+        <View style={styles.containerStyle}>
           <Text
-            variant="displaySmall"
-            style={{ textAlign: 'center', color: theme.colors.onTertiaryContainer }}
+            variant="titleLarge"
+            style={[styles.title, { color: theme.colors.onTertiaryContainer }]}
           >
             We will help you find your account
           </Text>
-          <View style={{ flex: 1, gap: 4, marginTop: 20 }}>
+          <View style={styles.gapStyle}>
             <VTTextInput
               label="Enter Your Email"
               {...emailForgetInput}
@@ -75,32 +70,22 @@ const Login = () => {
             />
             <Text
               variant="labelLarge"
-              style={{ textAlign: 'center', color: theme.colors.onTertiaryContainer }}
+              style={[styles.title, { color: theme.colors.onTertiaryContainer }]}
             >
               OTP will be sent through mail
             </Text>
             <TouchableOpacity
               onPress={handleCloseForgetPassword}
-              style={{
-                paddingHorizontal: 'auto',
-                paddingVertical: 10,
-                borderRadius: 20,
-                marginTop: 40,
-                borderColor: theme.colors.primary,
-                borderWidth: 2,
-                backgroundColor: theme.colors.onPrimary,
-              }}
+              style={styles.forgetPasswordButton}
             >
-              <Text style={{ color: theme.colors.onTertiaryContainer, alignSelf: 'center' }}>
-                Send
-              </Text>
+              <Text style={[styles.title, { color: theme.colors.onTertiaryContainer }]}>Send</Text>
             </TouchableOpacity>
           </View>
         </View>
       </RBSheet>
       <View style={styles.textContainer}>
-        <Text style={styles.textAlignCenter} variant="displaySmall">
-          Welcome Back!
+        <Text style={styles.textAlignCenter} variant="titleMedium">
+          Start planning your day with Planner Buddy
         </Text>
         <Text style={styles.textAlignCenter} variant="bodySmall">
           Please enter your account here

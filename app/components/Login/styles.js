@@ -4,9 +4,23 @@ import { useTheme } from 'react-native-paper';
 const getStyles = () => {
   const theme = useTheme();
   return StyleSheet.create({
+    containerStyle: {
+      flex: 1,
+      margin: 20,
+    },
+    forgetPasswordButton: {
+      backgroundColor: theme.colors.onPrimary,
+      borderColor: theme.colors.primary,
+      borderRadius: 20,
+      borderWidth: 2,
+      marginTop: 40,
+      paddingHorizontal: 'auto',
+      paddingVertical: 10,
+    },
     forgotPasswordContainer: {
       marginVertical: 20,
     },
+    gapStyle: { flex: 1, gap: 4, marginTop: 20 },
     image: {
       height: 100,
       resizeMode: 'contain',

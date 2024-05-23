@@ -32,18 +32,6 @@ export const onLogin = createAsyncThunk(
   },
 );
 
-export const onRegister = createAsyncThunk(
-  'auth/register',
-  async ({ fullName, email, password }, { rejectWithValue }) => {
-    try {
-      const result = await axios.post(`${API_URL}api/auth/signup`, { fullName, email, password });
-      return result.data;
-    } catch (error) {
-      return rejectWithValue(error?.response?.data?.message || error.message);
-    }
-  },
-);
-
 export const onLogout = createAsyncThunk('auth/logout', async (_, { rejectWithValue }) => {
   try {
     await AsyncStorage.removeItem('userProfile');
@@ -60,12 +48,8 @@ export const updateUserProfile = createAsyncThunk('auth/updateUserProfile', asyn
 
 const authSlice = createSlice({
   name: 'auth',
-  initialState: { error: null, userProfile: null, registerError: null },
-  reducers: {
-    clearError: (state) => {
-      state.registerError = null;
-    },
-  },
+  initialState: { error: null, userProfile: null },
+  reducers: {},
   extraReducers: (builder) => {
     builder
       .addCase(onLogin.fulfilled, (state, action) => {
@@ -74,12 +58,6 @@ const authSlice = createSlice({
       })
       .addCase(onLogin.rejected, (state, action) => {
         state.error = action.payload.message;
-      })
-      .addCase(onRegister.fulfilled, (state) => {
-        state.registerError = 'success';
-      })
-      .addCase(onRegister.rejected, (state, action) => {
-        state.registerError = action.payload;
       })
       .addCase(tokenVerify.fulfilled, (state, action) => {
         if (action.payload) {

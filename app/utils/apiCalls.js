@@ -1,3 +1,5 @@
+import axios from 'axios';
+import { API_URL } from '../constants/constants';
 import customAxios from './customAxios';
 
 /**
@@ -125,4 +127,8 @@ export const addGift = (giftData) => {
  */
 export const deleteGift = (giftId) => {
   return handleRequest(() => customAxios.delete(`gift/${giftId}`));
+};
+
+export const onRegister = (signupData) => {
+  return handleRequest(() => axios.post(`${API_URL}api/auth/signup`, signupData));
 };

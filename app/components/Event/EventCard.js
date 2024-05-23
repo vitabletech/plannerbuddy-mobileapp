@@ -84,7 +84,7 @@ const EventCard = React.memo(({ styles, event }) => {
           },
         }}
       >
-        <Button style={{ width: '100%' }} onPress={handleCloseSelectGuests}>
+        <Button style={styles.w100} onPress={handleCloseSelectGuests}>
           Close
         </Button>
 

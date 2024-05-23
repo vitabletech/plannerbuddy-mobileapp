@@ -18,6 +18,7 @@ const VTTextInput = forwardRef(
           onBlur={onBlur}
           ref={ref}
           {...props}
+          autoCapitalize="none"
         />
         {error && (
           <HelperText type="error" visible={error}>
