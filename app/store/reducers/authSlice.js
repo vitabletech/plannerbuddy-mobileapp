@@ -60,8 +60,12 @@ export const updateUserProfile = createAsyncThunk('auth/updateUserProfile', asyn
 
 const authSlice = createSlice({
   name: 'auth',
-  initialState: { error: null, userProfile: null },
-  reducers: {},
+  initialState: { error: null, userProfile: null, registerError: null },
+  reducers: {
+    clearError: (state) => {
+      state.registerError = null;
+    },
+  },
   extraReducers: (builder) => {
     builder
       .addCase(onLogin.fulfilled, (state, action) => {
@@ -72,10 +76,10 @@ const authSlice = createSlice({
         state.error = action.payload.message;
       })
       .addCase(onRegister.fulfilled, (state) => {
-        state.error = 'Registered successfully! Please login to continue.';
+        state.registerError = 'success';
       })
       .addCase(onRegister.rejected, (state, action) => {
-        state.error = action.payload;
+        state.registerError = action.payload;
       })
       .addCase(tokenVerify.fulfilled, (state, action) => {
         if (action.payload) {
@@ -103,5 +107,5 @@ const authSlice = createSlice({
       });
   },
 });
-
+export const authActions = authSlice.actions;
 export default authSlice.reducer;
