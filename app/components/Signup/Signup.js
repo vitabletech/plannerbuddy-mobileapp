@@ -105,13 +105,13 @@ const Signup = () => {
         }
       />
       <TouchableOpacity onPress={handleSignup} style={styles.outlineButton}>
-        <Text style={styles.textWhite}>Sign Up</Text>
+        <Text style={styles.white}>Sign Up</Text>
       </TouchableOpacity>
       <View style={styles.positionCenter}>
         <Text>Already have an account? </Text>
         <Link replace href="/" asChild>
           <TouchableOpacity>
-            <Text>Log in</Text>
+            <Text style={styles.loginText}>Log in</Text>
           </TouchableOpacity>
         </Link>
       </View>

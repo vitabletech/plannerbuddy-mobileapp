@@ -1,14 +1,27 @@
-import React from 'react';
-import { StyleSheet } from 'react-native';
-import { WebView } from 'react-native-webview';
+import React, { useRef } from 'react';
+import { StyleSheet, View } from 'react-native';
+import RBSheet from 'react-native-raw-bottom-sheet';
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
   },
 });
-const Privacy = () => (
-  <WebView style={styles.container} source={{ uri: 'https://vitabletech.in/privacy_policy' }} />
-);
+const Forget = () => {
+  const refStandard = useRef();
+  return (
+    <RBSheet
+      ref={refStandard}
+      height={700}
+      customStyles={{
+        container: {
+          backgroundColor: 'red',
+        },
+      }}
+    >
+      <View></View>
+    </RBSheet>
+  );
+};
 
-export default Privacy;
+export default Forget;

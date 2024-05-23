@@ -26,6 +26,7 @@ const getStyles = () => {
       justifyContent: 'center',
       marginTop: 10,
     },
+    privacyPolicy: { color: theme.colors.onTertiaryContainer, fontWeight: 'medium' },
     rowReverse: {
       flexDirection: 'row-reverse',
     },
@@ -33,6 +34,7 @@ const getStyles = () => {
       flexDirection: 'row',
       justifyContent: 'space-between',
     },
+    signUpForget: { color: theme.colors.onTertiaryContainer, fontWeight: 'bold' },
     textAlignCenter: {
       textAlign: 'center',
       width: '100%',

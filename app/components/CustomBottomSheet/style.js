@@ -6,6 +6,9 @@ const getStyles = () => {
   const screen = Dimensions.get('window');
   const Height = screen.height;
   return StyleSheet.create({
+    bottomSheet: {
+      backgroundColor: theme.colors.primaryContainer,
+    },
     container: {
       backgroundColor: theme.colors.primary,
       flex: 1,
