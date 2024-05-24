@@ -8,6 +8,7 @@ import useInput from '../../hooks/useInput';
 import getStyles from './styles';
 import commonStyles from '../../styles/common.style';
 import { onRegister } from '../../utils/apiCalls';
+import { validateEmail, validateName } from '../../utils/validations';
 
 const Signup = () => {
   const styles = { ...getStyles(), ...commonStyles() };
@@ -17,10 +18,8 @@ const Signup = () => {
   const confirmPasswordInputRef = useRef(null);
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
   const [isCPasswordVisible, setIsCPasswordVisible] = useState(false);
-  const nameInput = useInput('', (value) => (value.trim() ? null : 'Name is required'));
-  const emailInput = useInput('', (value) =>
-    value.trim() && /\S+@\S+\.\S+/.test(value) ? null : 'Please enter a valid email',
-  );
+  const nameInput = useInput('', validateName);
+  const emailInput = useInput('', validateEmail);
   const passwordInput = useInput('', (value) =>
     value && value.length >= 8 ? null : 'Password must be at least 8 characters long',
   );

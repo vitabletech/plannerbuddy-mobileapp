@@ -17,6 +17,13 @@ import commonStyles from '../../styles/common.style';
 import VTTextInput from '../VTTextInput/VTTextInput';
 import useInput from '../../hooks/useInput';
 import { AlertComponent, IconComponent } from '../../utils/utils';
+import {
+  validatePassword,
+  validateAddress,
+  validateName,
+  validatePhone,
+} from '../../utils/validations';
+
 import { onLogout, updateUserProfile } from '../../store/reducers/authSlice';
 import { updateProfile, changePassword } from '../../utils/apiCalls';
 import InputDialog from '../InputDialog/InputDialog';
@@ -40,16 +47,10 @@ const profile = () => {
     value?.trim() ? null : 'Current Password is required',
   );
 
-  const newPassword = useInput('', (value) => (value?.trim() ? null : 'New Password is required'));
-  const nameInput = useInput(person?.fullName, (value) =>
-    value?.trim() ? null : 'Name is required',
-  );
-  const phoneInput = useInput(person?.phoneNumber, (value) =>
-    value && value.length >= 10 ? null : 'Please Enter Valid Mobile Number',
-  );
-  const addressInput = useInput(person?.address, (value) =>
-    value?.trim() ? null : 'Please Enter Valid Address',
-  );
+  const newPassword = useInput('', validatePassword);
+  const nameInput = useInput(person?.fullName, validateName);
+  const phoneInput = useInput(person?.phoneNumber, validatePhone);
+  const addressInput = useInput(person?.address, validateAddress);
 
   const handleEdit = () => {
     setEnableEdit((state) => !state);

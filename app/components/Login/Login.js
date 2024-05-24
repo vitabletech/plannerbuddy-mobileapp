@@ -1,5 +1,5 @@
 import React, { useState, useRef } from 'react';
-import { View, TouchableOpacity } from 'react-native';
+import { View, TouchableOpacity, Alert } from 'react-native';
 import { useTheme, Text, TextInput, ActivityIndicator, Button } from 'react-native-paper';
 import { Link } from 'expo-router';
 import { useDispatch, useSelector } from 'react-redux';
@@ -8,8 +8,8 @@ import { onLogin } from '../../store/reducers/authSlice';
 import getStyles from './styles';
 import VTTextInput from '../VTTextInput/VTTextInput';
 import useInput from '../../hooks/useInput';
-import { AlertComponent } from '../../utils/utils';
 import commonStyles from '../../styles/common.style';
+import { validateEmail, validatePassword } from '../../utils/validations';
 
 const Login = () => {
   const theme = useTheme();
@@ -18,9 +18,9 @@ const Login = () => {
   const refRBSheet = useRef();
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
   const error = useSelector((state) => state.auth.error);
-  const emailInput = useInput('', (value) => (value.trim() ? null : 'Email is required'));
-  const emailForgetInput = useInput('', (value) => (value.trim() ? null : 'Email is required'));
-  const passwordInput = useInput('', (value) => (value.trim() ? null : 'Password is required'));
+  const emailInput = useInput('', validateEmail);
+  const emailForgetInput = useInput('', validateEmail);
+  const passwordInput = useInput('', validatePassword);
 
   const [loading, setLoading] = useState(false);
   const passwordInputRef = useRef(null);
@@ -34,6 +34,9 @@ const Login = () => {
       return false;
     }
     await dispatch(onLogin({ email: emailInput.value, password: passwordInput.value }));
+    if (error) {
+      Alert.alert('Error', error);
+    }
     setLoading(false);
     return true;
   };
@@ -84,14 +87,13 @@ const Login = () => {
         </View>
       </RBSheet>
       <View style={styles.textContainer}>
-        <Text style={styles.textAlignCenter} variant="titleMedium">
-          Start planning your day with Planner Buddy
+        <Text style={styles.textAlignCenter} variant="displaySmall">
+          Welcome
         </Text>
         <Text style={styles.textAlignCenter} variant="bodySmall">
-          Please enter your account here
+          Please enter your login details to continue
         </Text>
       </View>
-      {AlertComponent(error)}
       <View>
         <VTTextInput
           label="Enter Your Email"
@@ -126,14 +128,11 @@ const Login = () => {
             </TouchableOpacity>
           </Link>
         </View>
-        <Button onPress={() => refRBSheet.current.open()}>
-          <Text style={styles.signUpForget}>Forgot password ?</Text>
-        </Button>
-        <Link href="/privacy" asChild>
-          <TouchableOpacity style={styles.positionCenter}>
-            <Text style={styles.privacyPolicy}>Privacy Policy</Text>
-          </TouchableOpacity>
-        </Link>
+        <View style={styles.positionCenter}>
+          <Button onPress={() => refRBSheet.current.open()}>
+            <Text style={styles.signUpForget}>Forgot password ?</Text>
+          </Button>
+        </View>
       </View>
     </>
   );

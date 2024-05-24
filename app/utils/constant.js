@@ -25,3 +25,5 @@ export const ON_SHARE_APP_MESSAGE = `Check out this awesome app: https://play.go
 export const ASK_RATING = `https://play.google.com/store/apps/details?id=${AppConfig.expo.scheme}`;
 export const APP_INTERACTIONS_KEY = 'appInteractions';
 export const RATING_THRESHOLD = 5; // Number of interactions before showing the rating prompt
+
+export const fetchEventDetails = () => ({ id: '', name: '', address: '', date: '', guests: [] });

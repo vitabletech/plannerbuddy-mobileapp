@@ -11,7 +11,7 @@ import {
 import { DatePickerModal } from 'react-native-paper-dates';
 import { useSelector, useDispatch } from 'react-redux';
 import getStyles from './styles';
-import { fetchEventDetails } from '../../utils/utils';
+import { fetchEventDetails } from '../../utils/constant';
 import InputDialog from '../InputDialog/InputDialog';
 import { eventActions } from '../../store/EventContext';
 import { addEvent, updateEvent } from '../../utils/apiCalls';

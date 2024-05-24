@@ -11,6 +11,16 @@ import {
 } from './constant';
 import VTAlert from '../components/VTAlert/VTAlert';
 
+/**
+ * Renders an icon component based on the specified library, icon name, size, and color.
+ *
+ * @param {string} lib - The library name of the icon component.
+ * @param {string} iconName - The name of the icon.
+ * @param {number} size - The size of the icon.
+ * @param {string} color - The color of the icon.
+ * @returns {JSX.Element} The rendered icon component.
+ * @throws {Error} If the specified icon library is not supported.
+ */
 export const IconComponent = (lib, iconName, size, color) => {
   const Component = iconLibraries[lib];
   if (!Component) {
@@ -19,15 +29,29 @@ export const IconComponent = (lib, iconName, size, color) => {
   return <Component name={iconName} size={size} color={color} />;
 };
 
+/**
+ * Represents the HeaderLeft component.
+ *
+ * @param {function} action - The action to be performed on press.
+ * @param {string} lib - The library name for the icon component.
+ * @param {string} icon - The icon name for the icon component.
+ * @param {number} size - The size of the icon.
+ * @param {string} color - The color of the icon.
+ * @returns {React.Component} The rendered HeaderLeft component.
+ */
 export const HeaderLeft = (action, lib, icon, size, color) => (
   // eslint-disable-next-line react-native/no-inline-styles
   <View style={{ marginLeft: 15, marginRight: 15 }}>
     <TouchableOpacity onPress={action}>{IconComponent(lib, icon, size, color)}</TouchableOpacity>
   </View>
 );
-export const Loader = () => <ActivityIndicator />;
-export const ItemSeparatorComponent = (styles) => <View style={styles} />;
 
+/**
+ * Function to share a message using the Share API.
+ * @async
+ * @function onShare
+ * @returns {Promise<void>} A promise that resolves when the sharing is complete.
+ */
 export const onShare = async () => {
   try {
     await Share.share({ message: ON_SHARE_APP_MESSAGE });
@@ -36,11 +60,12 @@ export const onShare = async () => {
   }
 };
 
-export const AvatarIcon = (icon, props) => <Avatar.Icon icon={icon} {...props} />;
-export const AvatarText = (props) => <Avatar.Text {...props} />;
-
-export const renderIconButton = (buttonProps) => <IconButton {...buttonProps} />;
-
+/**
+ * Formats a given date into a string representation.
+ *
+ * @param {string|number|Date} date - The date to be formatted.
+ * @returns {string} The formatted date string.
+ */
 export const formatDate = (date) => {
   const d = new Date(date);
   const day = d.getDate();
@@ -63,26 +88,10 @@ export const formatDate = (date) => {
   return `${day} ${month} ${year}`;
 };
 
-export const fetchUserDetails = () => {
-  const person = {
-    name: 'Pankaj Saini',
-    email: 'abc@xyz.com',
-    address: 'abcabcabcabc',
-    contact: '1231231234',
-  };
-  return person;
-};
-export const fetchEventDetails = () => {
-  const events = {
-    id: '',
-    name: '',
-    address: '',
-    date: '',
-    guests: [],
-  };
-  return events;
-};
-
+/**
+ * Prompts the user to rate the app and stores the user's response.
+ * @returns {Promise<void>} A promise that resolves when the user's response is stored.
+ */
 export const askForRating = async () => {
   Alert.alert('Rate Us', 'Please rate us on Play Store', [
     {
@@ -130,6 +139,13 @@ export const incrementInteractionCount = async () => {
   }
 };
 
+/**
+ * Array of setting actions.
+ * @typedef {Object} SettingAction
+ * @property {string} icon - The icon name.
+ * @property {string} label - The label for the action.
+ * @property {Function} onPress - The function to be called when the action is pressed.
+ */
 export const SETTING_ACTIONS = (navigation) => [
   {
     icon: 'chat',
@@ -149,10 +165,13 @@ export const SETTING_ACTIONS = (navigation) => [
   },
 ];
 
-export const AlertComponent = (error) => <VTAlert isVisible={error !== null} body={error} />;
-
-export const endReached = (getStyles) => <Text style={{ ...getStyles }}>End Of The List</Text>;
-
+/**
+ * Displays an alert dialog with a confirmation message.
+ *
+ * @param {string} title - The title of the alert dialog.
+ * @param {string} message - The message to display in the alert dialog.
+ * @param {Function} onConfirm - The function to be called when the user confirms the action.
+ */
 export const askForConfirmation = (title, message, onConfirm) => {
   Alert.alert(title, message, [
     {
@@ -165,3 +184,17 @@ export const askForConfirmation = (title, message, onConfirm) => {
     },
   ]);
 };
+
+export const AlertComponent = (error) => <VTAlert isVisible={error !== null} body={error} />;
+
+export const endReached = (getStyles) => <Text style={{ ...getStyles }}>End Of The List</Text>;
+
+export const AvatarIcon = (icon, props) => <Avatar.Icon icon={icon} {...props} />;
+
+export const AvatarText = (props) => <Avatar.Text {...props} />;
+
+export const renderIconButton = (buttonProps) => <IconButton {...buttonProps} />;
+
+export const Loader = () => <ActivityIndicator />;
+
+export const ItemSeparatorComponent = (styles) => <View style={styles} />;
