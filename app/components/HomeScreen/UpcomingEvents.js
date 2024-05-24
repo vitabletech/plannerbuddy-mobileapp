@@ -7,6 +7,7 @@ import { useRouter } from 'expo-router';
 import getStyles from './style';
 import RenderEventCards from './RenderEventCards';
 import { fetchInvitation } from '../../store/EventContext';
+import { DEFAULT_HIT_SLOP } from '../../constants/constants';
 
 const UpcomingEvents = () => {
   const classes = getStyles();
@@ -25,7 +26,10 @@ const UpcomingEvents = () => {
     <>
       <View style={classes.recentEventsContainer}>
         <Text style={classes.recentEventsHeadingText}>Invitation Events</Text>
-        <TouchableOpacity onPress={() => router.push('./../InviteScreen/InviteHome')}>
+        <TouchableOpacity
+          hitSlop={DEFAULT_HIT_SLOP}
+          onPress={() => router.push('./../InviteScreen/InviteHome')}
+        >
           <Text style={{ color: theme.colors.primary }} variant="titleSmall">
             View All
           </Text>

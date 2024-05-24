@@ -1,16 +1,17 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { View, TouchableOpacity, Alert } from 'react-native';
 import { useTheme, Text, TextInput, ActivityIndicator, Button } from 'react-native-paper';
 import { Link } from 'expo-router';
 import { useDispatch, useSelector } from 'react-redux';
 import RBSheet from 'react-native-raw-bottom-sheet';
-import { onLogin } from '../../store/reducers/authSlice';
+import { onLogin, authActions } from '../../store/reducers/authSlice';
 import getStyles from './styles';
 import VTTextInput from '../VTTextInput/VTTextInput';
 import useInput from '../../hooks/useInput';
 import commonStyles from '../../styles/common.style';
 import ForgotPasswordSheet from './ForgotPasswordSheet';
 import { validateEmail, validatePassword } from '../../utils/validations';
+import { DEFAULT_HIT_SLOP } from '../../constants/constants';
 
 const Login = () => {
   const theme = useTheme();
@@ -24,6 +25,13 @@ const Login = () => {
   const [loading, setLoading] = useState(false);
   const passwordInputRef = useRef(null);
 
+  useEffect(() => {
+    if (error) {
+      Alert.alert('Error', error, [
+        { text: 'OK', onPress: () => dispatch(authActions.clearError()) },
+      ]);
+    }
+  }, [error]);
   const login = async () => {
     setLoading(true);
     emailInput.onBlur();
@@ -33,9 +41,6 @@ const Login = () => {
       return false;
     }
     await dispatch(onLogin({ email: emailInput.value, password: passwordInput.value }));
-    if (error) {
-      Alert.alert('Error', error);
-    }
     setLoading(false);
     return true;
   };
@@ -71,7 +76,7 @@ const Login = () => {
         <VTTextInput
           label="Enter Your Email"
           {...emailInput}
-          left={<TextInput.Icon icon="account" />}
+          left={<TextInput.Icon icon="account" label="email" />}
           onSubmitEditing={() => passwordInputRef.current.focus()}
         />
         <VTTextInput
@@ -80,6 +85,7 @@ const Login = () => {
           secureTextEntry={!isPasswordVisible}
           left={
             <TextInput.Icon
+              label="password"
               icon={isPasswordVisible ? 'eye' : 'eye-off'}
               onPress={() => setIsPasswordVisible((state) => !state)}
             />
@@ -89,14 +95,14 @@ const Login = () => {
         {loading ? (
           <ActivityIndicator style={styles.outlineButton} color={theme.colors.onPrimary} />
         ) : (
-          <TouchableOpacity onPress={login} style={styles.outlineButton}>
+          <TouchableOpacity hitSlop={DEFAULT_HIT_SLOP} onPress={login} style={styles.outlineButton}>
             <Text style={{ color: theme.colors.white }}>Log in</Text>
           </TouchableOpacity>
         )}
         <View style={styles.positionCenter}>
           <Text>Don’t have any account? </Text>
           <Link href="/register" asChild>
-            <TouchableOpacity>
+            <TouchableOpacity hitSlop={DEFAULT_HIT_SLOP}>
               <Text style={styles.signUpForget}>Signup</Text>
             </TouchableOpacity>
           </Link>

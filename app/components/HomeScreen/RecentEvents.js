@@ -8,6 +8,7 @@ import getStyles from './style';
 import commonStyles from '../../styles/common.style';
 import RenderEventCards from './RenderEventCards';
 import { fetchRecentEvents } from '../../store/EventContext';
+import { DEFAULT_HIT_SLOP } from '../../constants/constants';
 
 const RecentEvents = () => {
   const dispatch = useDispatch();
@@ -27,7 +28,10 @@ const RecentEvents = () => {
     <>
       <View style={styles.recentEventsContainer}>
         <Text style={styles.recentEventsHeadingText}>Recent Events</Text>
-        <TouchableOpacity onPress={() => router.replace('./../Screens/Events')}>
+        <TouchableOpacity
+          hitSlop={DEFAULT_HIT_SLOP}
+          onPress={() => router.replace('./../Screens/Events')}
+        >
           <Text style={{ color: theme.colors.primary }} variant="titleSmall">
             {RecentEventsCards.length ? 'View All' : 'Add Events'}
           </Text>

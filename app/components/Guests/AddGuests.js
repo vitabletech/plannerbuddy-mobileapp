@@ -14,14 +14,14 @@ const AddGuests = ({ nameInput, phoneInput, addressInput, emailInput }) => {
       <VTTextInput
         label="Guest Full Name"
         {...nameInput}
-        left={<TextInput.Icon icon="account" />}
+        left={<TextInput.Icon lable="account" icon="account" />}
         onSubmitEditing={() => emailInputRef.current.focus()}
       />
       <VTTextInput
         label="Phone Number"
         ref={phoneNumberInputRef}
         {...phoneInput}
-        left={<TextInput.Icon icon="phone" />}
+        left={<TextInput.Icon label="phone" icon="phone" />}
         onSubmitEditing={() => addressInputRef.current.focus()}
         keyboardType="numeric"
       />
@@ -29,14 +29,14 @@ const AddGuests = ({ nameInput, phoneInput, addressInput, emailInput }) => {
         label="Email"
         ref={emailInputRef}
         {...emailInput}
-        left={<TextInput.Icon icon="email" />}
+        left={<TextInput.Icon lable="email" icon="email" />}
         onSubmitEditing={() => phoneNumberInputRef.current.focus()}
       />
       <VTTextInput
         label="Address"
         ref={phoneNumberInputRef}
         {...addressInput}
-        left={<TextInput.Icon icon="home" />}
+        left={<TextInput.Icon label="home" icon="home" />}
       />
     </>
   );

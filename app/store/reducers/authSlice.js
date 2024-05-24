@@ -49,7 +49,11 @@ export const updateUserProfile = createAsyncThunk('auth/updateUserProfile', asyn
 const authSlice = createSlice({
   name: 'auth',
   initialState: { error: null, userProfile: null },
-  reducers: {},
+  reducers: {
+    clearError: (state) => {
+      state.error = null;
+    },
+  },
   extraReducers: (builder) => {
     builder
       .addCase(onLogin.fulfilled, (state, action) => {

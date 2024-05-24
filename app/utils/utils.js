@@ -10,6 +10,7 @@ import {
   RATING_THRESHOLD,
 } from './constant';
 import VTAlert from '../components/VTAlert/VTAlert';
+import { DEFAULT_HIT_SLOP } from '../constants/constants';
 
 /**
  * Renders an icon component based on the specified library, icon name, size, and color.
@@ -42,7 +43,9 @@ export const IconComponent = (lib, iconName, size, color) => {
 export const HeaderLeft = (action, lib, icon, size, color) => (
   // eslint-disable-next-line react-native/no-inline-styles
   <View style={{ marginLeft: 15, marginRight: 15 }}>
-    <TouchableOpacity onPress={action}>{IconComponent(lib, icon, size, color)}</TouchableOpacity>
+    <TouchableOpacity hitSlop={DEFAULT_HIT_SLOP} onPress={action}>
+      {IconComponent(lib, icon, size, color)}
+    </TouchableOpacity>
   </View>
 );
 

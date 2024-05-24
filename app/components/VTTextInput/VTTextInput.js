@@ -1,11 +1,12 @@
 import React, { forwardRef } from 'react';
 import PropTypes from 'prop-types';
 import { View } from 'react-native';
-import { TextInput, HelperText } from 'react-native-paper';
+import { TextInput, HelperText, useTheme } from 'react-native-paper';
 import getStyles from './styles';
 
 const VTTextInput = forwardRef(
   ({ label, value, onChangeText, onBlur, error, style, ...props }, ref) => {
+    const theme = useTheme();
     const styles = getStyles();
     return (
       <View>
@@ -19,6 +20,9 @@ const VTTextInput = forwardRef(
           ref={ref}
           {...props}
           autoCapitalize="none"
+          accessibilityLabel={label}
+          accessible
+          theme={{ colors: { primary: theme.colors.onSurface } }}
         />
         {error && (
           <HelperText type="error" visible={error}>

@@ -10,23 +10,28 @@ import OTPInput from './OTPInput';
 import { validateEmail, validatePassword } from '../../utils/validations';
 import { forgetPassword, verifyOTP } from '../../utils/apiCalls';
 import { Loader } from '../../utils/utils';
+import { DEFAULT_HIT_SLOP } from '../../constants/constants';
 
 const ForgotPasswordSheet = ({ refRBSheet }) => {
   const theme = useTheme();
   const styles = { ...getStyles(), ...commonStyles() };
-  const emailForgetInput = useInput('msrajawat298@gmail.com', validateEmail);
-  const newPasswordInput = useInput('12341234', validatePassword);
+  const emailForgetInput = useInput('', validateEmail);
+  const newPasswordInput = useInput('', validatePassword);
   const [otpSent, setOtpSent] = useState(false);
   const [loader, setLoader] = useState(false);
   const [otp, setOtp] = useState(Array(6).fill(''));
   const [otpError, setOtpError] = useState('');
 
   const handleSubmit = () => {
+    setLoader(true);
     if (!otpSent) {
-      setLoader(true);
       emailForgetInput.onBlur();
-      forgetPassword({ email: emailForgetInput.value }).then((response) => {
+      newPasswordInput.onBlur();
+      if (emailForgetInput.value === '' || newPasswordInput.value === '') {
         setLoader(false);
+        return false;
+      }
+      forgetPassword({ email: emailForgetInput.value }).then((response) => {
         if (!response?.response?.data?.error) {
           setOtpSent(!otpSent);
           setOtpError(response?.data?.message);
@@ -56,6 +61,7 @@ const ForgotPasswordSheet = ({ refRBSheet }) => {
         Alert.alert(response?.response?.data?.error);
       });
     }
+    setLoader(false);
     return false;
   };
 
@@ -86,7 +92,11 @@ const ForgotPasswordSheet = ({ refRBSheet }) => {
         {otpSent && <OTPInput otpError={otpError} otp={otp} setOtp={setOtp} />}
         {loader && Loader()}
         {!loader && (
-          <TouchableOpacity onPress={() => handleSubmit()} style={styles.forgetPasswordButton}>
+          <TouchableOpacity
+            hitSlop={DEFAULT_HIT_SLOP}
+            onPress={() => handleSubmit()}
+            style={styles.forgetPasswordButton}
+          >
             <Text style={[styles.title, { color: theme.colors.onTertiaryContainer }]}>
               {otpSent ? 'Verify OTP' : 'Send OTP'}
             </Text>

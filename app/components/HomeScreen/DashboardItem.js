@@ -4,6 +4,7 @@ import { Text, Avatar, Surface } from 'react-native-paper';
 import { useRouter } from 'expo-router';
 import { dashboardDataCount } from './utils';
 import getStyles from './style';
+import { DEFAULT_HIT_SLOP } from '../../constants/constants';
 
 const DashboardItem = () => {
   const styles = getStyles();
@@ -14,6 +15,7 @@ const DashboardItem = () => {
         <View style={styles.flexRow}>
           {dashboardDataCount.map((data) => (
             <TouchableOpacity
+              hitSlop={DEFAULT_HIT_SLOP}
               key={`${data.title} ${data.icon}`}
               onPress={() => (data.replace ? router.replace(data?.href) : router.push(data?.href))}
             >

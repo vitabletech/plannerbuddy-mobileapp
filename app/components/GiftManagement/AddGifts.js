@@ -115,7 +115,7 @@ const AddGifts = () => {
               label="Enter Amount"
               {...amountInput}
               keyboardType="numeric"
-              left={<TextInput.Icon icon="cash-multiple" />}
+              left={<TextInput.Icon label="cash-multiple" icon="cash-multiple" />}
               onSubmitEditing={() => notesRef.current.focus()}
             />
 
@@ -126,7 +126,7 @@ const AddGifts = () => {
               ref={notesRef}
               {...notesInput}
               multiline
-              left={<TextInput.Icon icon="text" />}
+              left={<TextInput.Icon icon="text" label="text" />}
             />
           </Dialog.Content>
           <Dialog.Actions>
