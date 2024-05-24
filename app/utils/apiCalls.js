@@ -129,6 +129,31 @@ export const deleteGift = (giftId) => {
   return handleRequest(() => customAxios.delete(`gift/${giftId}`));
 };
 
+/**
+ * Makes an API call to register a user.
+ *
+ * @param {Object} signupData - The data required for user registration.
+ * @returns {Promise} A promise that resolves to the response from the API call.
+ */
 export const onRegister = (signupData) => {
   return handleRequest(() => axios.post(`${API_URL}api/auth/signup`, signupData));
+};
+
+/**
+ * Sends a forget password request to the server.
+ * @param {string} email - The email address of the user.
+ * @returns {Promise} - A promise that resolves to the response from the server.
+ */
+export const forgetPassword = (email) => {
+  return handleRequest(() => axios.post(`${API_URL}api/user/forgetPassword`, email));
+};
+
+/**
+ * Verifies the OTP (One-Time Password) for a user.
+ *
+ * @param {Object} verifyOTPData - The data required to verify the OTP.
+ * @returns {Promise} A promise that resolves to the response from the server.
+ */
+export const verifyOTP = (verifyOTPData) => {
+  return handleRequest(() => axios.post(`${API_URL}api/user/verify-otp`, verifyOTPData));
 };

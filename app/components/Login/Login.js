@@ -9,6 +9,7 @@ import getStyles from './styles';
 import VTTextInput from '../VTTextInput/VTTextInput';
 import useInput from '../../hooks/useInput';
 import commonStyles from '../../styles/common.style';
+import ForgotPasswordSheet from './ForgotPasswordSheet';
 import { validateEmail, validatePassword } from '../../utils/validations';
 
 const Login = () => {
@@ -19,14 +20,12 @@ const Login = () => {
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
   const error = useSelector((state) => state.auth.error);
   const emailInput = useInput('', validateEmail);
-  const emailForgetInput = useInput('', validateEmail);
   const passwordInput = useInput('', validatePassword);
-
   const [loading, setLoading] = useState(false);
   const passwordInputRef = useRef(null);
+
   const login = async () => {
     setLoading(true);
-    // Trigger validation for all input fields
     emailInput.onBlur();
     passwordInput.onBlur();
     if (!emailInput.value || !passwordInput.value) {
@@ -41,13 +40,13 @@ const Login = () => {
     return true;
   };
 
-  const handleCloseForgetPassword = () => refRBSheet.current.close();
-
   return (
     <>
       <RBSheet
         ref={refRBSheet}
         height={400}
+        closeOnDragDown={false}
+        closeOnPressMask={false}
         customStyles={{
           container: {
             backgroundColor: theme.colors.surface,
@@ -58,33 +57,7 @@ const Login = () => {
         closeOnPressBack
         draggable
       >
-        <View style={styles.containerStyle}>
-          <Text
-            variant="titleLarge"
-            style={[styles.title, { color: theme.colors.onTertiaryContainer }]}
-          >
-            We will help you find your account
-          </Text>
-          <View style={styles.gapStyle}>
-            <VTTextInput
-              label="Enter Your Email"
-              {...emailForgetInput}
-              left={<TextInput.Icon icon="account" />}
-            />
-            <Text
-              variant="labelLarge"
-              style={[styles.title, { color: theme.colors.onTertiaryContainer }]}
-            >
-              OTP will be sent through mail
-            </Text>
-            <TouchableOpacity
-              onPress={handleCloseForgetPassword}
-              style={styles.forgetPasswordButton}
-            >
-              <Text style={[styles.title, { color: theme.colors.onTertiaryContainer }]}>Send</Text>
-            </TouchableOpacity>
-          </View>
-        </View>
+        <ForgotPasswordSheet refRBSheet={refRBSheet} />
       </RBSheet>
       <View style={styles.textContainer}>
         <Text style={styles.textAlignCenter} variant="displaySmall">

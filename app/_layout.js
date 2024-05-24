@@ -45,16 +45,6 @@ const RootLayout = () => {
       },
     },
     {
-      name: 'forget',
-      options: {
-        presentation: 'modal',
-        title: 'Forget Password',
-        headerStyle: { backgroundColor: theme.colors.onPrimaryContainer },
-        headerTintColor: theme.colors.onSurface,
-        headerShown: Platform.OS !== 'ios',
-      },
-    },
-    {
       name: 'eventDetails',
       options: {
         title: 'Event Details',

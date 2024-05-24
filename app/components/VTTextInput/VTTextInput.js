@@ -11,7 +11,7 @@ const VTTextInput = forwardRef(
       <View>
         <TextInput
           style={style === undefined ? styles.input : styles.textInput}
-          mode="outlined"
+          mode="flat"
           label={label}
           value={value}
           onChangeText={onChangeText}
