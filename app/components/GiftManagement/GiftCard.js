@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { View, Alert } from 'react-native';
-import { Card, Divider, IconButton, Text } from 'react-native-paper';
+import { Card, Divider, IconButton, Text, Chip } from 'react-native-paper';
 import { useDispatch } from 'react-redux';
 import { AvatarIcon } from '../../utils/utils';
 import getStyles from './styles';
@@ -58,9 +58,7 @@ const GiftCard = ({ data }) => {
           </Text>
         </View>
         <View style={styles.notes}>
-          <Text variant="titleMedium" style={styles.text}>
-            isYourGift : {isYourGift}
-          </Text>
+          {isYourGift === 'yes' && <Chip icon="information">Received</Chip>}
         </View>
       </Card.Content>
     </Card>

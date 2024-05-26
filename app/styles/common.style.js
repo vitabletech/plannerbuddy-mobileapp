@@ -49,6 +49,10 @@ const commonStyles = () => {
     dialogButtons: {
       color: theme.colors.onTertiaryContainer,
     },
+    divider: {
+      height: 1,
+      marginVertical: 10,
+    },
     flex1: {
       flex: 1,
     },
@@ -58,10 +62,31 @@ const commonStyles = () => {
     flexRow: {
       flexDirection: 'row',
     },
+    giftContainer: {
+      alignItems: 'center',
+      flex: 1,
+      flexDirection: 'row',
+      justifyContent: 'space-between',
+    },
+    giftSaveButton: {
+      flexDirection: 'row',
+      justifyContent: 'flex-end',
+    },
+    giftToggle: {
+      alignItems: 'center',
+      flexDirection: 'row',
+      gap: 15,
+    },
     guestCardMargin: {
       marginVertical: 4,
     },
     guestCardRightButtonMargin: { marginRight: 10 },
+    h100: {
+      height: '100%',
+    },
+    hAuto: {
+      height: 'auto',
+    },
     inputField: {
       marginVertical: 10,
     },

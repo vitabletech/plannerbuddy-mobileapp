@@ -22,7 +22,12 @@ const VTBottomSheet = ({ content }) => {
   return (
     <GestureHandlerRootView style={styles.content}>
       <View style={styles.container}>
-        <Image source={image} style={styles.image} resizeMode="contain" />
+        <Image
+          source={image}
+          style={styles.image}
+          resizeMode="contain"
+          aria-label="plannerBuddyLogo"
+        />
         <RBSheet
           ref={refRBSheet}
           height={sheetHeight}

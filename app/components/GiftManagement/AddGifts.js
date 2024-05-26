@@ -1,6 +1,7 @@
+/* eslint-disable react-native/no-inline-styles */
 import React, { useRef, useEffect, useState } from 'react';
 import { View, Alert } from 'react-native'; // Import Alert from react-native
-import { TextInput, Button, Dialog } from 'react-native-paper';
+import { TextInput, Button, Dialog, Switch, Text, useTheme } from 'react-native-paper';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { useSelector, useDispatch } from 'react-redux';
 import commonStyles from '../../styles/common.style';
@@ -11,17 +12,18 @@ import VTDropDown from '../VTDropDown/VTDropDown';
 import { fetchGuest } from '../../store/GuestContext';
 import { giftsActions } from '../../store/reducers/giftSlice';
 import { fetchEvents } from '../../store/EventContext';
+import { addGift } from '../../utils/apiCalls';
 
 const AddGifts = () => {
   const dispatch = useDispatch();
+  const theme = useTheme();
   const events = useSelector((state) => state.event.events);
-  const gifts = useSelector((state) => state.gift.gifts);
   const styles = { ...getStyles(), ...commonStyles() };
   const page = useSelector((state) => state.guest.page);
   const guests = useSelector((state) => state.guest.guests);
   const [guestList, setGuestList] = useState([]);
   const [eventsList, setEventsList] = useState([]);
-
+  const [isYourGift, setIsYourGift] = useState(false);
   const [selectedGuest, setSelectedGuest] = useState('');
   const [selectedEvent, setSelectedEvent] = useState('');
   const [isGuestValid, setIsGuestValid] = useState(false); // State for guest validation
@@ -57,9 +59,7 @@ const AddGifts = () => {
     }
     return null;
   });
-  const notesInput = useInput('', (value) =>
-    value.trim() !== '' ? null : 'Enter something to remember',
-  );
+  const notesInput = useInput('', () => {});
   // Create refs for the inputs
   const notesRef = useRef(null);
 
@@ -71,15 +71,31 @@ const AddGifts = () => {
       Alert.alert('Validation Error', 'Please select guest and event');
       return;
     }
-    const giftDetails = {
-      giftId: gifts.length,
-      eventId: selectedEvent,
-      guestId: selectedGuest,
-      amount: amountInput.value,
-      note: notesInput.value,
-    };
-    dispatch(giftsActions.addGift({ gift: { ...giftDetails } }));
-    closeDialog();
+
+    const giftDetails = {};
+
+    if (selectedEvent) giftDetails.eventId = selectedEvent;
+    if (selectedGuest) giftDetails.guestId = selectedGuest;
+    if (amountInput.value) giftDetails.amount = amountInput.value;
+    if (notesInput.value) giftDetails.note = notesInput.value;
+    giftDetails.isYourGift = isYourGift ? 'yes' : 'no';
+
+    addGift(giftDetails).then((response) => {
+      if (response.data.giftId) {
+        dispatch(
+          giftsActions.addGift({
+            gift: {
+              ...giftDetails,
+              giftId: response.data.giftId,
+              guestName: guestList.find((guest) => guest.value === selectedGuest).label,
+              eventName: eventsList.find((event) => event.value === selectedEvent).label,
+            },
+          }),
+        );
+      }
+      Alert.alert(!response.error ? 'Success' : 'Fail', response.message);
+      closeDialog();
+    });
   };
 
   return (
@@ -110,7 +126,7 @@ const AddGifts = () => {
                 setIsGuestValid(!!value);
               }}
             />
-
+            <View style={{ margin: 3 }} />
             <VTTextInput
               label="Enter Amount"
               {...amountInput}
@@ -118,20 +134,29 @@ const AddGifts = () => {
               left={<TextInput.Icon label="cash-multiple" icon="cash-multiple" />}
               onSubmitEditing={() => notesRef.current.focus()}
             />
-
+            <View style={{ margin: 5 }} />
             <TextInput
               label="Notes"
-              mode="outlined"
+              mode="flat"
               value={notesInput}
               ref={notesRef}
               {...notesInput}
               multiline
+              theme={{ colors: { primary: theme.colors.onSurface } }}
               left={<TextInput.Icon icon="text" label="text" />}
             />
           </Dialog.Content>
           <Dialog.Actions>
-            <Button onPress={closeDialog}>Cancel</Button>
-            <Button onPress={handleAddGift}>Save</Button>
+            <View style={styles.giftContainer}>
+              <View style={styles.giftToggle}>
+                <Text>Received</Text>
+                <Switch value={isYourGift} onValueChange={() => setIsYourGift((state) => !state)} />
+              </View>
+              <View style={styles.giftSaveButton}>
+                <Button onPress={closeDialog}>Cancel</Button>
+                <Button onPress={handleAddGift}>Save</Button>
+              </View>
+            </View>
           </Dialog.Actions>
         </KeyboardAwareScrollView>
       </View>

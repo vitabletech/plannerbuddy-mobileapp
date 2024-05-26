@@ -20,11 +20,14 @@ const WelcomeContainer = () => {
             size: 45,
             label: name[0] || '',
             labelStyle: {
-              color: theme.colors.inversePrimary,
-              backgroundColor: theme.colors.primaryContainer,
+              color: theme.colors.primaryContainer,
+              backgroundColor: theme.colors.primary,
               borderRadius: 50,
+              borderWidth: 2,
+              borderColor: theme.colors.primaryContainer,
               width: 50,
               height: 50,
+              fontWeight: 'bold',
             },
           })
         }

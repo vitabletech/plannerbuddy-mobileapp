@@ -1,6 +1,6 @@
 import React, { useRef, useState } from 'react';
-import { View, TouchableOpacity, Alert } from 'react-native';
-import { Text, TextInput, Divider } from 'react-native-paper';
+import { TouchableOpacity, Alert } from 'react-native';
+import { Text, TextInput, Divider, Button } from 'react-native-paper';
 import { Link, useRouter } from 'expo-router';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import VTTextInput from '../VTTextInput/VTTextInput';
@@ -125,14 +125,11 @@ const Signup = () => {
         <Text style={styles.white}>Sign Up</Text>
       </TouchableOpacity>
       <Divider style={styles.divider} />
-      <View style={styles.positionCenter}>
-        <Text>Already have an account? </Text>
-        <Link replace href="/" asChild>
-          <TouchableOpacity hitSlop={DEFAULT_HIT_SLOP}>
-            <Text style={styles.loginText}>Log in</Text>
-          </TouchableOpacity>
-        </Link>
-      </View>
+      <Link replace href="/" asChild>
+        <TouchableOpacity hitSlop={DEFAULT_HIT_SLOP}>
+          <Button mode="outlined">Log in</Button>
+        </TouchableOpacity>
+      </Link>
     </KeyboardAwareScrollView>
   );
 };

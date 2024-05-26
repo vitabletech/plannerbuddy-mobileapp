@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { View, TouchableOpacity, Alert } from 'react-native';
-import { useTheme, Text, TextInput, ActivityIndicator, Button } from 'react-native-paper';
+import { useTheme, Text, TextInput, ActivityIndicator, Divider } from 'react-native-paper';
 import { Link } from 'expo-router';
 import { useDispatch, useSelector } from 'react-redux';
 import RBSheet from 'react-native-raw-bottom-sheet';
@@ -24,12 +24,14 @@ const Login = () => {
   const passwordInput = useInput('', validatePassword);
   const [loading, setLoading] = useState(false);
   const passwordInputRef = useRef(null);
+  const [prevError, setPrevError] = useState(null);
 
   useEffect(() => {
-    if (error) {
+    if (error && error !== prevError) {
       Alert.alert('Error', error, [
         { text: 'OK', onPress: () => dispatch(authActions.clearError()) },
       ]);
+      setPrevError(error);
     }
   }, [error]);
   const login = async () => {
@@ -72,7 +74,7 @@ const Login = () => {
           Please enter your login details to continue
         </Text>
       </View>
-      <View>
+      <View style={styles.flex1}>
         <VTTextInput
           label="Enter Your Email"
           {...emailInput}
@@ -95,23 +97,37 @@ const Login = () => {
         {loading ? (
           <ActivityIndicator style={styles.outlineButton} color={theme.colors.onPrimary} />
         ) : (
-          <TouchableOpacity hitSlop={DEFAULT_HIT_SLOP} onPress={login} style={styles.outlineButton}>
-            <Text style={{ color: theme.colors.white }}>Log in</Text>
+          <TouchableOpacity
+            hitSlop={DEFAULT_HIT_SLOP}
+            onPress={() => login()}
+            style={styles.loginButton}
+          >
+            <Text variant="titleSmall" style={[styles.title, { color: theme.colors.white }]}>
+              Log in
+            </Text>
           </TouchableOpacity>
         )}
-        <View style={styles.positionCenter}>
-          <Text>Don’t have any account? </Text>
-          <Link href="/register" asChild>
-            <TouchableOpacity hitSlop={DEFAULT_HIT_SLOP}>
-              <Text style={styles.signUpForget}>Signup</Text>
-            </TouchableOpacity>
-          </Link>
-        </View>
-        <View style={styles.positionCenter}>
-          <Button onPress={() => refRBSheet.current.open()}>
-            <Text style={styles.signUpForget}>Forgot password ?</Text>
-          </Button>
-        </View>
+        <Divider style={styles.divider} />
+        <Link href="/register" asChild>
+          <TouchableOpacity
+            hitSlop={DEFAULT_HIT_SLOP}
+            onPress={() => refRBSheet.current.open()}
+            style={styles.signUpButton}
+          >
+            <Text variant="titleSmall" style={[styles.title, { color: theme.colors.primary }]}>
+              Signup
+            </Text>
+          </TouchableOpacity>
+        </Link>
+        <TouchableOpacity
+          hitSlop={DEFAULT_HIT_SLOP}
+          onPress={() => refRBSheet.current.open()}
+          style={styles.loginButton}
+        >
+          <Text variant="titleSmall" style={[styles.title, { color: theme.colors.white }]}>
+            Forgot password ?
+          </Text>
+        </TouchableOpacity>
       </View>
     </>
   );

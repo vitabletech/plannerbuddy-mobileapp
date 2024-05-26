@@ -26,13 +26,18 @@ const getStyles = () => {
       resizeMode: 'contain',
       width: '100%',
     },
+    loginButton: {
+      backgroundColor: theme.colors.primary,
+      borderRadius: 20,
+      marginTop: 10,
+      paddingHorizontal: 'auto',
+      paddingVertical: 10,
+    },
     outlineButton: {
       alignItems: 'center',
       backgroundColor: theme.colors.primary,
-      borderRadius: 4,
       borderWidth: 1,
       marginVertical: 8,
-      padding: 12,
     },
     positionCenter: {
       alignItems: 'center',
@@ -48,7 +53,15 @@ const getStyles = () => {
       flexDirection: 'row',
       justifyContent: 'space-between',
     },
-    signUpForget: { color: theme.colors.onTertiaryContainer, fontWeight: 'bold' },
+    signUpButton: {
+      backgroundColor: theme.colors.primaryContainer,
+      borderColor: theme.colors.primary,
+      borderRadius: 20,
+      borderWidth: 1,
+      marginTop: 10,
+      paddingHorizontal: 'auto',
+      paddingVertical: 10,
+    },
     textAlignCenter: {
       textAlign: 'center',
       width: '100%',

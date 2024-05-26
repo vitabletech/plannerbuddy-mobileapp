@@ -101,7 +101,6 @@ const AddEventModal = () => {
     if (isValid) {
       const isYourEvent = eventState === 'ownEvent' ? 'yes' : 'no';
       if (isYourEvent === 'no' && !selectedGuest) {
-        // event.guests[{ guestId: selectedGuest, name: 'Guest', phone: '1234567890'}];
         Alert.alert('Error', 'Please select a guest');
         return;
       }
@@ -113,6 +112,7 @@ const AddEventModal = () => {
         eventLocation: event.address,
       }).then((response) => {
         if (!response.error) {
+          const currentGuest = totalGuests.find((guest) => guest.id === selectedGuest);
           dispatch(
             eventActions.addEvent({
               event: {
@@ -120,6 +120,13 @@ const AddEventModal = () => {
                 id: response.eventId,
                 isYourEvent,
                 date: new Date(selectedDate).toISOString(),
+                guests: [
+                  {
+                    guestId: selectedGuest,
+                    name: currentGuest.name,
+                    phone: currentGuest.phone,
+                  },
+                ],
               },
             }),
           );

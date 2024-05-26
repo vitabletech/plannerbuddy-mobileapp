@@ -4,10 +4,6 @@ import { useTheme } from 'react-native-paper';
 const getStyles = () => {
   const theme = useTheme();
   return StyleSheet.create({
-    divider: {
-      height: 1,
-      marginVertical: 10,
-    },
     loginText: { color: theme.colors.onTertiaryContainer, fontWeight: 'bold' },
     outlineButton: {
       alignItems: 'center',
