@@ -1,5 +1,5 @@
 import React, { useRef, useState } from 'react';
-import { TouchableOpacity, Alert } from 'react-native';
+import { TouchableOpacity, Alert, View } from 'react-native';
 import { Text, TextInput, Divider, Button } from 'react-native-paper';
 import { Link, useRouter } from 'expo-router';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
@@ -124,7 +124,11 @@ const Signup = () => {
       >
         <Text style={styles.white}>Sign Up</Text>
       </TouchableOpacity>
-      <Divider style={styles.divider} />
+      <View style={styles.dividerContiner}>
+        <Divider style={styles.divider} />
+        <Text style={styles.marginHorizontal}>OR</Text>
+        <Divider style={styles.divider} />
+      </View>
       <Link replace href="/" asChild>
         <TouchableOpacity hitSlop={DEFAULT_HIT_SLOP}>
           <Button mode="outlined">Log in</Button>

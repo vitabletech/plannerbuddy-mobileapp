@@ -8,10 +8,10 @@ const getStyles = () => {
     outlineButton: {
       alignItems: 'center',
       backgroundColor: theme.colors.primary,
-      borderRadius: 4,
+      borderRadius: 50,
       borderWidth: 1,
-      marginVertical: 8,
-      padding: 12,
+      marginTop: 8,
+      padding: 8,
     },
     positionCenter: {
       alignItems: 'center',

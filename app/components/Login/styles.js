@@ -58,7 +58,6 @@ const getStyles = () => {
       borderColor: theme.colors.primary,
       borderRadius: 20,
       borderWidth: 1,
-      marginTop: 10,
       paddingHorizontal: 'auto',
       paddingVertical: 10,
     },

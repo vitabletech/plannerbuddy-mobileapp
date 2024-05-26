@@ -107,7 +107,11 @@ const Login = () => {
             </Text>
           </TouchableOpacity>
         )}
-        <Divider style={styles.divider} />
+        <View style={styles.dividerContiner}>
+          <Divider style={styles.divider} />
+          <Text style={styles.marginHorizontal}>OR</Text>
+          <Divider style={styles.divider} />
+        </View>
         <Link href="/register" asChild>
           <TouchableOpacity
             hitSlop={DEFAULT_HIT_SLOP}

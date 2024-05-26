@@ -52,6 +52,13 @@ const commonStyles = () => {
     divider: {
       height: 1,
       marginVertical: 10,
+      width: '40%',
+    },
+    dividerContiner: {
+      alignItems: 'center',
+      flexDirection: 'row',
+      justifyContent: 'center',
+      marginVertical: 10,
     },
     flex1: {
       flex: 1,
@@ -101,6 +108,9 @@ const commonStyles = () => {
     mainContainer: {
       backgroundColor: theme.colors.primaryContainer,
       flex: 1,
+    },
+    marginHorizontal: {
+      marginHorizontal: 10,
     },
     mb10: {
       marginBottom: 10,
