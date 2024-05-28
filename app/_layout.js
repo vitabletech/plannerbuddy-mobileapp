@@ -21,24 +21,10 @@ const RootLayout = () => {
       options: { headerShown: false },
     },
     {
-      name: 'register',
-      options: { headerShown: false },
-    },
-    {
       name: 'help',
       options: {
         presentation: 'modal',
         title: 'Chat Support',
-        headerStyle: { backgroundColor: theme.colors.onPrimaryContainer },
-        headerTintColor: theme.colors.onSurface,
-        headerShown: Platform.OS !== 'ios',
-      },
-    },
-    {
-      name: 'privacy',
-      options: {
-        presentation: 'modal',
-        title: 'Privacy',
         headerStyle: { backgroundColor: theme.colors.onPrimaryContainer },
         headerTintColor: theme.colors.onSurface,
         headerShown: Platform.OS !== 'ios',

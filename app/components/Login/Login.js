@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
+import PropTypes from 'prop-types';
 import { View, TouchableOpacity, Alert } from 'react-native';
 import { useTheme, Text, TextInput, ActivityIndicator, Divider } from 'react-native-paper';
-import { Link } from 'expo-router';
 import { useDispatch, useSelector } from 'react-redux';
 import RBSheet from 'react-native-raw-bottom-sheet';
 import { onLogin, authActions } from '../../store/reducers/authSlice';
@@ -13,7 +13,7 @@ import ForgotPasswordSheet from './ForgotPasswordSheet';
 import { validateEmail, validatePassword } from '../../utils/validations';
 import { DEFAULT_HIT_SLOP } from '../../constants/constants';
 
-const Login = () => {
+const Login = ({ switchScreen }) => {
   const theme = useTheme();
   const styles = { ...getStyles(), ...commonStyles() };
   const dispatch = useDispatch();
@@ -24,14 +24,12 @@ const Login = () => {
   const passwordInput = useInput('', validatePassword);
   const [loading, setLoading] = useState(false);
   const passwordInputRef = useRef(null);
-  const [prevError, setPrevError] = useState(null);
 
   useEffect(() => {
-    if (error && error !== prevError) {
+    if (error) {
       Alert.alert('Error', error, [
         { text: 'OK', onPress: () => dispatch(authActions.clearError()) },
       ]);
-      setPrevError(error);
     }
   }, [error]);
   const login = async () => {
@@ -43,6 +41,7 @@ const Login = () => {
       return false;
     }
     await dispatch(onLogin({ email: emailInput.value, password: passwordInput.value }));
+    passwordInput.reset();
     setLoading(false);
     return true;
   };
@@ -85,7 +84,8 @@ const Login = () => {
           label="Enter Password"
           ref={passwordInputRef}
           secureTextEntry={!isPasswordVisible}
-          left={
+          left={<TextInput.Icon icon="lock" label="password" />}
+          right={
             <TextInput.Icon
               label="password"
               icon={isPasswordVisible ? 'eye' : 'eye-off'}
@@ -112,17 +112,15 @@ const Login = () => {
           <Text style={styles.marginHorizontal}>OR</Text>
           <Divider style={styles.divider} />
         </View>
-        <Link href="/register" asChild>
-          <TouchableOpacity
-            hitSlop={DEFAULT_HIT_SLOP}
-            onPress={() => refRBSheet.current.open()}
-            style={styles.signUpButton}
-          >
-            <Text variant="titleSmall" style={[styles.title, { color: theme.colors.primary }]}>
-              Signup
-            </Text>
-          </TouchableOpacity>
-        </Link>
+        <TouchableOpacity
+          hitSlop={DEFAULT_HIT_SLOP}
+          onPress={() => switchScreen()}
+          style={styles.signUpButton}
+        >
+          <Text variant="titleSmall" style={[styles.title, { color: theme.colors.primary }]}>
+            Signup
+          </Text>
+        </TouchableOpacity>
         <TouchableOpacity
           hitSlop={DEFAULT_HIT_SLOP}
           onPress={() => refRBSheet.current.open()}
@@ -137,4 +135,7 @@ const Login = () => {
   );
 };
 
+Login.propTypes = {
+  switchScreen: PropTypes.func.isRequired,
+};
 export default Login;

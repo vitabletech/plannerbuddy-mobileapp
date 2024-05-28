@@ -22,7 +22,7 @@ const WelcomeContainer = () => {
             labelStyle: {
               color: theme.colors.primaryContainer,
               backgroundColor: theme.colors.primary,
-              borderRadius: 50,
+              borderRadius: 25,
               borderWidth: 2,
               borderColor: theme.colors.primaryContainer,
               width: 50,

@@ -22,6 +22,8 @@ const VTTextInput = forwardRef(
           autoCapitalize="none"
           accessibilityLabel={label}
           accessible
+          underlineColor="transparent"
+          // error
           theme={{ colors: { primary: theme.colors.onSurface } }}
         />
         {error && (
@@ -36,7 +38,7 @@ const VTTextInput = forwardRef(
 
 VTTextInput.defaultProps = {
   onBlur: () => {},
-  error: 'Field is required',
+  error: false,
   onChangeText: () => {},
   label: 'Default Label',
   value: '',

@@ -38,7 +38,7 @@ export const LIGHT_THEME_COLORS = {
       level4: 'rgb(241, 229, 241)',
       level5: 'rgb(239, 225, 238)',
     },
-    surfaceDisabled: 'rgba(30, 26, 29, 0.12)',
+    surfaceDisabled: '#F5F2F5',
     onSurfaceDisabled: 'rgba(30, 26, 29, 0.38)',
     backdrop: 'rgba(55, 46, 53, 0.4)',
   },

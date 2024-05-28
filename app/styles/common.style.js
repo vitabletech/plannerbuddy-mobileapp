@@ -177,6 +177,14 @@ const commonStyles = () => {
       justifyContent: 'center',
       marginRight: 12,
     },
+    signUpButton: {
+      backgroundColor: theme.colors.primaryContainer,
+      borderColor: theme.colors.primary,
+      borderRadius: 8,
+      borderWidth: 1,
+      paddingHorizontal: 'auto',
+      paddingVertical: 10,
+    },
     textDecorationLine: {
       textDecorationLine: 'underline',
     },

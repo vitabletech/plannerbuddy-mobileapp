@@ -31,7 +31,7 @@
         "backgroundColor": "#ffffff"
       },
       "package": "com.vitabletech.plannerbuddy",
-      "versionCode": 3,
+      "versionCode": 6,
       "permissions": [
         "android.permission.READ_CONTACTS"
       ]

@@ -1,7 +1,8 @@
 import React, { useRef, useState } from 'react';
+import PropTypes from 'prop-types';
 import { TouchableOpacity, Alert, View } from 'react-native';
-import { Text, TextInput, Divider, Button } from 'react-native-paper';
-import { Link, useRouter } from 'expo-router';
+import { Text, TextInput, Divider, useTheme } from 'react-native-paper';
+import { useRouter } from 'expo-router';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import VTTextInput from '../VTTextInput/VTTextInput';
 import useInput from '../../hooks/useInput';
@@ -11,9 +12,10 @@ import { onRegister } from '../../utils/apiCalls';
 import { validateEmail, validateName } from '../../utils/validations';
 import { DEFAULT_HIT_SLOP } from '../../constants/constants';
 
-const Signup = () => {
+const Signup = ({ switchScreen }) => {
   const styles = { ...getStyles(), ...commonStyles() };
   const router = useRouter();
+  const theme = useTheme();
   const emailInputRef = useRef(null);
   const passwordInputRef = useRef(null);
   const confirmPasswordInputRef = useRef(null);
@@ -94,7 +96,8 @@ const Signup = () => {
         label="Enter Password"
         ref={passwordInputRef}
         secureTextEntry={!isPasswordVisible}
-        left={
+        left={<TextInput.Icon label="cpassword" icon="lock" />}
+        right={
           <TextInput.Icon
             label="password"
             icon={isPasswordVisible ? 'eye' : 'eye-off'}
@@ -109,7 +112,8 @@ const Signup = () => {
         ref={confirmPasswordInputRef}
         secureTextEntry={!isCPasswordVisible}
         {...confirmPasswordInput}
-        left={
+        left={<TextInput.Icon label="cpassword" icon="lock" />}
+        right={
           <TextInput.Icon
             label="cpassword"
             icon={isCPasswordVisible ? 'eye' : 'eye-off'}
@@ -129,13 +133,20 @@ const Signup = () => {
         <Text style={styles.marginHorizontal}>OR</Text>
         <Divider style={styles.divider} />
       </View>
-      <Link replace href="/" asChild>
-        <TouchableOpacity hitSlop={DEFAULT_HIT_SLOP}>
-          <Button mode="outlined">Log in</Button>
-        </TouchableOpacity>
-      </Link>
+      <TouchableOpacity
+        hitSlop={DEFAULT_HIT_SLOP}
+        style={styles.signUpButton}
+        onPress={() => switchScreen()}
+      >
+        <Text variant="titleSmall" style={[styles.title, { color: theme.colors.primary }]}>
+          Log in
+        </Text>
+      </TouchableOpacity>
     </KeyboardAwareScrollView>
   );
 };
 
+Signup.propTypes = {
+  switchScreen: PropTypes.func.isRequired,
+};
 export default Signup;
