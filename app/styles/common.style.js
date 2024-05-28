@@ -58,7 +58,7 @@ const commonStyles = () => {
       alignItems: 'center',
       flexDirection: 'row',
       justifyContent: 'center',
-      marginVertical: 10,
+      marginVertical: 20,
     },
     flex1: {
       flex: 1,

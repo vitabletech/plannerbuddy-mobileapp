@@ -51,8 +51,6 @@ const Login = ({ switchScreen }) => {
       <RBSheet
         ref={refRBSheet}
         height={400}
-        closeOnDragDown={false}
-        closeOnPressMask={false}
         customStyles={{
           container: {
             backgroundColor: theme.colors.surface,

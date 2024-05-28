@@ -67,10 +67,7 @@ const ForgotPasswordSheet = ({ refRBSheet }) => {
 
   return (
     <View style={styles.containerStyle}>
-      <Text
-        variant="titleLarge"
-        style={[styles.title, { color: theme.colors.onTertiaryContainer }]}
-      >
+      <Text variant="titleLarge" style={styles.title}>
         {otpSent ? 'Enter OTP' : 'We will help you find your account'}
       </Text>
       <View style={styles.gapStyle}>
@@ -95,7 +92,7 @@ const ForgotPasswordSheet = ({ refRBSheet }) => {
           <TouchableOpacity
             hitSlop={DEFAULT_HIT_SLOP}
             onPress={() => handleSubmit()}
-            style={styles.forgetPasswordButton}
+            style={styles.signUpButton}
           >
             <Text style={[styles.title, { color: theme.colors.onTertiaryContainer }]}>
               {otpSent ? 'Verify OTP' : 'Send OTP'}
