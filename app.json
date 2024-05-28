@@ -28,7 +28,7 @@
       "userInterfaceStyle": "automatic",
       "adaptiveIcon": {
         "foregroundImage": "./app/assets/icon.png",
-        "backgroundColor": "#672765"
+        "backgroundColor": "#ffffff"
       },
       "package": "com.vitabletech.plannerbuddy",
       "versionCode": 6,
