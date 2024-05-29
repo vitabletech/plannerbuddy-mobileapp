@@ -24,7 +24,7 @@ const VTTextInput = forwardRef(
           accessible
           underlineColor="transparent"
           // error
-          theme={{ colors: { primary: theme.colors.onSurface } }}
+          theme={{ colors: { primary: theme.colors.outline } }}
         />
         {error && (
           <HelperText type="error" visible={error}>

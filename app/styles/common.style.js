@@ -9,7 +9,7 @@ const commonStyles = () => {
     },
     absolutePositionBottomRight: {
       alignSelf: 'flex-end',
-      backgroundColor: theme.colors.onPrimary,
+      backgroundColor: theme.colors.white,
       bottom: 15,
       position: 'absolute',
       right: 15,
@@ -18,7 +18,7 @@ const commonStyles = () => {
     alignItems_center: {
       alignItems: 'center',
     },
-    bgWhite: { backgroundColor: theme.colors.white },
+    bgWhite: { backgroundColor: theme.colors.background },
     borderColorWhite: { borderColor: theme.colors.white },
     borderLine: { borderBottomWidth: 1, borderColor: theme.colors.primary, paddingBottom: 5 },
     button: {

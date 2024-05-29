@@ -78,7 +78,7 @@ const GiftsHome = () => {
           animateFrom="right"
           iconMode="dynamic"
           style={styles.absolutePositionBottomRight}
-          color={theme.colors.onSurface}
+          color={theme.colors.primary}
         />
       </View>
     </View>

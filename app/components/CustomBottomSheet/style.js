@@ -19,6 +19,7 @@ const getStyles = () => {
       flex: 1,
     },
     contentContainer: {
+      backgroundColor: theme.colors.white,
       flex: 1,
       padding: 20,
     },

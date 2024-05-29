@@ -140,7 +140,7 @@ const profile = () => {
         }}
       />
       {updatedPassword && (
-        <InputDialog visible={updatedPassword} onDismiss={handleCancel}>
+        <InputDialog visible={updatedPassword} onDismiss={handleCancel} style={classes.bgWhite}>
           <Dialog.Title>Change Password</Dialog.Title>
 
           <Dialog.Content>
@@ -224,7 +224,7 @@ const profile = () => {
         {enableEdit && (
           <InputDialog visible={enableEdit} onDismiss={() => setEnableEdit((state) => !state)}>
             <Dialog.Title>Edit Profile</Dialog.Title>
-            <Dialog.Content>
+            <Dialog.Content style={classes.bgWhite}>
               <VTTextInput
                 label="Name"
                 {...nameInput}

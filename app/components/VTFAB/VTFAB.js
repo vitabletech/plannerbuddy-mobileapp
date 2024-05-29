@@ -15,7 +15,7 @@ const VTFAB = ({ children, actionsButton = [], iconOpen = 'menu', iconClose = 'c
   const { open } = state;
   const defaultOptions = [...SETTING_ACTIONS(navigation)];
   let actions = actionsButton.length ? actionsButton : defaultOptions;
-  actions = actions.map((item) => ({ ...item, color: theme.colors.onSurface }));
+  actions = actions.map((item) => ({ ...item, color: theme.colors.primary }));
 
   return (
     <Portal.Host>
@@ -27,6 +27,7 @@ const VTFAB = ({ children, actionsButton = [], iconOpen = 'menu', iconClose = 'c
         actions={actions}
         onStateChange={onStateChange}
         fabStyle={styles.FAB}
+        color={theme.colors.primary}
       />
     </Portal.Host>
   );

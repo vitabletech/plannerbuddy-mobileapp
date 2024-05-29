@@ -25,7 +25,7 @@ export const LIGHT_THEME_COLORS = {
     surfaceVariant: 'rgb(238, 222, 231)',
     onSurfaceVariant: 'rgb(78, 68, 75)',
     outline: 'rgb(128, 116, 124)',
-    outlineVariant: 'rgb(209, 195, 203)',
+    outlineVariant: '#B7A6B5',
     shadow: 'rgb(29, 29, 29)',
     scrim: 'rgb(0, 0, 0)',
     inverseSurface: 'rgb(52, 47, 50)',
@@ -46,10 +46,10 @@ export const LIGHT_THEME_COLORS = {
 };
 export const DARK_THEME_COLORS = {
   colors: {
-    white: 'white',
+    white: '#191919',
     primary: '#191919',
     onPrimary: 'rgb(72, 43, 68)',
-    primaryContainer: '#50424F',
+    primaryContainer: 'black',
     onPrimaryContainer: 'rgb(71, 20, 59)',
     secondary: 'rgb(79, 216, 235)',
     onSecondary: 'rgb(0, 54, 61)',
@@ -63,7 +63,7 @@ export const DARK_THEME_COLORS = {
     onError: 'rgb(105, 0, 5)',
     errorContainer: 'rgb(147, 0, 10)',
     onErrorContainer: 'rgb(255, 180, 171)',
-    background: 'rgb(30, 26, 29)',
+    background: '#191919',
     onBackground: 'rgb(233, 224, 228)',
     surface: 'rgb(30, 26, 29)',
     onSurface: 'rgb(233, 224, 228)',
