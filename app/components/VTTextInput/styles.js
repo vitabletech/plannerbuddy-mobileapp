@@ -10,7 +10,7 @@ const getStyles = () => {
       borderTopLeftRadius: 8,
       borderTopRightRadius: 8,
       borderWidth: 0,
-      marginVertical: 2,
+      marginVertical: 5,
       multiline: true,
       textAlignVertical: 'top',
       width: 'auto',

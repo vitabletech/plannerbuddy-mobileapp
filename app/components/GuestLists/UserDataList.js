@@ -1,28 +1,17 @@
 import React from 'react';
-import { Avatar, Card, Text, IconButton } from 'react-native-paper';
+import { Avatar, Card, IconButton, Text } from 'react-native-paper';
 import PropTypes from 'prop-types';
 import { View, Alert } from 'react-native';
 import { useDispatch } from 'react-redux';
-import { AvatarText, askForConfirmation } from '../../utils/utils';
+import { askForConfirmation } from '../../utils/utils';
 import { guestActions } from '../../store/GuestContext';
 import commonStyles from '../../styles/common.style';
+import getStyles from './style';
 import { deleteGuest } from '../../utils/apiCalls';
 
-const toggleContactSelection = (setSelectedContacts, contactId) => {
-  setSelectedContacts((prevSelectedContacts) => {
-    if (prevSelectedContacts.includes(contactId)) {
-      return prevSelectedContacts.filter((id) => id !== contactId);
-    }
-    return [...prevSelectedContacts, contactId];
-  });
-};
-
-const selector = (selectedContacts, contactId) =>
-  selectedContacts?.includes(contactId) ? <Avatar.Icon size={25} icon="check" /> : '';
-
-const UserDataList = ({ userData, selectedContacts, setSelectedContacts, selectMode }) => {
+const UserDataList = ({ userData }) => {
   const dispatch = useDispatch();
-  const styles = commonStyles();
+  const styles = { ...getStyles(), ...commonStyles() };
 
   const handleRemoveEvent = () => {
     askForConfirmation(
@@ -46,52 +35,42 @@ const UserDataList = ({ userData, selectedContacts, setSelectedContacts, selectM
     dispatch(guestActions.openDialog());
   };
 
-  const cardOptions = () => {
-    return (
-      <View style={styles.flexRow}>
-        <IconButton icon="pencil-outline" onPress={handleEditGuest} />
-        <IconButton icon="delete-outline" onPress={handleRemoveEvent} />
-      </View>
-    );
-  };
-
   return (
-    <Card
-      style={styles.guestCardMargin}
-      onPress={() => toggleContactSelection(setSelectedContacts, userData.id)}
-    >
-      <Card.Title
-        title={`${userData?.name} - ${userData?.id}`}
-        subtitle={`Contact : ${userData?.phone} `}
-        left={(props) =>
-          AvatarText({
-            ...props,
-            size: 45,
-            label: (userData?.name || '')[0],
-            labelStyle: { color: 'white' },
-          })
-        }
-        right={() => (!selectMode ? cardOptions() : selector(selectedContacts, userData.id))}
-        rightStyle={styles.guestCardRightButtonMargin}
-      />
-      <Card.Content>
-        <Text variant="bodyMedium">{`Address : ${userData?.address || '---'} `}</Text>
-      </Card.Content>
+    <Card style={styles.card}>
+      <View style={styles.cardContent}>
+        <Avatar.Text
+          size={45}
+          label={(userData?.name || '')[0]}
+          style={styles.avatar}
+          labelStyle={styles.avatarLabel}
+        />
+        <View style={styles.textContent}>
+          <Text style={styles.name}>{userData?.name}</Text>
+          <View style={styles.row}>
+            <Avatar.Icon size={24} icon="phone" style={styles.icon} color='black' />
+            <Text style={styles.phone}>{userData?.phone}</Text>
+          </View>
+          <View style={styles.row}>
+            <Avatar.Icon size={24} icon="map-marker" style={styles.icon} color='black' />
+            <Text style={styles.address}>{userData?.address}</Text>
+          </View>
+        </View>
+        <View style={styles.iconButtons}>
+          <IconButton icon="pencil-outline" onPress={handleEditGuest} color />
+          <IconButton icon="delete-outline" onPress={handleRemoveEvent} color />
+        </View>
+      </View>
     </Card>
   );
 };
+
 UserDataList.propTypes = {
   userData: PropTypes.shape({
     id: PropTypes.number,
     name: PropTypes.string,
-    email: PropTypes.string,
     phone: PropTypes.string,
-    image: PropTypes.string,
     address: PropTypes.string,
   }).isRequired,
-  selectedContacts: PropTypes.arrayOf(PropTypes.number).isRequired,
-  setSelectedContacts: PropTypes.func.isRequired,
-  selectMode: PropTypes.bool.isRequired,
 };
 
 export default UserDataList;

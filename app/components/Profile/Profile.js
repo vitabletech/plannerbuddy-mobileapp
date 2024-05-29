@@ -92,7 +92,7 @@ const profile = () => {
   };
 
   const logoutIcon = () =>
-    IconComponent('MaterialIcons', 'logout', DEFAULT_HEADER_ICON_SIZE, theme.colors.onSurface);
+    IconComponent('MaterialIcons', 'logout', DEFAULT_HEADER_ICON_SIZE, theme.colors.white);
 
   const handleUpdateDialog = () => {
     setUpdatedPassword(true);
@@ -127,7 +127,7 @@ const profile = () => {
             backgroundColor: theme.colors.primary,
           },
           headerTintColor: theme.colors.white,
-          tabBarActiveTintColor: theme.colors.white,
+          tabBarActiveTintColor: theme.colors.primary,
           tabBarInactiveTintColor: theme.colors.shadow,
           tabBarLabelStyle: {
             fontSize: 12,

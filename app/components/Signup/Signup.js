@@ -1,7 +1,7 @@
 import React, { useRef, useState } from 'react';
 import PropTypes from 'prop-types';
 import { TouchableOpacity, Alert, View } from 'react-native';
-import { Text, TextInput, Divider, useTheme } from 'react-native-paper';
+import { Text, TextInput, Divider, useTheme, ActivityIndicator } from 'react-native-paper';
 import { useRouter } from 'expo-router';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import VTTextInput from '../VTTextInput/VTTextInput';
@@ -23,6 +23,7 @@ const Signup = ({ switchScreen }) => {
   const [isCPasswordVisible, setIsCPasswordVisible] = useState(false);
   const nameInput = useInput('', validateName);
   const emailInput = useInput('', validateEmail);
+  const [loading, setLoading] = useState(false);
   const passwordInput = useInput('', (value) =>
     value && value.length >= 8 ? null : 'Password must be at least 8 characters long',
   );
@@ -36,7 +37,7 @@ const Signup = ({ switchScreen }) => {
     emailInput.onBlur();
     passwordInput.onBlur();
     confirmPasswordInput.onBlur();
-
+    setLoading(true);
     if (
       nameInput.value &&
       emailInput.value &&
@@ -72,6 +73,7 @@ const Signup = ({ switchScreen }) => {
       passwordInput.onChangeText('');
       confirmPasswordInput.onChangeText('');
     }
+    setLoading(false);
   };
 
   return (
@@ -121,13 +123,17 @@ const Signup = ({ switchScreen }) => {
           />
         }
       />
-      <TouchableOpacity
-        hitSlop={DEFAULT_HIT_SLOP}
-        onPress={handleSignup}
-        style={styles.outlineButton}
-      >
-        <Text style={styles.white}>Sign Up</Text>
-      </TouchableOpacity>
+      {loading ? (
+        <ActivityIndicator style={styles.outlineButton} color={theme.colors.onPrimary} />
+      ) : (
+        <TouchableOpacity
+          hitSlop={DEFAULT_HIT_SLOP}
+          onPress={handleSignup}
+          style={styles.outlineButton}
+        >
+          <Text style={styles.white}>Sign Up</Text>
+        </TouchableOpacity>
+      )}
       <View style={styles.dividerContiner}>
         <Divider style={styles.divider} />
         <Text style={styles.marginHorizontal}>OR</Text>

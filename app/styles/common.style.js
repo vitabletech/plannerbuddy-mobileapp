@@ -85,7 +85,9 @@ const commonStyles = () => {
       gap: 15,
     },
     guestCardMargin: {
-      marginVertical: 4,
+      backgroundColor: theme.colors.onTertiary,
+      marginHorizontal: 20,
+      marginVertical: 8,
     },
     guestCardRightButtonMargin: { marginRight: 10 },
     h100: {
