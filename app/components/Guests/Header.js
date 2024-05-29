@@ -10,6 +10,7 @@ const Header = ({
   saveList,
   showOnlySearchBar = true,
   totalContacts = 0,
+  handleSelectAll,
 }) => {
   const styles = getStyles();
   const [isEditVisible, setIsEditVisible] = useState(false);
@@ -34,6 +35,7 @@ const Header = ({
           <Appbar.Content title={`${isSelected} / ${totalContacts}`} titleStyle={styles.font15} />
           {isSelected && <Appbar.Action icon="content-save" onPress={() => onSave()} />}
           {isSelected && <Appbar.Action icon="close" onPress={handleEditPress} />}
+          <Appbar.Action icon="select-all" onPress={handleSelectAll} />
         </Appbar.Header>
       )}
       <Searchbar

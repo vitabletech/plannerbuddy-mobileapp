@@ -28,6 +28,16 @@ const GuestLists = ({ selectMode }) => {
   const [page, setPage] = useState(pages);
   const [selectedContacts, setSelectedContacts] = useState([]);
 
+  console.log('currPage : ', page);
+  useEffect(() => {
+    console.log('page : ', page, ' totalPages : ', totalPages);
+    if (page < totalPages) {
+      console.log('inside');
+      setPage(page + 1);
+      dispatch(fetchGuest({ page }));
+    }
+  }, [page, totalPages, dispatch]);
+
   useEffect(() => {
     if (selectMode) {
       const currentEvent = events.find((event) => event.id === editIndex);
@@ -35,9 +45,9 @@ const GuestLists = ({ selectMode }) => {
     }
   }, [selectMode]);
 
-  useEffect(() => {
-    dispatch(fetchGuest({ page }));
-  }, [page]);
+  // useEffect(() => {
+  //   dispatch(fetchGuest({ page }));
+  // }, [page]);
 
   useEffect(() => {
     if (searchGuest === '') {
@@ -91,6 +101,13 @@ const GuestLists = ({ selectMode }) => {
     ),
     [selectedContacts, selectMode],
   );
+  console.log('selectedContacts : ', selectedContacts);
+  const handleSelectAll = () => {
+    let allIds = [];
+    allIds = contactList.map((contact) => contact.id);
+    console.log('ids : ', allIds);
+    setSelectedContacts(allIds);
+  };
 
   return (
     <View style={styles.flex1}>
@@ -102,6 +119,7 @@ const GuestLists = ({ selectMode }) => {
         saveList={handleSaveSelectedContacts}
         showOnlySearchBar={selectMode}
         totalContacts={totalContacts}
+        handleSelectAll={handleSelectAll}
       />
       {contactList.length > 0 ? (
         <FlatList
