@@ -11,7 +11,7 @@ const DashboardItem = () => {
   const router = useRouter();
   return (
     <View style={styles.dashboard}>
-      <Surface elevation={4} style={styles.surfaceContainer}>
+      <Surface elevation={1} style={styles.surfaceContainer}>
         <View style={styles.flexRow}>
           {dashboardDataCount.map((data) => (
             <TouchableOpacity

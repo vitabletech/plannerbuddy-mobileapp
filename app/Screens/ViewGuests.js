@@ -29,11 +29,13 @@ const ViewGuests = () => {
     {
       icon: 'account-multiple-plus-outline',
       label: 'Add Manually',
+      style: { backgroundColor: theme.colors.white },
       onPress: openDialog,
     },
     {
       icon: 'account-sync-outline',
       label: 'Sync from Contacts',
+      style: { backgroundColor: theme.colors.white },
       onPress: () => refStandard.current.open(),
     },
   ];

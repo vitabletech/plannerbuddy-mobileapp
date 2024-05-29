@@ -18,8 +18,8 @@ const RenderEventCards = ({ item }) => {
     );
   }
   return (
-    <Card>
-      <Card.Title title={item.title} titleStyle={styles.event_title} />
+    <Card style={[styles.bgWhite, styles.carousel]}>
+      <Card.Title titleVariant="headlineLarge" title={item.title} titleStyle={styles.event_title} />
       <Card.Content>
         <View style={styles.flexRow}>
           <View style={styles.flex1}>

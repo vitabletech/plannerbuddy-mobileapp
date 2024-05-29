@@ -1,37 +1,22 @@
 import React from 'react';
-import { View } from 'react-native';
-import { Card, useTheme } from 'react-native-paper';
+import { View, Image, useColorScheme } from 'react-native';
+import { Card } from 'react-native-paper';
 import { useSelector } from 'react-redux';
-import { AvatarText } from '../../utils/utils';
 import getStyles from './style';
+import welcomeLight from '../../assets/welcomeLight.png';
+import welcomeDark from '../../assets/welcomeDark.png';
 
 const WelcomeContainer = () => {
   const styles = getStyles();
-  const theme = useTheme();
+  const colorScheme = useColorScheme();
   const name = useSelector((state) => state.auth.userProfile)?.fullName.split(' ')[0];
   return (
     <View style={styles.welcomeContainer}>
+      <Image source={colorScheme === 'dark' ? welcomeDark : welcomeLight} style={styles.image} />
       <Card.Title
         title={`Welcome, ${name}`}
+        titleVariant="displaySmall"
         titleStyle={styles.titleStyle}
-        right={(props) =>
-          AvatarText({
-            ...props,
-            size: 45,
-            label: name[0] || '',
-            labelStyle: {
-              color: theme.colors.primaryContainer,
-              backgroundColor: theme.colors.primary,
-              borderRadius: 25,
-              borderWidth: 2,
-              borderColor: theme.colors.primaryContainer,
-              width: 50,
-              height: 50,
-              fontWeight: 'bold',
-            },
-          })
-        }
-        rightStyle={styles.rightStyle}
       />
     </View>
   );

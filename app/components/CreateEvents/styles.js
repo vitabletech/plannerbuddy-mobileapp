@@ -25,6 +25,7 @@ const getStyles = () => {
       flex: 1,
     },
     eventCard: {
+      backgroundColor: theme.colors.white,
       margin: 8,
     },
     eventTitle: {

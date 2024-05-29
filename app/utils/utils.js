@@ -1,6 +1,6 @@
 import React from 'react';
 import { TouchableOpacity, View, Share, Alert, Linking } from 'react-native';
-import { ActivityIndicator, Avatar, IconButton, Text } from 'react-native-paper';
+import { ActivityIndicator, Avatar, IconButton, Text, useTheme } from 'react-native-paper';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {
   iconLibraries,
@@ -149,24 +149,30 @@ export const incrementInteractionCount = async () => {
  * @property {string} label - The label for the action.
  * @property {Function} onPress - The function to be called when the action is pressed.
  */
-export const SETTING_ACTIONS = (navigation) => [
-  {
-    icon: 'chat',
-    label: 'Chat Support',
-    onPress: () => navigation.navigate('help'),
-  },
-  {
-    icon: 'share',
-    label: 'Share App',
-    onPress: () => onShare(),
-  },
-  {
-    icon: 'star',
-    label: 'Rate Us',
-    onPress: () =>
-      Linking.openURL(ASK_RATING).catch(() => Alert.alert('Error', 'Could not open Play Store.')),
-  },
-];
+export const SETTING_ACTIONS = (navigation) => {
+  const theme = useTheme();
+  return [
+    {
+      icon: 'chat',
+      label: 'Chat Support',
+      style: { backgroundColor: theme.colors.white },
+      onPress: () => navigation.navigate('help'),
+    },
+    {
+      icon: 'share',
+      label: 'Share App',
+      style: { backgroundColor: theme.colors.white },
+      onPress: () => onShare(),
+    },
+    {
+      icon: 'star',
+      label: 'Rate Us',
+      style: { backgroundColor: theme.colors.white },
+      onPress: () =>
+        Linking.openURL(ASK_RATING).catch(() => Alert.alert('Error', 'Could not open Play Store.')),
+    },
+  ];
+};
 
 /**
  * Displays an alert dialog with a confirmation message.

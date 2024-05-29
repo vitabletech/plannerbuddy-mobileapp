@@ -27,7 +27,6 @@ const VTFAB = ({ children, actionsButton = [], iconOpen = 'menu', iconClose = 'c
         actions={actions}
         onStateChange={onStateChange}
         fabStyle={styles.FAB}
-        color={theme.colors.onSurface}
       />
     </Portal.Host>
   );

@@ -5,7 +5,7 @@ const commonStyles = () => {
   const theme = useTheme();
   return StyleSheet.create({
     FAB: {
-      backgroundColor: theme.colors.onPrimary,
+      backgroundColor: theme.colors.white,
     },
     absolutePositionBottomRight: {
       alignSelf: 'flex-end',
@@ -18,6 +18,9 @@ const commonStyles = () => {
     alignItems_center: {
       alignItems: 'center',
     },
+    bgWhite: { backgroundColor: theme.colors.white },
+    borderColorWhite: { borderColor: theme.colors.white },
+    borderLine: { borderBottomWidth: 1, borderColor: theme.colors.primary, paddingBottom: 5 },
     button: {
       alignItems: 'center',
       backgroundColor: theme.colors.backdrop,
@@ -30,6 +33,9 @@ const commonStyles = () => {
       height: '50%',
       tintColor: theme.colors.background,
       width: '50%',
+    },
+    carouselCard: {
+      backgroundColor: theme.colors.white,
     },
     centerContent: {
       alignItems: 'center',
@@ -45,6 +51,22 @@ const commonStyles = () => {
       flex: 1,
       flexDirection: 'column',
       flexGrow: 1,
+    },
+    commonButton: {
+      backgroundColor: theme.colors.primary,
+      borderRadius: 8,
+      marginTop: 10,
+      paddingHorizontal: 'auto',
+      paddingVertical: 10,
+      width: '100%',
+    },
+    createButton: {
+      alignSelf: 'flex-start',
+      marginTop: 10,
+    },
+    createButtonContent: {
+      justifyContent: 'flex-start',
+      marginLeft: -10,
     },
     dialogButtons: {
       color: theme.colors.onTertiaryContainer,
@@ -146,7 +168,7 @@ const commonStyles = () => {
       position: 'sticky',
     },
     profileCard: {
-      backgroundColor: theme.colors.onPrimary,
+      backgroundColor: theme.colors.white,
       marginVertical: 10,
     },
     profileContainer: {
@@ -187,10 +209,13 @@ const commonStyles = () => {
       paddingHorizontal: 'auto',
       paddingVertical: 10,
     },
+    textColor: {
+      color: theme.colors.primary,
+    },
     textDecorationLine: {
       textDecorationLine: 'underline',
     },
-    textWhite: { color: theme.colors.background },
+    textWhite: { color: theme.colors.white },
     title: {
       alignSelf: 'center',
       textAlign: 'center',

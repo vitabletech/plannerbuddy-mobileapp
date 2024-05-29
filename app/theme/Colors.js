@@ -1,10 +1,11 @@
 export const LIGHT_THEME_COLORS = {
   colors: {
-    white: 'white',
-    primary: 'rgb(138, 68, 134)',
-    primaryContainer: '#FFF5FF',
-    onPrimary: 'rgb(255, 215, 246)',
-    onPrimaryContainer: 'rgb(56, 0, 57)',
+    white: 'rgb(255, 255, 255)',
+    chocolate: '#50424F',
+    primary: '#6f2c6d',
+    primaryContainer: '#f6f2f5',
+    onPrimary: 'rgb(157, 120, 162)',
+    onPrimaryContainer: 'rgb(77, 33, 85)',
     secondary: 'rgb(109, 88, 105)',
     onSecondary: 'rgb(255, 255, 255)',
     secondaryContainer: 'rgb(247, 218, 239)',
@@ -25,7 +26,7 @@ export const LIGHT_THEME_COLORS = {
     onSurfaceVariant: 'rgb(78, 68, 75)',
     outline: 'rgb(128, 116, 124)',
     outlineVariant: 'rgb(209, 195, 203)',
-    shadow: 'rgb(0, 0, 0)',
+    shadow: 'rgb(29, 29, 29)',
     scrim: 'rgb(0, 0, 0)',
     inverseSurface: 'rgb(52, 47, 50)',
     inverseOnSurface: 'rgb(248, 238, 242)',
@@ -46,7 +47,7 @@ export const LIGHT_THEME_COLORS = {
 export const DARK_THEME_COLORS = {
   colors: {
     white: 'white',
-    primary: 'rgb(125,46,122)',
+    primary: '#191919',
     onPrimary: 'rgb(72, 43, 68)',
     primaryContainer: '#50424F',
     onPrimaryContainer: 'rgb(71, 20, 59)',

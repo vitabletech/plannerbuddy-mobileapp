@@ -47,12 +47,12 @@ const UserDataList = ({ userData }) => {
         <View style={styles.textContent}>
           <Text style={styles.name}>{userData?.name}</Text>
           <View style={styles.row}>
-            <Avatar.Icon size={24} icon="phone" style={styles.icon} color='black' />
+            <Avatar.Icon size={24} icon="phone" style={styles.icon} color="black" />
             <Text style={styles.phone}>{userData?.phone}</Text>
           </View>
           <View style={styles.row}>
-            <Avatar.Icon size={24} icon="map-marker" style={styles.icon} color='black' />
-            <Text style={styles.address}>{userData?.address}</Text>
+            <Avatar.Icon size={24} icon="map-marker" style={styles.icon} color="black" />
+            <Text style={styles.address}>{userData?.address || '---'}</Text>
           </View>
         </View>
         <View style={styles.iconButtons}>

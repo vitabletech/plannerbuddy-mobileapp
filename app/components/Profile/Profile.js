@@ -168,7 +168,7 @@ const profile = () => {
         scrollEnabled
       >
         {AlertComponent(error)}
-        <Card style={classes.profileCard}>
+        <Card style={classes.profileCard} elevation={2}>
           <Avatar.Text
             label={person?.fullName[0]}
             labelStyle={theme.colors.white}
@@ -206,14 +206,18 @@ const profile = () => {
           </Card.Content>
         </Card>
         <Card.Actions>
-          <Button style={styles.optionButton} onPress={handleEdit}>
-            <Text variant="labelLarge">Edit Profile</Text>
+          <Button style={classes.commonButton} onPress={handleEdit}>
+            <Text variant="labelLarge" style={classes.textWhite}>
+              Edit Profile
+            </Text>
           </Button>
         </Card.Actions>
 
         <Card.Actions>
-          <Button style={styles.optionButton} onPress={handleUpdateDialog}>
-            <Text variant="labelLarge">Update Password</Text>
+          <Button style={classes.commonButton} onPress={handleUpdateDialog}>
+            <Text variant="labelLarge" style={classes.textWhite}>
+              Update Password
+            </Text>
           </Button>
         </Card.Actions>
 

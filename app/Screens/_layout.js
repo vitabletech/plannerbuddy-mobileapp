@@ -12,19 +12,35 @@ const TabLayout = () => {
       name: 'index',
       title: 'Home',
       icon: ({ color }) =>
-        IconComponent('FontAwesome', 'home', DEFAULT_BOTTOM_TAB_ICON_SIZE, color),
+        IconComponent(
+          'MaterialCommunityIcons',
+          'home-variant-outline',
+          DEFAULT_BOTTOM_TAB_ICON_SIZE,
+          color,
+        ),
       headerShown: false,
     },
     {
       name: 'Events',
       title: 'Events',
       icon: ({ color }) =>
-        IconComponent('MaterialIcons', 'event', DEFAULT_BOTTOM_TAB_ICON_SIZE, color),
+        IconComponent(
+          'MaterialCommunityIcons',
+          'calendar-outline',
+          DEFAULT_BOTTOM_TAB_ICON_SIZE,
+          color,
+        ),
     },
     {
       name: 'ViewGuests',
       title: 'Guests',
-      icon: ({ color }) => IconComponent('Zocial', 'guest', DEFAULT_BOTTOM_TAB_ICON_SIZE, color),
+      icon: ({ color }) =>
+        IconComponent(
+          'MaterialCommunityIcons',
+          'account-group-outline',
+          DEFAULT_BOTTOM_TAB_ICON_SIZE,
+          color,
+        ),
     },
     {
       name: 'profile',
@@ -49,7 +65,7 @@ const TabLayout = () => {
           fontWeight: 'bold',
         },
         tabBarStyle: {
-          backgroundColor: theme.colors.primaryContainer,
+          backgroundColor: theme.colors.white,
           paddingBottom: 10,
           height: 60,
           paddingTop: 10,
