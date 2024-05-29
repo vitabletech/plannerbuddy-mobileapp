@@ -1,3 +1,4 @@
+/* eslint-disable react/require-default-props */
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { Appbar, Searchbar } from 'react-native-paper';
@@ -10,6 +11,7 @@ const Header = ({
   saveList,
   showOnlySearchBar = true,
   totalContacts = 0,
+  handleSelectAll,
 }) => {
   const styles = getStyles();
   const [isEditVisible, setIsEditVisible] = useState(false);
@@ -34,6 +36,7 @@ const Header = ({
           <Appbar.Content title={`${isSelected} / ${totalContacts}`} titleStyle={styles.font15} />
           {isSelected && <Appbar.Action icon="content-save" onPress={() => onSave()} />}
           {isSelected && <Appbar.Action icon="close" onPress={handleEditPress} />}
+          <Appbar.Action icon="select-all" onPress={handleSelectAll} />
         </Appbar.Header>
       )}
       <Searchbar
@@ -51,8 +54,8 @@ Header.propTypes = {
   setSelectedContacts: PropTypes.func.isRequired,
   saveList: PropTypes.func.isRequired,
   showOnlySearchBar: PropTypes.bool.isRequired,
-  // eslint-disable-next-line react/require-default-props
   totalContacts: PropTypes.number,
+  handleSelectAll: PropTypes.func,
 };
 
 export default Header;

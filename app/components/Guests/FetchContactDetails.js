@@ -111,6 +111,12 @@ const FetchContactDetails = () => {
     return PermissionDenied(fetchContacts, setPermissionDenied, styles.centerContent, styles.title);
   }
 
+  const handleSelectAll = () => {
+    let allIds = [];
+    allIds = contactList.map((contact) => contact.id);
+    setSelectedContacts(allIds);
+  };
+
   return (
     <View style={styles.flex1}>
       <Header
@@ -120,6 +126,7 @@ const FetchContactDetails = () => {
         setSelectedContacts={setSelectedContacts}
         saveList={handleSaveSelectedContacts}
         showOnlySearchBar
+        handleSelectAll={handleSelectAll}
       />
       <Card>
         <Card.Content style={styles.paddingBottom}>

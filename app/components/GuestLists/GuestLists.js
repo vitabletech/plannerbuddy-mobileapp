@@ -29,15 +29,18 @@ const GuestLists = ({ selectMode }) => {
   const [selectedContacts, setSelectedContacts] = useState([]);
 
   useEffect(() => {
+    if (page < totalPages) {
+      setPage(page + 1);
+      dispatch(fetchGuest({ page }));
+    }
+  }, [page, totalPages, dispatch]);
+
+  useEffect(() => {
     if (selectMode) {
       const currentEvent = events.find((event) => event.id === editIndex);
       setSelectedContacts(currentEvent?.guests.map((guest) => guest.guestId) || []);
     }
   }, [selectMode]);
-
-  useEffect(() => {
-    dispatch(fetchGuest({ page }));
-  }, [page]);
 
   useEffect(() => {
     if (searchGuest === '') {
@@ -91,6 +94,11 @@ const GuestLists = ({ selectMode }) => {
     ),
     [selectedContacts, selectMode],
   );
+  const handleSelectAll = () => {
+    let allIds = [];
+    allIds = contactList.map((contact) => contact.id);
+    setSelectedContacts(allIds);
+  };
 
   return (
     <View style={styles.flex1}>
@@ -102,6 +110,7 @@ const GuestLists = ({ selectMode }) => {
         saveList={handleSaveSelectedContacts}
         showOnlySearchBar={selectMode}
         totalContacts={totalContacts}
+        handleSelectAll={handleSelectAll}
       />
       {contactList.length > 0 ? (
         <FlatList
