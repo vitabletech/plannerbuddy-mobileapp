@@ -1,6 +1,6 @@
 {
   "name": "plannerbuddy",
-  "version": "2.1.0",
+  "version": "3.0.0",
   "main": "expo-router/entry",
   "engines": {
     "node": ">=20.0.0"

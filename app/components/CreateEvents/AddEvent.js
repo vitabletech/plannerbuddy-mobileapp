@@ -112,7 +112,10 @@ const AddEventModal = () => {
         eventLocation: event.address,
       }).then((response) => {
         if (!response.error) {
-          const currentGuest = totalGuests.find((guest) => guest.id === selectedGuest);
+          let currentGuest;
+          if (selectedGuest) {
+            currentGuest = totalGuests.find((guest) => guest.id === selectedGuest);
+          }
           dispatch(
             eventActions.addEvent({
               event: {
@@ -120,13 +123,15 @@ const AddEventModal = () => {
                 id: response.eventId,
                 isYourEvent,
                 date: new Date(selectedDate).toISOString(),
-                guests: [
-                  {
-                    guestId: selectedGuest,
-                    name: currentGuest.name,
-                    phone: currentGuest.phone,
-                  },
-                ],
+                guests: selectedGuest
+                  ? [
+                      {
+                        guestId: selectedGuest,
+                        name: currentGuest.name,
+                        phone: currentGuest.phone,
+                      },
+                    ]
+                  : [],
               },
             }),
           );

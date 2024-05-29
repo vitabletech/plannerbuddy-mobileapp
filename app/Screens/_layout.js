@@ -42,15 +42,17 @@ const TabLayout = () => {
           backgroundColor: theme.colors.primary,
         },
         headerTintColor: theme.colors.onPrimary,
-        tabBarActiveTintColor: theme.colors.white,
+        tabBarActiveTintColor: theme.colors.primary,
         tabBarInactiveTintColor: theme.colors.shadow,
         tabBarLabelStyle: {
           fontSize: 12,
           fontWeight: 'bold',
         },
         tabBarStyle: {
-          backgroundColor: theme.colors.primary,
-          paddingBottom: 5,
+          backgroundColor: theme.colors.primaryContainer,
+          paddingBottom: 10,
+          height: 60,
+          paddingTop: 10,
         },
       }}
     >

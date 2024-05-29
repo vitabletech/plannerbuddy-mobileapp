@@ -4,7 +4,7 @@ import { FlatList, View, Alert } from 'react-native';
 import { Text } from 'react-native-paper';
 import { useSelector, useDispatch } from 'react-redux';
 import UserDataList from './UserDataList';
-import { Loader, ItemSeparatorComponent, endReached } from '../../utils/utils';
+import { Loader, endReached } from '../../utils/utils';
 import commonStyles from '../../styles/common.style';
 import getStyles from './style';
 import Header from '../Guests/Header';
@@ -108,7 +108,6 @@ const GuestLists = ({ selectMode }) => {
           data={contactList}
           keyExtractor={(item) => item.id.toString()}
           renderItem={renderItem}
-          ItemSeparatorComponent={() => ItemSeparatorComponent(styles.itemSeparator)}
           onEndReached={searchGuest === '' && handleLoadMore}
           ListFooterComponent={() =>
             page === totalPages ? endReached(styles.title) : status === 'loading' && Loader()
