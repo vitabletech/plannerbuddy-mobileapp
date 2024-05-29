@@ -1,3 +1,4 @@
+/* eslint-disable react/require-default-props */
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { Appbar, Searchbar } from 'react-native-paper';
@@ -53,8 +54,8 @@ Header.propTypes = {
   setSelectedContacts: PropTypes.func.isRequired,
   saveList: PropTypes.func.isRequired,
   showOnlySearchBar: PropTypes.bool.isRequired,
-  // eslint-disable-next-line react/require-default-props
   totalContacts: PropTypes.number,
+  handleSelectAll: PropTypes.func,
 };
 
 export default Header;

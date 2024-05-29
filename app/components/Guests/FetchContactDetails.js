@@ -111,11 +111,9 @@ const FetchContactDetails = () => {
     return PermissionDenied(fetchContacts, setPermissionDenied, styles.centerContent, styles.title);
   }
 
-  console.log('selectedContacts : ', selectedContacts);
   const handleSelectAll = () => {
     let allIds = [];
     allIds = contactList.map((contact) => contact.id);
-    console.log('ids : ', allIds);
     setSelectedContacts(allIds);
   };
 

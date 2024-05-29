@@ -28,11 +28,8 @@ const GuestLists = ({ selectMode }) => {
   const [page, setPage] = useState(pages);
   const [selectedContacts, setSelectedContacts] = useState([]);
 
-  console.log('currPage : ', page);
   useEffect(() => {
-    console.log('page : ', page, ' totalPages : ', totalPages);
     if (page < totalPages) {
-      console.log('inside');
       setPage(page + 1);
       dispatch(fetchGuest({ page }));
     }
@@ -44,10 +41,6 @@ const GuestLists = ({ selectMode }) => {
       setSelectedContacts(currentEvent?.guests.map((guest) => guest.guestId) || []);
     }
   }, [selectMode]);
-
-  // useEffect(() => {
-  //   dispatch(fetchGuest({ page }));
-  // }, [page]);
 
   useEffect(() => {
     if (searchGuest === '') {
@@ -101,11 +94,9 @@ const GuestLists = ({ selectMode }) => {
     ),
     [selectedContacts, selectMode],
   );
-  console.log('selectedContacts : ', selectedContacts);
   const handleSelectAll = () => {
     let allIds = [];
     allIds = contactList.map((contact) => contact.id);
-    console.log('ids : ', allIds);
     setSelectedContacts(allIds);
   };
 
