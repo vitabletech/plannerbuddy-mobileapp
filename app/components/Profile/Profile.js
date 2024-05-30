@@ -144,20 +144,16 @@ const profile = () => {
           <Dialog.Title>Change Password</Dialog.Title>
 
           <Dialog.Content>
-            <VTTextInput label="Current Password" {...currentPassword} style={classes.inputField}/>
+            <VTTextInput label="Current Password" {...currentPassword} style={classes.inputField} />
             <VTTextInput label="New Password" {...newPassword} style={classes.inputField} />
           </Dialog.Content>
 
           <Dialog.Actions>
             <Button onPress={handleCancel}>
-              <Text variant="labelLarge" style={classes.dialogButtons}>
-                Cancel
-              </Text>
+              <Text variant="labelLarge">Cancel</Text>
             </Button>
             <Button onPress={handleUpdatePassword}>
-              <Text variant="labelLarge" style={classes.dialogButtons}>
-                Update
-              </Text>
+              <Text variant="labelLarge">Update</Text>
             </Button>
           </Dialog.Actions>
         </InputDialog>
@@ -250,8 +246,12 @@ const profile = () => {
               />
             </Dialog.Content>
             <Dialog.Actions>
-              <Button onPress={resetForm}>Cancel</Button>
-              <Button onPress={saveEdit}>Save</Button>
+              <Button onPress={resetForm}>
+                <Text>Cancel</Text>
+              </Button>
+              <Button onPress={saveEdit}>
+                <Text>Save</Text>
+              </Button>
             </Dialog.Actions>
           </InputDialog>
         )}

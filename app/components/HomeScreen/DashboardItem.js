@@ -20,7 +20,7 @@ const DashboardItem = () => {
               onPress={() => (data.replace ? router.replace(data?.href) : router.push(data?.href))}
             >
               <View key={data.title} style={[styles.flexBasis25, styles.positionCenter]}>
-                <Avatar.Icon size={30} icon={data.icon} />
+                <Avatar.Icon size={34} icon={data.icon} />
                 <Text style={styles.name}>{data.title}</Text>
               </View>
             </TouchableOpacity>

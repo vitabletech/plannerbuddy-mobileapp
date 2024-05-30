@@ -55,7 +55,7 @@ export const DARK_THEME_COLORS = {
     secondary: '#50424F',
     onSecondary: 'white',
     secondaryContainer: 'black',
-    onSecondaryContainer: 'rgb(151, 240, 255)',
+    onSecondaryContainer: 'black',
     tertiary: 'rgb(245, 184, 168)',
     onTertiary: '#50424F',
     tertiaryContainer: 'rgb(102, 60, 48)',

@@ -28,6 +28,7 @@ const getStyles = () => {
       backgroundColor: theme.colors.background,
       margin: 8,
     },
+    eventCartSubtitle: { marginLeft: -8 },
     eventTitle: {
       fontWeight: 'bold',
     },
@@ -40,6 +41,7 @@ const getStyles = () => {
       gap: 5,
       marginBottom: 15,
       marginLeft: 50,
+      marginTop: 'auto',
     },
     locationImage: {
       marginLeft: '5%',

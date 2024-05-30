@@ -92,9 +92,9 @@ const ForgotPasswordSheet = ({ refRBSheet }) => {
           <TouchableOpacity
             hitSlop={DEFAULT_HIT_SLOP}
             onPress={() => handleSubmit()}
-            style={styles.signUpButton}
+            style={[styles.signUpButton, { backgroundColor: theme.colors.onSecondaryContainer }]}
           >
-            <Text style={[styles.title, { color: theme.colors.onTertiaryContainer }]}>
+            <Text style={[styles.title, styles.textWhite]}>
               {otpSent ? 'Verify OTP' : 'Send OTP'}
             </Text>
           </TouchableOpacity>

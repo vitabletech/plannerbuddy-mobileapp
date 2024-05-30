@@ -37,6 +37,7 @@ const getStyles = () => {
     phone: {
       fontSize: 14,
     },
+    phoneDiv: { left: '15%', top: '-20%' },
     row: {
       alignItems: 'center',
       flexDirection: 'row',

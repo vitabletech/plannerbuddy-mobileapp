@@ -1,6 +1,6 @@
 import React, { lazy, useRef, Suspense } from 'react';
 import { View, Dimensions } from 'react-native';
-import { Button, ActivityIndicator, useTheme } from 'react-native-paper';
+import { Button, ActivityIndicator, useTheme, Text } from 'react-native-paper';
 import { useSelector, useDispatch } from 'react-redux';
 import RBSheet from 'react-native-raw-bottom-sheet';
 import GuestLists from '../components/GuestLists/GuestLists';
@@ -57,7 +57,9 @@ const ViewGuests = () => {
         }}
       >
         <View style={styles.closeButton}>
-          <Button onPress={() => refStandard.current.close()}>Close</Button>
+          <Button onPress={() => refStandard.current.close()}>
+            <Text>Close</Text>
+          </Button>
         </View>
         <Suspense
           fallback={

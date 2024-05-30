@@ -85,7 +85,7 @@ const EventCard = React.memo(({ styles, event }) => {
         }}
       >
         <Button style={styles.w100} onPress={handleCloseSelectGuests}>
-          Close
+          <Text>Close</Text>
         </Button>
         <ScrollView>
           <GuestLists selectMode />
@@ -97,12 +97,21 @@ const EventCard = React.memo(({ styles, event }) => {
           title={`${event.name} - ${event.id}`}
           titleNumberOfLines={2}
           titleStyle={styles.eventTitle}
-          subtitle={formatDate(event.date)}
+          subtitle={
+            <View style={styles.flexRow}>
+              <Avatar.Icon
+                size={24}
+                icon="calendar-range"
+                style={(styles.mauto, styles.eventCartSubtitle)}
+              />
+              <Text style={styles.mauto}>{` ${formatDate(event.date)}`}</Text>
+            </View>
+          }
           left={(props) => AvatarIcon(icon, props)}
           right={(props) => buttonComponent({ isYourEvent: event.isYourEvent, ...props })}
         />
         <View style={styles.locationContainer}>
-          <Avatar.Icon style={styles.locationImage} size={18} icon="map-marker" />
+          <Avatar.Icon style={styles.locationImage} size={24} icon="map-marker-radius-outline" />
           <Text style={styles.locationText}>{event.address}</Text>
         </View>
       </Card>

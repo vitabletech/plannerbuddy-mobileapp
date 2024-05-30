@@ -106,9 +106,8 @@ const commonStyles = () => {
       gap: 15,
     },
     guestCardMargin: {
-      backgroundColor: theme.colors.onTertiary,
-      marginHorizontal: 20,
-      marginVertical: 8,
+      backgroundColor: theme.colors.background,
+      margin: 8,
     },
     guestCardRightButtonMargin: { marginRight: 10 },
     h100: {
@@ -134,6 +133,9 @@ const commonStyles = () => {
     },
     marginHorizontal: {
       marginHorizontal: 10,
+    },
+    mauto: {
+      margin: 'auto',
     },
     mb10: {
       marginBottom: 10,

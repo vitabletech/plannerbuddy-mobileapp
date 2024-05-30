@@ -4,7 +4,7 @@
     "slug": "plannerbuddy",
     "description": "Streamline Your Guest's and Event's Details With Planner Buddy",
     "scheme": "com.vitabletech.plannerbuddy",
-    "version": "1.0.0",
+    "version": "3.0.0",
     "orientation": "portrait",
     "owner": "vitabletech",
     "icon": "./app/assets/icon.png",
@@ -31,7 +31,7 @@
         "backgroundColor": "#ffffff"
       },
       "package": "com.vitabletech.plannerbuddy",
-      "versionCode": 6,
+      "versionCode": 7,
       "permissions": [
         "android.permission.READ_CONTACTS"
       ]
