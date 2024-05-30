@@ -103,9 +103,8 @@ const EventCard = React.memo(({ styles, event }) => {
                 size={24}
                 icon="calendar-range"
                 style={(styles.mauto, styles.eventCartSubtitle)}
-                color={theme.colors.onSurface}
               />
-              <Text style={styles.mauto}>{formatDate(event.date)}</Text>
+              <Text style={styles.mauto}>{` ${formatDate(event.date)}`}</Text>
             </View>
           }
           left={(props) => AvatarIcon(icon, props)}
