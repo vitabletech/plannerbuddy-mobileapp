@@ -9,11 +9,8 @@ const getStyles = () => {
       margin: 20,
     },
     forgetPasswordButton: {
-      backgroundColor: theme.colors.onPrimary,
-      borderColor: theme.colors.primary,
-      borderRadius: 8,
-      borderWidth: 2,
-      marginTop: 40,
+      flexDirection: 'row',
+      justifyContent: 'flex-end',
       paddingHorizontal: 'auto',
       paddingVertical: 10,
     },
@@ -27,7 +24,7 @@ const getStyles = () => {
       width: '100%',
     },
     loginButton: {
-      backgroundColor: theme.colors.primary,
+      backgroundColor: theme.colors.secondaryContainer,
       borderRadius: 8,
       marginTop: 10,
       paddingHorizontal: 'auto',

@@ -5,11 +5,11 @@ const commonStyles = () => {
   const theme = useTheme();
   return StyleSheet.create({
     FAB: {
-      backgroundColor: theme.colors.white,
+      backgroundColor: theme.colors.background,
     },
     absolutePositionBottomRight: {
       alignSelf: 'flex-end',
-      backgroundColor: theme.colors.white,
+      backgroundColor: theme.colors.background,
       bottom: 15,
       position: 'absolute',
       right: 15,
@@ -35,7 +35,7 @@ const commonStyles = () => {
       width: '50%',
     },
     carouselCard: {
-      backgroundColor: theme.colors.white,
+      backgroundColor: theme.colors.background,
     },
     centerContent: {
       alignItems: 'center',
@@ -57,7 +57,6 @@ const commonStyles = () => {
       borderRadius: 8,
       marginTop: 10,
       paddingHorizontal: 'auto',
-      paddingVertical: 10,
       width: '100%',
     },
     createButton: {
@@ -168,7 +167,7 @@ const commonStyles = () => {
       position: 'sticky',
     },
     profileCard: {
-      backgroundColor: theme.colors.white,
+      backgroundColor: theme.colors.background,
       marginVertical: 10,
     },
     profileContainer: {
@@ -202,10 +201,8 @@ const commonStyles = () => {
       marginRight: 12,
     },
     signUpButton: {
-      backgroundColor: theme.colors.primaryContainer,
-      borderColor: theme.colors.primary,
-      borderRadius: 8,
-      borderWidth: 1,
+      flexDirection: 'row',
+      justifyContent: 'center',
       paddingHorizontal: 'auto',
       paddingVertical: 10,
     },

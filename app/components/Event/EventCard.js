@@ -87,7 +87,6 @@ const EventCard = React.memo(({ styles, event }) => {
         <Button style={styles.w100} onPress={handleCloseSelectGuests}>
           Close
         </Button>
-
         <ScrollView>
           <GuestLists selectMode />
         </ScrollView>

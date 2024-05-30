@@ -92,8 +92,17 @@ const Login = ({ switchScreen }) => {
           }
           {...passwordInput}
         />
+        <TouchableOpacity
+          hitSlop={DEFAULT_HIT_SLOP}
+          onPress={() => refRBSheet.current.open()}
+          style={styles.forgetPasswordButton}
+        >
+          <Text variant="titleSmall" style={[styles.title, { color: theme.colors.onSecondary }]}>
+            Forgot password ?
+          </Text>
+        </TouchableOpacity>
         {loading ? (
-          <ActivityIndicator style={styles.outlineButton} color={theme.colors.onPrimary} />
+          <ActivityIndicator style={styles.outlineButton} color={theme.colors.onSecondary} />
         ) : (
           <TouchableOpacity
             hitSlop={DEFAULT_HIT_SLOP}
@@ -115,17 +124,12 @@ const Login = ({ switchScreen }) => {
           onPress={() => switchScreen()}
           style={styles.signUpButton}
         >
-          <Text variant="titleSmall" style={[styles.title, { color: theme.colors.primary }]}>
-            Signup
+          <Text variant="titleSmall" style={styles.title}>
+            Don&#39;t Have Account?
           </Text>
-        </TouchableOpacity>
-        <TouchableOpacity
-          hitSlop={DEFAULT_HIT_SLOP}
-          onPress={() => refRBSheet.current.open()}
-          style={styles.loginButton}
-        >
-          <Text variant="titleSmall" style={[styles.title, { color: theme.colors.white }]}>
-            Forgot password ?
+          <Text variant="titleSmall" style={[styles.title, { color: theme.colors.onSecondary }]}>
+            {' '}
+            Create Account
           </Text>
         </TouchableOpacity>
       </View>

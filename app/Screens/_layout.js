@@ -58,14 +58,14 @@ const TabLayout = () => {
           backgroundColor: theme.colors.primary,
         },
         headerTintColor: theme.colors.onPrimary,
-        tabBarActiveTintColor: theme.colors.primary,
+        tabBarActiveTintColor: theme.colors.inversePrimary,
         tabBarInactiveTintColor: theme.colors.shadow,
         tabBarLabelStyle: {
           fontSize: 12,
           fontWeight: 'bold',
         },
         tabBarStyle: {
-          backgroundColor: theme.colors.white,
+          backgroundColor: theme.colors.onTertiary,
           paddingBottom: 10,
           height: 60,
           paddingTop: 10,

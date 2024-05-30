@@ -8,10 +8,11 @@ const getStyles = () => {
       fontSize: 14,
     },
     avatar: {
+      backgroundColor: theme.colors.primaryContainer,
       top: -15,
     },
     card: {
-      backgroundColor: theme.colors.white,
+      backgroundColor: theme.colors.background,
       borderRadius: 18,
       marginHorizontal: 16,
       marginVertical: 8,

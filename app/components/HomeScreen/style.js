@@ -84,7 +84,7 @@ const getStyles = () => {
       top: 70,
     },
     surfaceContainer: {
-      backgroundColor: theme.colors.white,
+      backgroundColor: theme.colors.background,
       borderRadius: 20,
       paddingBottom: '5%',
       paddingTop: '5%',
@@ -94,7 +94,7 @@ const getStyles = () => {
     },
     titleStyle: {
       color: theme.colors.white,
-      marginTop: 100,
+      marginTop: '25%',
     },
     totalGuest: {
       borderRadius: 20,

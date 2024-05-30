@@ -131,7 +131,7 @@ const Signup = ({ switchScreen }) => {
           onPress={handleSignup}
           style={styles.outlineButton}
         >
-          <Text style={styles.white}>Sign Up</Text>
+          <Text style={styles.white}>Create Account</Text>
         </TouchableOpacity>
       )}
       <View style={styles.dividerContiner}>
@@ -144,7 +144,11 @@ const Signup = ({ switchScreen }) => {
         style={styles.signUpButton}
         onPress={() => switchScreen()}
       >
-        <Text variant="titleSmall" style={[styles.title, { color: theme.colors.primary }]}>
+        <Text variant="titleSmall" style={styles.title}>
+          Already Have Account?
+        </Text>
+        <Text variant="titleSmall" style={[styles.title, { color: theme.colors.onSecondary }]}>
+          {' '}
           Log in
         </Text>
       </TouchableOpacity>

@@ -39,7 +39,7 @@ const GuestComponent = () => {
                 size={26}
                 icon="contacts"
                 color={theme.colors.primary}
-                style={{ backgroundColor: theme.colors.background }}
+                style={{ backgroundColor: theme.colors.white }}
               />
               <Text style={styles.guestLabel} variant="titleLarge">
                 {status === 'loading' ? Loader() : totalGuest}

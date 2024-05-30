@@ -12,14 +12,14 @@ const getStyles = () => {
       borderTopRightRadius: 20,
     },
     container: {
-      backgroundColor: theme.colors.primary,
+      backgroundColor: theme.colors.secondaryContainer,
       flex: 1,
     },
     content: {
       flex: 1,
     },
     contentContainer: {
-      backgroundColor: theme.colors.white,
+      backgroundColor: theme.colors.background,
       flex: 1,
       padding: 20,
     },

@@ -155,19 +155,19 @@ export const SETTING_ACTIONS = (navigation) => {
     {
       icon: 'chat',
       label: 'Chat Support',
-      style: { backgroundColor: theme.colors.white },
+      style: { backgroundColor: theme.colors.background },
       onPress: () => navigation.navigate('help'),
     },
     {
       icon: 'share',
       label: 'Share App',
-      style: { backgroundColor: theme.colors.white },
+      style: { backgroundColor: theme.colors.background },
       onPress: () => onShare(),
     },
     {
       icon: 'star',
       label: 'Rate Us',
-      style: { backgroundColor: theme.colors.white },
+      style: { backgroundColor: theme.colors.background },
       onPress: () =>
         Linking.openURL(ASK_RATING).catch(() => Alert.alert('Error', 'Could not open Play Store.')),
     },

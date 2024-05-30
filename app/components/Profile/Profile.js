@@ -127,7 +127,7 @@ const profile = () => {
             backgroundColor: theme.colors.primary,
           },
           headerTintColor: theme.colors.white,
-          tabBarActiveTintColor: theme.colors.primary,
+          tabBarActiveTintColor: theme.colors.onBackground,
           tabBarInactiveTintColor: theme.colors.shadow,
           tabBarLabelStyle: {
             fontSize: 12,
@@ -140,12 +140,12 @@ const profile = () => {
         }}
       />
       {updatedPassword && (
-        <InputDialog visible={updatedPassword} onDismiss={handleCancel} style={classes.bgWhite}>
+        <InputDialog visible={updatedPassword} onDismiss={handleCancel}>
           <Dialog.Title>Change Password</Dialog.Title>
 
           <Dialog.Content>
-            <VTTextInput label="Current Password" {...currentPassword} />
-            <VTTextInput label="New Password" {...newPassword} />
+            <VTTextInput label="Current Password" {...currentPassword} style={classes.inputField}/>
+            <VTTextInput label="New Password" {...newPassword} style={classes.inputField} />
           </Dialog.Content>
 
           <Dialog.Actions>
@@ -171,7 +171,7 @@ const profile = () => {
         <Card style={classes.profileCard} elevation={2}>
           <Avatar.Text
             label={person?.fullName[0]}
-            labelStyle={theme.colors.white}
+            labelStyle={theme.colors.background}
             style={styles.AvatorIcon}
           />
           <Card.Title
@@ -224,7 +224,7 @@ const profile = () => {
         {enableEdit && (
           <InputDialog visible={enableEdit} onDismiss={() => setEnableEdit((state) => !state)}>
             <Dialog.Title>Edit Profile</Dialog.Title>
-            <Dialog.Content style={classes.bgWhite}>
+            <Dialog.Content>
               <VTTextInput
                 label="Name"
                 {...nameInput}
