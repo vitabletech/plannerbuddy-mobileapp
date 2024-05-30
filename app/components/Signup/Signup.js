@@ -124,7 +124,7 @@ const Signup = ({ switchScreen }) => {
         }
       />
       {loading ? (
-        <ActivityIndicator style={styles.outlineButton} color={theme.colors.onPrimary} />
+        <ActivityIndicator style={styles.outlineButton} color={theme.colors.onPrimaryNew} />
       ) : (
         <TouchableOpacity
           hitSlop={DEFAULT_HIT_SLOP}

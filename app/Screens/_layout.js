@@ -57,7 +57,7 @@ const TabLayout = () => {
         headerStyle: {
           backgroundColor: theme.colors.primary,
         },
-        headerTintColor: theme.colors.onPrimary,
+        headerTintColor: theme.colors.onPrimaryNew,
         tabBarActiveTintColor: theme.colors.inversePrimary,
         tabBarInactiveTintColor: theme.colors.shadow,
         tabBarLabelStyle: {

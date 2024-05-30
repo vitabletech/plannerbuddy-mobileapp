@@ -28,7 +28,7 @@ const FetchContactDetails = () => {
   const [page, setPage] = useState(currentPage);
 
   useEffect(() => {
-    if (page < totalPages) {
+    if (page <= totalPages) {
       setPage(page + 1);
       dispatch(fetchGuest({ page }));
     }

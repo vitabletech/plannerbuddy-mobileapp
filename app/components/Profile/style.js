@@ -40,7 +40,7 @@ const getStyles = () => {
       fontWeight: 'bold',
       marginBottom: 8,
     },
-    optionButton: { backgroundColor: theme.colors.onPrimary, width: '100%' },
+    optionButton: { backgroundColor: theme.colors.onPrimaryNew, width: '100%' },
     title: {
       alignSelf: 'center',
       color: theme.colors.onTertiaryContainer,

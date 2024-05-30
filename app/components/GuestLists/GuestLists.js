@@ -27,9 +27,8 @@ const GuestLists = ({ selectMode }) => {
   const guestEditIndex = useSelector((state) => state.guest.editIndex);
   const [page, setPage] = useState(pages);
   const [selectedContacts, setSelectedContacts] = useState([]);
-
   useEffect(() => {
-    if (page < totalPages) {
+    if (page <= totalPages) {
       setPage(page + 1);
       dispatch(fetchGuest({ page }));
     }
@@ -54,7 +53,7 @@ const GuestLists = ({ selectMode }) => {
   }, [searchGuest]);
 
   const handleLoadMore = useCallback(() => {
-    if (page < totalPages) {
+    if (page <= totalPages) {
       setPage((prevPage) => prevPage + 1);
     }
   }, [page, totalPages]);

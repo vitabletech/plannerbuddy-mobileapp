@@ -23,7 +23,7 @@ const Events = () => {
   const openDialog = () => dispatch(eventActions.openDialog());
 
   const handleLoadMore = useCallback(() => {
-    if (page < totalPages) {
+    if (page <= totalPages) {
       setPage((prevPage) => prevPage + 1);
     }
   }, [page, totalPages]);
@@ -47,7 +47,7 @@ const Events = () => {
     [styles],
   );
 
-  const keyExtractor = useCallback((item) => item.id.toString(), []);
+  const keyExtractor = useCallback((item) => item?.id?.toString(), []);
 
   return (
     <View style={styles.container}>

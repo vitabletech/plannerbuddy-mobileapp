@@ -114,7 +114,7 @@ const AddEventModal = () => {
         eventDate: new Date(selectedDate).toISOString(),
         eventLocation: event.address,
       }).then((response) => {
-        if (!response.error) {
+        if (!response.error && response.eventId) {
           let currentGuest;
           if (selectedGuest) {
             currentGuest = totalGuests.find((guest) => guest.id === selectedGuest);
