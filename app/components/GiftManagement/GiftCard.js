@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { View, Alert } from 'react-native';
-import { Card, Divider, IconButton, Text, Chip } from 'react-native-paper';
+import { Card, Divider, IconButton, Text, Chip, useTheme } from 'react-native-paper';
 import { useDispatch } from 'react-redux';
 import { AvatarIcon } from '../../utils/utils';
 import getStyles from './styles';
@@ -10,6 +10,7 @@ import { deleteGift } from '../../utils/apiCalls';
 
 const GiftCard = ({ data }) => {
   const styles = getStyles();
+  const theme = useTheme();
   const dispatch = useDispatch();
   const { giftId, amount, eventName, guestName, note, isYourGift } = data;
   const handleDeleteGift = () => {
@@ -58,7 +59,11 @@ const GiftCard = ({ data }) => {
           </Text>
         </View>
         <View style={styles.notes}>
-          {isYourGift === 'yes' && <Chip icon="information">Received</Chip>}
+          {isYourGift === 'yes' && (
+            <Chip style={styles.isYourGift} selectedColor={theme.colors.onSecondary}>
+              Received
+            </Chip>
+          )}
         </View>
       </Card.Content>
     </Card>

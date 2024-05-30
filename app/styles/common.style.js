@@ -108,7 +108,6 @@ const commonStyles = () => {
     guestCardMargin: {
       backgroundColor: theme.colors.background,
       margin: 8,
-      padding: 8,
     },
     guestCardRightButtonMargin: { marginRight: 10 },
     h100: {

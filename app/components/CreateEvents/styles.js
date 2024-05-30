@@ -39,9 +39,9 @@ const getStyles = () => {
     locationContainer: {
       flexDirection: 'row',
       gap: 5,
-      marginTop: 'auto',
       marginBottom: 15,
       marginLeft: 50,
+      marginTop: 'auto',
     },
     locationImage: {
       marginLeft: '5%',

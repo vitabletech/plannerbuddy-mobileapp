@@ -64,28 +64,6 @@ const UserDataList = ({ userData, selectedContacts, setSelectedContacts, selectM
     >
       <Card.Title
         title={`${userData?.name} - ${userData?.id}`}
-        subtitle={
-          <View style={{ flexDirection: 'column', position: 'relative', top: 20 }}>
-            <View style={styles.row}>
-              <Avatar.Icon
-                size={24}
-                icon="phone"
-                style={styles.icon}
-                color={theme.colors.onSurface}
-              />
-              <Text>{userData?.phone}</Text>
-            </View>
-            <View style={styles.row}>
-              <Avatar.Icon
-                size={24}
-                icon="map-marker"
-                style={styles.icon}
-                color={theme.colors.onSurface}
-              />
-              <Text>{userData?.address || '---'}</Text>
-            </View>
-          </View>
-        }
         left={(props) =>
           AvatarText({
             ...props,
@@ -95,8 +73,22 @@ const UserDataList = ({ userData, selectedContacts, setSelectedContacts, selectM
           })
         }
         right={() => (!selectMode ? cardOptions() : selector(selectedContacts, userData.id))}
-        rightStyle={styles.guestCardRightButtonMargin}
       />
+      <View style={[styles.columnFlexOne, styles.phoneDiv]}>
+        <View style={styles.row}>
+          <Avatar.Icon size={24} icon="phone" style={styles.icon} color={theme.colors.onSurface} />
+          <Text>{userData?.phone}</Text>
+        </View>
+        <View style={styles.row}>
+          <Avatar.Icon
+            size={24}
+            icon="map-marker"
+            style={styles.icon}
+            color={theme.colors.onSurface}
+          />
+          <Text>{userData?.address || '---'}</Text>
+        </View>
+      </View>
     </Card>
   );
 };

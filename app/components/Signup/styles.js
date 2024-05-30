@@ -7,7 +7,7 @@ const getStyles = () => {
     loginText: { color: theme.colors.onTertiaryContainer, fontWeight: 'bold' },
     outlineButton: {
       alignItems: 'center',
-      backgroundColor: theme.colors.primaryContainer,
+      backgroundColor: theme.colors.onSecondaryContainer,
       borderRadius: 8,
       borderWidth: 1,
       marginTop: 8,
