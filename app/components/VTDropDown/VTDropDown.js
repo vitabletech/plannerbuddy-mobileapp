@@ -32,6 +32,8 @@ const VTDropDown = ({ label = 'Select Event', items, value, onChange }) => {
           setIsFocus(false);
           onChange(item.value);
         }}
+        containerStyle={styles.containerStyle}
+        itemTextStyle={styles.itemTextStyle}
       />
     </View>
   );

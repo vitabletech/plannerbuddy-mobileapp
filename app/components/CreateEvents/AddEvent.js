@@ -7,6 +7,8 @@ import {
   TextInput,
   HelperText,
   SegmentedButtons,
+  Text,
+  useTheme,
 } from 'react-native-paper';
 import { DatePickerModal } from 'react-native-paper-dates';
 import { useSelector, useDispatch } from 'react-redux';
@@ -19,6 +21,7 @@ import VTDropDown from '../VTDropDown/VTDropDown';
 
 const AddEventModal = () => {
   let EVENT = fetchEventDetails();
+  const theme = useTheme();
   const [eventState, setEventState] = useState('ownEvent');
   const [selectedGuest, setSelectedGuest] = useState('');
   const totalGuests = useSelector((state) => state.guest.guests);
@@ -175,10 +178,12 @@ const AddEventModal = () => {
               {
                 value: 'ownEvent',
                 label: 'Own Event',
+                checkedColor: theme.colors.white,
               },
               {
                 value: 'otherEvent',
                 label: 'Other Event',
+                checkedColor: theme.colors.white,
               },
             ]}
             style={styles.paddedContainer}
@@ -242,11 +247,17 @@ const AddEventModal = () => {
         </Dialog.Content>
 
         <Dialog.Actions>
-          <Button onPress={closeDialog}>Cancel</Button>
+          <Button onPress={closeDialog}>
+            <Text>Cancel</Text>
+          </Button>
           {mode === 'edit' ? (
-            <Button onPress={handleUpdateEvent}>Update</Button>
+            <Button onPress={handleUpdateEvent}>
+              <Text>Update</Text>
+            </Button>
           ) : (
-            <Button onPress={handleAddEvent}>Ok</Button>
+            <Button onPress={handleAddEvent}>
+              <Text>Ok</Text>
+            </Button>
           )}
         </Dialog.Actions>
       </InputDialog>

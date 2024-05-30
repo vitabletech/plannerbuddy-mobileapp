@@ -153,8 +153,12 @@ const AddGifts = () => {
                 <Switch value={isYourGift} onValueChange={() => setIsYourGift((state) => !state)} />
               </View>
               <View style={styles.giftSaveButton}>
-                <Button onPress={closeDialog}>Cancel</Button>
-                <Button onPress={handleAddGift}>Save</Button>
+                <Button onPress={closeDialog}>
+                  <Text>Cancel</Text>
+                </Button>
+                <Button onPress={handleAddGift}>
+                  <Text>Save</Text>
+                </Button>
               </View>
             </View>
           </Dialog.Actions>

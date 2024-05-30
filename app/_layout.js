@@ -43,7 +43,7 @@ const RootLayout = () => {
       name: 'GiftScreen/Gifts',
       options: {
         title: 'Gifts',
-        headerTintColor: theme.colors.background,
+        headerTintColor: theme.colors.white,
         headerBackTitle: 'Back',
         headerTitleAlign: 'center',
         headerStyle: {
@@ -55,7 +55,7 @@ const RootLayout = () => {
       name: 'InviteScreen/InviteHome',
       options: {
         title: 'Invitations',
-        headerTintColor: theme.colors.background,
+        headerTintColor: theme.colors.white,
         headerBackTitle: 'Back',
         headerTitleAlign: 'center',
         headerStyle: {
@@ -67,7 +67,7 @@ const RootLayout = () => {
       name: 'CreativeScreen/CreativeScreen',
       options: {
         title: 'Creative Zone',
-        headerTintColor: theme.colors.background,
+        headerTintColor: theme.colors.white,
         headerBackTitle: 'Back',
         headerTitleAlign: 'center',
         headerStyle: {

@@ -42,7 +42,7 @@ const eventDetails = () => {
           headerStyle: {
             backgroundColor: theme.colors.primary,
           },
-          headerTintColor: theme.colors.background,
+          headerTintColor: theme.colors.white,
           tabBarActiveTintColor: theme.colors.background,
           tabBarInactiveTintColor: theme.colors.shadow,
           tabBarLabelStyle: {
@@ -82,7 +82,10 @@ const eventDetails = () => {
           <List.Section>
             <List.Accordion
               title="Invited Guests"
-              left={(props) => <List.Icon {...props} icon="account-group" />}
+              left={(props) => (
+                <List.Icon {...props} icon="account-group" color={theme.colors.onSurface} />
+              )}
+              titleStyle={{ color: theme.colors.onSurface }}
               expanded={expanded}
               onPress={handlePress}
             >

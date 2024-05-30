@@ -28,6 +28,7 @@ const getStyles = () => {
       backgroundColor: theme.colors.background,
       margin: 8,
     },
+    eventCartSubtitle: { marginLeft: -8 },
     eventTitle: {
       fontWeight: 'bold',
     },
@@ -38,6 +39,7 @@ const getStyles = () => {
     locationContainer: {
       flexDirection: 'row',
       gap: 5,
+      marginTop: 'auto',
       marginBottom: 15,
       marginLeft: 50,
     },
