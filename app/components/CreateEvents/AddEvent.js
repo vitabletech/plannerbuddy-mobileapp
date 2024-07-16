@@ -7,11 +7,13 @@ import {
   TextInput,
   HelperText,
   SegmentedButtons,
+  Text,
+  useTheme,
 } from 'react-native-paper';
 import { DatePickerModal } from 'react-native-paper-dates';
 import { useSelector, useDispatch } from 'react-redux';
 import getStyles from './styles';
-import { fetchEventDetails } from '../../utils/utils';
+import { fetchEventDetails } from '../../utils/constant';
 import InputDialog from '../InputDialog/InputDialog';
 import { eventActions } from '../../store/EventContext';
 import { addEvent, updateEvent } from '../../utils/apiCalls';
@@ -19,6 +21,7 @@ import VTDropDown from '../VTDropDown/VTDropDown';
 
 const AddEventModal = () => {
   let EVENT = fetchEventDetails();
+  const theme = useTheme();
   const [eventState, setEventState] = useState('ownEvent');
   const [selectedGuest, setSelectedGuest] = useState('');
   const totalGuests = useSelector((state) => state.guest.guests);
@@ -101,7 +104,6 @@ const AddEventModal = () => {
     if (isValid) {
       const isYourEvent = eventState === 'ownEvent' ? 'yes' : 'no';
       if (isYourEvent === 'no' && !selectedGuest) {
-        // event.guests[{ guestId: selectedGuest, name: 'Guest', phone: '1234567890'}];
         Alert.alert('Error', 'Please select a guest');
         return;
       }
@@ -112,7 +114,11 @@ const AddEventModal = () => {
         eventDate: new Date(selectedDate).toISOString(),
         eventLocation: event.address,
       }).then((response) => {
-        if (!response.error) {
+        if (!response.error && response.eventId) {
+          let currentGuest;
+          if (selectedGuest) {
+            currentGuest = totalGuests.find((guest) => guest.id === selectedGuest);
+          }
           dispatch(
             eventActions.addEvent({
               event: {
@@ -120,6 +126,15 @@ const AddEventModal = () => {
                 id: response.eventId,
                 isYourEvent,
                 date: new Date(selectedDate).toISOString(),
+                guests: selectedGuest
+                  ? [
+                      {
+                        guestId: selectedGuest,
+                        name: currentGuest.name,
+                        phone: currentGuest.phone,
+                      },
+                    ]
+                  : [],
               },
             }),
           );
@@ -163,10 +178,12 @@ const AddEventModal = () => {
               {
                 value: 'ownEvent',
                 label: 'Own Event',
+                checkedColor: theme.colors.white,
               },
               {
                 value: 'otherEvent',
                 label: 'Other Event',
+                checkedColor: theme.colors.white,
               },
             ]}
             style={styles.paddedContainer}
@@ -230,11 +247,17 @@ const AddEventModal = () => {
         </Dialog.Content>
 
         <Dialog.Actions>
-          <Button onPress={closeDialog}>Cancel</Button>
+          <Button onPress={closeDialog}>
+            <Text>Cancel</Text>
+          </Button>
           {mode === 'edit' ? (
-            <Button onPress={handleUpdateEvent}>Update</Button>
+            <Button onPress={handleUpdateEvent}>
+              <Text>Update</Text>
+            </Button>
           ) : (
-            <Button onPress={handleAddEvent}>Ok</Button>
+            <Button onPress={handleAddEvent}>
+              <Text>Ok</Text>
+            </Button>
           )}
         </Dialog.Actions>
       </InputDialog>

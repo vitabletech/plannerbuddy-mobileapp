@@ -1,29 +1,27 @@
 import React, { useEffect } from 'react';
 import { Alert } from 'react-native';
-import { Button, Dialog } from 'react-native-paper';
+import { Button, Dialog, Text } from 'react-native-paper';
 import { useDispatch, useSelector } from 'react-redux';
 import InputDialog from '../InputDialog/InputDialog';
 import AddGuests from '../Guests/AddGuests';
 import { guestActions } from '../../store/GuestContext';
 import useInput from '../../hooks/useInput';
 import { addGuest, updateGuest } from '../../utils/apiCalls';
+import {
+  validateEmail,
+  validateName,
+  validatePhone,
+  validateAddress,
+} from '../../utils/validations';
 
 const AddGuestModal = () => {
   const dispatch = useDispatch();
   const showModal = useSelector((state) => state.guest.showModal);
   const guestEditIndex = useSelector((state) => state.guest.editIndex);
-  const nameInput = useInput('', (value) => (value.trim() ? null : 'Name is required'));
-  const emailInput = useInput('', (value) =>
-    value?.trim() === '' || (value.trim() && /\S+@\S+\.\S+/.test(value))
-      ? null
-      : 'Please enter a valid email',
-  );
-  const addressInput = useInput('', (value) =>
-    value?.trim() !== '' ? null : 'Please Enter Valid Address',
-  );
-  const phoneInput = useInput('', (value) =>
-    value?.trim() !== '' && value.length === 10 ? null : 'Enter Valid Phone Number',
-  );
+  const nameInput = useInput('', validateName);
+  const emailInput = useInput('', validateEmail);
+  const addressInput = useInput('', validateAddress);
+  const phoneInput = useInput('', validatePhone);
   const guests = useSelector((state) => state.guest.guests);
 
   useEffect(() => {
@@ -107,11 +105,17 @@ const AddGuestModal = () => {
       </Dialog.Content>
 
       <Dialog.Actions>
-        <Button onPress={closeDialog}>Cancel</Button>
+        <Button onPress={closeDialog}>
+          <Text>Cancel</Text>
+        </Button>
         {guestEditIndex === null ? (
-          <Button onPress={handleAddGuest}>Save</Button>
+          <Button onPress={handleAddGuest}>
+            <Text>Save</Text>
+          </Button>
         ) : (
-          <Button onPress={handleUpdateGuest}>Update</Button>
+          <Button onPress={handleUpdateGuest}>
+            <Text>Update</Text>
+          </Button>
         )}
       </Dialog.Actions>
     </InputDialog>

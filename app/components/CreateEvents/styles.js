@@ -25,8 +25,10 @@ const getStyles = () => {
       flex: 1,
     },
     eventCard: {
-      margin: 5,
+      backgroundColor: theme.colors.background,
+      margin: 8,
     },
+    eventCartSubtitle: { marginLeft: -8 },
     eventTitle: {
       fontWeight: 'bold',
     },
@@ -37,7 +39,9 @@ const getStyles = () => {
     locationContainer: {
       flexDirection: 'row',
       gap: 5,
-      margin: 15,
+      marginBottom: 15,
+      marginLeft: 50,
+      marginTop: 'auto',
     },
     locationImage: {
       marginLeft: '5%',

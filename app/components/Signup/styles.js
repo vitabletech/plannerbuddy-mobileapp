@@ -4,13 +4,14 @@ import { useTheme } from 'react-native-paper';
 const getStyles = () => {
   const theme = useTheme();
   return StyleSheet.create({
+    loginText: { color: theme.colors.onTertiaryContainer, fontWeight: 'bold' },
     outlineButton: {
       alignItems: 'center',
-      backgroundColor: theme.colors.primary,
-      borderRadius: 4,
+      backgroundColor: theme.colors.onSecondaryContainer,
+      borderRadius: 8,
       borderWidth: 1,
-      marginVertical: 8,
-      padding: 12,
+      marginTop: 8,
+      padding: 8,
     },
     positionCenter: {
       alignItems: 'center',
@@ -25,6 +26,9 @@ const getStyles = () => {
     },
     textContainer: {
       marginBottom: 20,
+    },
+    white: {
+      color: theme.colors.white,
     },
   });
 };

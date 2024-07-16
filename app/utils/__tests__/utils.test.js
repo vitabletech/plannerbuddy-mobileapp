@@ -1,6 +1,6 @@
 import { TouchableOpacity, View, Share } from 'react-native';
 import { Avatar, IconButton } from 'react-native-paper';
-import { ON_SHARE_APP_MESSAGE } from '../constant';
+import { ON_SHARE_APP_MESSAGE, fetchEventDetails } from '../constant';
 import VTAlert from '../../components/VTAlert/VTAlert';
 import {
   IconComponent,
@@ -10,8 +10,6 @@ import {
   AvatarText,
   renderIconButton,
   formatDate,
-  fetchUserDetails,
-  fetchEventDetails,
   AlertComponent,
 } from '../utils';
 
@@ -74,17 +72,6 @@ test('formatDate should return the correct formatted date', () => {
   const date = new Date('2022-01-01');
   const formattedDate = formatDate(date);
   expect(formattedDate).toBe('1 January 2022');
-});
-
-// Test for fetchUserDetails
-test('fetchUserDetails should return the correct user details', () => {
-  const userDetails = fetchUserDetails();
-  expect(userDetails).toEqual({
-    name: 'Pankaj Saini',
-    email: 'abc@xyz.com',
-    address: 'abcabcabcabc',
-    contact: '1231231234',
-  });
 });
 
 // Test for fetchEventDetails

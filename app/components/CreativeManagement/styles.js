@@ -2,13 +2,6 @@ import { StyleSheet } from 'react-native';
 
 const getStyles = () => {
   return StyleSheet.create({
-    absolutePositionBottomRight: {
-      alignSelf: 'flex-end',
-      bottom: 45,
-      position: 'absolute',
-      right: 15,
-      width: 'auto',
-    },
     header: { borderRadius: 10, margin: 5 },
     info: {
       flexDirection: 'row',

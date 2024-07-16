@@ -17,6 +17,13 @@ import commonStyles from '../../styles/common.style';
 import VTTextInput from '../VTTextInput/VTTextInput';
 import useInput from '../../hooks/useInput';
 import { AlertComponent, IconComponent } from '../../utils/utils';
+import {
+  validatePassword,
+  validateAddress,
+  validateName,
+  validatePhone,
+} from '../../utils/validations';
+
 import { onLogout, updateUserProfile } from '../../store/reducers/authSlice';
 import { updateProfile, changePassword } from '../../utils/apiCalls';
 import InputDialog from '../InputDialog/InputDialog';
@@ -40,16 +47,10 @@ const profile = () => {
     value?.trim() ? null : 'Current Password is required',
   );
 
-  const newPassword = useInput('', (value) => (value?.trim() ? null : 'New Password is required'));
-  const nameInput = useInput(person?.fullName, (value) =>
-    value?.trim() ? null : 'Name is required',
-  );
-  const phoneInput = useInput(person?.phoneNumber, (value) =>
-    value && value.length >= 10 ? null : 'Please Enter Valid Mobile Number',
-  );
-  const addressInput = useInput(person?.address, (value) =>
-    value?.trim() ? null : 'Please Enter Valid Address',
-  );
+  const newPassword = useInput('', validatePassword);
+  const nameInput = useInput(person?.fullName, validateName);
+  const phoneInput = useInput(person?.phoneNumber, validatePhone);
+  const addressInput = useInput(person?.address, validateAddress);
 
   const handleEdit = () => {
     setEnableEdit((state) => !state);
@@ -91,7 +92,7 @@ const profile = () => {
   };
 
   const logoutIcon = () =>
-    IconComponent('MaterialIcons', 'logout', DEFAULT_HEADER_ICON_SIZE, theme.colors.onSurface);
+    IconComponent('MaterialIcons', 'logout', DEFAULT_HEADER_ICON_SIZE, theme.colors.white);
 
   const handleUpdateDialog = () => {
     setUpdatedPassword(true);
@@ -126,7 +127,7 @@ const profile = () => {
             backgroundColor: theme.colors.primary,
           },
           headerTintColor: theme.colors.white,
-          tabBarActiveTintColor: theme.colors.white,
+          tabBarActiveTintColor: theme.colors.onBackground,
           tabBarInactiveTintColor: theme.colors.shadow,
           tabBarLabelStyle: {
             fontSize: 12,
@@ -143,20 +144,16 @@ const profile = () => {
           <Dialog.Title>Change Password</Dialog.Title>
 
           <Dialog.Content>
-            <VTTextInput label="Current Password" {...currentPassword} />
-            <VTTextInput label="New Password" {...newPassword} />
+            <VTTextInput label="Current Password" {...currentPassword} style={classes.inputField} />
+            <VTTextInput label="New Password" {...newPassword} style={classes.inputField} />
           </Dialog.Content>
 
           <Dialog.Actions>
             <Button onPress={handleCancel}>
-              <Text variant="labelLarge" style={classes.dialogButtons}>
-                Cancel
-              </Text>
+              <Text variant="labelLarge">Cancel</Text>
             </Button>
             <Button onPress={handleUpdatePassword}>
-              <Text variant="labelLarge" style={classes.dialogButtons}>
-                Update
-              </Text>
+              <Text variant="labelLarge">Update</Text>
             </Button>
           </Dialog.Actions>
         </InputDialog>
@@ -167,10 +164,10 @@ const profile = () => {
         scrollEnabled
       >
         {AlertComponent(error)}
-        <Card style={classes.profileCard}>
+        <Card style={classes.profileCard} elevation={2}>
           <Avatar.Text
             label={person?.fullName[0]}
-            labelStyle={theme.colors.white}
+            labelStyle={theme.colors.background}
             style={styles.AvatorIcon}
           />
           <Card.Title
@@ -205,14 +202,18 @@ const profile = () => {
           </Card.Content>
         </Card>
         <Card.Actions>
-          <Button style={styles.optionButton} onPress={handleEdit}>
-            <Text variant="labelLarge">Edit Profile</Text>
+          <Button style={classes.commonButton} onPress={handleEdit}>
+            <Text variant="labelLarge" style={classes.textWhite}>
+              Edit Profile
+            </Text>
           </Button>
         </Card.Actions>
 
         <Card.Actions>
-          <Button style={styles.optionButton} onPress={handleUpdateDialog}>
-            <Text variant="labelLarge">Update Password</Text>
+          <Button style={classes.commonButton} onPress={handleUpdateDialog}>
+            <Text variant="labelLarge" style={classes.textWhite}>
+              Update Password
+            </Text>
           </Button>
         </Card.Actions>
 
@@ -245,8 +246,12 @@ const profile = () => {
               />
             </Dialog.Content>
             <Dialog.Actions>
-              <Button onPress={resetForm}>Cancel</Button>
-              <Button onPress={saveEdit}>Save</Button>
+              <Button onPress={resetForm}>
+                <Text>Cancel</Text>
+              </Button>
+              <Button onPress={saveEdit}>
+                <Text>Save</Text>
+              </Button>
             </Dialog.Actions>
           </InputDialog>
         )}

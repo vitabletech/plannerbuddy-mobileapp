@@ -1,23 +1,30 @@
 import React, { forwardRef } from 'react';
 import PropTypes from 'prop-types';
 import { View } from 'react-native';
-import { TextInput, HelperText } from 'react-native-paper';
+import { TextInput, HelperText, useTheme } from 'react-native-paper';
 import getStyles from './styles';
 
 const VTTextInput = forwardRef(
   ({ label, value, onChangeText, onBlur, error, style, ...props }, ref) => {
+    const theme = useTheme();
     const styles = getStyles();
     return (
       <View>
         <TextInput
           style={style === undefined ? styles.input : styles.textInput}
-          mode="outlined"
+          mode="flat"
           label={label}
           value={value}
           onChangeText={onChangeText}
           onBlur={onBlur}
           ref={ref}
           {...props}
+          autoCapitalize="none"
+          accessibilityLabel={label}
+          accessible
+          underlineColor="transparent"
+          // error
+          theme={{ colors: { primary: theme.colors.outline } }}
         />
         {error && (
           <HelperText type="error" visible={error}>
@@ -31,7 +38,7 @@ const VTTextInput = forwardRef(
 
 VTTextInput.defaultProps = {
   onBlur: () => {},
-  error: 'Field is required',
+  error: false,
   onChangeText: () => {},
   label: 'Default Label',
   value: '',

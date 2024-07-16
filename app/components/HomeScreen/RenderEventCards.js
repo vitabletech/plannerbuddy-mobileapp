@@ -18,8 +18,8 @@ const RenderEventCards = ({ item }) => {
     );
   }
   return (
-    <Card>
-      <Card.Title title={item.title} titleStyle={styles.event_title} />
+    <Card style={[styles.bgWhite, styles.carousel]}>
+      <Card.Title titleVariant="headlineLarge" title={item.title} titleStyle={styles.event_title} />
       <Card.Content>
         <View style={styles.flexRow}>
           <View style={styles.flex1}>
@@ -29,7 +29,7 @@ const RenderEventCards = ({ item }) => {
             </View>
             <View style={[styles.flexRow, styles.alignItems_center, styles.mb10]}>
               <Avatar.Icon size={24} icon="contacts" style={styles.mr10} />
-              <Text variant="bodyMedium">{item.invited_guest} Guests</Text>
+              <Text variant="bodyMedium">{item.invited_guest}</Text>
             </View>
             <View style={[styles.flexRow, styles.alignItems_center]}>
               <Avatar.Icon size={24} icon="map-marker" style={styles.mr10} />

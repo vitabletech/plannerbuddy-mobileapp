@@ -37,7 +37,7 @@ const GiftsHome = () => {
   }, [searchGift]);
 
   const handleLoadMore = useCallback(() => {
-    if (page < totalPages) {
+    if (page <= totalPages) {
       setPage((prevPage) => prevPage + 1);
     }
   }, [page, totalPages]);
@@ -59,7 +59,7 @@ const GiftsHome = () => {
         data={giftsList}
         ListEmptyComponent={<Text style={styles?.centerTextLargeMarginTop}>No Gifts Found</Text>}
         renderItem={({ item }) => <GiftCard data={item} />}
-        keyExtractor={(gift) => gift.giftId.toString()}
+        keyExtractor={(gift) => gift?.giftId?.toString()}
         onEndReached={searchGift === '' && handleLoadMore}
         ListFooterComponent={() =>
           page === totalPages ? endReached(styles.title) : status === 'loading' && Loader()

@@ -1,11 +1,12 @@
 import React from 'react';
-import { Avatar, Card, Text, IconButton } from 'react-native-paper';
+import { Avatar, Card, Text, IconButton, useTheme } from 'react-native-paper';
 import PropTypes from 'prop-types';
 import { View, Alert } from 'react-native';
 import { useDispatch } from 'react-redux';
 import { AvatarText, askForConfirmation } from '../../utils/utils';
 import { guestActions } from '../../store/GuestContext';
 import commonStyles from '../../styles/common.style';
+import getStyles from './style';
 import { deleteGuest } from '../../utils/apiCalls';
 
 const toggleContactSelection = (setSelectedContacts, contactId) => {
@@ -22,7 +23,8 @@ const selector = (selectedContacts, contactId) =>
 
 const UserDataList = ({ userData, selectedContacts, setSelectedContacts, selectMode }) => {
   const dispatch = useDispatch();
-  const styles = commonStyles();
+  const styles = { ...getStyles(), ...commonStyles() };
+  const theme = useTheme();
 
   const handleRemoveEvent = () => {
     askForConfirmation(
@@ -48,7 +50,7 @@ const UserDataList = ({ userData, selectedContacts, setSelectedContacts, selectM
 
   const cardOptions = () => {
     return (
-      <View style={styles.flexRow}>
+      <View style={styles.iconButtons}>
         <IconButton icon="pencil-outline" onPress={handleEditGuest} />
         <IconButton icon="delete-outline" onPress={handleRemoveEvent} />
       </View>
@@ -62,7 +64,6 @@ const UserDataList = ({ userData, selectedContacts, setSelectedContacts, selectM
     >
       <Card.Title
         title={`${userData?.name} - ${userData?.id}`}
-        subtitle={`Contact : ${userData?.phone} `}
         left={(props) =>
           AvatarText({
             ...props,
@@ -72,11 +73,22 @@ const UserDataList = ({ userData, selectedContacts, setSelectedContacts, selectM
           })
         }
         right={() => (!selectMode ? cardOptions() : selector(selectedContacts, userData.id))}
-        rightStyle={styles.guestCardRightButtonMargin}
       />
-      <Card.Content>
-        <Text variant="bodyMedium">{`Address : ${userData?.address || '---'} `}</Text>
-      </Card.Content>
+      <View style={[styles.columnFlexOne, styles.phoneDiv]}>
+        <View style={styles.row}>
+          <Avatar.Icon size={24} icon="phone" style={styles.icon} color={theme.colors.onSurface} />
+          <Text>{userData?.phone}</Text>
+        </View>
+        <View style={styles.row}>
+          <Avatar.Icon
+            size={24}
+            icon="map-marker"
+            style={styles.icon}
+            color={theme.colors.onSurface}
+          />
+          <Text>{userData?.address || '---'}</Text>
+        </View>
+      </View>
     </Card>
   );
 };

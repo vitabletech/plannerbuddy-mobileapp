@@ -5,11 +5,11 @@ const commonStyles = () => {
   const theme = useTheme();
   return StyleSheet.create({
     FAB: {
-      backgroundColor: theme.colors.onPrimary,
+      backgroundColor: theme.colors.background,
     },
     absolutePositionBottomRight: {
       alignSelf: 'flex-end',
-      backgroundColor: theme.colors.onPrimary,
+      backgroundColor: theme.colors.background,
       bottom: 15,
       position: 'absolute',
       right: 15,
@@ -18,6 +18,9 @@ const commonStyles = () => {
     alignItems_center: {
       alignItems: 'center',
     },
+    bgWhite: { backgroundColor: theme.colors.background },
+    borderColorWhite: { borderColor: theme.colors.white },
+    borderLine: { borderBottomWidth: 1, borderColor: theme.colors.primary, paddingBottom: 5 },
     button: {
       alignItems: 'center',
       backgroundColor: theme.colors.backdrop,
@@ -30,6 +33,9 @@ const commonStyles = () => {
       height: '50%',
       tintColor: theme.colors.background,
       width: '50%',
+    },
+    carouselCard: {
+      backgroundColor: theme.colors.background,
     },
     centerContent: {
       alignItems: 'center',
@@ -46,8 +52,34 @@ const commonStyles = () => {
       flexDirection: 'column',
       flexGrow: 1,
     },
+    commonButton: {
+      backgroundColor: theme.colors.primary,
+      borderRadius: 8,
+      marginTop: 10,
+      paddingHorizontal: 'auto',
+      width: '100%',
+    },
+    createButton: {
+      alignSelf: 'flex-start',
+      marginTop: 10,
+    },
+    createButtonContent: {
+      justifyContent: 'flex-start',
+      marginLeft: -10,
+    },
     dialogButtons: {
       color: theme.colors.onTertiaryContainer,
+    },
+    divider: {
+      height: 1,
+      marginVertical: 10,
+      width: '40%',
+    },
+    dividerContiner: {
+      alignItems: 'center',
+      flexDirection: 'row',
+      justifyContent: 'center',
+      marginVertical: 20,
     },
     flex1: {
       flex: 1,
@@ -58,10 +90,32 @@ const commonStyles = () => {
     flexRow: {
       flexDirection: 'row',
     },
+    giftContainer: {
+      alignItems: 'center',
+      flex: 1,
+      flexDirection: 'row',
+      justifyContent: 'space-between',
+    },
+    giftSaveButton: {
+      flexDirection: 'row',
+      justifyContent: 'flex-end',
+    },
+    giftToggle: {
+      alignItems: 'center',
+      flexDirection: 'row',
+      gap: 15,
+    },
     guestCardMargin: {
-      marginVertical: 4,
+      backgroundColor: theme.colors.background,
+      margin: 8,
     },
     guestCardRightButtonMargin: { marginRight: 10 },
+    h100: {
+      height: '100%',
+    },
+    hAuto: {
+      height: 'auto',
+    },
     inputField: {
       marginVertical: 10,
     },
@@ -76,6 +130,12 @@ const commonStyles = () => {
     mainContainer: {
       backgroundColor: theme.colors.primaryContainer,
       flex: 1,
+    },
+    marginHorizontal: {
+      marginHorizontal: 10,
+    },
+    mauto: {
+      margin: 'auto',
     },
     mb10: {
       marginBottom: 10,
@@ -109,7 +169,7 @@ const commonStyles = () => {
       position: 'sticky',
     },
     profileCard: {
-      backgroundColor: theme.colors.onPrimary,
+      backgroundColor: theme.colors.background,
       marginVertical: 10,
     },
     profileContainer: {
@@ -142,10 +202,19 @@ const commonStyles = () => {
       justifyContent: 'center',
       marginRight: 12,
     },
+    signUpButton: {
+      flexDirection: 'row',
+      justifyContent: 'center',
+      paddingHorizontal: 'auto',
+      paddingVertical: 10,
+    },
+    textColor: {
+      color: theme.colors.primary,
+    },
     textDecorationLine: {
       textDecorationLine: 'underline',
     },
-    textWhite: { color: theme.colors.background },
+    textWhite: { color: theme.colors.white },
     title: {
       alignSelf: 'center',
       textAlign: 'center',

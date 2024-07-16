@@ -2,15 +2,16 @@ import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import Carousel from 'react-native-reanimated-carousel';
 import { View, Dimensions, TouchableOpacity } from 'react-native';
-import { Text, useTheme } from 'react-native-paper';
+import { Text } from 'react-native-paper';
 import { useRouter } from 'expo-router';
 import getStyles from './style';
+import commonStyles from '../../styles/common.style';
 import RenderEventCards from './RenderEventCards';
 import { fetchInvitation } from '../../store/EventContext';
+import { DEFAULT_HIT_SLOP } from '../../constants/constants';
 
 const UpcomingEvents = () => {
-  const classes = getStyles();
-  const theme = useTheme();
+  const classes = { ...getStyles(), ...commonStyles() };
   const router = useRouter();
   const dispatch = useDispatch();
   const sliderWidth = Dimensions.get('window').width;
@@ -25,8 +26,11 @@ const UpcomingEvents = () => {
     <>
       <View style={classes.recentEventsContainer}>
         <Text style={classes.recentEventsHeadingText}>Invitation Events</Text>
-        <TouchableOpacity onPress={() => router.push('./../InviteScreen/InviteHome')}>
-          <Text style={{ color: theme.colors.primary }} variant="titleSmall">
+        <TouchableOpacity
+          hitSlop={DEFAULT_HIT_SLOP}
+          onPress={() => router.push('./../InviteScreen/InviteHome')}
+        >
+          <Text style={[classes.viewAll, classes.borderLine]} variant="titleSmall">
             View All
           </Text>
         </TouchableOpacity>

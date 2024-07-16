@@ -38,7 +38,7 @@ const giftSlice = createSlice({
   },
   reducers: {
     addGift(state, action) {
-      state.gifts = [...new Set([...state.gifts, action.payload.gift])];
+      state.gifts = [...new Set([action.payload.gift, ...state.gifts])];
     },
     openDialog(state) {
       state.showModal = !state.showModal;

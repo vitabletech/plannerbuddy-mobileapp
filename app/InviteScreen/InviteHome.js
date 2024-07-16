@@ -27,7 +27,7 @@ const InviteHome = () => {
   }, [page]);
 
   const handleLoadMore = useCallback(() => {
-    if (page < totalPages) {
+    if (page <= totalPages) {
       setPage((prevPage) => prevPage + 1);
     }
   }, [page, totalPages]);

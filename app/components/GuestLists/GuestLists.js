@@ -4,7 +4,7 @@ import { FlatList, View, Alert } from 'react-native';
 import { Text } from 'react-native-paper';
 import { useSelector, useDispatch } from 'react-redux';
 import UserDataList from './UserDataList';
-import { Loader, ItemSeparatorComponent, endReached } from '../../utils/utils';
+import { Loader, endReached } from '../../utils/utils';
 import commonStyles from '../../styles/common.style';
 import getStyles from './style';
 import Header from '../Guests/Header';
@@ -27,6 +27,12 @@ const GuestLists = ({ selectMode }) => {
   const guestEditIndex = useSelector((state) => state.guest.editIndex);
   const [page, setPage] = useState(pages);
   const [selectedContacts, setSelectedContacts] = useState([]);
+  useEffect(() => {
+    if (page <= totalPages) {
+      setPage(page + 1);
+      dispatch(fetchGuest({ page }));
+    }
+  }, [page, totalPages, dispatch]);
 
   useEffect(() => {
     if (selectMode) {
@@ -34,10 +40,6 @@ const GuestLists = ({ selectMode }) => {
       setSelectedContacts(currentEvent?.guests.map((guest) => guest.guestId) || []);
     }
   }, [selectMode]);
-
-  useEffect(() => {
-    dispatch(fetchGuest({ page }));
-  }, [page]);
 
   useEffect(() => {
     if (searchGuest === '') {
@@ -51,7 +53,7 @@ const GuestLists = ({ selectMode }) => {
   }, [searchGuest]);
 
   const handleLoadMore = useCallback(() => {
-    if (page < totalPages) {
+    if (page <= totalPages) {
       setPage((prevPage) => prevPage + 1);
     }
   }, [page, totalPages]);
@@ -91,6 +93,11 @@ const GuestLists = ({ selectMode }) => {
     ),
     [selectedContacts, selectMode],
   );
+  const handleSelectAll = () => {
+    let allIds = [];
+    allIds = contactList.map((contact) => contact.id);
+    setSelectedContacts(allIds);
+  };
 
   return (
     <View style={styles.flex1}>
@@ -102,13 +109,13 @@ const GuestLists = ({ selectMode }) => {
         saveList={handleSaveSelectedContacts}
         showOnlySearchBar={selectMode}
         totalContacts={totalContacts}
+        handleSelectAll={handleSelectAll}
       />
       {contactList.length > 0 ? (
         <FlatList
           data={contactList}
           keyExtractor={(item) => item.id.toString()}
           renderItem={renderItem}
-          ItemSeparatorComponent={() => ItemSeparatorComponent(styles.itemSeparator)}
           onEndReached={searchGuest === '' && handleLoadMore}
           ListFooterComponent={() =>
             page === totalPages ? endReached(styles.title) : status === 'loading' && Loader()

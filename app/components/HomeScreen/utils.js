@@ -3,9 +3,14 @@ import RenderAvatar from '../RenderAvatar/RenderAvatar';
 import image from '../../assets/images/Rectangle204.png';
 
 export const dashboardDataCount = [
-  { title: 'Event', icon: 'calendar', href: './../Screens/Events', replace: true },
-  { title: 'Invitation', icon: 'email', href: './../InviteScreen/InviteHome', replace: false },
-  { title: 'Gifts', icon: 'gift', href: './../GiftScreen/Gifts', replace: false },
+  { title: 'Event', icon: 'calendar-outline', href: './../Screens/Events', replace: true },
+  {
+    title: 'Invitation',
+    icon: 'email-outline',
+    href: './../InviteScreen/InviteHome',
+    replace: false,
+  },
+  { title: 'Gifts', icon: 'gift-outline', href: './../GiftScreen/Gifts', replace: false },
   {
     title: 'Creative',
     icon: 'party-popper',

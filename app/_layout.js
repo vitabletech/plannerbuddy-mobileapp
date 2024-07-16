@@ -21,10 +21,6 @@ const RootLayout = () => {
       options: { headerShown: false },
     },
     {
-      name: 'register',
-      options: { headerShown: false },
-    },
-    {
       name: 'help',
       options: {
         presentation: 'modal',
@@ -35,31 +31,11 @@ const RootLayout = () => {
       },
     },
     {
-      name: 'privacy',
-      options: {
-        presentation: 'modal',
-        title: 'Privacy',
-        headerStyle: { backgroundColor: theme.colors.onPrimaryContainer },
-        headerTintColor: theme.colors.onSurface,
-        headerShown: Platform.OS !== 'ios',
-      },
-    },
-    {
-      name: 'forget',
-      options: {
-        presentation: 'modal',
-        title: 'Forget Password',
-        headerStyle: { backgroundColor: theme.colors.onPrimaryContainer },
-        headerTintColor: theme.colors.onSurface,
-        headerShown: Platform.OS !== 'ios',
-      },
-    },
-    {
       name: 'eventDetails',
       options: {
         title: 'Event Details',
         headerStyle: { backgroundColor: theme.colors.onPrimaryContainer },
-        headerTintColor: theme.colors.white,
+        headerTintColor: theme.colors.background,
         headerBackTitle: 'Back',
       },
     },

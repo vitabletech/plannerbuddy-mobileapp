@@ -13,6 +13,9 @@ const getStyles = () => {
     cardDefaultHeight: {
       marginVertical: 10,
     },
+    carousel: {
+      borderRadius: 20,
+    },
     carouselCard: {
       backgroundColor: theme.colors.secondaryContainer,
     },
@@ -25,13 +28,13 @@ const getStyles = () => {
       backgroundColor: theme.colors.primaryContainer,
     },
     dashboard: {
-      marginBottom: '-3%',
       marginTop: 10,
       padding: 10,
     },
     event_title: {
-      fontSize: 20,
-      fontWeight: 'bold',
+      marginBottom: 20,
+      marginTop: 10,
+      textTransform: 'capitalize',
     },
     flexBasis25: {
       flex: 1,
@@ -47,7 +50,17 @@ const getStyles = () => {
       marginTop: '-20%',
       padding: 20,
     },
-    guestLabel: { color: theme.colors.onSurface, marginLeft: 10 },
+    guestLabel: { color: theme.colors.white, marginLeft: 10 },
+    image: {
+      bottom: 0,
+      position: 'absolute',
+      right: '10%',
+    },
+    imageGuest: {
+      position: 'absolute',
+      right: '30%',
+      top: 25,
+    },
     name: {
       color: theme.colors.onSurface,
     },
@@ -59,12 +72,10 @@ const getStyles = () => {
       alignItems: 'center',
       flexDirection: 'row',
       justifyContent: 'space-between',
-      marginBottom: 10,
       paddingLeft: 20,
       paddingRight: 20,
     },
     recentEventsHeadingText: {
-      color: theme.colors.primary,
       fontSize: 24,
       fontWeight: 'bold',
     },
@@ -73,7 +84,7 @@ const getStyles = () => {
       top: 70,
     },
     surfaceContainer: {
-      backgroundColor: theme.colors.onPrimary,
+      backgroundColor: theme.colors.background,
       borderRadius: 20,
       paddingBottom: '5%',
       paddingTop: '5%',
@@ -83,21 +94,22 @@ const getStyles = () => {
     },
     titleStyle: {
       color: theme.colors.white,
-      fontSize: 20,
-      fontWeight: 'bold',
-      top: 70,
+      marginTop: '25%',
     },
     totalGuest: {
       borderRadius: 20,
       marginHorizontal: -10,
       padding: '5%',
     },
+    viewAll: {
+      color: theme.colors.primary,
+    },
     welcomeContainer: {
       backgroundColor: theme.colors.primary,
       borderBottomLeftRadius: 20,
       borderBottomRightRadius: 20,
       height: Height * 0.2,
-      marginBottom: '-3%',
+      marginBottom: 10,
       width: '100%',
     },
   });

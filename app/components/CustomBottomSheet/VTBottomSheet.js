@@ -1,20 +1,45 @@
-import React from 'react';
+import React, { useRef, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { View, Image } from 'react-native';
-import BottomSheet, { BottomSheetScrollView } from '@gorhom/bottom-sheet';
+import { useSelector } from 'react-redux';
+import { View, Image, Dimensions } from 'react-native';
+import RBSheet from 'react-native-raw-bottom-sheet';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import getStyles from './style';
 import image from '../../assets/Logo.png';
 
 const VTBottomSheet = ({ content }) => {
   const styles = getStyles();
+  const refRBSheet = useRef();
+  const userProfile = useSelector((state) => state.auth.userProfile);
+  const token = userProfile?.accessToken;
+  useEffect(() => {
+    if (!token) refRBSheet.current.open();
+  }, [token]);
+
+  const screenHeight = Dimensions.get('window').height;
+  const sheetHeight = screenHeight * 0.7; // 70% of screen height
+
   return (
     <GestureHandlerRootView style={styles.content}>
       <View style={styles.container}>
-        <Image source={image} style={styles.image} resizeMode="contain" />
-        <BottomSheet snapPoints={['70%']} handleComponent={null}>
-          <BottomSheetScrollView style={styles.contentContainer}>{content}</BottomSheetScrollView>
-        </BottomSheet>
+        <Image
+          source={image}
+          style={styles.image}
+          resizeMode="contain"
+          aria-label="plannerBuddyLogo"
+        />
+        <RBSheet
+          ref={refRBSheet}
+          height={sheetHeight}
+          customStyles={{
+            wrapper: { backgroundColor: 'transparent' },
+            container: styles.bottomSheet,
+          }}
+          closeOnDragDown={false}
+          closeOnPressMask={false}
+        >
+          <View style={styles.contentContainer}>{content}</View>
+        </RBSheet>
       </View>
     </GestureHandlerRootView>
   );

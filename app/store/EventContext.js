@@ -177,7 +177,7 @@ const eventSlice = createSlice({
         state.recentEvents = action.payload.events.map((event) => ({
           title: event.eventName,
           date: event.eventDate,
-          invited_guest: event?.event_guests?.length || 0,
+          invited_guest: `${event?.event_guests?.length || 0} Guest`,
           address: event.eventLocation || 'No address Found',
         }));
       });
